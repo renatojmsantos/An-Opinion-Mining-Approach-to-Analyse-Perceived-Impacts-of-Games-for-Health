@@ -1,2 +1,3 @@
 # analysisJustDance
-thesis
+
+Analysing Usability, User Experience, and Perceived Health Impacts of Games for Health based on Users Opinion Mining
