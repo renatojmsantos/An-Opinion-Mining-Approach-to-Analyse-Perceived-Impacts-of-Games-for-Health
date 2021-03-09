@@ -150,6 +150,7 @@ for i in range (-1,12):
         nextPage_token = None
         while 1:
             try:
+                time.sleep(4)
                 youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
                 print("a ir buscar...")
                 search_response = youtube.search().list(
@@ -190,6 +191,7 @@ for i in range (-1,12):
 
                                 # get stats of video ...
                                 try:
+                                    time.sleep(2)
                                     DEVELOPER_KEY = "AIzaSyAL0ChC4DB6Su9C6X3YVDJMMzly0o_Mq_4"
                                     yt = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
                                     requestStats = yt.videos().list(
@@ -221,9 +223,12 @@ for i in range (-1,12):
                                     nextPT = None
                                     while 1: #comentarios do videoID
                                         try:
-                                            print("get main comments ...")
+                                            time.sleep(2)
+                                            #print("get main comments ...")
                                             #DEVELOPER_KEY = "AIzaSyAWq5YNDdZRc0cdh__4iQh2E-qJp7mcvNQ" #new renato
-                                            DEVELOPER_KEY = "AIzaSyAilu0HwaDQlvkDZEsKxQ6POFMdyvKiU4E"
+                                            #DEVELOPER_KEY = "AIzaSyAilu0HwaDQlvkDZEsKxQ6POFMdyvKiU4E" #me quota
+                                            #DEVELOPER_KEY = "AIzaSyBiRFpFQdLOgPWfMFTaklcq2twvQESDQZ0" #coimvivio
+                                            DEVELOPER_KEY ="AIzaSyDXIzN7IV034Isli8V6Od-c7IyxUahQ4tc" #manel
                                             yt_c = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
 
                                             comment_response = yt_c.commentThreads().list(
@@ -254,7 +259,10 @@ for i in range (-1,12):
                                                 nextPTreply = None #page token
                                                 if (nr_replies > 0):
                                                     try:
-                                                        DEVELOPER_KEY = "AIzaSyAP6m_Icjnn2npBnwM4sSVK4VT5kKoOe7o"
+                                                        time.sleep(2)
+                                                        #DEVELOPER_KEY = "AIzaSyAP6m_Icjnn2npBnwM4sSVK4VT5kKoOe7o" renato
+                                                        DEVELOPER_KEY = "AIzaSyBiRFpFQdLOgPWfMFTaklcq2twvQESDQZ0" #coimvivio
+                                                        #DEVELOPER_KEY ="AIzaSyDXIzN7IV034Isli8V6Od-c7IyxUahQ4tc" #manel
                                                         #DEVELOPER_KEY = "AIzaSyBptCUsM32WTIHs8TfLg7I8EFELkUCXcic" #new 2
                                                         yt_r = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
 
@@ -287,28 +295,32 @@ for i in range (-1,12):
                                                     except HttpError as e:
                                                         print("comments() - replies — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
                                                         if("quotaExceeded" in str(e.content)):
-                                                            time.sleep(60*60*6)
+                                                            time.sleep(60*60*3)
 
                                                 #print(" . . . replies lidos = ",countReplies)
                                             
                                             if nextPT is None:
                                                 #time.sleep(5)
                                                 print(". . . nr comentarios total = ",nrComentarios)
-                                                print(". . . stats total comentarios = ", contaStatsComments)
+                                                #print(". . . stats total comentarios = ", contaStatsComments)
                                                 break
 
                                         except HttpError as e:
                                             print("commentThreads() — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
                                             #commentsDisabled
                                             if("quotaExceeded" in str(e.content)):
-                                                time.sleep(60*60*6)
+                                                print("SEM QUOTA")
+                                                time.sleep(60*60*3)
+                                            if("commentsDisabled" in str(e.content)):
+                                                print("SEM COMENTARIOS")
+                                                break
 
                                         
                                 
                                 except HttpError as e:
                                     print("videos (stats) — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
                                     if("quotaExceeded" in str(e.content)):
-                                        time.sleep(60*60*6) #6h
+                                        time.sleep(60*60*3) #6h
                                 # export do csv
                                 dict = {'Video Title': [titulo] * len(comments),'videoID': [videoID] * len(comments),
                                         'Comment': comments, 'CommentID': commentsID,
@@ -333,14 +345,14 @@ for i in range (-1,12):
                                 else: #sem header
                                     out_df.to_csv(nameCSV, mode='a', header=False,index=False)
                                 #out_df.to_csv(nameCSV, mode='a', header=False,index=False)   
-                                time.sleep(60)
+                                time.sleep(7)
                             else:
                                 print(" X REJECT! Video repetido\n")
                                 break
                         else:
                             print(" X REJECT! lady gaga or something else\n")
                             continue
-                time.sleep(60)
+                time.sleep(3)
                 if nextPage_token is None:
                     print("\n~~~~ nr de videos atual: ", conta)
                     #time.sleep(20)
@@ -348,7 +360,7 @@ for i in range (-1,12):
             except HttpError as e:
                 print("search() — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
                 if("quotaExceeded" in str(e.content)):
-                    time.sleep(60*60*6)
+                    time.sleep(60*60*3)
                 #DEVELOPER_KEY = "AIzaSyAL0ChC4DB6Su9C6X3YVDJMMzly0o_Mq_4" #backup
                 #DEVELOPER_KEY = "AIzaSyAilu0HwaDQlvkDZEsKxQ6POFMdyvKiU4E" #3a
                 #youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
