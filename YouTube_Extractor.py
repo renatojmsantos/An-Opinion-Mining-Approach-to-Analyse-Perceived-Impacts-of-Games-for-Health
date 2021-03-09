@@ -3,7 +3,9 @@
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import pandas as pd
-#from langdetect import detect
+
+from langdetect import detect
+
 import time
 import csv
 import unidecode
@@ -61,7 +63,7 @@ for i in range (-1,12):
                 else:
                     continue
             else:    
-
+                #sleep(86400/4) 86400 = 1 dia sleep
                 if(j==1):
                     a = 6
                 else:
@@ -79,8 +81,7 @@ for i in range (-1,12):
                     if(change==1):
                         after = '201'+str(i+1)+'-0'+str(a)+'-01T00:00:00Z'
                     else:
-                        after = '201'+str(i)+'-0'+str(a)+'-01T00:00:00Z'
-                       
+                        after = '201'+str(i)+'-0'+str(a)+'-01T00:00:00Z' 
         else: #2021
             i=20
             #ano=[20,20,21,21]
@@ -119,8 +120,10 @@ for i in range (-1,12):
         beginDate = before
         endDate = after
 
-        print("FROM: ",beginDate)
-        print("TO: ",endDate+"\n")
+        print("=================================================================================")
+        print("\n ================== FROM: ",beginDate)
+        print(" ================== TO: ",endDate+"\n")
+        print("=================================================================================")
 
         #nameCSV = "../CSV/YT_08_03_2021_v1.csv"
         nameCSV = "../CSV/"+sys.argv[1]+".csv"
@@ -314,10 +317,10 @@ for i in range (-1,12):
                             print(" X REJECT! lady gaga\n")
                             continue
 
-                    if nextPage_token is None:
-                        print("\n~~~~ nr de videos atual: ", conta)
-                        #time.sleep(20)
-                        break #sem break, começa tudo de novo
+                if nextPage_token is None:
+                    print("\n~~~~ nr de videos atual: ", conta)
+                    #time.sleep(20)
+                    break #sem break, começa tudo de novo
 
             except HttpError as e:
                 print("An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
