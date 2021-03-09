@@ -40,6 +40,13 @@ YOUTUBE_API_VERSION = "v3"
 # publishedAfter and before... para ir buscar antes e depois da data X
 
 
+# opcao de run raiz ou run de atualizacao constemente ... fazer .. vindo do input terminal
+# run raiz -> atual
+# run atualizacao -> checka novos comentarios a partir da data X... 
+#                 guardar uma data temporaria, fazer sleep X e depois verificar de novo com uma data + recente
+#                 ... assim monitoriza todos os videos, e caso hajam novos comentarios adiciona
+
+
 # for para incrementar isto e fazer tudo automatico
 
 conta = 0
