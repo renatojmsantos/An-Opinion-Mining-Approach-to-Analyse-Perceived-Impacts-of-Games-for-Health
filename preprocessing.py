@@ -9,7 +9,7 @@ from itertools import groupby
 from nltk.stem import WordNetLemmatizer
 import re
 
-path = '../CSV/YT_09_03_2021_v2.csv'
+path = '../CSV/YT_10_03_2021_v3.csv'
 yt = pd.read_csv(path)
 print(len(yt))
 

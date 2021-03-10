@@ -48,7 +48,7 @@ YOUTUBE_API_VERSION = "v3"
 
 
 # for para incrementar isto e fazer tudo automatico
-
+writedComments = 0
 conta = 0
 lista_videoID=[]
 newyear20=0
@@ -223,14 +223,16 @@ for i in range (-1,12):
                                     print(">>>>>>>>>>>>>>>>>>>>>>>>>\n")
 
                                     # get comments of video ...
+                                    comments=[]
+                                    likes=[]
+                                    commentsID = []
+                                    data = []
+                                    
                                     nextPT = None
                                     while 1: #comentarios do videoID
                                         try:
                                             time.sleep(2)
-                                            comments=[]
-                                            likes=[]
-                                            commentsID = []
-                                            data = []
+
                                             #print("get main comments ...")
                                             #DEVELOPER_KEY = "AIzaSyAWq5YNDdZRc0cdh__4iQh2E-qJp7mcvNQ" #new renato
                                             #DEVELOPER_KEY = "AIzaSyAilu0HwaDQlvkDZEsKxQ6POFMdyvKiU4E" #me quota
@@ -309,7 +311,7 @@ for i in range (-1,12):
                                             
                                             if nextPT is None:
                                                 #time.sleep(5)
-                                                print(". . . nr comentarios total = ",nrComentarios)
+                                                #print(". . . nr comentarios total = ",nrComentarios)
                                                 #print(". . . stats total comentarios = ", contaStatsComments)
                                                 break
 
@@ -329,6 +331,7 @@ for i in range (-1,12):
                                         time.sleep(60*60*3) #6h
                                 #print("\n")
                                 #print(comments, commentsID)
+                                #print(len(comments))
                                 # export do csv
                                 dict = {'Video Title': [titulo] * len(comments),'videoID': [videoID] * len(comments),
                                         'Comment': comments, 'CommentID': commentsID,
@@ -339,12 +342,16 @@ for i in range (-1,12):
                                         'dislikesVideo': [dislikesV] * len(comments), 'totalCommentsVideo': [nrCommentsV] * len(comments)
                                         }
                                 out_df = pd.DataFrame(dict)
-                                
+                                #print(dict)
+                                #print("\n")
+                                #print(out_df)
                                 conta += 1
                                 print("—————————————————————————————————————————————————————————————————————")
                                 print("Writing csv ...")
                                 print(">>>   VIDEO # ", conta)
                                 print(". . . nr comentarios total = ",nrComentarios)
+                                writedComments+=len(comments)
+                                print(" . . writed comments = ",writedComments)
                                 print("—————————————————————————————————————————————————————————————————————")
 
                                 #print(". . . stats total comentarios = ", contaStatsComments)
