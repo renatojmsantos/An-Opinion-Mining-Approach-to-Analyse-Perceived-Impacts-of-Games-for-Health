@@ -9,13 +9,13 @@ from itertools import groupby
 from nltk.stem import WordNetLemmatizer
 import re
 
-path = '../CSV/YT_09_03_2021_v7.csv'
-#yt = pd.read_csv(path)
-#print(len(yt))
+path = '../CSV/YT_09_03_2021_v2.csv'
+yt = pd.read_csv(path)
+print(len(yt))
 
-#with open(path) as file:
-#    n_rows = len(file.readlines())
-#print (f'Exact number of rows: {n_rows}')
+with open(path) as file:
+	n_rows = len(file.readlines())
+print (f'Exact number of rows: {n_rows}')
 
 
 yt = pd.read_csv(path,nrows=5)

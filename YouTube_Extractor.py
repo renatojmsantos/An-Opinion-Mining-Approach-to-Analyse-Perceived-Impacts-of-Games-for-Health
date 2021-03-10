@@ -145,10 +145,6 @@ for i in range (-1,12):
 
         # colocar a data e hora temporariamente e depois sleep ... e atual parametro -> pra tempo real
 
-        comments=[]
-        likes=[]
-        commentsID = []
-        data = []
 
         nrComentarios = 0
         contaStatsComments = 0
@@ -231,6 +227,10 @@ for i in range (-1,12):
                                     while 1: #comentarios do videoID
                                         try:
                                             time.sleep(2)
+                                            comments=[]
+                                            likes=[]
+                                            commentsID = []
+                                            data = []
                                             #print("get main comments ...")
                                             #DEVELOPER_KEY = "AIzaSyAWq5YNDdZRc0cdh__4iQh2E-qJp7mcvNQ" #new renato
                                             #DEVELOPER_KEY = "AIzaSyAilu0HwaDQlvkDZEsKxQ6POFMdyvKiU4E" #me quota
@@ -254,6 +254,7 @@ for i in range (-1,12):
                                                 #print(comment_result['snippet']['topLevelComment']['snippet']['updatedAt'])
                                                 publishTime = comment_result['snippet']['topLevelComment']['snippet']['updatedAt']
                                                 # updatedAt pq pode incluir possiveis correcoes, ao inves do comment original com "publishedAt"
+                                                
                                                 data.append(publishTime)
                                                 commentsID.append(commentID)
                                                 comments.append(comentario)
@@ -321,13 +322,13 @@ for i in range (-1,12):
                                             if("commentsDisabled" in str(e.content)):
                                                 print("SEM COMENTARIOS")
                                                 break
-
                                         
-                                
                                 except HttpError as e:
                                     print("videos (stats) — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
                                     if("quotaExceeded" in str(e.content)):
                                         time.sleep(60*60*3) #6h
+                                #print("\n")
+                                #print(comments, commentsID)
                                 # export do csv
                                 dict = {'Video Title': [titulo] * len(comments),'videoID': [videoID] * len(comments),
                                         'Comment': comments, 'CommentID': commentsID,
