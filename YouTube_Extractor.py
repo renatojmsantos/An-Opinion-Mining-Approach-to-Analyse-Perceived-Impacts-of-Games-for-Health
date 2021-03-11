@@ -258,6 +258,9 @@ for i in range (-1,12): #(-1,12)
                                                     order='relevance', textFormat='plainText',pageToken=nextPT).execute()
                                                 nextPT = comment_response.get('nextPageToken')
                                                 for comment_result in comment_response.get("items",[]):
+
+                                                    #while (nrComentarios < nrComentariosStats): ... parecido ao dos replies
+                                                    
                                                     #print(comment_result)
                                                     #print(comment_result['snippet']['topLevelComment']['snippet']['textDisplay'])
                                                     comentario = comment_result['snippet']['topLevelComment']['snippet']['textDisplay']
@@ -348,7 +351,7 @@ for i in range (-1,12): #(-1,12)
                                                 #print("ERROR! Connection or TIME OUT!")
                                             except:
                                                 print("commentThreads() - something wrong ...")
-                                                
+
                                         # export do csv
                                         dict = {'Video Title': [titulo] * len(comments),'videoID': [videoID] * len(comments),
                                                 'Comment': comments, 'CommentID': commentsID,
