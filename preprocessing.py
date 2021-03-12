@@ -9,6 +9,7 @@ from itertools import groupby
 from nltk.stem import WordNetLemmatizer
 import re   # regular expression
 from nltk.tokenize import RegexpTokenizer
+import demoji
 
 path = '../CSV/YT_10_03_2021_v6 - cópia 2.csv'
 data = pd.read_csv(path,lineterminator='\n',encoding='utf-8')
@@ -30,9 +31,11 @@ data = pd.read_csv(path,lineterminator='\n',encoding='utf-8')
 
 
 
-text = data['Comment']
-text.dropna(inplace=True) # se nao tiver nenhum texto
+comment = data['Comment']
+comment.dropna(inplace=True) # se nao tiver nenhum texto
 
+#demoji.download_codes()
+#demoji.last_downloaded_timestamp()
 
 #remove emojis
 def demoji(text):
@@ -47,14 +50,28 @@ def demoji(text):
                                "]+", flags=re.UNICODE)
     return (emoji_pattern.sub(r'', text))
 
-text = text.astype(str).apply(lambda x: demoji(x))
 
-listaPalavras = ["@rui ola","best game #yolo","my best  friend from   germany !!!!!!!!!! lol ...... ","beautifulllll","OMG", "YOU are goooood", "issijjsij","laranja","orange","how","fix this"]
+comment = comment.astype(str).apply(lambda x: demoji(x))
+
+listaPalavras = ["🤗","l","this game/ is! great!","this is great", "isto é bom","i love thiq gam ","u know","hi","a","aaa","big https://wwww.uc.pt THE BEST url: http://blah.com:8080/path/to/here?p=1&q=abc,def#posn2 #ahashtag http://t.co/FNkPfmii-","@rui ola 🙀🤗🤗🤗🤗","best game #yolo :)","my best  friend from   germany !!!!!!!!!! lol ...... ","beautifulllll","OMG 🤯", "YOU 🤯🤯🤯🤯are goooood ", "issijjsij","laranja","orange","how","fix this"]
+
+
+def clearText(text):
+
+	text = demoji(text)
+	
+	#return text
+	tokeniser = RegexpTokenizer(r'\w+')
+	tokens = tokeniser.tokenize(text)
+	#text = tokens
+	return text
 
 c=0
 for t in listaPalavras:
 	c+=1
 	print(t)
+	t = clearText(t)
+	print(">>",t)
 	if c > 200:
 		break
 	"""
@@ -65,15 +82,9 @@ for t in listaPalavras:
 		pal = ""    
 	print(pal)
 	"""
-	tokeniser = RegexpTokenizer(r'\w+')
-	tokens = tokeniser.tokenize(t)
-	print(tokens)
-
-	print("\n")
+	#print("\n")
 
 	
-
-
 #data['cleanText'] = data['Comment'].astype(str)
 #data['cleanText'] = data['cleanText'].apply(lambda x: demoji(x))
 
