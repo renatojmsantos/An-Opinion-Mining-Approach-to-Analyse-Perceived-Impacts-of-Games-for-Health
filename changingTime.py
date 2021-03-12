@@ -1,5 +1,5 @@
 from datetime import datetime
-
+import time
 
 # mes a mes
 newyear20=0
@@ -16,7 +16,6 @@ for ano in range (-1,12): #(-1,12)
             if (ano == -1 and mes >= 8):
                 if (mes < 10):
                     before = '2009-0'+str(mes)+'-01T00:00:00Z'
-                    
                     if((mes+1) == 10):
                         after = '2009-'+str((mes+1))+'-01T00:00:00Z'
                     else:
@@ -83,3 +82,5 @@ for ano in range (-1,12): #(-1,12)
 
         print(before)
         print(after)
+
+        time.sleep(5)

@@ -244,7 +244,7 @@ for i in range (-1,12): #(-1,12)
                                         nextPT = None
                                         while 1: #comentarios do videoID
                                             try:
-                                                time.sleep(0.6)
+                                                time.sleep(0.4)
                                                 #print("get main comments ...")
                                                 #DEVELOPER_KEY = "AIzaSyAP6m_Icjnn2npBnwM4sSVK4VT5kKoOe7o" renato 1a
                                                 #DEVELOPER_KEY = "AIzaSyAWq5YNDdZRc0cdh__4iQh2E-qJp7mcvNQ" #new renato
@@ -260,7 +260,7 @@ for i in range (-1,12): #(-1,12)
                                                 for comment_result in comment_response.get("items",[]):
 
                                                     #while (nrComentarios < nrComentariosStats): ... parecido ao dos replies
-                                                    
+
                                                     #print(comment_result)
                                                     #print(comment_result['snippet']['topLevelComment']['snippet']['textDisplay'])
                                                     comentario = comment_result['snippet']['topLevelComment']['snippet']['textDisplay']
@@ -288,7 +288,7 @@ for i in range (-1,12): #(-1,12)
                                                     nextPTreply = None #page token
                                                     if (nr_replies > 0):
                                                         try:
-                                                            time.sleep(0.25)
+                                                            time.sleep(0.2)
                                                             #DEVELOPER_KEY = "AIzaSyAP6m_Icjnn2npBnwM4sSVK4VT5kKoOe7o" renato 1a
                                                             DEVELOPER_KEY = "AIzaSyBiRFpFQdLOgPWfMFTaklcq2twvQESDQZ0" #coimvivio
                                                             #DEVELOPER_KEY ="AIzaSyDXIzN7IV034Isli8V6Od-c7IyxUahQ4tc" #manel nos comments
@@ -324,7 +324,7 @@ for i in range (-1,12): #(-1,12)
                                                         except HttpError as e:
                                                             print("comments() - replies — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
                                                             if("quotaExceeded" in str(e.content)):
-                                                                time.sleep(60*60*3)
+                                                                time.sleep(60*60*2)
                                                         #except (ConnectionError, ReadTimeout):
                                                             #print("ERROR! Connection or TIME OUT!")
                                                         except:
@@ -343,7 +343,7 @@ for i in range (-1,12): #(-1,12)
                                                 #commentsDisabled
                                                 if("quotaExceeded" in str(e.content)):
                                                     print("SEM QUOTA")
-                                                    time.sleep(60*60*3)
+                                                    time.sleep(60*60*2)
                                                 if("commentsDisabled" in str(e.content)):
                                                     print("COMENTARIOS DESATIVADOS...")
                                                     break
@@ -383,7 +383,7 @@ for i in range (-1,12): #(-1,12)
 
                                         #atualiza dados
                                         out_df.to_csv(nameCSV, mode='a', header=False,index=False)   
-                                        time.sleep(1)
+                                        time.sleep(0.6)
                                     else:
                                         print("NO COMMENTS!")
                                         #break
@@ -391,7 +391,7 @@ for i in range (-1,12): #(-1,12)
                                 except HttpError as e:
                                     print("videos (stats) — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
                                     if("quotaExceeded" in str(e.content)):
-                                        time.sleep(60*60*3) #6h
+                                        time.sleep(60*60*2) #6h
                                 #except (ConnectionError, ReadTimeout):
                                     #print("ERROR! Connection or TIME OUT!")
                                 except:
@@ -406,7 +406,7 @@ for i in range (-1,12): #(-1,12)
                         else:
                             print(" X REJECT! lady gaga or something else\n")
                             continue
-                time.sleep(0.5)
+                time.sleep(0.25)
                 if nextPage_token is None:
                     print("\n~~~~ nr de videos atual: ", conta)
                     #time.sleep(20)
@@ -414,7 +414,7 @@ for i in range (-1,12): #(-1,12)
             except HttpError as e:
                 print("search() — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
                 if("quotaExceeded" in str(e.content)):
-                    time.sleep(60*60*3)
+                    time.sleep(60*60*2)
             #except (ConnectionError, ReadTimeout):
                 #print("ERROR! Connection or TIME OUT!")
             except:
