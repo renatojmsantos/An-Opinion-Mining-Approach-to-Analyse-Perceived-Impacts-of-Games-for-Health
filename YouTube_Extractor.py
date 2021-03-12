@@ -82,7 +82,7 @@ for i in range (-1,12): #(-1,12)
                 else:
                     continue
             else:
-                time.sleep(60*4) #86400 = 1 dia sleep, 3600s = 1h
+                time.sleep(60) #86400 = 1 dia sleep, 3600s = 1h
                 if(j==1):
                     a = 6
                 else:
@@ -102,7 +102,7 @@ for i in range (-1,12): #(-1,12)
                     else:
                         after = '201'+str(i)+'-0'+str(a)+'-01T00:00:00Z' 
         elif(i>=10): #2021
-            time.sleep(60*3) #86400 = 1 dia sleep, 3600s = 1h
+            time.sleep(60) #86400 = 1 dia sleep, 3600s = 1h
             i=20
             #ano=[20,20,21,21]
             if(j==1):
@@ -281,6 +281,8 @@ for i in range (-1,12): #(-1,12)
                                                     comments.append(comentario)
                                                     likes.append(nr_likes)
 
+                                                    # add to db ... check if is JD or JD now by video title
+
                                                     nr_replies = comment_result['snippet']['totalReplyCount']
                                                     #print(" . . . replies stats = ", nr_replies)
                                                     countReplies = 0
@@ -314,6 +316,9 @@ for i in range (-1,12): #(-1,12)
                                                                     commentsID.append(replyID)
                                                                     comments.append(textReply)
                                                                     likes.append(likesReply)
+
+                                                                    # add to db ... check if is JD or JD now by video title
+
                                                                     #print(" ...... replies lidos = # ",countReplies)
 
                                                                 if ((nextPTreply is None)):
