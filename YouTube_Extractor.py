@@ -24,7 +24,7 @@ import sys
 
 #DEVELOPER_KEY = "AIzaSyAP6m_Icjnn2npBnwM4sSVK4VT5kKoOe7o" #original 1a
 
-DEVELOPER_KEY = "AIzaSyAiRA5AVSnnaCzpHsfMhUbK3Z7z5zzR3_w" #2a
+#DEVELOPER_KEY = "AIzaSyAiRA5AVSnnaCzpHsfMhUbK3Z7z5zzR3_w" #2a
 
 #DEVELOPER_KEY = "AIzaSyAilu0HwaDQlvkDZEsKxQ6POFMdyvKiU4E" #3a
 
@@ -102,7 +102,7 @@ for i in range (-1,12): #(-1,12)
                     else:
                         after = '201'+str(i)+'-0'+str(a)+'-01T00:00:00Z' 
         elif(i>=10): #2021
-            time.sleep(60) #86400 = 1 dia sleep, 3600s = 1h
+            time.sleep(20) #86400 = 1 dia sleep, 3600s = 1h
             i=20
             #ano=[20,20,21,21]
             if(j==1):
@@ -163,12 +163,15 @@ for i in range (-1,12): #(-1,12)
         nextPage_token = None
         while 1:
             try:
-                time.sleep(2)
+                time.sleep(1)
+                #trocar DEVELOPER_KEY alternadamente
+                DEVELOPER_KEY = "AIzaSyAiRA5AVSnnaCzpHsfMhUbK3Z7z5zzR3_w" #2a
                 youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
                 print("a ir buscar...")
                 search_response = youtube.search().list(
                     publishedBefore=endDate, publishedAfter=beginDate, q="Just Dance", part="id,snippet", order='relevance', type='video', relevanceLanguage='en', maxResults=100, 
                     pageToken=nextPage_token).execute()
+                # search () -> custo de 100 units... o resto é de 1 units
 
                 print(search_response.get("nextPageToken"))
 
@@ -204,7 +207,7 @@ for i in range (-1,12): #(-1,12)
 
                                 # get stats of video ...
                                 try:
-                                    time.sleep(1)
+                                    time.sleep(0.5)
                                     DEVELOPER_KEY = "AIzaSyAL0ChC4DB6Su9C6X3YVDJMMzly0o_Mq_4"
                                     yt = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
                                     requestStats = yt.videos().list(
@@ -329,7 +332,7 @@ for i in range (-1,12): #(-1,12)
                                                         except HttpError as e:
                                                             print("comments() - replies — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
                                                             if("quotaExceeded" in str(e.content)):
-                                                                time.sleep(60*60*2)
+                                                                time.sleep(60*60*1.2)
                                                         #except (ConnectionError, ReadTimeout):
                                                             #print("ERROR! Connection or TIME OUT!")
                                                         except:
@@ -348,7 +351,7 @@ for i in range (-1,12): #(-1,12)
                                                 #commentsDisabled
                                                 if("quotaExceeded" in str(e.content)):
                                                     print("SEM QUOTA")
-                                                    time.sleep(60*60*2)
+                                                    time.sleep(60*60*1.2)
                                                 if("commentsDisabled" in str(e.content)):
                                                     print("COMENTARIOS DESATIVADOS...")
                                                     break
@@ -396,7 +399,7 @@ for i in range (-1,12): #(-1,12)
                                 except HttpError as e:
                                     print("videos (stats) — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
                                     if("quotaExceeded" in str(e.content)):
-                                        time.sleep(60*60*2) #6h
+                                        time.sleep(60*60*1.2) #6h
                                 #except (ConnectionError, ReadTimeout):
                                     #print("ERROR! Connection or TIME OUT!")
                                 except:
@@ -419,7 +422,7 @@ for i in range (-1,12): #(-1,12)
             except HttpError as e:
                 print("search() — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
                 if("quotaExceeded" in str(e.content)):
-                    time.sleep(60*60*2)
+                    time.sleep(60*60*1.2) #72 minutos
             #except (ConnectionError, ReadTimeout):
                 #print("ERROR! Connection or TIME OUT!")
             except:

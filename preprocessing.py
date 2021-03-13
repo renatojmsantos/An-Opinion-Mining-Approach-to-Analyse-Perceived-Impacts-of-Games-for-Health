@@ -11,6 +11,17 @@ import re   # regular expression
 from nltk.tokenize import RegexpTokenizer
 import demoji
 
+from nltk.corpus import wordnet
+
+
+from langdetect import detect
+from langdetect import DetectorFactory
+
+from textblob import TextBlob
+
+DetectorFactory.seed = 0
+
+
 path = '../CSV/YT_10_03_2021_v6 - cópia 2.csv'
 data = pd.read_csv(path,lineterminator='\n',encoding='utf-8')
 #print("-----> ",len(data))
@@ -50,14 +61,22 @@ def demoji(text):
                                "]+", flags=re.UNICODE)
     return (emoji_pattern.sub(r'', text))
 
-
 comment = comment.astype(str).apply(lambda x: demoji(x))
 
-listaPalavras = ["🤗","l","this game/ is! great!","this is great", "isto é bom","i love thiq gam ","u know","hi","a","aaa","big https://wwww.uc.pt THE BEST url: http://blah.com:8080/path/to/here?p=1&q=abc,def#posn2 #ahashtag http://t.co/FNkPfmii-","@rui ola 🙀🤗🤗🤗🤗","best game #yolo :)","my best  friend from   germany !!!!!!!!!! lol ...... ","beautifulllll","OMG 🤯", "YOU 🤯🤯🤯🤯are goooood ", "issijjsij","laranja","orange","how","fix this"]
+def isEnglish(text):
+	lang = TextBlob(text)
+	print(lang.detect_language())
+	language = lang.detect_language()
+	if (language == "en"):
+		return True
+	else:
+		return False
+
+
+listaPalavras = ["🤗","l","abc","sex","stop","this game/ is! great!","this is great", "isto é bom","i love thiq gam ","u know","hi","a","aaa","big https://wwww.uc.pt THE BEST url: http://blah.com:8080/path/to/here?p=1&q=abc,def#posn2 #ahashtag http://t.co/FNkPfmii-","@rui ola 🙀🤗🤗🤗🤗","best game #yolo :)","my best  friend from   germany !!!!!!!!!! lol ...... ","beautifulllll","OMG 🤯", "YOU 🤯🤯🤯🤯are goooood ", "issijjsij","laranja","orange","how","fix this"]
 
 
 def clearText(text):
-
 	text = demoji(text)
 	
 	#return text
@@ -71,7 +90,11 @@ for t in listaPalavras:
 	c+=1
 	print(t)
 	t = clearText(t)
-	print(">>",t)
+	#print(len(t))
+
+	if(len(t) >= 3):
+		if (isEnglish(t)):
+			print(">>",t)
 	if c > 200:
 		break
 	"""
