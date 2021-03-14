@@ -1,4 +1,7 @@
 
+from preprocessing import *
+from connectDB import *
+import pandas as pd
 
 # ver artigo CHI 13, table 8
 dict={	'Usability':{
@@ -22,18 +25,18 @@ dict={	'Usability':{
 			'Impact': {'impact': 1.0},
 			'Affect and Emotion': {'affect': 1.0, 'emotion': 1.0, 'fun': 0.8, 'enjoy': 0.8, 'excit': 0.8, 'cute': 0.8, 'nevertheless': 0.8, 'laugh': 0.8, 'annoy': 0.8},
 			'Enjoyment and Fun': {'joy':0.9, 'enjoyment': 1.0, 'fun': 1.0, 'entertain': 0.9},
-			'Aesthetics and Appeal': {'aesthetics': 1.0, 'appeal': 1.0, 'graphic':0.9, 'sound':0.9, 'song': 0.9, 'voice':0.9, 'playlist':0.9, 'music':0.9, 'soundtrack':0.9, 'effect':0.8, 'look':0.8, 'color':0.8, 'visual':0.8, 'detail':0.6, 'render':0.5, 'pixel':0.5},
-			'Engagement': {'engagement': 1.0, 'challeng': 0.9, 'addict': 0.9, 'replay':0.7, 'nonstop': 0.9, 'interest':0.7},
+			'Aesthetics and Appeal': {'aesthetics': 1.0, 'appeal': 1.0, 'graphic':0.9, 'sound':0.9, 'song': 0.9, 'voice':0.9, 'playlist':0.9, 'music':0.9, 'soundtrack':0.9, 'effect':0.8, 'look':0.8, 'color':0.8, 'visual': 0.8, 'detail': 0.6, 'render': 0.5, 'pixel': 0.5},
+			'Engagement': {'engagement': 1.0, 'challeng': 0.9, 'addict': 0.9, 'addition': 1.0, 'replay':0.7, 'nonstop': 0.9, 'interest':0.7},
 			'Motivation': {'motivation': 1.0},
 			'Enchantment': {'enchantment': 1.0},
 			'Frustration': {'frustration': 1.0, 'boring': 0.8, 'hardest': 0.7, 'insult': 0.7, 'injuri': 0.7, 'nerv': 0.7, 'unfair':0.7, 'cheat':0.7, 'annoy':0.7, 'incompatibilit':0.7},
 		},
-		'QOL':{
+		'Health':{
 			'Pain and discomfort': {'pain': 1.0, 'discomfort': 1.0}, 
 			'Energy and fatigue': {'energy': 1.0, 'fatigue': 1.0},
 			'Sleep and rest': {'sleep': 1.0, 'rest': 1.0},
 			'Positive feelings': {'positive feelings': 1.0},
-			'Thinking, learning, memory and concentration': {'thinking': 1.0, 'learning': 1.0, 'memory': 1.0, 'concentration': 1.0},
+			'Thinking, learning, memory and concentration': {'thinking': 1.0, 'forget': 1.0, 'learning': 1.0, 'memory': 1.0, 'concentration': 1.0},
 			'Self-esteem': {'self-esteem': 1.0},
 			'Bodily image and appearance': {'bodily image': 1.0, 'appearance': 0.9, 'body': 0.8},
 			'Negative feelings': {'negative feelings': 1.0},
@@ -44,31 +47,176 @@ dict={	'Usability':{
 	}
 
 
-#print(dict)
 
+def insertToTable(query):
+	idBack = None
+	conn = None
+	
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		conn.autocommit = True
+		cur = conn.cursor()
+
+		#cur.execute('SELECT version()')
+		#db_version = cur.fetchone()
+		#print(db_version)
+
+		#print("tables")
+		#query="SELECT * FROM opinion"
+		#cur.execute(query)
+		#print(cur.fetchone())
+
+		#cur.execute("select * from usability")
+		#print(cur.fetchone())
+		query = query + " returning 1;"
+		print(query)
+		#print(tableName)
+		#cur.execute(query, (tableName,))
+		cur.execute(query)
+		idBack = cur.fetchone()
+		print(idBack)
+		conn.commit()
+		print("inserted!")
+		cur.close()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack
+
+def insertTablesConceitos():
+	for items in dict.items():
+		chave = items[0]
+		conceitos = items[1]
+		#print("\n",chave,conceitos)
+		#print("\n>> ",chave)
+		for vocabulario in conceitos.items():
+			termo = vocabulario[0]
+			#pals = vocabulario[1]
+			#print(termo,pals)
+			#print(" #", termo)
+			if(chave=="Usability"):
+				#insert into usability values('Satisfaction');
+				query = "insert into usability values('"+termo+"')"
+				#print(query)
+				#tableName = "usability"
+				#insertToTable(query)
+			elif(chave=="UX"):
+				print("ux")
+				query = "insert into ux values('"+termo+"')"
+				insertToTable(query)
+			elif(chave == "Health"):
+				print("health")
+				#query = "insert into health values('"+termo+"')"
+				#insertToTable(query)
+
+#insertTablesConceitos()
+
+def annotate(text):
+	for items in dict.items():
+		chave = items[0]
+		conceitos = items[1]
+		#print("\n",chave,conceitos)
+		#print("\n>> ",chave)
+		for vocabulario in conceitos.items():
+			termo = vocabulario[0]
+			pals = vocabulario[1]
+			#print(termo,pals)
+			#print(" #", termo)
+			for p in pals.items():
+				pal = p[0]
+				probalidade = p[1]
+				#print("  ",pal,probalidade)
+				if (pal in text):
+					#print(pal, termo, chave)
+					r = []
+					r.append(termo)
+					r.append(chave)
+					#return r
+					return (termo, chave)
+				else:
+					continue
+
+#print(comments)
+
+#print(comments[0])
+
+def executeAnnotation():
+	row = 0
+	for t in comments: #t in comments:
+		t = runPreprocessing(t)
+		if (t != "None"):
+			# print texto tratado e valido
+			#print(">>",t) 
+			#sentiment analysis
+			text = TextBlob(str(t))
+			#print(text.sentiment)
+			#print(text.sentiment.polarity, text.sentiment.subjectivity)
+			if text.sentiment.polarity < 0:
+				polarity="Negative"
+				#print(">>", polarity)
+			elif(text.sentiment.polarity > 0):
+				polarity="Positive"
+				#print(">>", polarity)
+			else:
+				polarity="Neutral"
+				#print(">>", polarity)
+
+			result = annotate(t)
+			#print(result)
+			if(result is not None):
+				#print("> ",result[0])
+				#print(">>",result[1])
+				field = result[1]
+				concept = result[0]			
+
+				#print(timestampComment[row])
+				#'2014-06-01T00:00:00Z'
+				dateComment = re.sub('T[0-9:Z]+','',timestampComment[row])
+				dateVideo = re.sub('T[0-9:Z]+','',videoPublishedAt[row])
+
+
+				#print(views[row])
+				#print(likesVideo[row])
+		row += 1
+		#print(comments[2])
+
+		#print(data['Video Title'], index = t)
+		"""
+		comments = data['Comment']
+		commentID = data['CommentID']
+		videoTitle = data['Video Title']
+		videoID = data['videoID']
+		likes = data['Likes']
+		timestampComment = data['TimeStampComment']
+		channel = data['Channel']
+		channelID = data['ChannelID']
+		videoPublishedAt = data['VideoPublishedAt']
+		views = data['ViewsVideo']
+		likesVideo = data['likesVideo']
+		dislikesVideo = data['dislikesVideo']
+		totalCommentsVideo = data['totalCommentsVideo']
+		"""
+
+
+#connect()
 """
-for item in dict.items():
-	print(item)
-
-print("\n")
-
-for i in dict:
-	print(dict[i])
-
-print("\n")
+print("tables")
+query="SELECT * FROM opinion"
+t = pd.read_sql_query(query,conn)
+print(t)
 """
+#closeConnection()
 
-for items in dict.items():
-	chave = items[0]
-	conceitos = items[1]
-	#print("\n",chave,conceitos)
-	print("\n>> ",chave)
-	for vocabulario in conceitos.items():
-		termo = vocabulario[0]
-		pals = vocabulario[1]
-		#print(termo,pals)
-		print(" #", termo)
-		for p in pals.items():
-			pal = p[0]
-			probalidade = p[1]
-			print("  ",pal,probalidade)
+
+
+
+
+
+
+
+
+

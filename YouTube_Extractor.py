@@ -185,8 +185,11 @@ for i in range (-1,12): #(-1,12)
                         titulo = search_result["snippet"]["title"]
                         #titulo = unidecode.unidecode(titulo)
                         print(" >> NEW: ", titulo)
+
+                        # detect language of video title?? with preprocesing? 
+
                         videoName = titulo.lower()
-                        if ( ("lady gaga" not in videoName) and ("official music video" not in videoName) and ("lyrics" not in videoName)
+                        if ( ("lady gaga" not in videoName) and ("just dance india" not in videoName) and ("official music video" not in videoName) and ("lyrics" not in videoName)
                             and (("just dance" in videoName) or ("justdance" in videoName))):
                             
                             tituloChannel=search_result["snippet"]["channelTitle"]
