@@ -11,13 +11,18 @@ import re   # regular expression
 from nltk.tokenize import RegexpTokenizer
 import demoji
 
+import numpy as np
 from nltk.corpus import wordnet
 
+import regex
 
 from langdetect import detect
 from langdetect import DetectorFactory
 
 from textblob import TextBlob
+
+
+#from abbr import expandall
 
 DetectorFactory.seed = 0
 
@@ -61,11 +66,11 @@ def demoji(text):
                                "]+", flags=re.UNICODE)
     return (emoji_pattern.sub(r'', text))
 
-comment = comment.astype(str).apply(lambda x: demoji(x))
+#comment = comment.astype(str).apply(lambda x: demoji(x))
 
 def isEnglish(text):
 	lang = TextBlob(text)
-	print(lang.detect_language())
+	#print(lang.detect_language())
 	language = lang.detect_language()
 	if (language == "en"):
 		return True
@@ -73,103 +78,77 @@ def isEnglish(text):
 		return False
 
 
-listaPalavras = ["🤗","l","abc","sex","stop","this game/ is! great!","this is great", "isto é bom","i love thiq gam ","u know","hi","a","aaa","big https://wwww.uc.pt THE BEST url: http://blah.com:8080/path/to/here?p=1&q=abc,def#posn2 #ahashtag http://t.co/FNkPfmii-","@rui ola 🙀🤗🤗🤗🤗","best game #yolo :)","my best  friend from   germany !!!!!!!!!! lol ...... ","beautifulllll","OMG 🤯", "YOU 🤯🤯🤯🤯are goooood ", "issijjsij","laranja","orange","how","fix this"]
-
+listaPalavras = ["🤗","l","I’d like to know how I’d done that!","I'd like to play!", "abc","sex","stop","this game/ is! great!","this is great", "isto é bom","i love thiq gam ","u know","hi","a","aaa","big https://wwww.uc.pt THE BEST url: http://blah.com/path/to/here?p=1&q=abc,def#posn2 #ahashtag http://t.co/FNkPfmii-","@rui ola 🙀🤗🤗🤗🤗","best game #yolo :)","my best  friend from   germany !!!!!!!!!! lol ...... ","beautifulllll","OMG 🤯", "YOU 🤯🤯🤯🤯are goooood ", "issijjsij","laranja","orange","how","fix this"]
 
 def clearText(text):
+	# remove emojis
 	text = demoji(text)
-	
-	#return text
-	tokeniser = RegexpTokenizer(r'\w+')
-	tokens = tokeniser.tokenize(text)
-	#text = tokens
+	# remove URLs
+	text = re.sub('https?://[A-Za-z0-9./?&=_]+','',text)
+	# hashtags
+	text = re.sub('#[A-Za-z0-9]+','',text)
+	# mencoes
+	text = re.sub('@[A-Za-z]+','',text)
+	# to lower
+	text = text.lower()
+
+	#https://pypi.org/project/pycontractions/
+	# expand abreviaturas ...
+
+	# remover pontuacao
+	text = re.sub(r"[^\w\s]","",text)
+	#remover espacos
+	text = " ".join(text.strip().split())
+	text = re.sub(r"[\W\s]"," ",text)
+
 	return text
+
+def caracteresRepetidos(text):
+	# é preciso ter em conta as palavras inglesas.... "good", "god", ... 
+	# https://www.nltk.org/_modules/nltk/tokenize/casual.html#reduce_lengthening
+	pattern = regex.compile(r"(.)\1{2,}")
+	return pattern.sub(r"\1\1\1", text)
+
+
+def spellCorrection(text):
+	t = TextBlob(text).correct()
+	#print(t)
+	return t
 
 c=0
 for t in listaPalavras:
 	c+=1
-	print(t)
-	t = clearText(t)
-	#print(len(t))
-
 	if(len(t) >= 3):
-		if (isEnglish(t)):
+		print(t)
+		t = clearText(t)
+		#print(len(t))
+		t = caracteresRepetidos(t)
+		t = spellCorrection(t)
+
+		if (isEnglish(str(t))):
 			print(">>",t)
+		else:
+			print(">> ---")
+
 	if c > 200:
 		break
-	"""
-	pal = t.split()	
-	if (pal == " "):
-	    pal = ""
-	if ("#" in pal or "@" in pal):
-		pal = ""    
-	print(pal)
-	"""
-	#print("\n")
-
 	
-#data['cleanText'] = data['Comment'].astype(str)
-#data['cleanText'] = data['cleanText'].apply(lambda x: demoji(x))
-
-
-# antes de detetar linguagem, é preciso tratar palavras...
-# letras repetidas
-# abreviaturas
-# erros ortográficos
-#hashtags, mencoes , commentID
-# OMG, ahahah, @ddddd, #dijdij
-# urls....
-
-# tudo em minusculas
-#text = yt['text'].str.lower()
-#print(text)
-#data['cleanText'].dropna(inplace=True) # se nao tiver nenhum texto
-
 
 print("#################\n")
-# ----------------------------------------------------------------------------------------
-"""
-del data['Comment']
-#del data['Video Description']
 
-data['language'] = 0
-count = 0
-for i in range(0,len(data)):
-    temp = data['cleanText'].iloc[i]
-    count += 1
-    try:
-        data['language'].iloc[i] = detect(temp)
-    except:
-        data['language'].iloc[i] = "error"
+# letras repetidas
+# abreviaturas
+# OMG, ahahah, @ddddd, #dijdij
 
-only_english = data[data['language'] == 'en']
-#only_english.head()
-# ver se é um comentario relevante...
-# se só tiver uma palavra e for um nome ou pronome talvez n seja...
+	# ANOTAÇÃO 
+	# lower string ...
+	# remove stop words
 
+	# excluir palavras q nao estao no dicionario ingles... ou seja, invalidas
+	# ver se é um comentario relevante...
+	# se só tiver uma palavra e for um nome ou pronome talvez n seja...
 
-
-
-#tokeniser = RegexpTokenizer(r'\w+')
-#tokens = tokeniser.tokenize(text)
-#print(tokens)
-
-regex = r"[^0-9A-Za-z'\t]"
-comentarios = only_english.copy()
-
-comentarios['reg'] = comentarios['cleanText'].apply(lambda x:re.findall(regex,x))
-comentarios['reg_comentarios'] = comentarios['cleanText'].apply(lambda x:re.sub(regex," ",x))
-
-#dataset = comentarios[['reg_comentarios','Likes','Video Title','Channel','Comment ID','Video ID']].copy()
-dataset = comentarios[['Video Title','videoID','reg_comentarios','CommentID','Likes','TimeStampComment','Channel','ChannelID','VideoPublishedAt','ViewsVideo','likesVideo','dislikesVideo','totalCommentsVideo']].copy()
-dataset = dataset.rename(columns={"reg_comentarios":"Comment"})
-print(dataset.head())
-"""
-
-#pathExport = "../CSV/clean/YT_clean1.csv"
-#only_english.to_csv('cleanYoutube.csv', index=False, encoding='utf-8')
-
-#dataset.to_csv(pathExport,index = False, encoding='utf-8')
+	# lemmatization -> converts the word into its root word
 
 
 
