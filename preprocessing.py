@@ -129,13 +129,17 @@ def isEnglish(text):
 	#language = lang.detect_language()
 
 	#print(detect(text))
-	language = detect(text)
+	try:
+		language = detect(text)
+		if (language == "en"):
+			return True
+		else:
+			return False
+	except:
+		print("ERRO lang_detect ...")
 	# procurar outro com maior accuracy ...
 	
-	if (language == "en"):
-		return True
-	else:
-		return False
+	return False
 	
 
 listaPalavras = ["🤗","l","I’d like to know how I’d done that!","I'd like to play!", "abc","sex","stop","this game/ is! great!","this is great", "isto é bom","i love thiq gam ","u know","hi","a","aaa","big https://wwww.uc.pt THE BEST url: http://blah.com/path/to/here?p=1&q=abc,def#posn2 #ahashtag http://t.co/FNkPfmii-","@rui ola 🙀🤗🤗🤗🤗","best game #yolo :)","my best  friend from   germany !!!!!!!!!! lol ...... ","beautifulllll","OMG 🤯", "YOU 🤯🤯🤯🤯are goooood ", "issijjsij","laranja","orange","how","fix this"]

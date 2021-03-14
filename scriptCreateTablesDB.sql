@@ -13,7 +13,7 @@ CREATE TABLE youtube (
 );
 
 CREATE TABLE opinion (
-	commentid		 INTEGER,
+	commentid		 VARCHAR(512),
 	comment		 VARCHAR(4096) NOT NULL,
 	likes		 NUMERIC(8,2) NOT NULL,
 	datecomment	 DATE NOT NULL,
@@ -51,19 +51,19 @@ CREATE TABLE game (
 );
 
 CREATE TABLE opinion_ux (
-	opinion_commentid INTEGER,
+	opinion_commentid VARCHAR(512),
 	ux_uxconcept	 VARCHAR(512),
 	PRIMARY KEY(opinion_commentid,ux_uxconcept)
 );
 
 CREATE TABLE opinion_health (
-	opinion_commentid INTEGER,
+	opinion_commentid VARCHAR(512),
 	health_hconcept	 VARCHAR(512),
 	PRIMARY KEY(opinion_commentid,health_hconcept)
 );
 
 CREATE TABLE opinion_usability (
-	opinion_commentid	 INTEGER,
+	opinion_commentid	 VARCHAR(512),
 	usability_uconcept VARCHAR(512),
 	PRIMARY KEY(opinion_commentid,usability_uconcept)
 );
@@ -77,3 +77,4 @@ ALTER TABLE opinion_health ADD CONSTRAINT opinion_health_fk1 FOREIGN KEY (opinio
 ALTER TABLE opinion_health ADD CONSTRAINT opinion_health_fk2 FOREIGN KEY (health_hconcept) REFERENCES health(hconcept);
 ALTER TABLE opinion_usability ADD CONSTRAINT opinion_usability_fk1 FOREIGN KEY (opinion_commentid) REFERENCES opinion(commentid);
 ALTER TABLE opinion_usability ADD CONSTRAINT opinion_usability_fk2 FOREIGN KEY (usability_uconcept) REFERENCES usability(uconcept);
+

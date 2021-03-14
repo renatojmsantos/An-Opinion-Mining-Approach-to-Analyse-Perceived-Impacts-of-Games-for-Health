@@ -3,7 +3,10 @@
 Analysing Usability, User Experience, and Perceived Health Impacts of Games for Health based on Users Opinion Mining
 
 
-YouTube_Extractor.py <filename> 
+> python3 YouTube_Extractor.py nameFile
 
-<filename> -> abc.csv
+> python3 annotation.py
 
+
+> java -jar metabase.jar
+> http://localhost:3000/
