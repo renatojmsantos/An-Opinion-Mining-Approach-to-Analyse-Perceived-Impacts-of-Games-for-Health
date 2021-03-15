@@ -282,6 +282,9 @@ for i in range (-1,12): #(-1,12)
                                                     publishTime = comment_result['snippet']['topLevelComment']['snippet']['updatedAt']
                                                     # updatedAt pq pode incluir possiveis correcoes, ao inves do comment original com "publishedAt"
                                                     
+                                                    # check if commmentID not in commentsID:    
+                                                    # TO DO ....
+
                                                     data.append(publishTime)
                                                     commentsID.append(commentID)
                                                     comments.append(comentario)
@@ -335,7 +338,7 @@ for i in range (-1,12): #(-1,12)
                                                         except HttpError as e:
                                                             print("comments() - replies — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
                                                             if("quotaExceeded" in str(e.content)):
-                                                                time.sleep(60*60*1.2)
+                                                                time.sleep(60*60*1)
                                                         #except (ConnectionError, ReadTimeout):
                                                             #print("ERROR! Connection or TIME OUT!")
                                                         except:
@@ -354,7 +357,7 @@ for i in range (-1,12): #(-1,12)
                                                 #commentsDisabled
                                                 if("quotaExceeded" in str(e.content)):
                                                     print("SEM QUOTA")
-                                                    time.sleep(60*60*1.2)
+                                                    time.sleep(60*60*1)
                                                 if("commentsDisabled" in str(e.content)):
                                                     print("COMENTARIOS DESATIVADOS...")
                                                     break
@@ -402,7 +405,7 @@ for i in range (-1,12): #(-1,12)
                                 except HttpError as e:
                                     print("videos (stats) — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
                                     if("quotaExceeded" in str(e.content)):
-                                        time.sleep(60*60*1.2) #6h
+                                        time.sleep(60*60*1) #6h
                                 #except (ConnectionError, ReadTimeout):
                                     #print("ERROR! Connection or TIME OUT!")
                                 except:
@@ -425,7 +428,7 @@ for i in range (-1,12): #(-1,12)
             except HttpError as e:
                 print("search() — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
                 if("quotaExceeded" in str(e.content)):
-                    time.sleep(60*60*1.2) #72 minutos
+                    time.sleep(60*60*1) #72 minutos
             #except (ConnectionError, ReadTimeout):
                 #print("ERROR! Connection or TIME OUT!")
             except:

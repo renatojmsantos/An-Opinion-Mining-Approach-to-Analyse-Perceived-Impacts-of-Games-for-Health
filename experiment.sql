@@ -19,6 +19,13 @@ select * from opinion_ux;
 select * from health;
 select * from ux;
 
+
+truncate table opinion_usability;
+truncate table opinion_health;
+truncate table opinion_ux;
+truncate table youtube cascade;
+truncate table opinion cascade;
+
 CREATE TABLE usability (
 	uconcept VARCHAR(512),
 	PRIMARY KEY(uconcept)

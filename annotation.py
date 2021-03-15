@@ -103,15 +103,15 @@ def insertTablesConceitos():
 				query = "insert into usability values('"+termo+"')"
 				#print(query)
 				#tableName = "usability"
-				#insertToTable(query)
+				insertToTable(query)
 			elif(chave=="UX"):
-				print("ux")
+				#print("ux")
 				query = "insert into ux values('"+termo+"')"
 				insertToTable(query)
 			elif(chave == "Health"):
-				print("health")
-				#query = "insert into health values('"+termo+"')"
-				#insertToTable(query)
+				#print("health")
+				query = "insert into health values('"+termo+"')"
+				insertToTable(query)
 
 #insertTablesConceitos()
 
@@ -166,6 +166,39 @@ def executeAnnotation():
 				#print(">>", polarity)
 			#subjectivity = text.sentiment.subjectivity
 			#print(subjectivity)
+
+			#print(timestampComment[row])
+			#'2014-06-01T00:00:00Z'
+			dateComment = timestampComment[row]
+			dateVideo = videoPublishedAt[row]
+			try:
+				dateComment = re.sub('T[0-9:Z]+','',dateComment)
+				dateVideo = re.sub('T[0-9:Z]+','',dateVideo)
+			except:
+				print("something wrong on convert dates...")
+
+			title = videoTitle[row]
+			title = demoji(title)
+			title = re.sub('&quot;+','',title)
+			title = title.lower()
+
+
+			#print(title)
+			if("just dance now" in title):
+				print("JD NOW")
+				# vai dar duplicado .... guardar numa lista e ir vendo se está? assim evita-se insercoes...
+				query = "insert into youtube values('Youtube','"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"')"
+				insertToTable(query)
+				# este nao...
+				query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', True, 'Just Dance Now', '"+str(polarity)+"', '"+str(videoID[row])+"')"
+				insertToTable(query)
+			else:
+				#print("JD")
+				query = "insert into youtube values('Youtube','"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"')"
+				insertToTable(query)
+				query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', 'True', 'Just Dance', '"+str(polarity)+"', '"+str(videoID[row])+"')"
+				insertToTable(query)
+				
 			result = annotate(t)
 			#print(result)
 			if(result is not None):
@@ -174,52 +207,15 @@ def executeAnnotation():
 				field = result[1]
 				concept = result[0]			
 
-				#print(timestampComment[row])
-				#'2014-06-01T00:00:00Z'
-				dateComment = timestampComment[row]
-				dateVideo = videoPublishedAt[row]
-				try:
-					dateComment = re.sub('T[0-9:Z]+','',dateComment)
-					dateVideo = re.sub('T[0-9:Z]+','',dateVideo)
-				except:
-					print("something wrong on convert dates...")
-
-				title = videoTitle[row]
-				title = demoji(title)
-				title = re.sub('&quot;+','',title)
-				title = title.lower()
-				#print(title)
-				if("just dance now" in title):
-					print("JD NOW")
-					query = "insert into youtube values('Youtube','"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"')"
+				if (field == "Usability"):
+					query = "insert into opinion_usability values('"+str(commentID[row])+"', '"+str(concept)+"')"
 					insertToTable(query)
-					query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', True, 'Just Dance Now', '"+str(polarity)+"', '"+str(videoID[row])+"')"
+				elif (field == "UX"):
+					query = "insert into opinion_ux values('"+str(commentID[row])+"', '"+str(concept)+"')"
 					insertToTable(query)
-					if (field == "Usability"):
-						query = "insert into opinion_usability values('"+str(commentID[row])+"', '"+str(concept)+"')"
-						insertToTable(query)
-					elif (field == "UX"):
-						query = "insert into opinion_ux values('"+str(commentID[row])+"', '"+str(concept)+"')"
-						insertToTable(query)
-					elif (field == "Health"):
-						query = "insert into opinion_health values('"+str(commentID[row])+"', '"+str(concept)+"')"
-						insertToTable(query)
-				else:
-					#print("JD")
-					query = "insert into youtube values('Youtube','"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"')"
+				elif (field == "Health"):
+					query = "insert into opinion_health values('"+str(commentID[row])+"', '"+str(concept)+"')"
 					insertToTable(query)
-					query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', 'True', 'Just Dance', '"+str(polarity)+"', '"+str(videoID[row])+"')"
-					insertToTable(query)
-					if (field == "Usability"):
-						query = "insert into opinion_usability values('"+str(commentID[row])+"', '"+str(concept)+"')"
-						insertToTable(query)
-					elif (field == "UX"):
-						query = "insert into opinion_ux values('"+str(commentID[row])+"', '"+str(concept)+"')"
-						insertToTable(query)
-					elif (field == "Health"):
-						query = "insert into opinion_health values('"+str(commentID[row])+"', '"+str(concept)+"')"
-						insertToTable(query)
-
 				#query = "insert into ux values('"+termo+"')"
 				#insertToTable(query)
 
@@ -245,6 +241,7 @@ def executeAnnotation():
 		totalCommentsVideo = data['totalCommentsVideo']
 		"""
 
+#insertTablesConceitos()
 executeAnnotation()
 
 #connect()

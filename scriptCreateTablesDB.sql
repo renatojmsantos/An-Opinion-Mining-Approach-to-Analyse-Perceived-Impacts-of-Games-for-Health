@@ -78,3 +78,11 @@ ALTER TABLE opinion_health ADD CONSTRAINT opinion_health_fk2 FOREIGN KEY (health
 ALTER TABLE opinion_usability ADD CONSTRAINT opinion_usability_fk1 FOREIGN KEY (opinion_commentid) REFERENCES opinion(commentid);
 ALTER TABLE opinion_usability ADD CONSTRAINT opinion_usability_fk2 FOREIGN KEY (usability_uconcept) REFERENCES usability(uconcept);
 
+
+insert into game values('Just Dance');
+insert into game values('Just Dance Now');
+
+insert into sentiment values ('Positive','0.3');
+insert into sentiment values ('Negative','0.3');
+insert into sentiment values ('Neutral','0.3');
+

@@ -31,10 +31,12 @@ import time
 DetectorFactory.seed = 0
 
 
-path = '../CSV/YT_10_03_2021_v6 - cópia 2.csv'
+#path = '../CSV/YT_10_03_2021_v6 - cópia 2.csv'
+path = '../CSV/YT_10_03_2021_v6 - cópia 2-ate 06-2014.csv'
+#path = '../CSV/YT_10_03_2021_v6.csv'
 data = pd.read_csv(path,lineterminator='\n',encoding='utf-8')
 
-#print("-----> ",len(data))
+print("-----> ",len(data))
 
 #file = open(path)
 #numline = len(file.readlines())
@@ -123,7 +125,7 @@ def demoji(text):
 
 def isEnglish(text):
 
-	time.sleep(0.10)
+	#time.sleep(0.30)
 	#lang = TextBlob(text)
 	#print(lang.detect_language())
 	#language = lang.detect_language()
@@ -180,10 +182,11 @@ def spellCorrection(text):
 	return t
 
 
+#global contaFinal
+
 
 def runPreprocessing(t):
 	#print("running clean ... ")
-
 	if(len(t) >= 3):
 		#print("\n",t)
 		t = clearText(t)
@@ -195,34 +198,54 @@ def runPreprocessing(t):
 			return t
 	return "None"
 
-	"""
-	c=0
-	for t in comments:
-		c+=1
-		if(len(t) >= 3):
-			print("\n",t)
-			t = clearText(t)
-			#print(len(t))
-			t = caracteresRepetidos(t)
-			t = spellCorrection(t)
 
+"""
+# contra tratados
+contaFinal = 0
+for t in comments:
+	if(len(t) >= 3):
+		#print("\n",t)
+		t = clearText(t)
+		#print(len(t))
+		t = caracteresRepetidos(t)
+		t = spellCorrection(t) # rever
+
+		if (len(t) >= 3 and isEnglish(str(t))):
+			contaFinal += 1
+			print(contaFinal)
+
+print(">>>>>>>>>>>>>>>", contaFinal)
+"""
+
+
+"""
+c=0
+for t in comments:
+	c+=1
+	if(len(t) >= 3):
+		print("\n",t)
+		t = clearText(t)
+		#print(len(t))
+		t = caracteresRepetidos(t)
+		t = spellCorrection(t)
+
+		if (len(t) >= 3 and isEnglish(str(t))):
+			print(">>",t)
+		else:
+			print(">> ---")
+		# google clould ... 90 dias com 300$ ver e enviar docs
+		
+		try:
 			if (len(t) >= 3 and isEnglish(str(t))):
 				print(">>",t)
 			else:
 				print(">> ---")
-			# google clould ... 90 dias com 300$ ver e enviar docs
-			
-			try:
-				if (len(t) >= 3 and isEnglish(str(t))):
-					print(">>",t)
-				else:
-					print(">> ---")
-			except:
-				print("detect language - something wrong ...")
-			
-		if c > 200:
-			break
-	"""
+		except:
+			print("detect language - something wrong ...")
+		
+	if c > 200:
+		break
+"""
 
 #runPreprocessing(comments)
 #print("#################\n")
