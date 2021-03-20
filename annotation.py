@@ -152,75 +152,79 @@ def executeAnnotation():
 			# print texto tratado e valido
 			#print(">>",t) 
 			#sentiment analysis
-			text = TextBlob(str(t))
-			#print(text.sentiment)
-			#print(text.sentiment.polarity, text.sentiment.subjectivity)
-			if text.sentiment.polarity < 0:
-				polarity="Negative"
-				#print(">>", polarity)
-			elif(text.sentiment.polarity > 0):
-				polarity="Positive"
-				#print(">>", polarity)
-			else:
-				polarity="Neutral"
-				#print(">>", polarity)
-			#subjectivity = text.sentiment.subjectivity
-			#print(subjectivity)
-
-			#print(timestampComment[row])
-			#'2014-06-01T00:00:00Z'
-			dateComment = timestampComment[row]
-			dateVideo = videoPublishedAt[row]
 			try:
-				dateComment = re.sub('T[0-9:Z]+','',dateComment)
-				dateVideo = re.sub('T[0-9:Z]+','',dateVideo)
-			except:
-				print("something wrong on convert dates...")
+				text = TextBlob(str(t))
+				#print(text.sentiment)
+				#print(text.sentiment.polarity, text.sentiment.subjectivity)
+				if text.sentiment.polarity < 0:
+					polarity="Negative"
+					#print(">>", polarity)
+				elif(text.sentiment.polarity > 0):
+					polarity="Positive"
+					#print(">>", polarity)
+				else:
+					polarity="Neutral"
+					#print(">>", polarity)
+				#subjectivity = text.sentiment.subjectivity
+				#print(subjectivity)
 
-			title = videoTitle[row]
-			title = demoji(title)
-			title = re.sub('&quot;+','',title)
-			title = title.lower()
-
-
-			#print(title)
-			if("just dance now" in title):
-				print("JD NOW")
-				# vai dar duplicado .... guardar numa lista e ir vendo se está? assim evita-se insercoes...
-				query = "insert into youtube values('Youtube','"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"')"
-				insertToTable(query)
-				# este nao...
-				query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', True, 'Just Dance Now', '"+str(polarity)+"', '"+str(videoID[row])+"')"
-				insertToTable(query)
-			else:
-				#print("JD")
-				query = "insert into youtube values('Youtube','"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"')"
-				insertToTable(query)
-				query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', 'True', 'Just Dance', '"+str(polarity)+"', '"+str(videoID[row])+"')"
-				insertToTable(query)
+				#print(timestampComment[row])
+				#'2014-06-01T00:00:00Z'
 				
-			result = annotate(t)
-			#print(result)
-			if(result is not None):
-				#print("> ",result[0])
-				#print(">>",result[1])
-				field = result[1]
-				concept = result[0]			
+				try:
+					dateComment = timestampComment[row]
+					dateVideo = videoPublishedAt[row]
+					dateComment = re.sub('T[0-9:Z]+','',dateComment)
+					dateVideo = re.sub('T[0-9:Z]+','',dateVideo)
+				except:
+					print("something wrong on convert dates...")
 
-				if (field == "Usability"):
-					query = "insert into opinion_usability values('"+str(commentID[row])+"', '"+str(concept)+"')"
-					insertToTable(query)
-				elif (field == "UX"):
-					query = "insert into opinion_ux values('"+str(commentID[row])+"', '"+str(concept)+"')"
-					insertToTable(query)
-				elif (field == "Health"):
-					query = "insert into opinion_health values('"+str(commentID[row])+"', '"+str(concept)+"')"
-					insertToTable(query)
-				#query = "insert into ux values('"+termo+"')"
-				#insertToTable(query)
+				title = videoTitle[row]
+				title = demoji(title)
+				title = re.sub('&quot;+','',title)
+				title = title.lower()
 
-				#print(views[row])
-				#print(likesVideo[row])
+
+				#print(title)
+				if("just dance now" in title):
+					print("JD NOW")
+					# vai dar duplicado .... guardar numa lista e ir vendo se está? assim evita-se insercoes...
+					query = "insert into youtube values('Youtube','"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"')"
+					insertToTable(query)
+					# este nao...
+					query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', True, 'Just Dance Now', '"+str(polarity)+"', '"+str(videoID[row])+"')"
+					insertToTable(query)
+				else:
+					#print("JD")
+					query = "insert into youtube values('Youtube','"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"')"
+					insertToTable(query)
+					query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', 'True', 'Just Dance', '"+str(polarity)+"', '"+str(videoID[row])+"')"
+					insertToTable(query)
+					
+				result = annotate(t)
+				#print(result)
+				if(result is not None):
+					#print("> ",result[0])
+					#print(">>",result[1])
+					field = result[1]
+					concept = result[0]			
+
+					if (field == "Usability"):
+						query = "insert into opinion_usability values('"+str(commentID[row])+"', '"+str(concept)+"')"
+						insertToTable(query)
+					elif (field == "UX"):
+						query = "insert into opinion_ux values('"+str(commentID[row])+"', '"+str(concept)+"')"
+						insertToTable(query)
+					elif (field == "Health"):
+						query = "insert into opinion_health values('"+str(commentID[row])+"', '"+str(concept)+"')"
+						insertToTable(query)
+					#query = "insert into ux values('"+termo+"')"
+					#insertToTable(query)
+
+					#print(views[row])
+					#print(likesVideo[row])
+			except:
+				print("something wrong.... annotate")
 		row += 1
 		#print(comments[2])
 

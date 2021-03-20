@@ -32,7 +32,7 @@ DetectorFactory.seed = 0
 
 
 #path = '../CSV/YT_10_03_2021_v6 - cópia 2.csv'
-path = '../CSV/YT_10_03_2021_v6 - cópia 2-ate 06-2014.csv'
+path = '../CSV/YT_10_03_2021_v6.csv'
 #path = '../CSV/YT_10_03_2021_v6.csv'
 data = pd.read_csv(path,lineterminator='\n',encoding='utf-8')
 

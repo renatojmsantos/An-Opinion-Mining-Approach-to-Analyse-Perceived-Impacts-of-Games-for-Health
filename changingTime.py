@@ -83,4 +83,4 @@ for ano in range (-1,12): #(-1,12)
         print(before)
         print(after)
 
-        time.sleep(5)
+        #time.sleep(5)
