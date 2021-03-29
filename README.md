@@ -10,3 +10,7 @@ Analysing Usability, User Experience, and Perceived Health Impacts of Games for 
 
 > java -jar metabase.jar
 > http://localhost:3000/
+
+
+CTRL+Z -> PAUSE
+fg -> resume

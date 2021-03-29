@@ -161,7 +161,7 @@ after = ''
 
 for ano in range (-1,12): #(-1,12)
     for mes in range(1,13): #todos os meses ... 11 anos * 12 meses = 132 meses
-        print(" . . . NOVO INTERVALO DE TEMPO")
+        #print(" . . . NOVO INTERVALO DE TEMPO")
         #time.sleep(60*4) #86400 = 1 dia sleep, 3600s = 1h
         #print(ano,mes)
         if(ano<10):
@@ -238,10 +238,10 @@ for ano in range (-1,12): #(-1,12)
         beginDate = before
         endDate = after
 
-        print("=================================================================================")
+        #print("=================================================================================")
         print("\n ================== FROM: ",beginDate)
         print(" ================== TO: ",endDate+"\n")
-        print("=================================================================================")
+        #print("=================================================================================")
 
         #nameCSV = "../CSV/YT_08_03_2021_v1.csv"
         nameCSV = "../CSV/"+sys.argv[1]+".csv"
@@ -282,7 +282,7 @@ for ano in range (-1,12): #(-1,12)
                         #print(search_result["snippet"])
                         titulo = search_result["snippet"]["title"]
                         #titulo = unidecode.unidecode(titulo)
-                        print(" >> NEW: ", titulo)
+                        #print(" >> NEW: ", titulo)
 
                         # detect language of video title?? with preprocesing? 
 
@@ -293,19 +293,22 @@ for ano in range (-1,12): #(-1,12)
                             tituloChannel=search_result["snippet"]["channelTitle"]
                             tituloChannel = unidecode.unidecode(tituloChannel)
 
+                            description = search_result["snippet"]["description"]
+
                             idChannel=search_result["snippet"]["channelId"]
                             videoPublishedAt=search_result["snippet"]["publishedAt"] #2017-02-13T02:52:38Z
                             
-                            print("######################")
+                            #print("######################")
                             #print("#############################################")
                             print("Titulo: ", search_result["snippet"]["title"])
+                            #print("Descricao: ", search_result["snippet"]["description"])
                             print("Video ID: ",search_result["id"]["videoId"])
                             print("Published at: ",search_result["snippet"]["publishedAt"])
 
                             videoID = search_result["id"]["videoId"]
                             #print(">>>",checkVideoID(str(videoID)))
                             if (checkVideoID(str(videoID)) is False):
-                                print("a adicionar novo video...")
+                                #print("a adicionar novo video...")
                                 if videoID not in lista_videoID:
                                     lista_videoID.append(videoID)
 
@@ -321,9 +324,9 @@ for ano in range (-1,12): #(-1,12)
                                         ).execute()
                                         #if search_result["items"]["kind"] == "youtube#video":
                                         #print(requestStats)
-                                        print(">>>>>>> stats video >>>>>>>>")
+                                        #print(">>>>>>> stats video >>>>>>>>")
                                         #print(requestStats["items"])
-                                        print("VIEWS = "+requestStats["items"][0]["statistics"]["viewCount"])
+                                        #print("VIEWS = "+requestStats["items"][0]["statistics"]["viewCount"])
                                         views = requestStats["items"][0]["statistics"]["viewCount"]
 
                                         if( (('commentCount' in requestStats["items"][0]["statistics"]) == True) and
@@ -339,16 +342,17 @@ for ano in range (-1,12): #(-1,12)
                                             nrCommentsV=0
                                             likesV=0
                                             dislikesV=0
-                                        print("Total comments video = ",nrCommentsV)
-                                        print(">>>>>>>>>>>>>>>>>>>>>>>>>\n")
+                                        #print("Total comments video = ",nrCommentsV)
+                                        #print(">>>>>>>>>>>>>>>>>>>>>>>>>\n")
 
 
                                         if(int(nrCommentsV) > 0):
-                                            print("getting comments of video ...")
+                                            #print("getting comments of video ...")
                                             comments=[]
                                             likes=[]
                                             commentsID = []
                                             data = []
+                                            mainComment = []
 
                                             nextPT = None
                                             while 1: #comentarios do videoID
@@ -394,6 +398,7 @@ for ano in range (-1,12): #(-1,12)
                                                         commentsID.append(commentID)
                                                         comments.append(comentario)
                                                         likes.append(nr_likes)
+                                                        mainComment.append("True")
 
                                                         # add to db ... check if is JD or JD now by video title
 
@@ -433,6 +438,7 @@ for ano in range (-1,12): #(-1,12)
                                                                         commentsID.append(replyID)
                                                                         comments.append(textReply)
                                                                         likes.append(likesReply)
+                                                                        mainComment.append("False")
 
                                                                         # add to db ... check if is JD or JD now by video title
 
@@ -478,6 +484,8 @@ for ano in range (-1,12): #(-1,12)
                                             dict = {'Video Title': [titulo] * len(comments),'videoID': [videoID] * len(comments),
                                                     'Comment': comments, 'CommentID': commentsID,
                                                     'Likes': likes, 'TimeStampComment': data,
+                                                    'MainComment': mainComment,
+                                                    'Description': [description] * len(comments), 
                                                     'Channel': [tituloChannel] * len(comments), 'ChannelID': [idChannel] * len(comments),
                                                     'VideoPublishedAt': [videoPublishedAt] * len(comments),
                                                     'ViewsVideo': [views] * len(comments), 'likesVideo':[likesV] * len(comments),
@@ -488,13 +496,13 @@ for ano in range (-1,12): #(-1,12)
                                             #print("\n")
                                             #print(out_df)
                                             conta += 1
-                                            print("—————————————————————————————————————————————————————————————————————")
-                                            print("Writing csv ...")
+                                            #print("—————————————————————————————————————————————————————————————————————")
+                                            #print("Writing csv ...")
                                             print(">>>   VIDEO # ", conta)
                                             #print(". . . nr comentarios total = ",nrComentarios)
                                             writedComments+=len(comments)
                                             print(" . . writed comments = ",writedComments)
-                                            print("—————————————————————————————————————————————————————————————————————")
+                                            #print("—————————————————————————————————————————————————————————————————————")
 
                                             #print(". . . stats total comentarios = ", contaStatsComments)
                                             #first time
@@ -506,7 +514,7 @@ for ano in range (-1,12): #(-1,12)
                                             #out_df.to_csv(nameCSV, mode='a', header=False,index=False)   
                                             #time.sleep(0.6)
                                         else:
-                                            print("NO COMMENTS!")
+                                            #print("NO COMMENTS!")
                                             #break
                                             continue        
                                     except HttpError as e:
@@ -522,16 +530,16 @@ for ano in range (-1,12): #(-1,12)
                                     #print(len(comments))
                                     
                                 else:
-                                    print(" X REJECT! Video repetido\n")
+                                    #print(" X REJECT! Video repetido\n")
                                     break
                             else:
                                 print("video já inserido na BD...")
                         else:
-                            print(" X REJECT! lady gaga or something else\n")
+                            #print(" X REJECT! lady gaga or something else\n")
                             continue
                 #time.sleep(0.25)
                 if nextPage_token is None:
-                    print("\n~~~~ nr de videos atual: ", conta)
+                    #print("\n~~~~ nr de videos atual: ", conta)
                     #time.sleep(20)
                     break #sem break, começa tudo de novo
             except HttpError as e:

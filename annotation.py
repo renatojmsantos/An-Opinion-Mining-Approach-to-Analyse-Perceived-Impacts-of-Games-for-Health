@@ -245,8 +245,8 @@ def executeAnnotation():
 		totalCommentsVideo = data['totalCommentsVideo']
 		"""
 
-#insertTablesConceitos()
-executeAnnotation()
+insertTablesConceitos()
+#executeAnnotation()
 
 #connect()
 """

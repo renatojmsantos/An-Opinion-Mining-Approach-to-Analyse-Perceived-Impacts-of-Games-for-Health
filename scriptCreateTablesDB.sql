@@ -26,7 +26,6 @@ CREATE TABLE opinion (
 
 CREATE TABLE sentiment (
 	polarity	 VARCHAR(512),
-	subjectivity NUMERIC(8,2),
 	PRIMARY KEY(polarity)
 );
 
@@ -82,7 +81,7 @@ ALTER TABLE opinion_usability ADD CONSTRAINT opinion_usability_fk2 FOREIGN KEY (
 insert into game values('Just Dance');
 insert into game values('Just Dance Now');
 
-insert into sentiment values ('Positive','0.3');
-insert into sentiment values ('Negative','0.3');
-insert into sentiment values ('Neutral','0.3');
+insert into sentiment values ('Positive');
+insert into sentiment values ('Negative');
+insert into sentiment values ('Neutral');
 
