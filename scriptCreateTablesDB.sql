@@ -1,5 +1,4 @@
 CREATE TABLE youtube (
-	source		 VARCHAR(512),
 	channelid		 VARCHAR(512),
 	channeltitle	 VARCHAR(512),
 	videoid		 VARCHAR(512) NOT NULL,
@@ -9,6 +8,7 @@ CREATE TABLE youtube (
 	likesvideo	 INTEGER,
 	dislikesvideo	 INTEGER,
 	totalcommentsvideo BIGINT,
+	description	 VARCHAR(10000),
 	PRIMARY KEY(videoid)
 );
 
