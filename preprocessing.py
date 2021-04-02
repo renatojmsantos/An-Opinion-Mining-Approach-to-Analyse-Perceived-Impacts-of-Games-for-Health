@@ -30,12 +30,16 @@ import emoji
 import unicodedata
 
 
+from spellchecker import SpellChecker
 
-import spacy
-from spacy.language import Language
-from spacy_langdetect import LanguageDetector
+#import spacy
+#from spacy.language import Language
+#from spacy_langdetect import LanguageDetector
 #from spacy_fastlang import LanguageDetector
 
+
+from flair.data import Sentence
+from flair.models import SequenceTagger
 
 
 
@@ -180,25 +184,47 @@ def isEnglish(text):
 	#nlp.analyze_pipes(pretty=True)
 	
 	"""
-
-	
-	try:
-		language = detect(text)
-		print(text)
-		print(language)
-		if (language == "en"):
-			return True
-		else:
-			return False
-	except:
-		print("ERRO lang_detect ...")
+	if(len(text.split()) <= 5):
+		try:
+			#print("TextBlob")
+			lang = TextBlob(text)
+			print(text)
+			print(lang.detect_language())
+			if(lang.detect_language() =="en"):
+				return True
+			else:
+				return False
+		except:
+			print("fail text blob")
+			try:
+				language = detect(text)
+				print(text)
+				print(language)
+				if (language == "en"):
+					return True
+				else:
+					return False
+			except:
+				print("ERRO lang_detect ...")
+	else:
+		#print("len > 4")
+		try:
+			language = detect(text)
+			print(text)
+			print(language)
+			if (language == "en"):
+				return True
+			else:
+				return False
+		except:
+			print("ERRO lang_detect ...")
 	
 	return False
 	
 
 #listaPalavras = ["🤗","l","I’d like to know how I’d done that!","I'd like to play!", "abc","sex","stop","this game/ is! great!","this is great", "isto é bom","i love thiq gam ","u know","hi","a","aaa","big https://wwww.uc.pt THE BEST url: http://blah.com/path/to/here?p=1&q=abc,def#posn2 #ahashtag http://t.co/FNkPfmii-","@rui ola 🙀🤗🤗🤗🤗","best game #yolo :)","my best  friend from   germany !!!!!!!!!! lol ...... ","beautifulllll","OMG 🤯", "YOU 🤯🤯🤯🤯are goooood ", "issijjsij","laranja","orange","how","fix this"]
-#listaPalavras = ["🙀","🤗","that's great", "90 years old", "it's ok! " "i'm renato", "u are good","renato", "benfica champions", "luv omg bff 4ever", "bd eheheheheheni ijij","you are my bff", "yes omg ", "ly <3", "@rui ola 🙀🤗🤗🤗🤗","OMG 🤯", "LOL", "amazing thing 2 u", "YOU 🤯🤯🤯🤯are goooood "]
-listaPalavras = ["🙀","🤗","that's great", "90 years old", "it's ok! " "my name is Renato", "u are good"]
+listaPalavras = ["o meu nome é renato", "pastel", "futebol", "i live in Portugal, and i think Just Dance is the best ever! ", "Renato Santos is the boss!", "adoro comer", "90 years old", "it's ok! ", "i'm renato", "u are good","renato", "benfica champions", "luv omg bff 4ever", "bd eheheheheheni ijij","you are my bff", "yes omg ", "ly <3", "@rui ola 🙀🤗🤗🤗🤗","OMG 🤯", "LOL", "amazing thing 2 u", "Donald Trump is the USA president", "YOU 🤯🤯🤯🤯are goooood "]
+#listaPalavras = ["🙀","🤗","that's great", "90 years old", "it's ok! " "my name is Renato", "u are good"]
 
 
 def emojiToCLDRshortName(text):
@@ -401,14 +427,60 @@ def caracteresRepetidos(text):
 	else:
 		return text
 
+tagger = SequenceTagger.load("flair/ner-english-large")
+#tagger = SequenceTagger.load("ner")
+
+#nltk.download('words')
 
 def spellCorrection(text):
-	t = TextBlob(text).correct()
+	
 
 	# NER - Name Entity Reconection 
 	# se for NER nao corrigir... person name, locations, organizations, other names...
 	#print(t)
-	return t
+
+	
+	#https://medium.com/analytics-vidhya/practical-approach-of-state-of-the-art-flair-in-named-entity-recognition-46a837e25e6b
+	# The good thing about Flair NER is it works based on context
+
+	# make example sentenc
+	
+	sentence = Sentence(text)
+	# predict NER tags
+	tagger.predict(sentence)
+	# print sentence
+	print(sentence)
+	# print predicted NER spans
+	#print('The following NER tags are found:')
+	# iterate over entities and print
+	for entity in sentence.get_spans('ner'):
+		print(entity)
+		if entity not in text:
+			text = TextBlob(text).correct()
+
+
+	#print(sentence.to_dict(tag_type='ner'))
+	
+
+
+	"""
+	word = nltk.word_tokenize(text)
+	pos_tag = nltk.pos_tag(word)
+	chunk = nltk.ne_chunk(pos_tag)
+	NE = [ " ".join(w for w, t in ele) for ele in chunk if isinstance(ele,nltk.Tree)]
+	print(NE)
+	"""
+
+	#spell = SpellChecker()
+	
+	#misspelled = spell.unknown(str(text))
+	#print(misspelled)
+	
+
+
+	#t = TextBlob(text).correct()
+
+	return text
 
 
 def slangs(text):
@@ -503,10 +575,11 @@ def runPreprocessing(t):
 		#print(len(t))
 		t = caracteresRepetidos(t)
 		#print(t)
-		t = spellCorrection(t) # rever
-		#print(t)
-		if (len(t) >= 3 and isEnglish(str(t))):
-			return t
+		if(isEnglish(str(t))):
+			t = spellCorrection(t) # rever
+			#print(t)
+			if (len(t) >= 3 and isEnglish(str(t))):
+				return t
 	return "None"
 	
 

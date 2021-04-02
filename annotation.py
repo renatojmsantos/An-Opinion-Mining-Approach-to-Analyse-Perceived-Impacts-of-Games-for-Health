@@ -37,7 +37,11 @@ dict={	'Usability':{
 			'Fatigue': {'fatigue': 1.0, 'exhaustion': 0.9},
 			'Sleep and rest': {'sleep': 1.0,'waking up': 1.0, 'refreshment': 1.0,'rest': 1.0},
 			'Positive feelings': {'positive feelings': 1.0, 'enjoyment': 1.0,'joy': 1.0,'hopefulness': 1.0,'happiness': 1.0,'peace': 1.0,'balance': 1.0,'contentment': 1.0},
-			'Thinking, learning, memory and concentration': {'thinking': 1.0, 'aware': 1.0,'awake': 1.0,'alert': 1.0,'cognitive': 1.0,'thought': 1.0,'decisions': 1.0,'forget': 1.0, 'learning': 1.0, 'memory': 1.0, 'concentration': 1.0},
+			#'Thinking, learning, memory and concentration': {'thinking': 1.0, 'aware': 1.0,'awake': 1.0,'alert': 1.0,'cognitive': 1.0,'thought': 1.0,'decisions': 1.0,'forget': 1.0, 'learning': 1.0, 'memory': 1.0, 'concentration': 1.0},
+			'Thinking': {'thinking': 1.0, 'aware': 1.0,'awake': 1.0,'cognitive': 1.0,'intelligent': 1.0,'idea': 1.0,'thought': 1.0,'decisions': 1.0},
+			'Learning': {'cognitive': 1.0, 'education': 1.0,'knowledge': 1.0,'pedagogy': 1.0, 'learning': 1.0,  'learn': 1.0},
+			'Memory': {'forget': 1.0, 'alzheimer': 0.7, 'dementia': 0.8,'memory': 1.0, 'cognitive': 0.8},
+			'Concentration': {'aware': 1.0,'awake': 1.0,'alert': 1.0,'attention': 0.9, 'cognitive': 0.8, 'concentration': 1.0},
 			'Self-esteem': {'self-esteem': 1.0, 'meaningful': 1.0,'self-acceptance': 1.0,'dignity': 1.0,'family': 1.0,'people': 1.0,'education': 1.0,'control': 1.0,'oneself': 1.0,'satisfaction': 1.0},
 			'Bodily image and appearance': {'bodily image': 1.0, 'handicapped': 1.0,'physical handicapped': 1.0,'physical': 1.0,'body image': 1.0,'limbs': 1.0,'artificial limbs': 1.0,'clothing': 1.0,'make-up': 1.0,'impairments': 1.0,'looks': 1.0,'appearance': 0.9, 'body': 0.8},
 			'Negative feelings': {'negative feelings': 1.0, 'lack': 1.0,'anxiety': 1.0,'nervousness': 1.0,'despair': 1.0,'tearfulness': 1.0,'sadness': 1.0,'guilt': 1.0,'despondency': 1.0},
@@ -192,18 +196,18 @@ def executeAnnotation():
 					print("JD NOW")
 					# vai dar duplicado .... guardar numa lista e ir vendo se está? assim evita-se insercoes...
 					query = "insert into youtube values('Youtube','"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"')"
-					insertToTable(query)
+					#insertToTable(query)
 					# este nao...
 					query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', True, 'Just Dance Now', '"+str(polarity)+"', '"+str(videoID[row])+"')"
-					insertToTable(query)
+					#insertToTable(query)
 				else:
 					#print("JD")
 					query = "insert into youtube values('Youtube','"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"')"
-					insertToTable(query)
+					#insertToTable(query)
 					query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', 'True', 'Just Dance', '"+str(polarity)+"', '"+str(videoID[row])+"')"
-					insertToTable(query)
+					#insertToTable(query)
 					
-				result = annotate(t)
+				result = annotate(t) # NAO ESTÁ A INSERIR MAIS DO QUE UM CONCEITO AO MESMO COMMENT ID .... 
 				#print(result)
 				if(result is not None):
 					#print("> ",result[0])
@@ -213,13 +217,13 @@ def executeAnnotation():
 
 					if (field == "Usability"):
 						query = "insert into opinion_usability values('"+str(commentID[row])+"', '"+str(concept)+"')"
-						insertToTable(query)
+						#insertToTable(query)
 					elif (field == "UX"):
 						query = "insert into opinion_ux values('"+str(commentID[row])+"', '"+str(concept)+"')"
-						insertToTable(query)
+						#insertToTable(query)
 					elif (field == "Health"):
 						query = "insert into opinion_health values('"+str(commentID[row])+"', '"+str(concept)+"')"
-						insertToTable(query)
+						#insertToTable(query)
 					#query = "insert into ux values('"+termo+"')"
 					#insertToTable(query)
 
@@ -247,8 +251,8 @@ def executeAnnotation():
 		totalCommentsVideo = data['totalCommentsVideo']
 		"""
 
-insertTablesConceitos()
-#executeAnnotation()
+#insertTablesConceitos()
+executeAnnotation()
 
 #connect()
 """
