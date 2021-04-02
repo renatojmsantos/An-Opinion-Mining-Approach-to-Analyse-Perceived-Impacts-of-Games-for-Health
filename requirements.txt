@@ -1,3 +1,5 @@
 psycopg2-binary-2.8.6
 python -m pip install -U pycld3
 demoji.download_codes()
+python -m spacy download en_core_web_sm
+python -m spacy download en_core_web_trf

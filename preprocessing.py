@@ -31,6 +31,12 @@ import unicodedata
 
 
 
+import spacy
+from spacy.language import Language
+from spacy_langdetect import LanguageDetector
+#from spacy_fastlang import LanguageDetector
+
+
 
 
 #from abbr import expandall
@@ -40,6 +46,7 @@ DetectorFactory.seed = 0
 
 #path = '../CSV/YT_10_03_2021_v6 - cópia 2.csv'
 path = '../CSV/YT_10_03_2021_v6.csv'
+#path = 'YT_repliesDif-Descript-ALL'
 #path = '../CSV/YT_10_03_2021_v6.csv'
 data = pd.read_csv(path,lineterminator='\n',encoding='utf-8')
 
@@ -137,21 +144,62 @@ def isEnglish(text):
 	#language = lang.detect_language()
 
 	#print(detect(text))
+
+	"""
+	nlp = spacy.load('en_core_web_sm') #trf
+	nlp.add_pipe(LanguageDetector())#,name='language_detector',last=True)
+	doc = nlp(text)
+	detect_language = doc._.language
+	print(detect_language)
+	"""
+
+	"""
+	# Add LanguageDetector and assign it a string name
+	@Language.factory("language_detector")
+	def create_language_detector(nlp, name):
+	    return LanguageDetector(language_detection_function=None)
+
+	# Use a blank Pipeline, also a model can be used, e.g. nlp = spacy.load("en_core_web_sm")
+	nlp = spacy.load("en_core_web_trf")
+
+	# Add sentencizer for longer text
+	nlp.add_pipe('sentencizer')
+
+	# Add components using their string names
+	nlp.add_pipe("language_detector")
+
+	# Analyze components and their attributes
+	#text = "This is an English text."
+	doc = nlp(text)
+
+
+	# Document level language detection.
+	print(doc._.language)
+
+	# See what happened to the pipes
+	#nlp.analyze_pipes(pretty=True)
+	
+	"""
+
+	
 	try:
 		language = detect(text)
+		print(text)
+		print(language)
 		if (language == "en"):
 			return True
 		else:
 			return False
 	except:
 		print("ERRO lang_detect ...")
-	# procurar outro com maior accuracy ...
 	
 	return False
 	
 
 #listaPalavras = ["🤗","l","I’d like to know how I’d done that!","I'd like to play!", "abc","sex","stop","this game/ is! great!","this is great", "isto é bom","i love thiq gam ","u know","hi","a","aaa","big https://wwww.uc.pt THE BEST url: http://blah.com/path/to/here?p=1&q=abc,def#posn2 #ahashtag http://t.co/FNkPfmii-","@rui ola 🙀🤗🤗🤗🤗","best game #yolo :)","my best  friend from   germany !!!!!!!!!! lol ...... ","beautifulllll","OMG 🤯", "YOU 🤯🤯🤯🤯are goooood ", "issijjsij","laranja","orange","how","fix this"]
-listaPalavras = ["🙀","🤗","u are good","renato", "benfica champions", "lol@u eheheheheheni ijij","you are my bff", "yes omg ", "ly <3", "@rui ola 🙀🤗🤗🤗🤗","OMG 🤯", "LOL", "amazing thing 2 u", "YOU 🤯🤯🤯🤯are goooood "]
+#listaPalavras = ["🙀","🤗","that's great", "90 years old", "it's ok! " "i'm renato", "u are good","renato", "benfica champions", "luv omg bff 4ever", "bd eheheheheheni ijij","you are my bff", "yes omg ", "ly <3", "@rui ola 🙀🤗🤗🤗🤗","OMG 🤯", "LOL", "amazing thing 2 u", "YOU 🤯🤯🤯🤯are goooood "]
+listaPalavras = ["🙀","🤗","that's great", "90 years old", "it's ok! " "my name is Renato", "u are good"]
+
 
 def emojiToCLDRshortName(text):
 	has_emoji = bool(emoji.get_emoji_regexp().search(text))
@@ -171,13 +219,21 @@ def emojiToCLDRshortName(text):
 def clearText(text):
 	# remove emojis
 	#text = demoji(text)
-	print("0 — " , text)
+	#print("0 — " , text)
+
+	#contracoes inglesas... that's -> that is
+	text = contractions(text)
+	# acronimos e expressoes da giria popular
+	text = slangs(text)
+	#print("0 — " , text)
 	# emojis to string
 	text = str(emojiToCLDRshortName(text))
 	#print("#",text)
-	print("1 — " , text)
 	# remove URLs
 	text = re.sub('https?://[A-Za-z0-9./?&=_]+','',text)
+
+	#text = slangs(text)
+
 	# hashtags
 	text = re.sub('#[A-Za-z0-9]+','',text)
 	# mencoes
@@ -185,6 +241,7 @@ def clearText(text):
 	# to lower
 	text = text.lower()
 
+	#print("0 — " , text)
 	#https://pypi.org/project/pycontractions/
 	# expand abreviaturas ...
 	# remover pontuacao
@@ -194,29 +251,176 @@ def clearText(text):
 	text = re.sub(r"[\W\s]"," ",text)
 	text = re.sub("\n","",text)
 
+	#print("0 — " , text)
 	return text
+
+def contractions(text):
+	#https://gist.github.com/nealrs/96342d8231b75cf4bb82
+	cDict = {
+	  "ain't": "am not",
+	  "aren't": "are not",
+	  "can't": "cannot",
+	  "can't've": "cannot have",
+	  "'cause": "because",
+	  "could've": "could have",
+	  "couldn't": "could not",
+	  "couldn't've": "could not have",
+	  "didn't": "did not",
+	  "doesn't": "does not",
+	  "don't": "do not",
+	  "hadn't": "had not",
+	  "hadn't've": "had not have",
+	  "hasn't": "has not",
+	  "haven't": "have not",
+	  "he'd": "he would",
+	  "he'd've": "he would have",
+	  "he'll": "he will",
+	  "he'll've": "he will have",
+	  "he's": "he is",
+	  "how'd": "how did",
+	  "how'd'y": "how do you",
+	  "how'll": "how will",
+	  "how's": "how is",
+	  "I'd": "I would",
+	  "I'd've": "I would have",
+	  "I'll": "I will",
+	  "I'll've": "I will have",
+	  "I'm": "I am",
+	  "I've": "I have",
+	  "isn't": "is not",
+	  "it'd": "it had",
+	  "it'd've": "it would have",
+	  "it'll": "it will",
+	  "it'll've": "it will have",
+	  "it's": "it is",
+	  "let's": "let us",
+	  "ma'am": "madam",
+	  "mayn't": "may not",
+	  "might've": "might have",
+	  "mightn't": "might not",
+	  "mightn't've": "might not have",
+	  "must've": "must have",
+	  "mustn't": "must not",
+	  "mustn't've": "must not have",
+	  "needn't": "need not",
+	  "needn't've": "need not have",
+	  "o'clock": "of the clock",
+	  "oughtn't": "ought not",
+	  "oughtn't've": "ought not have",
+	  "shan't": "shall not",
+	  "sha'n't": "shall not",
+	  "shan't've": "shall not have",
+	  "she'd": "she would",
+	  "she'd've": "she would have",
+	  "she'll": "she will",
+	  "she'll've": "she will have",
+	  "she's": "she is",
+	  "should've": "should have",
+	  "shouldn't": "should not",
+	  "shouldn't've": "should not have",
+	  "so've": "so have",
+	  "so's": "so is",
+	  "that'd": "that would",
+	  "that'd've": "that would have",
+	  "that's": "that is",
+	  "there'd": "there had",
+	  "there'd've": "there would have",
+	  "there's": "there is",
+	  "they'd": "they would",
+	  "they'd've": "they would have",
+	  "they'll": "they will",
+	  "they'll've": "they will have",
+	  "they're": "they are",
+	  "they've": "they have",
+	  "to've": "to have",
+	  "wasn't": "was not",
+	  "we'd": "we had",
+	  "we'd've": "we would have",
+	  "we'll": "we will",
+	  "we'll've": "we will have",
+	  "we're": "we are",
+	  "we've": "we have",
+	  "weren't": "were not",
+	  "what'll": "what will",
+	  "what'll've": "what will have",
+	  "what're": "what are",
+	  "what's": "what is",
+	  "what've": "what have",
+	  "when's": "when is",
+	  "when've": "when have",
+	  "where'd": "where did",
+	  "where's": "where is",
+	  "where've": "where have",
+	  "who'll": "who will",
+	  "who'll've": "who will have",
+	  "who's": "who is",
+	  "who've": "who have",
+	  "why's": "why is",
+	  "why've": "why have",
+	  "will've": "will have",
+	  "won't": "will not",
+	  "won't've": "will not have",
+	  "would've": "would have",
+	  "wouldn't": "would not",
+	  "wouldn't've": "would not have",
+	  "y'all": "you all",
+	  "y'alls": "you alls",
+	  "y'all'd": "you all would",
+	  "y'all'd've": "you all would have",
+	  "y'all're": "you all are",
+	  "y'all've": "you all have",
+	  "you'd": "you had",
+	  "you'd've": "you would have",
+	  "you'll": "you you will",
+	  "you'll've": "you you will have",
+	  "you're": "you are",
+	  "you've": "you have"
+	}
+
+	c_re = re.compile('(%s)' % '|'.join(cDict.keys()))
+
+	def expandContractions(text, c_re=c_re):
+	    def replace(match):
+	        return cDict[match.group(0)]
+	    return c_re.sub(replace, text)
+	
+	text = expandContractions(text)
+
+	return text
+
 
 def caracteresRepetidos(text):
 	# é preciso ter em conta as palavras inglesas.... "good", "god", ... 
 	# https://www.nltk.org/_modules/nltk/tokenize/casual.html#reduce_lengthening
-	pattern = regex.compile(r"(.)\1{2,}")
-	return pattern.sub(r"\1\1\1", text)
+	#print(len(text.split()))
+	#print("**", text)
+	if (len(text) > 1):
+		pattern = regex.compile(r"(.)\1{2,}")
+		#print("***", text)
+		return pattern.sub(r"\1\1\1", text)
+	else:
+		return text
 
 
 def spellCorrection(text):
 	t = TextBlob(text).correct()
+
+	# NER - Name Entity Reconection 
+	# se for NER nao corrigir... person name, locations, organizations, other names...
 	#print(t)
 	return t
 
 
 def slangs(text):
-	print("** ",text)
+	#print("** ",text)
+	#print(text.lower().strip().split())
 	file = 'acronimos.csv'
 	acron = pd.read_csv(file,lineterminator='\n',encoding='utf-8')
 
 	slang = acron['slang']
 	complete = acron['complete']
 	row = 0
+
 	"""
 	for s in slang:
 		#print(text.lower().strip().split())
@@ -240,8 +444,31 @@ def slangs(text):
 			row+=1
 	"""
 
-	#for t in text.strip().split():
-	#	print (t)
+	for s in slang:
+		if(slang[row] in text.lower().strip().split()):
+			#print("TRUE")
+			#print(text)
+			print("#",slang[row]+ "-->"+ str(complete[row].strip()))
+			#print("##",row,s,c)
+			text = text.lower()
+			text = text.replace(slang[row],str(complete[row].strip()))
+			#print("$",text)
+			
+			#text = re.sub(s, c, text)
+			#break
+		else:
+			row+=1
+	return text
+
+	"""
+	for t in text.strip().split():
+		#print (t)
+		if (slang[row] in t):
+			print("TRUE")
+			text = text.replace(slang[row],str(complete[row].strip()))
+		else:
+			row+=1
+	"""
 	#for s in slang:
 	#	print(s)
 
@@ -253,7 +480,7 @@ def slangs(text):
 	else:
 		row+=1
 	"""
-	print("~",text)
+	#print("~",text)
 
 	"""
 	try:
@@ -270,12 +497,14 @@ def runPreprocessing(t):
 	#print("running clean ... ")
 	#check csv slangs...
 	t = clearText(t)
-	t = slangs(t)
+	#t = slangs(t)
 	if(len(t) >= 3):
 		#print("\n",t)
 		#print(len(t))
 		t = caracteresRepetidos(t)
+		#print(t)
 		t = spellCorrection(t) # rever
+		#print(t)
 		if (len(t) >= 3 and isEnglish(str(t))):
 			return t
 	return "None"
@@ -286,6 +515,8 @@ for t in listaPalavras: #t in comments:
 	print("\n>>> ",t)
 	t = runPreprocessing(t)
 	print("> ",t)
+
+
 
 """
 # contra tratados
