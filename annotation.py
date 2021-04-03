@@ -3,6 +3,10 @@ from preprocessing import *
 from connectDB import *
 import pandas as pd
 
+from nrclex import NRCLex
+from senticnet.senticnet import SenticNet
+
+
 # ver artigo CHI 13, table 8
 dict={	
 		'Usability':{
@@ -14,23 +18,23 @@ dict={
 		},
 		'UX':{
 			'Likeability': {'likeability': 1.0, 'like':0.9}, 
-			'Pleasure': {'pleasure': 1.0, 'fun': 0.7, 'enjoy': 0.7, 'love': 0.7, 'entertain': 0.7, 'awesome': 0.8, 'stimulation':0.7, 'felt': 0.7, 'sooth': 0.7, 'adict': 0.7, 'nostalgia': 0.7},
+			'Pleasure': {'pleasure': 1.0, 'fun': 0.7, 'moneybag':0.7, 'enjoy': 0.7, 'love': 0.7, 'entertain': 0.7, 'awesome': 0.8, 'stimulation':0.7, 'felt': 0.7, 'sooth': 0.7, 'adict': 0.7, 'nostalgia': 0.7},
 			'Comfort': {'comfort': 1.0, 'physical': 0.7},
 			'Trust': {'trust': 1.0, 'behavior': 0.8},
 			'Anticipation': {'anticipation': 1.0, 'expectation': 1.0},
 			'Overall Usability': {'overall usability': 1.0, 'new version': 0.8, 'upgrade':0.8, 'edition': 0.8, 'previous edition':0.8},
 			'Hedonic': {'hedonic': 1.0, 'fun': 0.8, 'enjoy': 0.8, 'frustrat': 0.8, 'fulfillment': 0.9, 'needs': 0.8, 'pleasure':0.7,'enjoyment':0.7,'frustration':0.7, 'annoy': 0.8, 'entertain': 0.8, 'game': 0.8,'multiplayer': 0.8, 'gaming': 0.8, 'gameplay': 0.8, 'play': 0.8, 'humor': 0.8, 'workout': 0.8, 'nostalgia': 0.6},
 			'Detailed Usability': {'detailed usability': 1.0, 'great': 0.7, 'details': 0.9, 'functions': 0.9, 'satisfaction': 0.7,'usability': 0.7, 'best':0.7, 'problem': 0.7},
-			'User Differences': {'user differences': 1.0,'user group': 0.7,'group': 0.7,'buyers': 0.7,'target': 0.7,'features': 0.7, 'differences': 0.7, 'if you': 0.6},
+			'User Differences': {'user differences': 1.0,'user group': 0.7,'group': 0.7,'beginners':0.9, 'veterans':0.9,'pro player':0.9, 'amateur':0.9,'professional':0.9,'finalists':0.6, 'professional dancers':0.8,'buyers': 0.7,'target': 0.7,'features': 0.7, 'differences': 0.7, 'if you': 0.6},
 			'Support': {'support':1.0, 'help':0.8, 'wish': 0.7,'software': 0.7,},
 			'Impact': {'impact': 1.0, 'pattern': 0.7},
-			'Affect and Emotion': {'affect': 1.0, 'emotion': 1.0, 'frustration': 0.7,'fun': 0.8, 'enjoy': 0.8, 'excit': 0.8, 'cute': 0.8, 'nevertheless': 0.8, 'laugh': 0.8, 'annoy': 0.8},
-			'Enjoyment and Fun': {'joy':0.9, 'enjoyment': 1.0, 'hedonic': 1.0,'emotion': 1.0,'affect': 1.0,'fun': 1.0, 'entertain': 0.9},
+			'Affect and Emotion': {'affect': 1.0, 'emotion': 1.0, 'frustration': 0.7,'fun': 0.8, 'enjoy': 0.8, 'addict': 0.7, 'workout': 0.7, 'excit': 0.8, 'cute': 0.8, 'nevertheless': 0.8, 'laugh': 0.8, 'annoy': 0.8},
+			'Enjoyment and Fun': {'joy':0.9, 'enjoyment': 1.0, 'hedonic': 1.0,'emotion': 1.0,'affect': 1.0,'fun': 1.0, 'younger': 0.7, 'entertain': 0.9},
 			'Aesthetics and Appeal': {'aesthetics': 1.0, 'taste': 1.0,'beauty': 1.0,'appreciation': 1.0,'appeal': 1.0, 'graphic':0.9, 'sound':0.9, 'song': 0.9, 'voice':0.9, 'playlist':0.9, 'music':0.9, 'soundtrack':0.9, 'effect':0.8, 'look':0.8, 'color':0.8, 'visual': 0.8, 'detail': 0.6, 'render': 0.5, 'pixel': 0.5},
 			'Engagement': {'engagement': 1.0, 'challeng': 0.9, 'flow': 1.0,'skills': 1.0,'needs': 1.0,'forget': 1.0,'engaged': 1.0,'addict': 0.9, 'addition': 1.0, 'replay':0.7, 'nonstop': 0.9, 'interest':0.7},
 			'Motivation': {'motivation': 1.0, 'task': 1.0},
 			'Enchantment': {'enchantment': 1.0, 'concentration': 1.0,'attention': 1.0,'liveliness': 1.0,'fullness': 1.0,'pleasure': 1.0,'disorientation': 1.0,'experience': 1.0},
-			'Frustration': {'frustration': 1.0, 'hardship': 1.0,'boring': 0.8, 'hardest': 0.7, 'insult': 0.7, 'injuri': 0.7, 'nerv': 0.7, 'unfair':0.7, 'cheat':0.7, 'annoy':0.7, 'incompatibilit':0.7},
+			'Frustration': {'frustration': 1.0, 'hardship': 1.0,'boring': 0.8, 'hardest': 0.7, 'dissadvantag': 0.8, 'insult': 0.7, 'injuri': 0.7, 'nerv': 0.7, 'unfair':0.7, 'cheat':0.7, 'annoy':0.7, 'incompatibilit':0.7},
 		},
 		'Health':{
 			'Pain and discomfort': {'pain': 1.0, 'distressing': 1.0,'unpleasant': 1.0,'discomfort': 1.0}, 
@@ -121,13 +125,29 @@ def insertTablesConceitos():
 
 #insertTablesConceitos()
 
-def annotate(text):
+def annotate(text, polarity):
+	print("\n>>>>>>> ",text)
+	print(">>> ", polarity)
 
 	# emolex 
+	print(NRCLex(text.affect_list))
+	print(NRCLex(text.affect_dict))
+	print(NRCLex(text.affect_raw_emotion_scores))
+	print(NRCLex(text.affect_top_emotions))
+	print(NRCLex(text.affect_affect_frequencies))
+
+	print("-------------------------------------------------------------------")
+	sn = SenticNet()
+	print(sn.concept(text))
+	print(sn.polarity_label(text))
+	print(sn.polarity_value(text))
+	print(sn.moodtags(text))
+	print(sn.semantics(text))
+	print(sn.sentics(text))
+	#senticnet
 	# lemmas 
 	# sinonimos, antonios, hiponimos, meronimos -> wordnet ( textblob)
-	
-	
+
 	dictAnotado = {}
 	for items in dict.items():
 		chave = items[0]
@@ -142,30 +162,26 @@ def annotate(text):
 			#print(" #", termo)
 			for p in pals.items():
 				pal = p[0]
-				probalidade = p[1]
-				#print("  ",pal,probalidade)
+				#probalidade = p[1]
 				if (pal in text):
-					#print(pal, termo, chave)
-					#r = []
-					#r.append(termo)
-					#r.append(chave)
-					#return r
-					#return (termo, chave)
-					#print("#", termo,chave)
 					if chave not in dictAnotado.keys():
 						dictAnotado[chave] = [termo]
 					elif termo not in dictAnotado[chave]:
 						dictAnotado[chave].append(str(termo))
 					#print(dictAnotado)
 				else:
+					#estrategia ...
+
 					continue
-			#return (termo, chave)
 	return dictAnotado
 #print(comments)
 
 #print(comments[0])
 
-teste = ["this give me nostalgia",]
+teste = ["this give me nostalgia","this game is awesome", "can you fix the servers?", "i burned a lot of calories playing this", 'if you like multiplayer strategy games, buy this with confidence',
+			'those expectations were met. Mostly, anyway', 'making the game enjoyable for beginners as well as veterans.','Multiplayer is excellent, but the single player campaign isn’t.',
+			'Most of the inter-mission story telling happen in this mode, which tend to be awkward and clumsy.',
+			'Most of the missions are enjoyable, and each one has optional goals which add replay value.']
 
 def executeAnnotation():
 	row = 0
@@ -174,7 +190,7 @@ def executeAnnotation():
 			t = runPreprocessing(t)
 			if (t != "None"):
 				# print texto tratado e valido
-				print(">>>>>",t) 
+				#print(">>>>>",t) 
 				#sentiment analysis
 				try:
 					text = TextBlob(str(t))
@@ -196,7 +212,7 @@ def executeAnnotation():
 
 					#print(timestampComment[row])
 					#'2014-06-01T00:00:00Z'
-					print(polarity)
+					#print(polarity)
 
 					try:
 						dateComment = timestampComment[row]
@@ -212,11 +228,25 @@ def executeAnnotation():
 					title = re.sub('&quot;+','',title)
 					title = title.lower()
 
+					# substituir JD por Just Dance .... no titulo do video ....
+
 					# detetar o nome do jogo no titulo do video ...
 					# detetar plataforma no titulo do video e na descrição ...
 
 					#print(title)
 					#https://en.wikipedia.org/wiki/Just_Dance_(video_game_series)
+					games = ['Just Dance', 'Just Dance 2', 'Just Dance 3', 'Just Dance 4', 'Just Dance 2014', 'Just Dance 2015', 'Just Dance 2016', 'Just Dance 2017', 'Just Dance 2018', 'Just Dance 2019', 'Just Dance 2020', 'Just Dance 2021',
+							'Just Dance Wii', 'Just Dance Wii 2', 'Just Dance Wii U', 'Yo-kai Watch Dance: Just Dance Special Version',
+							'Just Dance Kids', 'Just Dance Kids 2', 'Just Dance Kids 2014',
+							'Just Dance: Disney Party', 'Just Dance: Disney Party 2',
+							'Just Dance: Greatest Hits',
+							'Just Dance: Summer Party', 'Just Dance Now', 'Just Dance Unlimited']
+					# Just Dance é o ultimo jogo a ser inserido... RISCO neste!!! pode nao ser o 1.º JD.... pq no titulo podem nao especificar qual é a versao
+					# quem nao quiser saber de qual é a edicao, simplesmente nao aplica o filtro, e vê tudo.
+
+					plataform = ['Wii', 'Wii U', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'Xbox 360', 'Xbox One', 'Xbox Series X/S', 'iOS', 'Android', 'Nintendo Switch', 'Microsoft Windows', 'Stadia']
+					# tratar abreviaturas das consolas... ps3 -> playstation 3 ou no if... meter as duas hipoteses...
+
 					if("just dance now" in title):
 						print("JD NOW")
 						# vai dar duplicado .... guardar numa lista e ir vendo se está? assim evita-se insercoes...
@@ -232,7 +262,7 @@ def executeAnnotation():
 						query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', 'True', 'Just Dance', '"+str(polarity)+"', '"+str(videoID[row])+"')"
 						#insertToTable(query)
 						
-					DictResult = annotate(t) # NAO ESTÁ A INSERIR MAIS DO QUE UM CONCEITO AO MESMO COMMENT ID .... 
+					DictResult = annotate(t,polarity) 
 					#print("> ",DictResult)
 					if(bool(DictResult)):
 						#print("		######################################## true")
