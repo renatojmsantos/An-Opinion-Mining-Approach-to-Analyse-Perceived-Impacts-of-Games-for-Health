@@ -9,6 +9,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
+from nltk.corpus import wordnet
 
 #nltk.download('averaged_perceptron_tagger')
 
@@ -176,6 +177,7 @@ def annotate(text, polarity):
 
 	text_lemmas = " ".join(lemmas)
 
+
 	#print(text_lemmas)
 
 	"""
@@ -199,7 +201,9 @@ def annotate(text, polarity):
 			pals = vocabulario[1]
 			#print(termo,pals)
 			#print(" #", termo)
+			#print("---------->",len(pals), pals)
 			for p in pals.items():
+				#print(len(p),p)
 				# se fosse lista nas pals associadas...
 				# print p   .... in pals
 				pal = p[0]
@@ -244,9 +248,75 @@ def annotate(text, polarity):
 						dictAnotado[chave] = [termo]
 					elif termo not in dictAnotado[chave]:
 						dictAnotado[chave].append(str(termo))
-				# sinonimos, antonios, hiponimos, meronimos -> wordnet ( textblob)
-				
 
+				# check if keyword está nos lemmas do comentario
+				if (keyword in text_lemmas):
+					if chave not in dictAnotado.keys():
+						dictAnotado[chave] = [termo]
+					elif termo not in dictAnotado[chave]:
+						dictAnotado[chave].append(str(termo))
+
+				# sinonimos, hiponimos, meronimos -> wordnet 
+				listAnalysis=[]
+				for lemma in word_tokenize(text_lemmas):
+					#print("->",lemma)
+					# palavras que significam o mesmo
+					#sinonimos = wordnet.synsets(lemma)
+					#print(sinonimos)
+					for syn in wordnet.synsets(lemma):
+						#print(syn.name(), syn.lemma_names())
+						for l in syn.lemmas():
+							#print(l.name())
+							#print(l)
+							if (l.name() not in listAnalysis):
+								listAnalysis.append(l.name())
+
+						#lexical relations
+						lexical = wordnet.synset(syn.name())
+
+						# conceitos mais gerais
+						for s in lexical.hyponyms():
+							for l in s.lemmas():
+								#print(l.name())
+								if (l.name() not in listAnalysis):
+									listAnalysis.append(l.name())
+
+						for s in lexical.hypernyms():
+							for l in s.lemmas():
+								#print(l.name())
+								if (l.name() not in listAnalysis):
+									listAnalysis.append(l.name())
+
+						# parte de um todo de uma relação
+						for s in lexical.part_holonyms():
+							for l in s.lemmas():
+								#print(l.name())
+								if (l.name() not in listAnalysis):
+									listAnalysis.append(l.name())
+
+						for s in lexical.part_meronyms():
+							for l in s.lemmas():
+								#print(l.name())
+								if (l.name() not in listAnalysis):
+									listAnalysis.append(l.name())
+
+						# entailments -> implicacoes
+						for s in lexical.entailments():
+							for l in s.lemmas():
+								#print(l.name())
+								if (l.name() not in listAnalysis):
+									listAnalysis.append(l.name())
+
+				#print(listAnalysis)
+				if(keyword in listAnalysis):
+					if chave not in dictAnotado.keys():
+						print(keyword)
+						dictAnotado[chave] = [termo]
+					elif termo not in dictAnotado[chave]:
+						print(keyword)
+						dictAnotado[chave].append(str(termo))
+
+				# CHECK SIMILARITY ENTRE AS PALAVRAS DA LISTA E AS KEYWORDS? ...............
 
 	return dictAnotado
 
