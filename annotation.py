@@ -5,14 +5,19 @@ import pandas as pd
 
 from nrclex import NRCLex
 from senticnet.senticnet import SenticNet
+import nltk
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
 
+#nltk.download('averaged_perceptron_tagger')
 
 # ver artigo CHI 13, table 8
 dict={	
 		'Usability':{
 			'Memorability': {'memory': 1.0, 'forgot': 0.6}, 
 			'Learnability': {'learnability': 1.0, 'learn': 1.0, 'intuit': 1.0, 'easier': 1.0,'figur': 0.8,'straightforward': 0.8,'foreword': 0.8, 'practic': 0.6}, 
-			'Efficiency': {'efficiency': 1.0, 'perfect': 0.9}, 
+			'Efficiency': {'efficiency': 1.0, 'perfect': 0.9, 'works well': 1.0}, 
 			'Errors/Effectiveness': {'errors': 1.0,'effectiveness':1.0, 'fix': 0.8,'problem':0.5, 'camera': 0.7, 'glitch': 0.8,'issu': 0.8,'lag': 0.8,'bug': 0.8, 'inconsist': 0.8},
 			'Satisfaction': {'happy': 1.0, 'fun': 1.0, 'great': 1.0, 'love': 1.0, 'worth': 1.0, 'nice': 1.0, 'best': 1.0, 'recommend': 1.0, 'disappoint': 0.8, 'good': 0.8, 'favorite': 0.8, 'cool': 0.8, 'perfect': 1.0}
 		},
@@ -27,14 +32,14 @@ dict={
 			'Detailed Usability': {'detailed usability': 1.0, 'great': 0.7, 'details': 0.9, 'functions': 0.9, 'satisfaction': 0.7,'usability': 0.7, 'best':0.7, 'problem': 0.7},
 			'User Differences': {'user differences': 1.0,'user group': 0.7,'group': 0.7,'beginners':0.9, 'veterans':0.9,'pro player':0.9, 'amateur':0.9,'professional':0.9,'finalists':0.6, 'professional dancers':0.8,'buyers': 0.7,'target': 0.7,'features': 0.7, 'differences': 0.7, 'if you': 0.6},
 			'Support': {'support':1.0, 'help':0.8, 'wish': 0.7,'software': 0.7,},
-			'Impact': {'impact': 1.0, 'pattern': 0.7},
-			'Affect and Emotion': {'affect': 1.0, 'emotion': 1.0, 'frustration': 0.7,'fun': 0.8, 'enjoy': 0.8, 'addict': 0.7, 'workout': 0.7, 'excit': 0.8, 'cute': 0.8, 'nevertheless': 0.8, 'laugh': 0.8, 'annoy': 0.8},
+			'Impact': {'impact': 1.0, 'pattern': 0.7, 'surprise': 1.0,'fear': 1.0,'change gameplay': 0.9},
+			'Affect and Emotion': {'affect': 1.0, 'emotion': 1.0, 'trust': 1.0,'surprise': 1.0,'fear': 1.0,'disgust': 1.0,'frustration': 0.7,'anger': 1.0,'fun': 0.8, 'enjoy': 0.8, 'addict': 0.7, 'workout': 0.7, 'excit': 0.8, 'cute': 0.8, 'nevertheless': 0.8, 'laugh': 0.8, 'annoy': 0.8},
 			'Enjoyment and Fun': {'joy':0.9, 'enjoyment': 1.0, 'hedonic': 1.0,'emotion': 1.0,'affect': 1.0,'fun': 1.0, 'younger': 0.7, 'entertain': 0.9},
 			'Aesthetics and Appeal': {'aesthetics': 1.0, 'taste': 1.0,'beauty': 1.0,'appreciation': 1.0,'appeal': 1.0, 'graphic':0.9, 'sound':0.9, 'song': 0.9, 'voice':0.9, 'playlist':0.9, 'music':0.9, 'soundtrack':0.9, 'effect':0.8, 'look':0.8, 'color':0.8, 'visual': 0.8, 'detail': 0.6, 'render': 0.5, 'pixel': 0.5},
 			'Engagement': {'engagement': 1.0, 'challeng': 0.9, 'flow': 1.0,'skills': 1.0,'needs': 1.0,'forget': 1.0,'engaged': 1.0,'addict': 0.9, 'addition': 1.0, 'replay':0.7, 'nonstop': 0.9, 'interest':0.7},
-			'Motivation': {'motivation': 1.0, 'task': 1.0},
+			'Motivation': {'motivation': 1.0, 'task': 1.0, 'joy': 0.8},
 			'Enchantment': {'enchantment': 1.0, 'concentration': 1.0,'attention': 1.0,'liveliness': 1.0,'fullness': 1.0,'pleasure': 1.0,'disorientation': 1.0,'experience': 1.0},
-			'Frustration': {'frustration': 1.0, 'hardship': 1.0,'boring': 0.8, 'hardest': 0.7, 'dissadvantag': 0.8, 'insult': 0.7, 'injuri': 0.7, 'nerv': 0.7, 'unfair':0.7, 'cheat':0.7, 'annoy':0.7, 'incompatibilit':0.7},
+			'Frustration': {'frustration': 1.0, 'hardship': 1.0,'boring': 0.8, 'anger': 1.0,'hardest': 0.7, 'dissadvantag': 0.8, 'insult': 0.7, 'injuri': 0.7, 'nerv': 0.7, 'unfair':0.7, 'cheat':0.7, 'annoy':0.7, 'incompatibilit':0.7},
 		},
 		'Health':{
 			'Pain and discomfort': {'pain': 1.0, 'distressing': 1.0,'unpleasant': 1.0,'discomfort': 1.0}, 
@@ -49,7 +54,7 @@ dict={
 			'Concentration': {'aware': 1.0,'awake': 1.0,'alert': 1.0,'attention': 0.9, 'cognitive': 0.8, 'concentration': 1.0},
 			'Self-esteem': {'self-esteem': 1.0, 'meaningful': 1.0,'self-acceptance': 1.0,'dignity': 1.0,'family': 1.0,'people': 1.0,'education': 1.0,'control': 1.0,'oneself': 1.0,'satisfaction': 1.0},
 			'Bodily image and appearance': {'bodily image': 1.0, 'handicapped': 1.0,'physical handicapped': 1.0,'physical': 1.0,'body image': 1.0,'limbs': 1.0,'artificial limbs': 1.0,'clothing': 1.0,'make-up': 1.0,'impairments': 1.0,'looks': 1.0,'appearance': 0.9, 'body': 0.8},
-			'Negative feelings': {'negative feelings': 1.0, 'lack': 1.0,'anxiety': 1.0,'nervousness': 1.0,'despair': 1.0,'tearfulness': 1.0,'sadness': 1.0,'guilt': 1.0,'despondency': 1.0},
+			'Negative feelings': {'negative feelings': 1.0, 'disgust': 1.0, 'fear': 1.0,'lack': 1.0,'anger': 1.0,'anxiety': 1.0,'nervousness': 1.0,'despair': 1.0,'tearfulness': 1.0,'sadness': 1.0,'guilt': 1.0,'despondency': 1.0},
 			'Personal relationships': {'personal relationships': 1.0, 'homosexual': 1.0,'heterosexual': 1.0,'marriage': 1.0,'friendship': 1.0,'satisfaction': 1.0,'hug': 1.0,'happy': 1.0,'emotionally': 1.0,'relationships': 1.0,'intimate': 1.0,'love': 1.0,'support': 1.0,'companionship': 1.0,'friends': 1.0, 'family': 1.0, 'alone': 1.0},
 			'Social support': {'Social support': 1.0, 'encouragement': 1.0,'solve': 1.0,'personal': 1.0,'responsability': 1.0,'assistance': 1.0,'approval': 1.0,'commitment': 1.0,'friends': 1.0,'family': 1.0},
 			'Sexual activity': {'Sexual activity': 1.0, 'physical intimacy': 1.0,'sexual': 1.0,'desire for sex': 1.0,'sex': 0.9}
@@ -129,24 +134,59 @@ def annotate(text, polarity):
 	print("\n>>>>>>> ",text)
 	print(">>> ", polarity)
 
-	# emolex 
-	print(NRCLex(text.affect_list))
-	print(NRCLex(text.affect_dict))
-	print(NRCLex(text.affect_raw_emotion_scores))
-	print(NRCLex(text.affect_top_emotions))
-	print(NRCLex(text.affect_affect_frequencies))
+	# remove stop words
 
-	print("-------------------------------------------------------------------")
-	sn = SenticNet()
-	print(sn.concept(text))
-	print(sn.polarity_label(text))
-	print(sn.polarity_value(text))
-	print(sn.moodtags(text))
-	print(sn.semantics(text))
-	print(sn.sentics(text))
-	#senticnet
-	# lemmas 
-	# sinonimos, antonios, hiponimos, meronimos -> wordnet ( textblob)
+	# emolex 
+	t = NRCLex(str(text))
+	#print(t)
+	#print(t.affect_list)
+	emotions = t.affect_list
+	#print(t.affect_dict)
+	#print(t.raw_emotion_scores)
+	#print(t.top_emotions)
+	#print(t.affect_frequencies)
+
+
+	# POS Tagger
+	def pos_tagger(nltk_tag):
+	    if nltk_tag.startswith('J'):
+	        return wordnet.ADJ
+	    elif nltk_tag.startswith('V'):
+	        return wordnet.VERB
+	    elif nltk_tag.startswith('N'):
+	        return wordnet.NOUN
+	    elif nltk_tag.startswith('R'):
+	        return wordnet.ADV
+	    else:          
+	        return None
+
+	textWords = word_tokenize(text)
+	pos_tagged = nltk.pos_tag(textWords)
+	#print(pos_tagged)
+
+	wordnet_tagged = list(map(lambda x: (x[0], pos_tagger(x[1])), pos_tagged))
+	#print(wordnet_tagged)
+
+	#lemmas
+	lemmatizer = WordNetLemmatizer()
+	lemmas = []
+	for word, tag in wordnet_tagged:
+		if (tag is not None):
+			lemmas.append(lemmatizer.lemmatize(word, tag))
+
+	text_lemmas = " ".join(lemmas)
+
+	#print(text_lemmas)
+
+	"""
+	words = word_tokenize(text_lemmas)
+	print(words)
+	# remove stop words
+	stopwords = nltk.corpus.stopwords.words('english')
+	keywords = [word for word in words if not word in text_lemmas]
+	print(keywords)
+	"""
+
 
 	dictAnotado = {}
 	for items in dict.items():
@@ -157,10 +197,11 @@ def annotate(text, polarity):
 		for vocabulario in conceitos.items():
 			termo = vocabulario[0]
 			pals = vocabulario[1]
-
 			#print(termo,pals)
 			#print(" #", termo)
 			for p in pals.items():
+				# se fosse lista nas pals associadas...
+				# print p   .... in pals
 				pal = p[0]
 				#probalidade = p[1]
 				if (pal in text):
@@ -169,14 +210,46 @@ def annotate(text, polarity):
 					elif termo not in dictAnotado[chave]:
 						dictAnotado[chave].append(str(termo))
 					#print(dictAnotado)
-				else:
+				if (emotions):
 					#estrategia ...
+					#print("TRUE")
+					#print(emotions)
+					for e in emotions:
+						if (e in pal):
+							#print(e, termo)
+							if chave not in dictAnotado.keys():
+								dictAnotado[chave] = [termo]
+							elif termo not in dictAnotado[chave]:
+								dictAnotado[chave].append(str(termo))
+					#continue
+				#print(pal)
 
-					continue
+				# processo de lematização
+				pos_tagged = nltk.pos_tag([pal])
+				#print(pos_tagged)
+				wordnet_tagged = list(map(lambda x: (x[0], pos_tagger(x[1])), pos_tagged))
+				#print(wordnet_tagged)
+				#keyword = []
+				for word, tag in wordnet_tagged:
+					if (tag is not None):
+						keyword = lemmatizer.lemmatize(word, tag)
+						#keyword.append(lemmatizer.lemmatize(word, tag))
+				#print(keyword)
+				#if(pal!=keyword):
+				#	print(pal, keyword)
+
+				# só com a lematização encontra-se logo o termo...
+				if (keyword in text):
+					if chave not in dictAnotado.keys():
+						dictAnotado[chave] = [termo]
+					elif termo not in dictAnotado[chave]:
+						dictAnotado[chave].append(str(termo))
+				# sinonimos, antonios, hiponimos, meronimos -> wordnet ( textblob)
+				
+
+
 	return dictAnotado
-#print(comments)
 
-#print(comments[0])
 
 teste = ["this give me nostalgia","this game is awesome", "can you fix the servers?", "i burned a lot of calories playing this", 'if you like multiplayer strategy games, buy this with confidence',
 			'those expectations were met. Mostly, anyway', 'making the game enjoyable for beginners as well as veterans.','Multiplayer is excellent, but the single player campaign isn’t.',
@@ -200,20 +273,10 @@ def executeAnnotation():
 					#sentiment analysis
 					if text.sentiment.polarity < 0:
 						polarity="Negative"
-						#print(">>", polarity)
 					elif(text.sentiment.polarity > 0):
 						polarity="Positive"
-						#print(">>", polarity)
 					else:
 						polarity="Neutral"
-						#print(">>", polarity)
-					#subjectivity = text.sentiment.subjectivity
-					#print(subjectivity)
-
-					#print(timestampComment[row])
-					#'2014-06-01T00:00:00Z'
-					#print(polarity)
-
 					try:
 						dateComment = timestampComment[row]
 						dateVideo = videoPublishedAt[row]
@@ -262,7 +325,7 @@ def executeAnnotation():
 						query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', 'True', 'Just Dance', '"+str(polarity)+"', '"+str(videoID[row])+"')"
 						#insertToTable(query)
 						
-					DictResult = annotate(t,polarity) 
+					DictResult = annotate(str(t),str(polarity)) 
 					#print("> ",DictResult)
 					if(bool(DictResult)):
 						#print("		######################################## true")

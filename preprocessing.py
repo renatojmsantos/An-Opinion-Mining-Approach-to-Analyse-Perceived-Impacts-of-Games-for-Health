@@ -7,7 +7,7 @@ import regex
 from langdetect import detect
 from langdetect import DetectorFactory
 from emoji.unicode_codes import UNICODE_EMOJI
-from textblob import TextBlob
+from textblob import TextBlob, Word
 import time
 import emoji
 import unicodedata
@@ -22,6 +22,9 @@ from flair.models import SequenceTagger
 #from abbr import expandall
 
 DetectorFactory.seed = 0
+
+
+# link csv: https://we.tl/t-umTQCE5Z8w
 
 
 #path = '../CSV/YT_10_03_2021_v6 - cópia 2.csv'
@@ -71,7 +74,7 @@ def demoji(text):
 #comment = comment.astype(str).apply(lambda x: demoji(x))
 
 def isEnglish(text):
-	if(len(text.split()) <= 4):
+	if(len(text.split()) <= 3):
 		try:
 			#print("TextBlob")
 			lang = TextBlob(text)
