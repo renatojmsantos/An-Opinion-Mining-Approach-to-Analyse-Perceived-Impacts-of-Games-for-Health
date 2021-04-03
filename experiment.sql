@@ -35,3 +35,12 @@ CREATE TABLE ux (
 	uxconcept VARCHAR(512),
 	PRIMARY KEY(uxconcept)
 );
+
+
+select h.health_hconcept, ux.ux_uxconcept from opinion_health h, opinion_ux ux where h.opinion_commentid= ux.opinion_commentid;
+select h.health_hconcept, h.opinion_commentid, ux.ux_uxconcept, ux.opinion_commentid, u.usability_uconcept, u.opinion_commentid from opinion_health h, opinion_ux ux, opinion_usability u where h.opinion_commentid=ux.opinion_commentid and h.opinion_commentid=u.opinion_commentid;
+
+
+select distinct h.health_hconcept, h.opinion_commentid, ux.ux_uxconcept, ux.opinion_commentid, u.usability_uconcept, u.opinion_commentid
+from opinion_health h, opinion_ux ux, opinion_usability u
+where h.opinion_commentid=ux.opinion_commentid and h.opinion_commentid=u.opinion_commentid;

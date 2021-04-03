@@ -4,7 +4,8 @@ from connectDB import *
 import pandas as pd
 
 # ver artigo CHI 13, table 8
-dict={	'Usability':{
+dict={	
+		'Usability':{
 			'Memorability': {'memory': 1.0, 'forgot': 0.6}, 
 			'Learnability': {'learnability': 1.0, 'learn': 1.0, 'intuit': 1.0, 'easier': 1.0,'figur': 0.8,'straightforward': 0.8,'foreword': 0.8, 'practic': 0.6}, 
 			'Efficiency': {'efficiency': 1.0, 'perfect': 0.9}, 
@@ -17,7 +18,7 @@ dict={	'Usability':{
 			'Comfort': {'comfort': 1.0, 'physical': 0.7},
 			'Trust': {'trust': 1.0, 'behavior': 0.8},
 			'Anticipation': {'anticipation': 1.0, 'expectation': 1.0},
-			'Overall Usability': {'overall usability': 1.0, 'new version': 0.8, 'upgrade':0.8, 'edition': 0.8, 'previous edition'},
+			'Overall Usability': {'overall usability': 1.0, 'new version': 0.8, 'upgrade':0.8, 'edition': 0.8, 'previous edition':0.8},
 			'Hedonic': {'hedonic': 1.0, 'fun': 0.8, 'enjoy': 0.8, 'frustrat': 0.8, 'fulfillment': 0.9, 'needs': 0.8, 'pleasure':0.7,'enjoyment':0.7,'frustration':0.7, 'annoy': 0.8, 'entertain': 0.8, 'game': 0.8,'multiplayer': 0.8, 'gaming': 0.8, 'gameplay': 0.8, 'play': 0.8, 'humor': 0.8, 'workout': 0.8, 'nostalgia': 0.6},
 			'Detailed Usability': {'detailed usability': 1.0, 'great': 0.7, 'details': 0.9, 'functions': 0.9, 'satisfaction': 0.7,'usability': 0.7, 'best':0.7, 'problem': 0.7},
 			'User Differences': {'user differences': 1.0,'user group': 0.7,'group': 0.7,'buyers': 0.7,'target': 0.7,'features': 0.7, 'differences': 0.7, 'if you': 0.6},
@@ -40,7 +41,7 @@ dict={	'Usability':{
 			#'Thinking, learning, memory and concentration': {'thinking': 1.0, 'aware': 1.0,'awake': 1.0,'alert': 1.0,'cognitive': 1.0,'thought': 1.0,'decisions': 1.0,'forget': 1.0, 'learning': 1.0, 'memory': 1.0, 'concentration': 1.0},
 			'Thinking': {'thinking': 1.0, 'aware': 1.0,'awake': 1.0,'cognitive': 1.0,'intelligent': 1.0,'idea': 1.0,'thought': 1.0,'decisions': 1.0},
 			'Learning': {'cognitive': 1.0, 'education': 1.0,'knowledge': 1.0,'pedagogy': 1.0, 'learning': 1.0,  'learn': 1.0},
-			'Memory': {'forget': 1.0, 'alzheimer': 0.7, 'dementia': 0.8,'memory': 1.0, 'cognitive': 0.8},
+			'Memory': {'forget': 1.0, 'alzheimer': 0.7, 'dementia': 0.8,'nostalgia':0.9, 'memory': 1.0, 'cognitive': 0.8},
 			'Concentration': {'aware': 1.0,'awake': 1.0,'alert': 1.0,'attention': 0.9, 'cognitive': 0.8, 'concentration': 1.0},
 			'Self-esteem': {'self-esteem': 1.0, 'meaningful': 1.0,'self-acceptance': 1.0,'dignity': 1.0,'family': 1.0,'people': 1.0,'education': 1.0,'control': 1.0,'oneself': 1.0,'satisfaction': 1.0},
 			'Bodily image and appearance': {'bodily image': 1.0, 'handicapped': 1.0,'physical handicapped': 1.0,'physical': 1.0,'body image': 1.0,'limbs': 1.0,'artificial limbs': 1.0,'clothing': 1.0,'make-up': 1.0,'impairments': 1.0,'looks': 1.0,'appearance': 0.9, 'body': 0.8},
@@ -121,6 +122,13 @@ def insertTablesConceitos():
 #insertTablesConceitos()
 
 def annotate(text):
+
+	# emolex 
+	# lemmas 
+	# sinonimos, antonios, hiponimos, meronimos -> wordnet ( textblob)
+	
+	
+	dictAnotado = {}
 	for items in dict.items():
 		chave = items[0]
 		conceitos = items[1]
@@ -129,6 +137,7 @@ def annotate(text):
 		for vocabulario in conceitos.items():
 			termo = vocabulario[0]
 			pals = vocabulario[1]
+
 			#print(termo,pals)
 			#print(" #", termo)
 			for p in pals.items():
@@ -141,115 +150,124 @@ def annotate(text):
 					#r.append(termo)
 					#r.append(chave)
 					#return r
-					return (termo, chave)
+					#return (termo, chave)
+					#print("#", termo,chave)
+					if chave not in dictAnotado.keys():
+						dictAnotado[chave] = [termo]
+					elif termo not in dictAnotado[chave]:
+						dictAnotado[chave].append(str(termo))
+					#print(dictAnotado)
 				else:
 					continue
-
+			#return (termo, chave)
+	return dictAnotado
 #print(comments)
 
 #print(comments[0])
 
+teste = ["this give me nostalgia",]
+
 def executeAnnotation():
 	row = 0
-	for t in comments: #t in comments:
-		t = runPreprocessing(t)
-		if (t != "None"):
-			# print texto tratado e valido
-			#print(">>",t) 
-			#sentiment analysis
-			try:
-				text = TextBlob(str(t))
-				#print(text.sentiment)
-				#print(text.sentiment.polarity, text.sentiment.subjectivity)
-				if text.sentiment.polarity < 0:
-					polarity="Negative"
-					#print(">>", polarity)
-				elif(text.sentiment.polarity > 0):
-					polarity="Positive"
-					#print(">>", polarity)
-				else:
-					polarity="Neutral"
-					#print(">>", polarity)
-				#subjectivity = text.sentiment.subjectivity
-				#print(subjectivity)
-
-				#print(timestampComment[row])
-				#'2014-06-01T00:00:00Z'
-				
+	for t in teste: #t in comments:
+		try:
+			t = runPreprocessing(t)
+			if (t != "None"):
+				# print texto tratado e valido
+				print(">>>>>",t) 
+				#sentiment analysis
 				try:
-					dateComment = timestampComment[row]
-					dateVideo = videoPublishedAt[row]
-					dateComment = re.sub('T[0-9:Z]+','',dateComment)
-					dateVideo = re.sub('T[0-9:Z]+','',dateVideo)
-				except:
-					print("something wrong on convert dates...")
+					text = TextBlob(str(t))
+					#print(text.sentiment)
+					#print(text.sentiment.polarity, text.sentiment.subjectivity)
 
-				title = videoTitle[row]
-				title = demoji(title)
-				title = re.sub('&quot;+','',title)
-				title = title.lower()
+					#sentiment analysis
+					if text.sentiment.polarity < 0:
+						polarity="Negative"
+						#print(">>", polarity)
+					elif(text.sentiment.polarity > 0):
+						polarity="Positive"
+						#print(">>", polarity)
+					else:
+						polarity="Neutral"
+						#print(">>", polarity)
+					#subjectivity = text.sentiment.subjectivity
+					#print(subjectivity)
 
+					#print(timestampComment[row])
+					#'2014-06-01T00:00:00Z'
+					print(polarity)
 
-				#print(title)
-				#https://en.wikipedia.org/wiki/Just_Dance_(video_game_series)
-				if("just dance now" in title):
-					print("JD NOW")
-					# vai dar duplicado .... guardar numa lista e ir vendo se está? assim evita-se insercoes...
-					query = "insert into youtube values('Youtube','"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"')"
-					#insertToTable(query)
-					# este nao...
-					query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', True, 'Just Dance Now', '"+str(polarity)+"', '"+str(videoID[row])+"')"
-					#insertToTable(query)
-				else:
-					#print("JD")
-					query = "insert into youtube values('Youtube','"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"')"
-					#insertToTable(query)
-					query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', 'True', 'Just Dance', '"+str(polarity)+"', '"+str(videoID[row])+"')"
-					#insertToTable(query)
-					
-				result = annotate(t) # NAO ESTÁ A INSERIR MAIS DO QUE UM CONCEITO AO MESMO COMMENT ID .... 
-				#print(result)
-				if(result is not None):
-					#print("> ",result[0])
-					#print(">>",result[1])
-					field = result[1]
-					concept = result[0]			
+					try:
+						dateComment = timestampComment[row]
+						dateVideo = videoPublishedAt[row]
+						dateComment = re.sub('T[0-9:Z]+','',dateComment)
+						dateVideo = re.sub('T[0-9:Z]+','',dateVideo)
+					except Exception as e:
+						print(e)
+						#print("something wrong on convert dates...")
 
-					if (field == "Usability"):
-						query = "insert into opinion_usability values('"+str(commentID[row])+"', '"+str(concept)+"')"
+					title = videoTitle[row]
+					title = demoji(title)
+					title = re.sub('&quot;+','',title)
+					title = title.lower()
+
+					# detetar o nome do jogo no titulo do video ...
+					# detetar plataforma no titulo do video e na descrição ...
+
+					#print(title)
+					#https://en.wikipedia.org/wiki/Just_Dance_(video_game_series)
+					if("just dance now" in title):
+						print("JD NOW")
+						# vai dar duplicado .... guardar numa lista e ir vendo se está? assim evita-se insercoes...
+						query = "insert into youtube values('Youtube','"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"')"
 						#insertToTable(query)
-					elif (field == "UX"):
-						query = "insert into opinion_ux values('"+str(commentID[row])+"', '"+str(concept)+"')"
+						# este nao...
+						query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', True, 'Just Dance Now', '"+str(polarity)+"', '"+str(videoID[row])+"')"
 						#insertToTable(query)
-					elif (field == "Health"):
-						query = "insert into opinion_health values('"+str(commentID[row])+"', '"+str(concept)+"')"
+					else:
+						#print("JD")
+						query = "insert into youtube values('Youtube','"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"')"
 						#insertToTable(query)
-					#query = "insert into ux values('"+termo+"')"
-					#insertToTable(query)
+						query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', 'True', 'Just Dance', '"+str(polarity)+"', '"+str(videoID[row])+"')"
+						#insertToTable(query)
+						
+					DictResult = annotate(t) # NAO ESTÁ A INSERIR MAIS DO QUE UM CONCEITO AO MESMO COMMENT ID .... 
+					#print("> ",DictResult)
+					if(bool(DictResult)):
+						#print("		######################################## true")
+						#print("> ",result[0])
+						#print(">>",result[1])
+						print(DictResult)
+						for field in DictResult.keys():
+							#print("FIELD = ", field)
+							for concept in DictResult[field]:
+								#print(field + "->"+concept)
+								#print(concept)
+								if (field == "Usability"):
+									query = "insert into opinion_usability values('"+str(commentID[row])+"', '"+str(concept)+"')"
+									#print(query)
+									#insertToTable(query)
+								elif (field == "UX"):
+									query = "insert into opinion_ux values('"+str(commentID[row])+"', '"+str(concept)+"')"
+									#print(query)
+									#insertToTable(query)
+								elif (field == "Health"):
+									query = "insert into opinion_health values('"+str(commentID[row])+"', '"+str(concept)+"')"
+									#print(query)
+								#insertToTable(query)
+						#query = "insert into ux values('"+termo+"')"
+						#insertToTable(query)
 
-					#print(views[row])
-					#print(likesVideo[row])
-			except:
-				print("something wrong.... annotate")
-		row += 1
-		#print(comments[2])
-
-		#print(data['Video Title'], index = t)
-		"""
-		comments = data['Comment']
-		commentID = data['CommentID']
-		videoTitle = data['Video Title']
-		videoID = data['videoID']
-		likes = data['Likes']
-		timestampComment = data['TimeStampComment']
-		channel = data['Channel']
-		channelID = data['ChannelID']
-		videoPublishedAt = data['VideoPublishedAt']
-		views = data['ViewsVideo']
-		likesVideo = data['likesVideo']
-		dislikesVideo = data['dislikesVideo']
-		totalCommentsVideo = data['totalCommentsVideo']
-		"""
+						#print(views[row])
+						#print(likesVideo[row])
+				except Exception as e:
+					print(e)
+					#print("something wrong.... annotate")
+			row += 1
+		except Exception as e:
+			print(e)
+		#row += 1
 
 #insertTablesConceitos()
 executeAnnotation()

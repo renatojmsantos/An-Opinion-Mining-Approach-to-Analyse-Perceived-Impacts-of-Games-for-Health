@@ -19,13 +19,14 @@ CREATE TABLE opinion (
 	datecomment	 DATE NOT NULL,
 	maincomment	 BOOL,
 	game_name		 VARCHAR(512) NOT NULL,
+	game_platform	 VARCHAR(512) NOT NULL,
 	sentiment_polarity VARCHAR(512) NOT NULL,
 	youtube_videoid	 VARCHAR(512) NOT NULL,
 	PRIMARY KEY(commentid)
 );
 
 CREATE TABLE sentiment (
-	polarity	 VARCHAR(512),
+	polarity VARCHAR(512),
 	PRIMARY KEY(polarity)
 );
 
@@ -45,8 +46,9 @@ CREATE TABLE health (
 );
 
 CREATE TABLE game (
-	name VARCHAR(512),
-	PRIMARY KEY(name)
+	name	 VARCHAR(512),
+	platform VARCHAR(512),
+	PRIMARY KEY(name,platform)
 );
 
 CREATE TABLE opinion_ux (
@@ -67,15 +69,18 @@ CREATE TABLE opinion_usability (
 	PRIMARY KEY(opinion_commentid,usability_uconcept)
 );
 
-ALTER TABLE opinion ADD CONSTRAINT opinion_fk1 FOREIGN KEY (game_name) REFERENCES game(name);
-ALTER TABLE opinion ADD CONSTRAINT opinion_fk2 FOREIGN KEY (sentiment_polarity) REFERENCES sentiment(polarity);
-ALTER TABLE opinion ADD CONSTRAINT opinion_fk3 FOREIGN KEY (youtube_videoid) REFERENCES youtube(videoid);
+ALTER TABLE opinion ADD CONSTRAINT opinion_fk3 FOREIGN KEY (sentiment_polarity) REFERENCES sentiment(polarity);
+ALTER TABLE opinion ADD CONSTRAINT opinion_fk4 FOREIGN KEY (youtube_videoid) REFERENCES youtube(videoid);
 ALTER TABLE opinion_ux ADD CONSTRAINT opinion_ux_fk1 FOREIGN KEY (opinion_commentid) REFERENCES opinion(commentid);
 ALTER TABLE opinion_ux ADD CONSTRAINT opinion_ux_fk2 FOREIGN KEY (ux_uxconcept) REFERENCES ux(uxconcept);
 ALTER TABLE opinion_health ADD CONSTRAINT opinion_health_fk1 FOREIGN KEY (opinion_commentid) REFERENCES opinion(commentid);
 ALTER TABLE opinion_health ADD CONSTRAINT opinion_health_fk2 FOREIGN KEY (health_hconcept) REFERENCES health(hconcept);
 ALTER TABLE opinion_usability ADD CONSTRAINT opinion_usability_fk1 FOREIGN KEY (opinion_commentid) REFERENCES opinion(commentid);
 ALTER TABLE opinion_usability ADD CONSTRAINT opinion_usability_fk2 FOREIGN KEY (usability_uconcept) REFERENCES usability(uconcept);
+
+
+ALTER TABLE opinion ADD CONSTRAINT opinion_fk1 FOREIGN KEY (game_name) REFERENCES game(name);
+ALTER TABLE opinion ADD CONSTRAINT opinion_fk2 FOREIGN KEY (game_platform) REFERENCES game(platform);
 
 
 insert into game values('Just Dance');

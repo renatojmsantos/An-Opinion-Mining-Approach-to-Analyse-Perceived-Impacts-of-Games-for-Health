@@ -1,46 +1,22 @@
-import matplotlib
 import pandas as pd
-import matplotlib.pyplot as plt
-import wordcloud
-from wordcloud import STOPWORDS, WordCloud
-import nltk
-from collections import Counter
-from itertools import groupby
-from nltk.stem import WordNetLemmatizer
 import re   # regular expression
-from nltk.tokenize import RegexpTokenizer
-
 import demoji
-
 import numpy as np
 from nltk.corpus import wordnet
-
 import regex
-
 from langdetect import detect
 from langdetect import DetectorFactory
-
 from emoji.unicode_codes import UNICODE_EMOJI
-
 from textblob import TextBlob
-
 import time
-
 import emoji
 import unicodedata
-
-
-from spellchecker import SpellChecker
-
-#import spacy
-#from spacy.language import Language
-#from spacy_langdetect import LanguageDetector
-#from spacy_fastlang import LanguageDetector
-
 
 from flair.data import Sentence
 from flair.models import SequenceTagger
 
+
+#tagger = SequenceTagger.load("flair/ner-english-large")
 
 
 #from abbr import expandall
@@ -49,33 +25,12 @@ DetectorFactory.seed = 0
 
 
 #path = '../CSV/YT_10_03_2021_v6 - cópia 2.csv'
-path = '../CSV/YT_10_03_2021_v6.csv'
+path = '../CSV/YT_repliesDif-Descript-ALL.csv'
 #path = 'YT_repliesDif-Descript-ALL'
 #path = '../CSV/YT_10_03_2021_v6.csv'
 data = pd.read_csv(path,lineterminator='\n',encoding='utf-8')
 
-#print("-----> ",len(data))
 
-#file = open(path)
-#numline = len(file.readlines())
-#print (numline)
-
-#with open(path) as file:
-#	n_rows = len(file.readlines())
-#print (f'Exact number of rows: {n_rows}')
-
-
-#yt = pd.read_csv(path,nrows=5)
-#print(len(yt))
-#print(data.head())
-#print(data.info())
-#print(data)
-
-
-#comments = data['Comment']
-#comments.dropna(inplace=True) # se nao tiver nenhum texto
-
-#print(data.shape)
 data.dropna(inplace=True)
 
 #df = data.set_index("Comment", drop = False)
@@ -94,34 +49,8 @@ views = data['ViewsVideo']
 likesVideo = data['likesVideo']
 dislikesVideo = data['dislikesVideo']
 totalCommentsVideo = data['totalCommentsVideo']
-
-
-#print(comments[0])
-#print(videoTitle[2])
-#print(videoTitle[comments[4]])
-
-
-#print(df)
-#df.info()
-#print("---")
-#print(df.loc[: ,"Video Title"])
-#print(data)
-
-"""
- 0   Video Title         208727 non-null  object
- 1   videoID             208727 non-null  object
- 2   Comment             208158 non-null  object
- 3   CommentID           208727 non-null  object
- 4   Likes               208727 non-null  int64 
- 5   TimeStampComment    208727 non-null  object
- 6   Channel             208727 non-null  object
- 7   ChannelID           208727 non-null  object
- 8   VideoPublishedAt    208727 non-null  object
- 9   ViewsVideo          208727 non-null  int64 
- 10  likesVideo          208727 non-null  int64 
- 11  dislikesVideo       208727 non-null  int64 
- 12  totalCommentsVideo  208727 non-null  int64 
- """
+description = data['Description']
+mainComment = data['MainComment']
 
 #demoji.download_codes()
 #demoji.last_downloaded_timestamp()
@@ -142,88 +71,47 @@ def demoji(text):
 #comment = comment.astype(str).apply(lambda x: demoji(x))
 
 def isEnglish(text):
-	#time.sleep(0.30)
-	#lang = TextBlob(text)
-	#print(lang.detect_language())
-	#language = lang.detect_language()
-
-	#print(detect(text))
-
-	"""
-	nlp = spacy.load('en_core_web_sm') #trf
-	nlp.add_pipe(LanguageDetector())#,name='language_detector',last=True)
-	doc = nlp(text)
-	detect_language = doc._.language
-	print(detect_language)
-	"""
-
-	"""
-	# Add LanguageDetector and assign it a string name
-	@Language.factory("language_detector")
-	def create_language_detector(nlp, name):
-	    return LanguageDetector(language_detection_function=None)
-
-	# Use a blank Pipeline, also a model can be used, e.g. nlp = spacy.load("en_core_web_sm")
-	nlp = spacy.load("en_core_web_trf")
-
-	# Add sentencizer for longer text
-	nlp.add_pipe('sentencizer')
-
-	# Add components using their string names
-	nlp.add_pipe("language_detector")
-
-	# Analyze components and their attributes
-	#text = "This is an English text."
-	doc = nlp(text)
-
-
-	# Document level language detection.
-	print(doc._.language)
-
-	# See what happened to the pipes
-	#nlp.analyze_pipes(pretty=True)
-	
-	"""
-	if(len(text.split()) <= 5):
+	if(len(text.split()) <= 4):
 		try:
 			#print("TextBlob")
 			lang = TextBlob(text)
-			print(text)
-			print(lang.detect_language())
+			#print(text)
+			#print(lang.detect_language())
 			if(lang.detect_language() =="en"):
 				return True
 			else:
 				return False
-		except:
-			print("fail text blob")
+		except Exception as e:
+			print(e)
+			#print("fail text blob")
 			try:
 				language = detect(text)
-				print(text)
-				print(language)
+				#print(text)
+				#print(language)
 				if (language == "en"):
 					return True
 				else:
 					return False
-			except:
-				print("ERRO lang_detect ...")
+			except Exception as e:
+				print(e)
 	else:
 		#print("len > 4")
 		try:
 			language = detect(text)
-			print(text)
-			print(language)
+			#print(text)
+			#print(language)
 			if (language == "en"):
 				return True
 			else:
 				return False
-		except:
-			print("ERRO lang_detect ...")
+		except Exception as e:
+			print(e)
 	
 	return False
 	
 
 #listaPalavras = ["🤗","l","I’d like to know how I’d done that!","I'd like to play!", "abc","sex","stop","this game/ is! great!","this is great", "isto é bom","i love thiq gam ","u know","hi","a","aaa","big https://wwww.uc.pt THE BEST url: http://blah.com/path/to/here?p=1&q=abc,def#posn2 #ahashtag http://t.co/FNkPfmii-","@rui ola 🙀🤗🤗🤗🤗","best game #yolo :)","my best  friend from   germany !!!!!!!!!! lol ...... ","beautifulllll","OMG 🤯", "YOU 🤯🤯🤯🤯are goooood ", "issijjsij","laranja","orange","how","fix this"]
-listaPalavras = ["o meu nome é renato", "pastel", "futebol", "i live in Portugal, and i think Just Dance is the best ever! ", "Renato Santos is the boss!", "adoro comer", "90 years old", "it's ok! ", "i'm renato", "u are good","renato", "benfica champions", "luv omg bff 4ever", "bd eheheheheheni ijij","you are my bff", "yes omg ", "ly <3", "@rui ola 🙀🤗🤗🤗🤗","OMG 🤯", "LOL", "amazing thing 2 u", "Donald Trump is the USA president", "YOU 🤯🤯🤯🤯are goooood "]
+#listaPalavras = ["o meu nome é renato", "pastel", "futebol", "i live in Portugal, and i think Just Dance is the best ever! ", "Renato Santos is the boss!", "adoro comer", "90 years old", "it's ok! ", "i'm renato", "u are good","renato", "benfica champions", "luv omg bff 4ever", "bd eheheheheheni ijij","you are my bff", "yes omg ", "ly <3", "@rui ola 🙀🤗🤗🤗🤗","OMG 🤯", "LOL", "amazing thing 2 u", "Donald Trump is the USA president", "YOU 🤯🤯🤯🤯are goooood "]
 #listaPalavras = ["🙀","🤗","that's great", "90 years old", "it's ok! " "my name is Renato", "u are good"]
 
 
@@ -349,6 +237,7 @@ def contractions(text):
 	  "that'd": "that would",
 	  "that'd've": "that would have",
 	  "that's": "that is",
+	  "thats": "that is",
 	  "there'd": "there had",
 	  "there'd've": "there would have",
 	  "there's": "there is",
@@ -410,7 +299,7 @@ def contractions(text):
 	        return cDict[match.group(0)]
 	    return c_re.sub(replace, text)
 	
-	text = expandContractions(text)
+	text = expandContractions(text.lower())
 
 	return text
 
@@ -427,14 +316,12 @@ def caracteresRepetidos(text):
 	else:
 		return text
 
-tagger = SequenceTagger.load("flair/ner-english-large")
+
 #tagger = SequenceTagger.load("ner")
 
 #nltk.download('words')
 
 def spellCorrection(text):
-	
-
 	# NER - Name Entity Reconection 
 	# se for NER nao corrigir... person name, locations, organizations, other names...
 	#print(t)
@@ -443,42 +330,20 @@ def spellCorrection(text):
 	#https://medium.com/analytics-vidhya/practical-approach-of-state-of-the-art-flair-in-named-entity-recognition-46a837e25e6b
 	# The good thing about Flair NER is it works based on context
 
-	# make example sentenc
-	
+	"""
 	sentence = Sentence(text)
 	# predict NER tags
 	tagger.predict(sentence)
-	# print sentence
-	print(sentence)
-	# print predicted NER spans
-	#print('The following NER tags are found:')
-	# iterate over entities and print
-	for entity in sentence.get_spans('ner'):
-		print(entity)
-		if entity not in text:
-			text = TextBlob(text).correct()
-
 
 	#print(sentence.to_dict(tag_type='ner'))
-	
-
-
+	d = sentence.to_dict(tag_type='ner')
+	#print("->", d)
+	if (d.get('entities') is not None):
+		print(d)
+		pass
+	else:
+		text = TextBlob(text).correct()
 	"""
-	word = nltk.word_tokenize(text)
-	pos_tag = nltk.pos_tag(word)
-	chunk = nltk.ne_chunk(pos_tag)
-	NE = [ " ".join(w for w, t in ele) for ele in chunk if isinstance(ele,nltk.Tree)]
-	print(NE)
-	"""
-
-	#spell = SpellChecker()
-	
-	#misspelled = spell.unknown(str(text))
-	#print(misspelled)
-	
-
-
-	#t = TextBlob(text).correct()
 
 	return text
 
@@ -486,84 +351,38 @@ def spellCorrection(text):
 def slangs(text):
 	#print("** ",text)
 	#print(text.lower().strip().split())
-	file = 'acronimos.csv'
-	acron = pd.read_csv(file,lineterminator='\n',encoding='utf-8')
-
-	slang = acron['slang']
-	complete = acron['complete']
-	row = 0
-
-	"""
-	for s in slang:
-		#print(text.lower().strip().split())
-		#print(text.lower().strip().split())
-		#print(text.lower().strip())
-		#print(text.lower())
-
-		#slang[row] in text.lower().strip())
-		s = text.lower().strip()
-		if ( (s.find(slang[row])) != -1 ):
-			print("TRUE")
-			print(slang[row], text.lower().strip())
-			#s = "'["+str(slang[row].strip())+"]'"
-			#c = "'"+str(complete[row].strip())+"'"
-			print("#",slang[row], str(complete[row].strip()))
-			#print("##",row,s,c)
-			text = text.replace(slang[row],str(complete[row].strip()))
-			#text = re.sub(s, c, text)
-			break
-		else
-			row+=1
-	"""
-
-	for s in slang:
-		if(slang[row] in text.lower().strip().split()):
-			#print("TRUE")
-			#print(text)
-			print("#",slang[row]+ "-->"+ str(complete[row].strip()))
-			#print("##",row,s,c)
-			text = text.lower()
-			text = text.replace(slang[row],str(complete[row].strip()))
-			#print("$",text)
-			
-			#text = re.sub(s, c, text)
-			#break
-		else:
-			row+=1
-	return text
-
-	"""
-	for t in text.strip().split():
-		#print (t)
-		if (slang[row] in t):
-			print("TRUE")
-			text = text.replace(slang[row],str(complete[row].strip()))
-		else:
-			row+=1
-	"""
-	#for s in slang:
-	#	print(s)
-
-	"""
-	if(any (slang[row] in str(text.lower().strip()) for s in slang)):
-		print(slang[row])
-		print("true")
-
-	else:
-		row+=1
-	"""
-	#print("~",text)
-
-	"""
+		
 	try:
+		file = 'acronimos.csv'
+		acron = pd.read_csv(file,lineterminator='\n',encoding='utf-8')
+
+		slang = acron['slang']
+		complete = acron['complete']
+		row = 0
+
+		for s in slang:
+			if(slang[row] in text.lower().strip().split()):
+				#print("TRUE")
+				#print(text)
+				#print("#",slang[row]+ "-->"+ str(complete[row].strip()))
+				#print("##",row,s,c)
+				text = text.lower()
+				text = text.replace(slang[row],str(complete[row].strip()))
+				#print("$",text)
+				
+				#text = re.sub(s, c, text)
+				#break
+			else:
+				row+=1
+		return text
 	except IOError as e:
 		print(e)
 	except FileNotFoundError:
 		print("File not found...", file)
 	except Exception:
 		print("Another Error...", file)
-	"""
-	return text
+	
+	#return text
 
 def runPreprocessing(t):
 	#print("running clean ... ")
@@ -584,79 +403,11 @@ def runPreprocessing(t):
 	
 
 
-for t in listaPalavras: #t in comments:
-	print("\n>>> ",t)
-	t = runPreprocessing(t)
-	print("> ",t)
+#for t in comments: #t in comments:
+#	print("\n>>> ",t)
+#	t = runPreprocessing(t)
+#	print("> ",t)
 
-
-
-"""
-# contra tratados
-contaFinal = 0
-for t in comments:
-	if(len(t) >= 3):
-		#print("\n",t)
-		t = clearText(t)
-		#print(len(t))
-		t = caracteresRepetidos(t)
-		t = spellCorrection(t) # rever
-
-		if (len(t) >= 3 and isEnglish(str(t))):
-			contaFinal += 1
-			print(contaFinal)
-
-print(">>>>>>>>>>>>>>>", contaFinal)
-"""
-
-
-"""
-c=0
-for t in comments:
-	c+=1
-	if(len(t) >= 3):
-		print("\n",t)
-		t = clearText(t)
-		#print(len(t))
-		t = caracteresRepetidos(t)
-		t = spellCorrection(t)
-
-		if (len(t) >= 3 and isEnglish(str(t))):
-			print(">>",t)
-		else:
-			print(">> ---")
-		# google clould ... 90 dias com 300$ ver e enviar docs
-		
-		try:
-			if (len(t) >= 3 and isEnglish(str(t))):
-				print(">>",t)
-			else:
-				print(">> ---")
-		except:
-			print("detect language - something wrong ...")
-		
-	if c > 200:
-		break
-"""
-
-#runPreprocessing(comments)
-#print("#################\n")
-
-
-
-# letras repetidas
-# abreviaturas
-# OMG, ahahah, @ddddd, #dijdij
-
-	# ANOTAÇÃO 
-	# lower string ...
-	# remove stop words
-
-	# excluir palavras q nao estao no dicionario ingles... ou seja, invalidas
-	# ver se é um comentario relevante...
-	# se só tiver uma palavra e for um nome ou pronome talvez n seja...
-
-	# lemmatization -> converts the word into its root word
 
 
 
