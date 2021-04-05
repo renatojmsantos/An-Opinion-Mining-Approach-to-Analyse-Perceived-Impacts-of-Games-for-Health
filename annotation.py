@@ -7,7 +7,7 @@ from vocabulary import *
 import pandas as pd
 
 from nrclex import NRCLex
-from senticnet.senticnet import SenticNet
+#from senticnet.senticnet import SenticNet
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
@@ -60,7 +60,7 @@ def insertToTable(query):
 #insertTablesConceitos()
 
 def annotate(text, polarity):
-	print("\n>>>>>>> ",text)
+	#print("\n>>>>>>> ",text)
 	#print(">>> ", polarity)
 
 	# remove stop words
@@ -357,7 +357,7 @@ def executeAnnotation():
 
 						#insert youtube video ...
 						query = "insert into youtube values('Youtube','"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"', '"+descript+"')"
-						#insertToTable(query)
+						insertToTable(query)
 
 						# detetar plataforma no titulo do video e na descrição ...
 						#for p in plataform:
@@ -381,13 +381,15 @@ def executeAnnotation():
 						for game in games:
 							edition = game.lower()
 							if(edition in title.lower()):
-								#print("\n1...Video ID = "+str(videoID[row])+'\nConsole = '+ console + "\nGame = "+ game + "\nTitle = " +title)
-								query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(game)+"', '"+str(console)+"', '"+str(polarity)+"', '"+str(videoID[row])+"')"
-								break
-							elif(edition in descript.lower().lower()):
+							        #print("\n1...Video ID = "+str(videoID[row])+'\nConsole = '+ console + "\nGame = "+ game + "\nTitle = " +title)
+							        query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(game)+"', '"+str(console)+"', '"+str(polarity)+"', '"+str(videoID[row])+"')"
+                                                                insertToTable(query)
+                                                                break
+                                                        elif(edition in descript.lower().lower()):
 								#print("\n2...Video ID = "+str(videoID[row])+'\nConsole = '+ console + "\nGame = "+ game + "\nTitle = " +title)
 								query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(game)+"', '"+str(console)+"', '"+str(polarity)+"', '"+str(videoID[row])+"')"
-								break
+								insertToTable(query)
+                                                                break
 							else:
 								edition=""
 						if(edition ==""):
@@ -395,6 +397,7 @@ def executeAnnotation():
 							if(edition.lower() in title.lower()):
 								#print("\n3...Video ID = "+str(videoID[row])+'\nConsole = '+ console + "\nGame = "+ edition + "\nTitle = " +title)
 								query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(edition)+"', '"+str(console)+"', '"+str(polarity)+"', '"+str(videoID[row])+"')"
+                                                                insertToTable(query)
 
 
 							
@@ -413,15 +416,15 @@ def executeAnnotation():
 									if (field == "Usability"):
 										query = "insert into opinion_usability values('"+str(commentID[row])+"', '"+str(concept)+"')"
 										#print(query)
-										#insertToTable(query)
+										insertToTable(query)
 									elif (field == "UX"):
 										query = "insert into opinion_ux values('"+str(commentID[row])+"', '"+str(concept)+"')"
 										#print(query)
-										#insertToTable(query)
+										insertToTable(query)
 									elif (field == "Health"):
 										query = "insert into opinion_health values('"+str(commentID[row])+"', '"+str(concept)+"')"
 										#print(query)
-									#insertToTable(query)
+									        insertToTable(query)
 						
 				except Exception as e:
 					print(e)
