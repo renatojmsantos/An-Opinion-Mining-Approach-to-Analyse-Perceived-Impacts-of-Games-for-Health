@@ -30,7 +30,7 @@ DetectorFactory.seed = 0
 
 #path = '../CSV/YT_10_03_2021_v6 - cópia 2.csv'
 #path = '../CSV/YT_repliesDif-Descript-ALL.csv'
-path='../CSV/dataset.csv'
+path='../csv/dataset.csv'
 
 #path = 'YT_repliesDif-Descript-ALL'
 #path = '../CSV/YT_10_03_2021_v6.csv'
