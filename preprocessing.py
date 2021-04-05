@@ -140,7 +140,7 @@ def emojiToCLDRshortName(text):
 def clearText(text):
 	# remove emojis
 	#text = demoji(text)
-	print("0 — " , text)
+	#print("0 — " , text)
 
 	#contracoes inglesas... that's -> that is
 	text = contractions(text)
@@ -350,7 +350,7 @@ def spellCorrection(text):
 	d = sentence.to_dict(tag_type='ner')
 	#print("->", d)
 	if (d.get('entities') is not None):
-		print(d)
+		#print(d)
 		pass
 	else:
 		text = TextBlob(text).correct()
