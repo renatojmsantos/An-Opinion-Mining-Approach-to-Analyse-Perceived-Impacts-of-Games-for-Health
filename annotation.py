@@ -78,27 +78,27 @@ def annotate(text, polarity):
 
 	# POS Tagger
 	def pos_tagger(nltk_tag):
-	    if nltk_tag.startswith('J'):
-	        return wordnet.ADJ
-	    elif nltk_tag.startswith('V'):
-	        return wordnet.VERB
-	    elif nltk_tag.startswith('N'):
-	        return wordnet.NOUN
-	    elif nltk_tag.startswith('R'):
-	        return wordnet.ADV
-	    else:          
-	        return None
+		if nltk_tag.startswith('J'):
+			return wordnet.ADJ
+		elif nltk_tag.startswith('V'):
+			return wordnet.VERB
+		elif nltk_tag.startswith('N'):
+			return wordnet.NOUN
+		elif nltk_tag.startswith('R'):
+			return wordnet.ADV
+		else:          
+			return None
 
-    # POS Tagger adjetivos
+	# POS Tagger adjetivos
 	def pos_taggerJJ(nltk_tag):
-	    if nltk_tag.startswith('J'):
-	        return wordnet.ADJ
-	    elif nltk_tag.startswith('V'):
-	        return wordnet.VERB
-	    elif nltk_tag.startswith('N'):
-	        return wordnet.NOUN
-	    else:          
-	        return None
+		if nltk_tag.startswith('J'):
+			return wordnet.ADJ
+		elif nltk_tag.startswith('V'):
+			return wordnet.VERB
+		elif nltk_tag.startswith('N'):
+			return wordnet.NOUN
+		else:          
+			return None
 
 	textWords = word_tokenize(text)
 	pos_tagged = nltk.pos_tag(textWords)
@@ -381,15 +381,15 @@ def executeAnnotation():
 						for game in games:
 							edition = game.lower()
 							if(edition in title.lower()):
-							        #print("\n1...Video ID = "+str(videoID[row])+'\nConsole = '+ console + "\nGame = "+ game + "\nTitle = " +title)
-							        query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(game)+"', '"+str(console)+"', '"+str(polarity)+"', '"+str(videoID[row])+"')"
-                                                                insertToTable(query)
-                                                                break
-                                                        elif(edition in descript.lower().lower()):
+								#print("\n1...Video ID = "+str(videoID[row])+'\nConsole = '+ console + "\nGame = "+ game + "\nTitle = " +title)
+								query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(game)+"', '"+str(console)+"', '"+str(polarity)+"', '"+str(videoID[row])+"')"
+								insertToTable(query)
+								break
+							elif(edition in descript.lower().lower()):
 								#print("\n2...Video ID = "+str(videoID[row])+'\nConsole = '+ console + "\nGame = "+ game + "\nTitle = " +title)
 								query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(game)+"', '"+str(console)+"', '"+str(polarity)+"', '"+str(videoID[row])+"')"
 								insertToTable(query)
-                                                                break
+								break
 							else:
 								edition=""
 						if(edition ==""):
@@ -397,10 +397,8 @@ def executeAnnotation():
 							if(edition.lower() in title.lower()):
 								#print("\n3...Video ID = "+str(videoID[row])+'\nConsole = '+ console + "\nGame = "+ edition + "\nTitle = " +title)
 								query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(edition)+"', '"+str(console)+"', '"+str(polarity)+"', '"+str(videoID[row])+"')"
-                                                                insertToTable(query)
+								insertToTable(query)
 
-
-							
 						DictResult = annotate(str(t),str(polarity)) 
 						#print("> ",DictResult)
 						if(bool(DictResult)):
@@ -424,7 +422,7 @@ def executeAnnotation():
 									elif (field == "Health"):
 										query = "insert into opinion_health values('"+str(commentID[row])+"', '"+str(concept)+"')"
 										#print(query)
-									        insertToTable(query)
+										insertToTable(query)
 						
 				except Exception as e:
 					print(e)

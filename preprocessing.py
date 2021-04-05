@@ -64,16 +64,16 @@ mainComment = data['MainComment']
 
 #remove emojis
 def demoji(text):
-    emoji_pattern = re.compile("["
-                               u"\U0001F600-\U0001F64F"  # emoticons
-                               u"\U0001F300-\U0001F5FF"  # symbols & pictographs
-                               u"\U0001F680-\U0001F6FF"  # transport & map symbols
-                               u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
-                               u"\U00002702-\U000027B0"
-                               u"\U000024C2-\U0001F251"
-                               u"\U00010000-\U0010ffff"
-                               "]+", flags=re.UNICODE)
-    return (emoji_pattern.sub(r'', text))
+	emoji_pattern = re.compile("["
+							   u"\U0001F600-\U0001F64F"  # emoticons
+							   u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+							   u"\U0001F680-\U0001F6FF"  # transport & map symbols
+							   u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+							   u"\U00002702-\U000027B0"
+							   u"\U000024C2-\U0001F251"
+							   u"\U00010000-\U0010ffff"
+							   "]+", flags=re.UNICODE)
+	return (emoji_pattern.sub(r'', text))
 
 #comment = comment.astype(str).apply(lambda x: demoji(x))
 
@@ -126,13 +126,13 @@ def emojiToCLDRshortName(text):
 	has_emoji = bool(emoji.get_emoji_regexp().search(text))
 	#print(has_emoji)
 	if (has_emoji):
-	    emoji_chars = emoji.EMOJI_ALIAS_UNICODE.values()
-	    def _emoji(char):
-	        if char in emoji_chars:
-	            return unicodedata.name(char) + " "
-	    #for char in text:
-	    #	print(_emoji(char))
-	    return ''.join(_emoji(char) or char for char in text)
+		emoji_chars = emoji.EMOJI_ALIAS_UNICODE.values()
+		def _emoji(char):
+			if char in emoji_chars:
+				return unicodedata.name(char) + " "
+		#for char in text:
+		#	print(_emoji(char))
+		return ''.join(_emoji(char) or char for char in text)
 	else:
 		return text
 
@@ -304,9 +304,9 @@ def contractions(text):
 		c_re = re.compile('(%s)' % '|'.join(cDict.keys()))
 
 		def expandContractions(text, c_re=c_re):
-		    def replace(match):
-		        return cDict[match.group(0)]
-		    return c_re.sub(replace, text)
+			def replace(match):
+				return cDict[match.group(0)]
+			return c_re.sub(replace, text)
 		
 		text = expandContractions(text.lower())
 		#print(text)
