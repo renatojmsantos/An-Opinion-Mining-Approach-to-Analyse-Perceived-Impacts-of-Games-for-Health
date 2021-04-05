@@ -32,7 +32,7 @@ def insertToTable(query):
 		idBack = cur.fetchone()
 		#print(idBack)
 		conn.commit()
-		print("inserted!")
+		#print("inserted!")
 		cur.close()
 	except (Exception, psycopg2.DatabaseError) as error:
 		print("ERRO!", error)
@@ -70,7 +70,33 @@ def insertTablesConceitos():
 				insertToTable(query)
 
 
+def insertSentiments():
+	senti = ['Positive', 'Negative', 'Neutral']
+	for s in senti:
+		query = "insert into sentiment values('"+s+"')"
+		insertToTable(query)
+
+def insertGames():
+	games = ['Just Dance','Just Dance 2', 'Just Dance 3', 'Just Dance 4', 'Just Dance 2014', 'Just Dance 2015', 'Just Dance 2016', 'Just Dance 2017', 'Just Dance 2018', 'Just Dance 2019', 'Just Dance 2020', 'Just Dance 2021',
+								'Just Dance Wii', 'Just Dance Wii 2', 'Just Dance Wii U', 'Yo-kai Watch Dance: Just Dance Special Version',
+								'Just Dance Kids', 'Just Dance Kids 2', 'Just Dance Kids 2014',
+								'Just Dance: Disney Party', 'Just Dance: Disney Party 2',
+								'Just Dance: Greatest Hits',
+								'Just Dance: Summer Party', 'Just Dance Now', 'Just Dance Unlimited']
+
+	plataforms = ['Wii', 'Wii U', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'Xbox 360', 'Xbox One', 'Xbox Series X', 'Xbox Series S','iOS', 'Android', 'Nintendo Switch', 'Microsoft Windows', 'Stadia']
+
+
+	for game in games:
+		for plataform in plataforms:
+			query = "insert into game values('"+game+"', '"+plataform+"')"
+			insertToTable(query)
+
+
+insertSentiments()
 insertTablesConceitos()
+insertGames()
+
 
 
 

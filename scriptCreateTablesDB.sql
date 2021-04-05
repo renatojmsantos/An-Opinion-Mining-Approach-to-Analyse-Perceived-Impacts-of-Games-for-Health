@@ -79,8 +79,9 @@ ALTER TABLE opinion_usability ADD CONSTRAINT opinion_usability_fk1 FOREIGN KEY (
 ALTER TABLE opinion_usability ADD CONSTRAINT opinion_usability_fk2 FOREIGN KEY (usability_uconcept) REFERENCES usability(uconcept);
 
 
-ALTER TABLE opinion ADD CONSTRAINT opinion_fk1 FOREIGN KEY (game_name) REFERENCES game(name);
-ALTER TABLE opinion ADD CONSTRAINT opinion_fk2 FOREIGN KEY (game_platform) REFERENCES game(platform);
+
+#ALTER TABLE opinion ADD CONSTRAINT opinion_fk1 FOREIGN KEY (game_name) REFERENCES game(name);
+#ALTER TABLE opinion ADD CONSTRAINT opinion_fk2 FOREIGN KEY (game_platform) REFERENCES game(platform);
 
 
 insert into game values('Just Dance');
