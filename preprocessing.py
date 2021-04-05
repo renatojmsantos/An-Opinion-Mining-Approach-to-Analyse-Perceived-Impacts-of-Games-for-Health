@@ -16,8 +16,9 @@ from flair.data import Sentence
 from flair.models import SequenceTagger
 
 
-#tagger = SequenceTagger.load("flair/ner-english-large")
+#tagger = SequenceTagger.load("flair/ner-english-large") # EXPLODE ....
 
+#tagger = SequenceTagger.load("ner") # ESTE !!
 
 #from abbr import expandall
 
@@ -29,6 +30,8 @@ DetectorFactory.seed = 0
 
 #path = '../CSV/YT_10_03_2021_v6 - cópia 2.csv'
 path = '../CSV/YT_repliesDif-Descript-ALL.csv'
+#path='dataset.csv'
+
 #path = 'YT_repliesDif-Descript-ALL'
 #path = '../CSV/YT_10_03_2021_v6.csv'
 data = pd.read_csv(path,lineterminator='\n',encoding='utf-8')
@@ -52,6 +55,7 @@ views = data['ViewsVideo']
 likesVideo = data['likesVideo']
 dislikesVideo = data['dislikesVideo']
 totalCommentsVideo = data['totalCommentsVideo']
+
 description = data['Description']
 mainComment = data['MainComment']
 
@@ -136,13 +140,14 @@ def emojiToCLDRshortName(text):
 def clearText(text):
 	# remove emojis
 	#text = demoji(text)
-	#print("0 — " , text)
+	print("0 — " , text)
 
 	#contracoes inglesas... that's -> that is
 	text = contractions(text)
+	#print("1 — " , text)
 	# acronimos e expressoes da giria popular
 	text = slangs(text)
-	#print("0 — " , text)
+	#print("2 — " , text)
 	# emojis to string
 	text = str(emojiToCLDRshortName(text))
 	#print("#",text)
@@ -168,11 +173,12 @@ def clearText(text):
 	text = re.sub(r"[\W\s]"," ",text)
 	text = re.sub("\n","",text)
 
-	#print("0 — " , text)
+	#print("3 — " , text)
 	return text
 
 def contractions(text):
 	#https://gist.github.com/nealrs/96342d8231b75cf4bb82
+
 	cDict = {
 	  "ain't": "am not",
 	  "aren't": "are not",
@@ -294,17 +300,19 @@ def contractions(text):
 	  "you're": "you are",
 	  "you've": "you have"
 	}
+	try:
+		c_re = re.compile('(%s)' % '|'.join(cDict.keys()))
 
-	c_re = re.compile('(%s)' % '|'.join(cDict.keys()))
-
-	def expandContractions(text, c_re=c_re):
-	    def replace(match):
-	        return cDict[match.group(0)]
-	    return c_re.sub(replace, text)
-	
-	text = expandContractions(text.lower())
-
-	return text
+		def expandContractions(text, c_re=c_re):
+		    def replace(match):
+		        return cDict[match.group(0)]
+		    return c_re.sub(replace, text)
+		
+		text = expandContractions(text.lower())
+		#print(text)
+		return text
+	except Exception as e:
+		print(e)
 
 
 def caracteresRepetidos(text):

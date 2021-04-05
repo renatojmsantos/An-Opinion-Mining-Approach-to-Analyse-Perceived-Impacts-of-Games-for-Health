@@ -287,7 +287,7 @@ for ano in range (-1,12): #(-1,12)
                         # detect language of video title?? with preprocesing? 
 
                         videoName = titulo.lower()
-                        if ( ("lady gaga" not in videoName) and ("alvin" not in videoName) and ("chipettes" not in videoName) and ("chipmunk" not in videoName) and ("chipmunks" not in videoName) and ("just dance india" not in videoName) and ("official music video" not in videoName) and ("lyrics" not in videoName)
+                        if ( ("lady gaga" not in videoName)  and ("ps22 chorus" not in videoName) and ("alvin" not in videoName) and ("chipettes" not in videoName) and ("chipmunk" not in videoName) and ("chipmunks" not in videoName) and ("just dance india" not in videoName) and ("official music video" not in videoName) and ("lyrics" not in videoName)
                             and (("just dance" in videoName) or ("justdance" in videoName))):
                             
                             tituloChannel=search_result["snippet"]["channelTitle"]
@@ -452,7 +452,7 @@ for ano in range (-1,12): #(-1,12)
                                                             except HttpError as e:
                                                                 print("comments() - replies — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
                                                                 if("quotaExceeded" in str(e.content)):
-                                                                    time.sleep(1)
+                                                                    time.sleep(0.1)
                                                             #except (ConnectionError, ReadTimeout):
                                                                 #print("ERROR! Connection or TIME OUT!")
                                                             except:
@@ -471,7 +471,7 @@ for ano in range (-1,12): #(-1,12)
                                                     #commentsDisabled
                                                     if("quotaExceeded" in str(e.content)):
                                                         print("SEM QUOTA")
-                                                        time.sleep(1)
+                                                        time.sleep(0.1)
                                                     if("commentsDisabled" in str(e.content)):
                                                         print("COMENTARIOS DESATIVADOS...")
                                                         break
@@ -520,7 +520,7 @@ for ano in range (-1,12): #(-1,12)
                                     except HttpError as e:
                                         print("videos (stats) — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
                                         if("quotaExceeded" in str(e.content)):
-                                            time.sleep(1) #6h
+                                            time.sleep(0.1) #6h
                                     #except (ConnectionError, ReadTimeout):
                                         #print("ERROR! Connection or TIME OUT!")
                                     except:
@@ -545,7 +545,7 @@ for ano in range (-1,12): #(-1,12)
             except HttpError as e:
                 print("search() — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
                 if("quotaExceeded" in str(e.content)):
-                    time.sleep(1) #72 minutos
+                    time.sleep(0.1) #72 minutos
             #except (ConnectionError, ReadTimeout):
                 #print("ERROR! Connection or TIME OUT!")
             except:
