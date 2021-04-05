@@ -18,7 +18,7 @@ from flair.models import SequenceTagger
 
 #tagger = SequenceTagger.load("flair/ner-english-large") # EXPLODE ....
 
-#tagger = SequenceTagger.load("ner") # ESTE !!
+tagger = SequenceTagger.load("ner") # ESTE !!
 
 #from abbr import expandall
 
@@ -29,8 +29,8 @@ DetectorFactory.seed = 0
 
 
 #path = '../CSV/YT_10_03_2021_v6 - cópia 2.csv'
-path = '../CSV/YT_repliesDif-Descript-ALL.csv'
-#path='dataset.csv'
+#path = '../CSV/YT_repliesDif-Descript-ALL.csv'
+path='../CSV/dataset.csv'
 
 #path = 'YT_repliesDif-Descript-ALL'
 #path = '../CSV/YT_10_03_2021_v6.csv'
@@ -341,7 +341,7 @@ def spellCorrection(text):
 	#https://medium.com/analytics-vidhya/practical-approach-of-state-of-the-art-flair-in-named-entity-recognition-46a837e25e6b
 	# The good thing about Flair NER is it works based on context
 
-	"""
+	
 	sentence = Sentence(text)
 	# predict NER tags
 	tagger.predict(sentence)
@@ -354,7 +354,7 @@ def spellCorrection(text):
 		pass
 	else:
 		text = TextBlob(text).correct()
-	"""
+	
 
 	return text
 
