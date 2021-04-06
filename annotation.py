@@ -287,12 +287,14 @@ def checkDimensionID(field,concept):
 		cur = conn.cursor()
 
 		query = "SELECT dimension_id FROM dimension WHERE field = '"+field+"' and concept = '"+ concept +"';"
-		#print(query)
+		print(query)
 		cur.execute(query)
 
 		idBack = cur.fetchall()
-		while idBack is not None:
-			return idBack 
+		for row in idBack:
+			if (row is not None):
+				print(idBack)
+				return idBack 
 		#print(idBack)
 		#conn.commit()
 		#print("inserted!")
@@ -318,13 +320,18 @@ def checkGameID(edition,platform):
 
 		query = "SELECT game_id FROM game WHERE edition = '"+edition+"' and platform = '"+ platform +"';"
 
-		#print(query)
+		print(query)
 		cur.execute(query)
 
 		#idBack = cur.fetchone()
 		idBack = cur.fetchall()
-		while idBack is not None:
-			return idBack 
+		#while idBack is not None:
+		#	print(idBack)
+		#	return idBack 
+		for row in idBack:
+			if (row is not None):
+				print(idBack)
+				return idBack 
 		#print(idBack)
 		#conn.commit()
 		#print("inserted!")
@@ -538,7 +545,7 @@ def executeAnnotation():
 										dimension_id = dimension_id.replace(')','')
 										dimension_id = dimension_id.replace('[','')
 										dimension_id = dimension_id.replace(']','')
-										
+
 										query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
 										#query = "insert into opinion_health values('"+str(commentID[row])+"', '"+str(concept)+"')"
 										#query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
