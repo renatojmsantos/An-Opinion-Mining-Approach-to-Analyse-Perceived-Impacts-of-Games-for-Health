@@ -1,6 +1,8 @@
 
 # ver artigo CHI 13, table 8
 
+
+
 dict={	
 		'Usability':{
 			'Memorability': {'memory': 1.0, 'forgot': 0.6}, 
@@ -12,7 +14,7 @@ dict={
 		'UX':{
 			'Likeability': {'likeability': 1.0, 'like':0.9}, 
 			'Pleasure': {'pleasure': 1.0, 'fun': 0.7, 'moneybag':0.7, 'enjoy': 0.7, 'love': 0.7, 'entertain': 0.7, 'awesome': 0.8, 'stimulation':0.7, 'felt': 0.7, 'sooth': 0.7, 'adict': 0.7, 'nostalgia': 0.7},
-			'Comfort': {'comfort': 1.0, 'physical': 0.7},
+			'Comfort': {'comfort': 1.0, 'physical': 0.7, 'physical comfort': 0.8, 'physical needs': 0.9, 'well being':0.8, 'body care':0.3, 'active body':0.9},
 			'Trust': {'trust': 1.0, 'behavior': 0.8},
 			'Anticipation': {'anticipation': 1.0, 'expectation': 1.0},
 			'Overall Usability': {'overall usability': 1.0, 'new version': 0.8, 'upgrade':0.8, 'edition': 0.8, 'previous edition':0.8},

@@ -217,29 +217,34 @@ def insertToTable(query):
 
 
 def insertTablesConceitos():
+	dimension_id =0
 	for items in dict.items():
 		chave = items[0]
 		conceitos = items[1]
 		#print("\n",chave,conceitos)
 		#print("\n>> ",chave)
 		for vocabulario in conceitos.items():
+			dimension_id+=1
 			termo = vocabulario[0]
 			#pals = vocabulario[1]
 			#print(termo,pals)
 			#print(" #", termo)
 			if(chave=="Usability"):
 				#insert into usability values('Satisfaction');
-				query = "insert into usability values('"+termo+"')"
+				#query = "insert into usability values('"+termo+"')"
+				query = "insert into dimension values('"+str(dimension_id)+"', '"+chave+"', '"+termo+"')"
 				#print(query)
 				#tableName = "usability"
 				insertToTable(query)
 			elif(chave=="UX"):
 				#print("ux")
-				query = "insert into ux values('"+termo+"')"
+				#query = "insert into ux values('"+termo+"')"
+				query = "insert into dimension values('"+str(dimension_id)+"', '"+chave+"', '"+termo+"')"
 				insertToTable(query)
 			elif(chave == "Health"):
 				#print("health")
-				query = "insert into health values('"+termo+"')"
+				#query = "insert into health values('"+termo+"')"
+				query = "insert into dimension values('"+str(dimension_id)+"', '"+chave+"', '"+termo+"')"
 				insertToTable(query)
 
 
@@ -259,18 +264,20 @@ def insertGames():
 
 	plataforms = ['Unknown','Wii', 'Wii U', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'Xbox 360', 'Xbox One', 'Xbox Series X', 'Xbox Series S','iOS', 'Android', 'Nintendo Switch', 'Microsoft Windows', 'Stadia']
 
-
+	game_id = 0
 	for game in games:
 		for plataform in plataforms:
-			query = "insert into game values('"+game+"', '"+plataform+"')"
+			game_id += 1
+			#query = "insert into game values('"+game+"', '"+plataform+"')"
+			query = "insert into game values('"+str(game_id)+"', '"+game+"', '"+plataform+"')"
 			insertToTable(query)
 
 
 
-createTables()
-alterTables()
+#createTables()
+#alterTables()
 
-insertSentiments()
+#insertSentiments()
 insertTablesConceitos()
 insertGames()
 

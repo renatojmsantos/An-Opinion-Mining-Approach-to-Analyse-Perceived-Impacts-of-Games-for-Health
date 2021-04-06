@@ -14,7 +14,7 @@ import unicodedata
 
 from flair.data import Sentence
 from flair.models import SequenceTagger
-
+#from vocabulary import *
 
 #tagger = SequenceTagger.load("flair/ner-english-large") # EXPLODE ....
 

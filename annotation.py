@@ -14,6 +14,16 @@ from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 from nltk.corpus import wordnet
 
+
+
+from flair.data import Sentence
+from flair.models import SequenceTagger
+#from vocabulary import *
+
+#tagger = SequenceTagger.load("flair/ner-english-large") # EXPLODE ....
+#tagger = SequenceTagger.load("ner") # ESTE !!
+
+
 #nltk.download('averaged_perceptron_tagger')
 #tagger = SequenceTagger.load("flair/ner-english-large")
 
@@ -93,10 +103,6 @@ def annotate(text, polarity):
 	def pos_taggerJJ(nltk_tag):
 		if nltk_tag.startswith('J'):
 			return wordnet.ADJ
-		elif nltk_tag.startswith('V'):
-			return wordnet.VERB
-		elif nltk_tag.startswith('N'):
-			return wordnet.NOUN
 		else:          
 			return None
 
@@ -271,6 +277,61 @@ teste = ["this give me nostalgia","this game is awesome", "can you fix the serve
 			'Most of the inter-mission story telling happen in this mode, which tend to be awkward and clumsy.',
 			'Most of the missions are enjoyable, and each one has optional goals which add replay value.']
 
+def checkDimensionID(field,concept):
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		query = "SELECT dimension_id FROM dimension WHERE field = '"+field+"' and concept = '"+ concept +"' "
+		#print(query)
+		cur.execute(query)
+
+		idBack = cur.fetchone()
+		#print(idBack)
+		#conn.commit()
+		#print("inserted!")
+		
+		cur.close()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack #is not None #idBack
+
+def checkGameID(edition,platform):
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		query = "SELECT game_id FROM game WHERE edition = '"+edition+"' and platform = '"+ platform +"' "
+
+		#print(query)
+		cur.execute(query)
+
+		idBack = cur.fetchone()
+		#print(idBack)
+		#conn.commit()
+		#print("inserted!")
+		
+		cur.close()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack #is not None #idBack
+
 def executeAnnotation():
 	row = 0
 	for t in comments: #t in comments: , teste
@@ -353,52 +414,65 @@ def executeAnnotation():
 						# Just Dance é o ultimo jogo a ser inserido... RISCO neste!!! pode nao ser o 1.º JD.... pq no titulo podem nao especificar qual é a versao
 						# quem nao quiser saber de qual é a edicao, simplesmente nao aplica o filtro, e vê tudo.
 
-						plataform = ['Wii', 'Wii U', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'Xbox 360', 'Xbox One', 'Xbox Series X', 'Xbox Series S','iOS', 'Android', 'Nintendo Switch', 'Microsoft Windows', 'Stadia']
+						platforms = ['Wii', 'Wii U', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'Xbox 360', 'Xbox One', 'Xbox Series X', 'Xbox Series S','iOS', 'Android', 'Nintendo Switch', 'Microsoft Windows', 'Stadia']
 						# tratar abreviaturas das consolas... ps3 -> playstation 3 ou no if... meter as duas hipoteses...
 
 						#insert youtube video ...
-						query = "insert into youtube values('"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"', '"+descript+"')"
+						query = "insert into video values('"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"', '"+descript+"')"
 						insertToTable(query)
 
 						# detetar plataforma no titulo do video e na descrição ...
 						#for p in plataform:
 							#print(p)
-						console = ""
-						for p in plataform:
+						platform = ""
+						for p in platforms:
 							c = p.lower()
 							if(c in title.lower()):
-								console = c
+								platform = c
 								break
 							elif(c in descript.strip().lower()):
-								console = c
+								platform = c
 								break
-						if(console==""):
-							console="Unknown"
+						if(platform==""):
+							platform="Unknown"
 
 						#print(console)
 						# detetar o nome do jogo no titulo do video ...
-						
 						edition=""
+						serie=""
+						if (isMain == "True"):
+							isMain = "Main"
+						else:
+							isMain = "Reply"
+
 						for game in games:
-							edition = game.lower()
-							if(edition in title.lower()):
+							serie = game.lower()
+							if(serie in title.lower()):
 								#print("\n1...Video ID = "+str(videoID[row])+'\nConsole = '+ console + "\nGame = "+ game + "\nTitle = " +title)
-								query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(game)+"', '"+str(console)+"', '"+str(polarity)+"', '"+str(videoID[row])+"')"
-								insertToTable(query)
+								# select where edition  = ... and console = .... ---> get ID
+								#query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
+								#insertToTable(query)
+								edition=serie
 								break
-							elif(edition in descript.lower().lower()):
+							elif(serie in descript.lower().lower()):
 								#print("\n2...Video ID = "+str(videoID[row])+'\nConsole = '+ console + "\nGame = "+ game + "\nTitle = " +title)
-								query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(game)+"', '"+str(console)+"', '"+str(polarity)+"', '"+str(videoID[row])+"')"
-								insertToTable(query)
+								# select where edition  = ... and console = .... ---> get ID
+								#query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(game)+"', '"+str(console)+"', '"+str(polarity)+"', '"+str(videoID[row])+"')"
+								#query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
+								#insertToTable(query)
+								edition=serie
 								break
 							else:
-								edition=""
-						if(edition ==""):
-							edition = "Just Dance"
-							if(edition.lower() in title.lower()):
+								serie=""
+						if(serie ==""):
+							serie = "Just Dance"
+							if(serie.lower() in title.lower()):
 								#print("\n3...Video ID = "+str(videoID[row])+'\nConsole = '+ console + "\nGame = "+ edition + "\nTitle = " +title)
-								query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(edition)+"', '"+str(console)+"', '"+str(polarity)+"', '"+str(videoID[row])+"')"
-								insertToTable(query)
+								edition = "Just Dance"
+								# select where edition  = ... and console = .... ---> get ID
+								#query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(edition)+"', '"+str(console)+"', '"+str(polarity)+"', '"+str(videoID[row])+"')"
+								#query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
+								#insertToTable(query)
 
 						DictResult = annotate(str(t),str(polarity)) 
 						#print("> ",DictResult)
@@ -413,15 +487,29 @@ def executeAnnotation():
 									#print(field + "->"+concept)
 									#print(concept)
 									if (field == "Usability"):
-										query = "insert into opinion_usability values('"+str(commentID[row])+"', '"+str(concept)+"')"
+										# select where field = ... and concept = ... get dimension_id
+										#query = "insert into opinion_usability values('"+str(commentID[row])+"', '"+str(concept)+"')"
+										dimension_id = checkDimensionID(field,concept)
+										game_id = checkGameID(edition, platform)
+										query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
+
+										#query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
 										#print(query)
 										insertToTable(query)
 									elif (field == "UX"):
-										query = "insert into opinion_ux values('"+str(commentID[row])+"', '"+str(concept)+"')"
+										dimension_id = checkDimensionID(field,concept)
+										game_id = checkGameID(edition, platform)
+										query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
+										#query = "insert into opinion_ux values('"+str(commentID[row])+"', '"+str(concept)+"')"
+										#query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
 										#print(query)
 										insertToTable(query)
 									elif (field == "Health"):
-										query = "insert into opinion_health values('"+str(commentID[row])+"', '"+str(concept)+"')"
+										dimension_id = checkDimensionID(field,concept)
+										game_id = checkGameID(edition, platform)
+										query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
+										#query = "insert into opinion_health values('"+str(commentID[row])+"', '"+str(concept)+"')"
+										#query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
 										#print(query)
 										insertToTable(query)
 						
