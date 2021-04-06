@@ -49,14 +49,14 @@ def insertToTable(query):
 		#cur.execute("select * from usability")
 		#print(cur.fetchone())
 		query = query + " returning 1;" # duplicados deste id = 1 ????
-		print(query)
+		#print(query)
 		#print(tableName)
 		#cur.execute(query, (tableName,))
 		cur.execute(query)
 		idBack = cur.fetchone()
 		#print(idBack)
 		conn.commit()
-		print("inserted!")
+		#print("inserted!")
 		cur.close()
 	except (Exception, psycopg2.DatabaseError) as error:
 		print("ERRO!", error)
@@ -272,10 +272,10 @@ def annotate(text, polarity):
 	return dictAnotado
 
 
-teste = ["this give me nostalgia","this game is awesome", "can you fix the servers?", "i burned a lot of calories playing this", 'if you like multiplayer strategy games, buy this with confidence',
-			'those expectations were met. Mostly, anyway', 'making the game enjoyable for beginners as well as veterans.','Multiplayer is excellent, but the single player campaign isn’t.',
-			'Most of the inter-mission story telling happen in this mode, which tend to be awkward and clumsy.',
-			'Most of the missions are enjoyable, and each one has optional goals which add replay value.']
+#teste = ["this give me nostalgia","this game is awesome", "can you fix the servers?", "i burned a lot of calories playing this", 'if you like multiplayer strategy games, buy this with confidence',
+#			'those expectations were met. Mostly, anyway', 'making the game enjoyable for beginners as well as veterans.','Multiplayer is excellent, but the single player campaign isn’t.',
+#			'Most of the inter-mission story telling happen in this mode, which tend to be awkward and clumsy.',
+#			'Most of the missions are enjoyable, and each one has optional goals which add replay value.']
 
 def checkDimensionID(field,concept):
 	idBack = None
