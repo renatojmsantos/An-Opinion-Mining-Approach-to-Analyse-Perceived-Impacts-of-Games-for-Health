@@ -278,7 +278,7 @@ def annotate(text, polarity):
 #			'Most of the missions are enjoyable, and each one has optional goals which add replay value.']
 
 def checkDimensionID(field,concept):
-	#idBack = None
+	idBack = None
 	conn = None
 	try:
 		params = config()
@@ -286,17 +286,19 @@ def checkDimensionID(field,concept):
 		#conn.autocommit = True
 		cur = conn.cursor()
 
-		query = "SELECT dimension_id FROM dimension WHERE field = '"+field+"' and concept = '"+ concept +"' "
+		query = "SELECT dimension_id FROM dimension WHERE field = '"+field+"' and concept = '"+ concept +"';"
 		#print(query)
 		cur.execute(query)
 
-		idBack = cur.fetchone()
-		print(idBack)
+		idBack = cur.fetchall()
+		while idBack is not None:
+			return idBack 
+		#print(idBack)
 		#conn.commit()
 		#print("inserted!")
 		
 		cur.close()
-		return idBack
+		#return idBack
 	except (Exception, psycopg2.DatabaseError) as error:
 		print("ERRO!", error)
 	finally:
@@ -306,7 +308,7 @@ def checkDimensionID(field,concept):
 	return idBack# is not None #idBack
 
 def checkGameID(edition,platform):
-	#idBack = None
+	idBack = None
 	conn = None
 	try:
 		params = config()
@@ -314,18 +316,21 @@ def checkGameID(edition,platform):
 		#conn.autocommit = True
 		cur = conn.cursor()
 
-		query = "SELECT game_id FROM game WHERE edition = '"+edition+"' and platform = '"+ platform +"' "
+		query = "SELECT game_id FROM game WHERE edition = '"+edition+"' and platform = '"+ platform +"';"
 
 		#print(query)
 		cur.execute(query)
 
-		idBack = cur.fetchone()
-		print(idBack)
+		#idBack = cur.fetchone()
+		idBack = cur.fetchall()
+		while idBack is not None:
+			return idBack 
+		#print(idBack)
 		#conn.commit()
 		#print("inserted!")
 		
 		cur.close()
-		return idBack
+		#return idBack
 	except (Exception, psycopg2.DatabaseError) as error:
 		print("ERRO!", error)
 	finally:
