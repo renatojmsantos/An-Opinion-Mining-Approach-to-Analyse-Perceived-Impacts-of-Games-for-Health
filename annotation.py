@@ -290,7 +290,7 @@ def checkDimensionID(field,concept):
 		#print(query)
 		cur.execute(query)
 
-		idBack = cur.fetchone()
+		idBack = cur.fetchall()
 		#print(idBack)
 		#conn.commit()
 		#print("inserted!")
@@ -318,7 +318,7 @@ def checkGameID(edition,platform):
 		#print(query)
 		cur.execute(query)
 
-		idBack = cur.fetchone()
+		idBack = cur.fetchall()
 		#print(idBack)
 		#conn.commit()
 		#print("inserted!")
