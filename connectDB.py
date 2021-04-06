@@ -6,6 +6,9 @@ import pandas as pd
 #ssh admin@193.137.203.84
 #psql -h 193.137.203.84 -d justdancedb -U renato
 #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
+
+# renatojdtese2021
+
 def config(filename='db_credentials.ini', section='postgresql'):
     # create a parser
     parser = ConfigParser()

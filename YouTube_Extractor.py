@@ -73,7 +73,7 @@ readKeys()
 
 
 
-def checkVideoID(videoid):
+def checkVideoID(videoid): # CHECK VIDEO ID DA OPINION ....
 	idBack = None
 	conn = None
 	try:

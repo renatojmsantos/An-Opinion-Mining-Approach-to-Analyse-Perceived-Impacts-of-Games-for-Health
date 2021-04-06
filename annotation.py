@@ -297,6 +297,7 @@ def executeAnnotation():
 					if("ps22 chorus" not in title):
 						# substituir JD por Just Dance .... no titulo do video ....
 						title = re.sub('jd','just dance',title)
+						title = re.sub('justdance','just dance',title)
 						title = re.sub('ps4','PlayStation 4',title)
 						title = re.sub('ps2','PlayStation 2',title)
 						title = re.sub('ps3','PlayStation 3',title)

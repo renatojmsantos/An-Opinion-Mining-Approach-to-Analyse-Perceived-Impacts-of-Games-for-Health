@@ -44,3 +44,19 @@ select h.health_hconcept, h.opinion_commentid, ux.ux_uxconcept, ux.opinion_comme
 select distinct h.health_hconcept, h.opinion_commentid, ux.ux_uxconcept, ux.opinion_commentid, u.usability_uconcept, u.opinion_commentid
 from opinion_health h, opinion_ux ux, opinion_usability u
 where h.opinion_commentid=ux.opinion_commentid and h.opinion_commentid=u.opinion_commentid;
+
+
+with u as(
+    select count(*) as usability from opinion_usability
+),
+ux as(
+    select count(*) as userexperience from opinion_ux
+),
+h as(
+    select count(*) as health from opinion_health
+)
+select usability, userexperience, health from u, ux, h [[where opinion_commentid = {{Field}}]];
+
+
+
+select count(*) as u from opinion_usability [[where u = {{usability}}]
