@@ -486,6 +486,8 @@ def executeAnnotation():
 						game_id = game_id.replace(',','')
 						game_id = game_id.replace('(','')
 						game_id = game_id.replace(')','')
+						game_id = game_id.replace('[','')
+						game_id = game_id.replace(']','')
 
 						DictResult = annotate(str(t),str(polarity)) 
 						#print("> ",DictResult)
@@ -507,7 +509,8 @@ def executeAnnotation():
 										dimension_id = dimension_id.replace(',','')
 										dimension_id = dimension_id.replace('(','')
 										dimension_id = dimension_id.replace(')','')
-
+										dimension_id = dimension_id.replace('[','')
+										dimension_id = dimension_id.replace(']','')
 										query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
 
 										#query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
@@ -519,6 +522,8 @@ def executeAnnotation():
 										dimension_id = dimension_id.replace(',','')
 										dimension_id = dimension_id.replace('(','')
 										dimension_id = dimension_id.replace(')','')
+										dimension_id = dimension_id.replace('[','')
+										dimension_id = dimension_id.replace(']','')
 
 										query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
 										#query = "insert into opinion_ux values('"+str(commentID[row])+"', '"+str(concept)+"')"
@@ -531,6 +536,9 @@ def executeAnnotation():
 										dimension_id = dimension_id.replace(',','')
 										dimension_id = dimension_id.replace('(','')
 										dimension_id = dimension_id.replace(')','')
+										dimension_id = dimension_id.replace('[','')
+										dimension_id = dimension_id.replace(']','')
+										
 										query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
 										#query = "insert into opinion_health values('"+str(commentID[row])+"', '"+str(concept)+"')"
 										#query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
