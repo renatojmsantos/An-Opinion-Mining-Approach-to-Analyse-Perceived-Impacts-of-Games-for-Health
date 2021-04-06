@@ -278,7 +278,7 @@ def annotate(text, polarity):
 #			'Most of the missions are enjoyable, and each one has optional goals which add replay value.']
 
 def checkDimensionID(field,concept):
-	idBack = None
+	#idBack = None
 	conn = None
 	try:
 		params = config()
@@ -291,11 +291,12 @@ def checkDimensionID(field,concept):
 		cur.execute(query)
 
 		idBack = cur.fetchone()
-		#print(idBack)
+		print(idBack)
 		#conn.commit()
 		#print("inserted!")
 		
 		cur.close()
+		return idBack
 	except (Exception, psycopg2.DatabaseError) as error:
 		print("ERRO!", error)
 	finally:
@@ -305,7 +306,7 @@ def checkDimensionID(field,concept):
 	return idBack# is not None #idBack
 
 def checkGameID(edition,platform):
-	idBack = None
+	#idBack = None
 	conn = None
 	try:
 		params = config()
@@ -319,11 +320,12 @@ def checkGameID(edition,platform):
 		cur.execute(query)
 
 		idBack = cur.fetchone()
-		#print(idBack)
+		print(idBack)
 		#conn.commit()
 		#print("inserted!")
 		
 		cur.close()
+		return idBack
 	except (Exception, psycopg2.DatabaseError) as error:
 		print("ERRO!", error)
 	finally:
