@@ -283,7 +283,7 @@ def checkDimensionID(field,concept):
 	try:
 		params = config()
 		conn = psycopg2.connect(**params)
-		conn.autocommit = True
+		#conn.autocommit = True
 		cur = conn.cursor()
 
 		query = "SELECT dimension_id FROM dimension WHERE field = '"+field+"' and concept = '"+ concept +"' "
@@ -292,7 +292,7 @@ def checkDimensionID(field,concept):
 
 		idBack = cur.fetchone()
 		#print(idBack)
-		conn.commit()
+		#conn.commit()
 		#print("inserted!")
 		
 		cur.close()
@@ -302,7 +302,7 @@ def checkDimensionID(field,concept):
 		if conn is not None:
 			#print("closing connection...")
 			conn.close()
-	return idBack #is not None #idBack
+	return idBack is not None #idBack
 
 def checkGameID(edition,platform):
 	idBack = None
@@ -320,7 +320,7 @@ def checkGameID(edition,platform):
 
 		idBack = cur.fetchone()
 		#print(idBack)
-		conn.commit()
+		#conn.commit()
 		#print("inserted!")
 		
 		cur.close()
@@ -330,7 +330,7 @@ def checkGameID(edition,platform):
 		if conn is not None:
 			#print("closing connection...")
 			conn.close()
-	return idBack #is not None #idBack
+	return idBack is not None #idBack
 
 def executeAnnotation():
 	row = 0
