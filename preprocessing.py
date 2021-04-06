@@ -17,7 +17,6 @@ from flair.models import SequenceTagger
 #from vocabulary import *
 
 #tagger = SequenceTagger.load("flair/ner-english-large") # EXPLODE ....
-
 tagger = SequenceTagger.load("ner") # ESTE !!
 
 #from abbr import expandall
