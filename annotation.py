@@ -283,16 +283,16 @@ def checkDimensionID(field,concept):
 	try:
 		params = config()
 		conn = psycopg2.connect(**params)
-		#conn.autocommit = True
+		conn.autocommit = True
 		cur = conn.cursor()
 
 		query = "SELECT dimension_id FROM dimension WHERE field = '"+field+"' and concept = '"+ concept +"' "
 		#print(query)
 		cur.execute(query)
 
-		idBack = cur.fetchall()
+		idBack = cur.fetchone()
 		#print(idBack)
-		#conn.commit()
+		conn.commit()
 		#print("inserted!")
 		
 		cur.close()
@@ -318,9 +318,9 @@ def checkGameID(edition,platform):
 		#print(query)
 		cur.execute(query)
 
-		idBack = cur.fetchall()
+		idBack = cur.fetchone()
 		#print(idBack)
-		#conn.commit()
+		conn.commit()
 		#print("inserted!")
 		
 		cur.close()
@@ -474,6 +474,12 @@ def executeAnnotation():
 								#query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
 								#insertToTable(query)
 
+						game_id = checkGameID(edition, platform)
+						game_id = str(game_id)
+						game_id = game_id.replace(',','')
+						game_id = game_id.replace('(','')
+						game_id = game_id.replace(')','')
+
 						DictResult = annotate(str(t),str(polarity)) 
 						#print("> ",DictResult)
 						if(bool(DictResult)):
@@ -490,7 +496,11 @@ def executeAnnotation():
 										# select where field = ... and concept = ... get dimension_id
 										#query = "insert into opinion_usability values('"+str(commentID[row])+"', '"+str(concept)+"')"
 										dimension_id = checkDimensionID(field,concept)
-										game_id = checkGameID(edition, platform)
+										dimension_id = str(dimension_id)
+										dimension_id = dimension_id.replace(',','')
+										dimension_id = dimension_id.replace('(','')
+										dimension_id = dimension_id.replace(')','')
+
 										query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
 
 										#query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
@@ -498,7 +508,11 @@ def executeAnnotation():
 										insertToTable(query)
 									elif (field == "UX"):
 										dimension_id = checkDimensionID(field,concept)
-										game_id = checkGameID(edition, platform)
+										dimension_id = str(dimension_id)
+										dimension_id = dimension_id.replace(',','')
+										dimension_id = dimension_id.replace('(','')
+										dimension_id = dimension_id.replace(')','')
+
 										query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
 										#query = "insert into opinion_ux values('"+str(commentID[row])+"', '"+str(concept)+"')"
 										#query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
@@ -506,7 +520,10 @@ def executeAnnotation():
 										insertToTable(query)
 									elif (field == "Health"):
 										dimension_id = checkDimensionID(field,concept)
-										game_id = checkGameID(edition, platform)
+										dimension_id = str(game_id)
+										dimension_id = dimension_id.replace(',','')
+										dimension_id = dimension_id.replace('(','')
+										dimension_id = dimension_id.replace(')','')
 										query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
 										#query = "insert into opinion_health values('"+str(commentID[row])+"', '"+str(concept)+"')"
 										#query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
