@@ -302,7 +302,7 @@ def checkDimensionID(field,concept):
 		if conn is not None:
 			#print("closing connection...")
 			conn.close()
-	return idBack is not None #idBack
+	return idBack# is not None #idBack
 
 def checkGameID(edition,platform):
 	idBack = None
@@ -330,7 +330,7 @@ def checkGameID(edition,platform):
 		if conn is not None:
 			#print("closing connection...")
 			conn.close()
-	return idBack is not None #idBack
+	return idBack# is not None #idBack
 
 def executeAnnotation():
 	row = 0
