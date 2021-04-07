@@ -348,6 +348,8 @@ def checkGameID(edition,platform):
 def executeAnnotation():
 	row = 0
 	opinion_id=0
+	dimension_id=0
+	game_id=0
 	for t in comments: #t in comments: , teste
 		try:
 			t = runPreprocessing(t)
@@ -430,7 +432,7 @@ def executeAnnotation():
 
 						platforms = ['Wii', 'Wii U', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'Xbox 360', 'Xbox One', 'Xbox Series X', 'Xbox Series S','iOS', 'Android', 'Nintendo Switch', 'Microsoft Windows', 'Stadia']
 						# tratar abreviaturas das consolas... ps3 -> playstation 3 ou no if... meter as duas hipoteses...
-						
+
 						if (isMain):
 							isMain = "Main"
 						else:
@@ -490,13 +492,16 @@ def executeAnnotation():
 								#query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
 								#insertToTable(query)
 
-						game_id = checkGameID(edition, platform)
-						game_id = str(game_id)
-						game_id = game_id.replace(',','')
-						game_id = game_id.replace('(','')
-						game_id = game_id.replace(')','')
-						game_id = game_id.replace('[','')
-						game_id = game_id.replace(']','')
+						#game_id = checkGameID(edition, platform)
+						#game_id = str(game_id)
+						#game_id = game_id.replace(',','')
+						#game_id = game_id.replace('(','')
+						#game_id = game_id.replace(')','')
+						#game_id = game_id.replace('[','')
+						#game_id = game_id.replace(']','')
+						game_id +=1 
+						query = "insert into game values('"+str(game_id)+"', '"+str(edition)+"', '"+str(platform)+"')"
+						insertToTable(query)
 
 						DictResult = annotate(str(t),str(polarity)) 
 						#print("> ",DictResult)
@@ -509,26 +514,32 @@ def executeAnnotation():
 								#print("FIELD = ", field)
 								for concept in DictResult[field]:
 									opinion_id+=1
+									dimension_id+=1
 									#print(field + "->"+concept)
 									#print(concept)
 									if (field == "Usability"):
 										# select where field = ... and concept = ... get dimension_id
 										#query = "insert into opinion_usability values('"+str(commentID[row])+"', '"+str(concept)+"')"
-										dimension_id = checkDimensionID(field,concept)
-										dimension_id = str(dimension_id)
+										#dimension_id = checkDimensionID(field,concept)
+										#dimension_id = str(dimension_id)
 										#print(dimension_id)
-										dimension_id = dimension_id.replace(',','')
-										dimension_id = dimension_id.replace('(','')
-										dimension_id = dimension_id.replace(')','')
-										dimension_id = dimension_id.replace('[','')
-										dimension_id = dimension_id.replace(']','')
+										#dimension_id = dimension_id.replace(',','')
+										#dimension_id = dimension_id.replace('(','')
+										#dimension_id = dimension_id.replace(')','')
+										#dimension_id = dimension_id.replace('[','')
+										#dimension_id = dimension_id.replace(']','')
 										#query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
+										
+										query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
+										insertToTable(query)
+
 										query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID[row])+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
 										
 										#query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
 										#print(query)
 										insertToTable(query)
 									elif (field == "UX"):
+										"""
 										dimension_id = checkDimensionID(field,concept)
 										dimension_id = str(dimension_id)
 										#print(dimension_id)
@@ -537,6 +548,10 @@ def executeAnnotation():
 										dimension_id = dimension_id.replace(')','')
 										dimension_id = dimension_id.replace('[','')
 										dimension_id = dimension_id.replace(']','')
+										"""
+
+										query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
+										insertToTable(query)
 
 										query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID[row])+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
 										#query = "insert into opinion_ux values('"+str(commentID[row])+"', '"+str(concept)+"')"
@@ -544,6 +559,7 @@ def executeAnnotation():
 										#print(query)
 										insertToTable(query)
 									elif (field == "Health"):
+										"""
 										dimension_id = checkDimensionID(field,concept)
 										dimension_id = str(dimension_id)
 										#print(dimension_id)
@@ -552,6 +568,10 @@ def executeAnnotation():
 										dimension_id = dimension_id.replace(')','')
 										dimension_id = dimension_id.replace('[','')
 										dimension_id = dimension_id.replace(']','')
+										"""
+										
+										query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
+										insertToTable(query)
 
 										query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID[row])+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
 										#query = "insert into opinion_health values('"+str(commentID[row])+"', '"+str(concept)+"')"
