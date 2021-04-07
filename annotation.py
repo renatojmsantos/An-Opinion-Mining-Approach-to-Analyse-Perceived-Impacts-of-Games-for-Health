@@ -430,8 +430,8 @@ def executeAnnotation():
 
 						platforms = ['Wii', 'Wii U', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'Xbox 360', 'Xbox One', 'Xbox Series X', 'Xbox Series S','iOS', 'Android', 'Nintendo Switch', 'Microsoft Windows', 'Stadia']
 						# tratar abreviaturas das consolas... ps3 -> playstation 3 ou no if... meter as duas hipoteses...
-
-						if (isMain == "True"):
+						
+						if (isMain):
 							isMain = "Main"
 						else:
 							isMain = "Reply"

@@ -46,6 +46,25 @@ from opinion_health h, opinion_ux ux, opinion_usability u
 where h.opinion_commentid=ux.opinion_commentid and h.opinion_commentid=u.opinion_commentid;
 
 
+
+with u as(
+    select count(distinct o.dimension_dimension_id) as usability from opinion o, dimension d where d.field='Usability'
+),
+ux as(
+    select count(distinct o.dimension_dimension_id) as userexperience from opinion o, dimension d where d.field='User Experience'
+),
+h as(
+    select count(distinct o.dimension_dimension_id) as health from opinion o, dimension d where d.field='health'
+)
+select usability, userexperience, health from u, ux, h 
+
+
+
+
+    select count(distinct o.dimension_dimension_id) from opinion o, dimension d where d.field='Usability'
+
+
+
 with u as(
     select count(*) as usability from opinion_usability
 ),
