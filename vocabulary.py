@@ -5,16 +5,16 @@
 
 dict={	
 		'Usability':{
-			'Memorability': {'memory': 1.0, 'forgot': 0.6}, 
+			'Memorability': {'memory': 1.0, 'forgot': 0.6, 'remember': 0.8}, 
 			'Learnability': {'learnability': 1.0, 'learn': 1.0, 'intuit': 1.0, 'easier': 1.0,'figur': 0.8,'straightforward': 0.8,'foreword': 0.8, 'practic': 0.6}, 
-			'Efficiency': {'efficiency': 1.0, 'perfect': 0.9, 'works well': 1.0}, 
-			'Errors/Effectiveness': {'errors': 1.0,'effectiveness':1.0, 'fix': 0.8,'problem':0.5, 'camera': 0.7, 'glitch': 0.8,'issu': 0.8,'lag': 0.8,'bug': 0.8, 'inconsist': 0.8},
+			'Efficiency': {'efficiency': 1.0, 'perfect': 0.9, 'works well': 1.0, 'amazing': 1.0}, 
+			'Errors/Effectiveness': {'errors': 1.0,'effectiveness':1.0, 'fix': 0.8,'problem':0.5, 'broken': 0.7,'camera': 0.7, 'glitch': 0.8,'issu': 0.8,'slow':0.9, 'lag': 0.8,'bug': 0.8, 'inconsist': 0.8},
 			'Satisfaction': {'happy': 1.0, 'fun': 1.0, 'great': 1.0, 'love': 1.0, 'worth': 1.0, 'nice': 1.0, 'best': 1.0, 'recommend': 1.0, 'disappoint': 0.8, 'good': 0.8, 'favorite': 0.8, 'cool': 0.8, 'perfect': 1.0}
 		},
 		'UX':{
 			'Likeability': {'likeability': 1.0, 'like':0.9}, 
 			'Pleasure': {'pleasure': 1.0, 'fun': 0.7, 'moneybag':0.7, 'enjoy': 0.7, 'love': 0.7, 'entertain': 0.7, 'awesome': 0.8, 'stimulation':0.7, 'felt': 0.7, 'sooth': 0.7, 'adict': 0.7, 'nostalgia': 0.7},
-			'Comfort': {'comfort': 1.0, 'physical': 0.7, 'physical comfort': 0.8, 'physical needs': 0.9, 'well being':0.8, 'body care':0.3, 'active body':0.9},
+			'Comfort': {'comfort': 1.0, 'physical': 0.7, 'physical comfort': 0.8, 'workout': 0.8, 'physical needs': 0.9, 'well being':0.8, 'body care':0.3, 'active body':0.9},
 			'Trust': {'trust': 1.0, 'behavior': 0.8},
 			'Anticipation': {'anticipation': 1.0, 'expectation': 1.0},
 			'Overall Usability': {'overall usability': 1.0, 'new version': 0.8, 'upgrade':0.8, 'edition': 0.8, 'previous edition':0.8},
@@ -33,7 +33,7 @@ dict={
 		},
 		'Health':{
 			'Pain and discomfort': {'pain': 1.0, 'distressing': 1.0,'unpleasant': 1.0,'discomfort': 1.0}, 
-			'Energy': {'energy': 1.0, 'alive': 1.0, 'endurance': 1.0,'enthusiasm': 0.9 },
+			'Energy': {'energy': 1.0, 'alive': 1.0, 'endurance': 1.0,'enthusiasm': 0.9, 'workout':0.9},
 			'Fatigue': {'fatigue': 1.0, 'exhaustion': 0.9},
 			'Sleep and rest': {'sleep': 1.0,'waking up': 1.0, 'refreshment': 1.0,'rest': 1.0},
 			'Positive feelings': {'positive feelings': 1.0, 'enjoyment': 1.0,'joy': 1.0,'hopefulness': 1.0,'happiness': 1.0,'peace': 1.0,'balance': 1.0,'contentment': 1.0},

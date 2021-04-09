@@ -37,7 +37,7 @@ def isEnglish(text):
 			else:
 				return False
 		except Exception as e:
-			print(e)
+			print("isEnglish - " + e)
 			#print("fail text blob")
 			try:
 				language = detect(text)
@@ -48,7 +48,7 @@ def isEnglish(text):
 				else:
 					return False
 			except Exception as e:
-				print(e)
+				print("isEnglish - " +e)
 	else:
 		#print("len > 4")
 		try:
@@ -60,60 +60,66 @@ def isEnglish(text):
 			else:
 				return False
 		except Exception as e:
-			print(e)
+			print("isEnglish - " +e)
 	
 	return False
 	
 
 def emojiToCLDRshortName(text):
-	has_emoji = bool(emoji.get_emoji_regexp().search(text))
-	#print(has_emoji)
-	if (has_emoji):
-		emoji_chars = emoji.EMOJI_ALIAS_UNICODE.values()
-		def _emoji(char):
-			if char in emoji_chars:
-				return unicodedata.name(char) + " "
-		#for char in text:
-		#	print(_emoji(char))
-		return ''.join(_emoji(char) or char for char in text)
-	else:
-		return text
+	try:
+		has_emoji = bool(emoji.get_emoji_regexp().search(text))
+		#print(has_emoji)
+		if (has_emoji):
+			emoji_chars = emoji.EMOJI_ALIAS_UNICODE.values()
+			def _emoji(char):
+				if char in emoji_chars:
+					return unicodedata.name(char) + " "
+			#for char in text:
+			#	print(_emoji(char))
+			return ''.join(_emoji(char) or char for char in text)
+		else:
+			return text
+	except Exception as e:
+		print("Emoji convert - "+ e)
 
 
 def clearText(text):
+	try:
+		#contracoes inglesas... that's -> that is
+		text = contractions(text)
+		#print("1 — " , text)
+		# acronimos e expressoes da giria popular
+		text = slangs(text)
+		#print("2 — " , text)
+		# emojis to string
+		text = str(emojiToCLDRshortName(text))
+		#print("#",text)
+		# remove URLs
+		text = re.sub('https?://[A-Za-z0-9./?&=_]+','',text)
 
-	#contracoes inglesas... that's -> that is
-	text = contractions(text)
-	#print("1 — " , text)
-	# acronimos e expressoes da giria popular
-	text = slangs(text)
-	#print("2 — " , text)
-	# emojis to string
-	text = str(emojiToCLDRshortName(text))
-	#print("#",text)
-	# remove URLs
-	text = re.sub('https?://[A-Za-z0-9./?&=_]+','',text)
+		#text = slangs(text)
 
-	#text = slangs(text)
+		# hashtags
+		text = re.sub('#[A-Za-z0-9]+','',text)
+		# mencoes
+		text = re.sub('@[A-Za-z0-9._-]+','',text)
+		# to lower
+		text = text.lower()
 
-	# hashtags
-	text = re.sub('#[A-Za-z0-9]+','',text)
-	# mencoes
-	text = re.sub('@[A-Za-z0-9._-]+','',text)
-	# to lower
-	text = text.lower()
+		#print("0 — " , text)
+		#https://pypi.org/project/pycontractions/
+		# expand abreviaturas ...
+		# remover pontuacao
+		text = re.sub(r"[^\w\s]","",text)
+		#remover espacos
+		text = " ".join(text.strip().split())
+		text = re.sub(r"[\W\s]"," ",text)
+		text = re.sub("\n","",text)
 
-	#print("0 — " , text)
-	#https://pypi.org/project/pycontractions/
-	# expand abreviaturas ...
-	# remover pontuacao
-	text = re.sub(r"[^\w\s]","",text)
-	#remover espacos
-	text = " ".join(text.strip().split())
-	text = re.sub(r"[\W\s]"," ",text)
-	text = re.sub("\n","",text)
+		#print("3 — " , text)
+	except Exception as e:
+		print("clearText - "+ e)
 
-	#print("3 — " , text)
 	return text
 
 def contractions(text):
@@ -252,7 +258,7 @@ def contractions(text):
 		#print(text)
 		return text
 	except Exception as e:
-		print(e)
+		print("contractions"+ e)
 
 
 def caracteresRepetidos(text):
@@ -260,12 +266,15 @@ def caracteresRepetidos(text):
 	# https://www.nltk.org/_modules/nltk/tokenize/casual.html#reduce_lengthening
 	#print(len(text.split()))
 	#print("**", text)
-	if (len(text) > 1):
-		pattern = regex.compile(r"(.)\1{2,}")
-		#print("***", text)
-		return pattern.sub(r"\1\1\1", text)
-	else:
-		return text
+	try:
+		if (len(text) > 1):
+			pattern = regex.compile(r"(.)\1{2,}")
+			#print("***", text)
+			return pattern.sub(r"\1\1\1", text)
+		else:
+			return text
+	except Exception as e:
+		print("caracteresRepetidos - "+ e)
 
 
 #tagger = SequenceTagger.load("ner")
@@ -277,22 +286,24 @@ def spellCorrection(text):
 	# se for NER nao corrigir... person name, locations, organizations, other names...
 	#print(t)
 
-	#https://medium.com/analytics-vidhya/practical-approach-of-state-of-the-art-flair-in-named-entity-recognition-46a837e25e6b
-	# The good thing about Flair NER is it works based on context
-	sentence = Sentence(text)
-	# predict NER tags
-	tagger.predict(sentence)
+	try:
+		#https://medium.com/analytics-vidhya/practical-approach-of-state-of-the-art-flair-in-named-entity-recognition-46a837e25e6b
+		# The good thing about Flair NER is it works based on context
+		sentence = Sentence(text)
+		# predict NER tags
+		tagger.predict(sentence)
 
-	#print(sentence.to_dict(tag_type='ner'))
-	d = sentence.to_dict(tag_type='ner')
-	#print("->", d)
-	if (d.get('entities') is not None):
-		#print(d)
-		pass
-	else:
-		text = TextBlob(text).correct()
+		#print(sentence.to_dict(tag_type='ner'))
+		d = sentence.to_dict(tag_type='ner')
+		#print("->", d)
+		if (d.get('entities') is not None):
+			#print(d)
+			pass
+		else:
+			text = TextBlob(text).correct()
+	except Exception as e:
+		print("spellCorrection - " + e)
 	
-
 	return text
 
 
@@ -328,7 +339,7 @@ def slangs(text):
 	except FileNotFoundError:
 		print("File not found...", file)
 	except Exception:
-		print("Another Error...", file)
+		print("slangs...", file)
 	
 	#return text
 

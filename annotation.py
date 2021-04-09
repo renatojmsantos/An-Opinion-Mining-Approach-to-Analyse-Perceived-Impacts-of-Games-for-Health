@@ -40,7 +40,7 @@ def insertToTable(query):
 		#cur.execute("select * from usability")
 		#print(cur.fetchone())
 		query = query + " returning 1;" # duplicados deste id = 1 ????
-		#print(query)
+		print(query)
 		#print(tableName)
 		#cur.execute(query, (tableName,))
 		cur.execute(query)
@@ -346,7 +346,6 @@ def getSentiment(t):
 	#print(text.sentiment.polarity, text.sentiment.subjectivity)
 
 	#sentiment analysis
-
 	if text.sentiment.polarity < 0:
 		polarity="Negative"
 	elif(text.sentiment.polarity > 0):
@@ -356,9 +355,10 @@ def getSentiment(t):
 
 	return polarity
 
-def executeAnnotation(game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID):
 
-	try:		
+
+def getEditionAndPlataform(game_id, title, descript):
+	try:
 		title = re.sub('&quot;+','',title)
 		title = title.strip().lower()
 
@@ -379,16 +379,6 @@ def executeAnnotation(game_id, dimension_id, opinion_id, title, videoID, comment
 		titleWords = word_tokenize(title.strip())
 		title = " ".join(titleWords)
 
-		polarity = getSentiment(comment)
-
-		try:
-			dateComment = re.sub('T[0-9:Z]+','',dateComment)
-			dateVideo = re.sub('T[0-9:Z]+','',dateVideo)
-		except Exception as e:
-			#print(e)
-			print("something wrong on convert dates...")
-
-		#isMain = mainComment[row] # TRUE -> comentario principal
 
 		#descript = description[row]
 		descriptWords = word_tokenize(descript.strip())
@@ -412,26 +402,8 @@ def executeAnnotation(game_id, dimension_id, opinion_id, title, videoID, comment
 		descript = re.sub('windows','Microsoft Windows',descript)
 		descript = re.sub('pc','Microsoft Windows',descript)
 
-		#print(title)
-		#https://en.wikipedia.org/wiki/Just_Dance_(video_game_series)
-		games = ['Just Dance 2', 'Just Dance 3', 'Just Dance 4', 'Just Dance 2014', 'Just Dance 2015', 'Just Dance 2016', 'Just Dance 2017', 'Just Dance 2018', 'Just Dance 2019', 'Just Dance 2020', 'Just Dance 2021',
-				'Just Dance Wii', 'Just Dance Wii 2', 'Just Dance Wii U', 'Yo-kai Watch Dance: Just Dance Special Version',
-				'Just Dance Kids', 'Just Dance Kids 2', 'Just Dance Kids 2014',
-				'Just Dance: Disney Party', 'Just Dance: Disney Party 2',
-				'Just Dance: Greatest Hits',
-				'Just Dance: Summer Party', 'Just Dance Now', 'Just Dance Unlimited']
-		# Just Dance é o ultimo jogo a ser inserido... RISCO neste!!! pode nao ser o 1.º JD.... pq no titulo podem nao especificar qual é a versao
-		# quem nao quiser saber de qual é a edicao, simplesmente nao aplica o filtro, e vê tudo.
 
 		platforms = ['Wii', 'Wii U', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'Xbox 360', 'Xbox One', 'Xbox Series X', 'Xbox Series S','iOS', 'Android', 'Nintendo Switch', 'Microsoft Windows', 'Stadia']
-		# tratar abreviaturas das consolas... ps3 -> playstation 3 ou no if... meter as duas hipoteses...
-
-		#insert youtube video ...
-		query = "insert into video values('"+str(channelID)+"', '"+channel+"', '"+str(videoID)+"','"+title+"','"+str(dateVideo)+"', '"+str(views)+"', '"+str(likesVideo)+"', '"+str(dislikesVideo)+"', '"+str(totalCommentsVideo)+"', '"+descript+"')"
-		insertToTable(query)
-		query = "insert into comment values('"+str(commentID)+"', '"+str(comment)+"', '"+str(polarity)+"', '"+str(likes)+"', '"+str(dateComment)+"', '"+str(isMain)+"')"
-		insertToTable(query)
-
 		# detetar plataforma no titulo do video e na descrição ...
 		platform = ""
 		for p in platforms:
@@ -445,7 +417,17 @@ def executeAnnotation(game_id, dimension_id, opinion_id, title, videoID, comment
 		if(platform==""):
 			platform="Unknown"
 
-		#print(console)
+		#print(title)
+		#https://en.wikipedia.org/wiki/Just_Dance_(video_game_series)
+		games = ['Just Dance 2', 'Just Dance 3', 'Just Dance 4', 'Just Dance 2014', 'Just Dance 2015', 'Just Dance 2016', 'Just Dance 2017', 'Just Dance 2018', 'Just Dance 2019', 'Just Dance 2020', 'Just Dance 2021',
+				'Just Dance Wii', 'Just Dance Wii 2', 'Just Dance Wii U', 'Yo-kai Watch Dance: Just Dance Special Version',
+				'Just Dance Kids', 'Just Dance Kids 2', 'Just Dance Kids 2014',
+				'Just Dance: Disney Party', 'Just Dance: Disney Party 2',
+				'Just Dance: Greatest Hits',
+				'Just Dance: Summer Party', 'Just Dance Now', 'Just Dance Unlimited']
+		# Just Dance é o ultimo jogo a ser inserido... RISCO neste!!! pode nao ser o 1.º JD.... pq no titulo podem nao especificar qual é a versao
+		# quem nao quiser saber de qual é a edicao, simplesmente nao aplica o filtro, e vê tudo.
+		
 		# detetar o nome do jogo no titulo do video ...
 		edition=""
 		serie=""
@@ -469,6 +451,30 @@ def executeAnnotation(game_id, dimension_id, opinion_id, title, videoID, comment
 		query = "insert into game values('"+str(game_id)+"', '"+str(edition)+"', '"+str(platform)+"')"
 		insertToTable(query)
 
+		return game_id
+	except Exception as e:
+		print("get game and console ->" + e)
+
+def insertVideo(channelID,channel,videoID,title,dateVideo,views,likesVideo,dislikesVideo,totalCommentsVideo,descript):
+	#insert youtube video ...
+	query = "insert into video values('"+str(channelID)+"', '"+channel+"', '"+str(videoID)+"','"+title+"','"+str(dateVideo)+"', '"+str(views)+"', '"+str(likesVideo)+"', '"+str(dislikesVideo)+"', '"+str(totalCommentsVideo)+"', '"+descript+"')"
+	insertToTable(query)
+	#pass
+
+
+def executeAnnotation(game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID):
+
+	try:		
+		polarity = getSentiment(comment)
+
+		#isMain = mainComment[row] # TRUE -> comentario principal
+
+		#insert youtube video ...
+		#query = "insert into video values('"+str(channelID)+"', '"+channel+"', '"+str(videoID)+"','"+title+"','"+str(dateVideo)+"', '"+str(views)+"', '"+str(likesVideo)+"', '"+str(dislikesVideo)+"', '"+str(totalCommentsVideo)+"', '"+descript+"')"
+		#insertToTable(query)
+		query = "insert into comment values('"+str(commentID)+"', '"+str(comment)+"', '"+str(polarity)+"', '"+str(likes)+"', '"+str(dateComment)+"', '"+str(isMain)+"')"
+		insertToTable(query)
+
 		DictResult = annotate(str(comment),str(polarity)) 
 		if(bool(DictResult)):
 			for field in DictResult.keys():
@@ -478,7 +484,6 @@ def executeAnnotation(game_id, dimension_id, opinion_id, title, videoID, comment
 					if (field == "Usability"):
 						query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
 						insertToTable(query)
-
 						query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID)+"')"
 						insertToTable(query)
 					elif (field == "UX"):
@@ -495,9 +500,9 @@ def executeAnnotation(game_id, dimension_id, opinion_id, title, videoID, comment
 						insertToTable(query)
 			
 	except Exception as e:
-		print(e)
-	
+		print("execute annotation - "+ e)
 
+	return (opinion_id,dimension_id)
 #insertTablesConceitos()
 
 #executeAnnotation()

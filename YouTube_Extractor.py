@@ -296,7 +296,7 @@ for ano in range (-1,12): #(-1,12)
 						# detect language of video title?? with preprocesing? 
 
 						videoName = titulo.lower()
-						if ( ("lady gaga" not in videoName) and ("flashmob" not in videoName) and ("ps22 chorus" not in videoName) and ("alvin" not in videoName) and ("chipettes" not in videoName) and ("chipmunk" not in videoName) and ("chipmunks" not in videoName) and ("just dance india" not in videoName) and ("official music video" not in videoName) and ("lyrics" not in videoName)
+						if ( ("lady gaga" not in videoName) and ("paul johnson" not in videoName) and ("remix" not in videoName) and ("flashmob" not in videoName) and ("ps22 chorus" not in videoName) and ("alvin" not in videoName) and ("chipettes" not in videoName) and ("chipmunk" not in videoName) and ("chipmunks" not in videoName) and ("just dance india" not in videoName) and ("official music video" not in videoName) and ("lyrics" not in videoName)
 							and (("just dance" in videoName) or ("justdance" in videoName))):
 							
 							tituloChannel=search_result["snippet"]["channelTitle"]
@@ -306,8 +306,13 @@ for ano in range (-1,12): #(-1,12)
 
 							idChannel=search_result["snippet"]["channelId"]
 							videoPublishedAt=search_result["snippet"]["publishedAt"] #2017-02-13T02:52:38Z
-							
-							#print("######################")
+							try:
+								#dateComment = re.sub('T[0-9:Z]+','',dateComment)
+								dateVideo = re.sub('T[0-9:Z]+','',videoPublishedAt)
+							except Exception as e:
+								#print(e)
+								print("something wrong on convert dates...")
+
 							#print("#############################################")
 							print("Titulo: ", search_result["snippet"]["title"])
 							#print("Descricao: ", search_result["snippet"]["description"])
@@ -317,24 +322,19 @@ for ano in range (-1,12): #(-1,12)
 							videoID = search_result["id"]["videoId"]
 							#print(">>>",checkVideoID(str(videoID)))
 							if (checkVideoID(str(videoID)) is False): # videoID nao está na BD ... vai buscar todos os comentarios
-								#print("a adicionar novo video...")
-								if videoID not in lista_videoID:
-									#lista_videoID.append(videoID)
+								print("a adicionar novo video...")
+								if videoID not in lista_videoID: # é preciso???
+
+									lista_videoID.append(videoID)
 									# get stats of video ...
 									try:
-										#time.sleep(0.5)
-										#DEVELOPER_KEY = "AIzaSyAL0ChC4DB6Su9C6X3YVDJMMzly0o_Mq_4"
 										random.shuffle(listaKeys)
 										DEVELOPER_KEY = str(listaKeys[0])
 										yt = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
 										requestStats = yt.videos().list(
 												part='id,statistics', id=videoID, maxResults=100
 										).execute()
-										#if search_result["items"]["kind"] == "youtube#video":
-										#print(requestStats)
-										#print(">>>>>>> stats video >>>>>>>>")
-										#print(requestStats["items"])
-										#print("VIEWS = "+requestStats["items"][0]["statistics"]["viewCount"])
+										
 										views = requestStats["items"][0]["statistics"]["viewCount"]
 
 										if( (('commentCount' in requestStats["items"][0]["statistics"]) == True) and
@@ -353,18 +353,22 @@ for ano in range (-1,12): #(-1,12)
 										#print("Total comments video = ",nrCommentsV)
 										#print(">>>>>>>>>>>>>>>>>>>>>>>>>\n")
 
+										#insert youtube video ... casos com ' dao erro ....... por causa da query .... 
+										tituloChannel = tituloChannel.replace("'","")
+										description = description.replace("'","")
+										query = "insert into video values('"+str(idChannel)+"', '"+str(tituloChannel)+"', '"+str(videoID)+"','"+titulo+"','"+str(dateVideo)+"', '"+str(views)+"', '"+str(likesV)+"', '"+str(dislikesV)+"', '"+str(nrCommentsV)+"', '"+str(description)+"')"
+										insertToTable(query)
+
+										#insert edition and plataform of game ...
+										game_id = getEditionAndPlataform(game_id, titulo, description)
+										#print(".... id game --> ",game_id) # nao aumentam depois.... colocar aqui toda a anotacao do execute? ou return ID's ... em tuplo..? 
+
+
 										if(int(nrCommentsV) > 0):
 											#print("getting comments of video ...")
 											nextPT = None
 											while 1: #comentarios do videoID
 												try:
-													#time.sleep(0.4)
-													#print("get main comments ...")
-													#DEVELOPER_KEY = "AIzaSyAP6m_Icjnn2npBnwM4sSVK4VT5kKoOe7o" renato 1a
-													#DEVELOPER_KEY = "AIzaSyAWq5YNDdZRc0cdh__4iQh2E-qJp7mcvNQ" #new renato
-													#DEVELOPER_KEY = "AIzaSyAilu0HwaDQlvkDZEsKxQ6POFMdyvKiU4E" #me quota
-													#DEVELOPER_KEY = "AIzaSyBiRFpFQdLOgPWfMFTaklcq2twvQESDQZ0" #coimvivio
-													#DEVELOPER_KEY ="AIzaSyDXIzN7IV034Isli8V6Od-c7IyxUahQ4tc" #manel
 													random.shuffle(listaKeys)
 													DEVELOPER_KEY = str(listaKeys[0])
 													yt_c = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
@@ -385,14 +389,21 @@ for ano in range (-1,12): #(-1,12)
 														#print(comment_result['snippet']['topLevelComment']['snippet']['updatedAt'])
 														publishTime = comment_result['snippet']['topLevelComment']['snippet']['updatedAt']
 														# updatedAt pq pode incluir possiveis correcoes, ao inves do comment original com "publishedAt"
+														try:
+															dateComment = re.sub('T[0-9:Z]+','',publishTime)
+														except Exception as e:
+															#print(e)
+															print("something wrong on convert dates...")
 														
 														isMain = "Main"
 														try:
 															comment = runPreprocessing(comentario)
 															if (comment != "None"):
 																#game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID
-																executeAnnotation(game_id, dimension_id, opinion_id, titulo, videoID, comment, commentID, nr_likes, publishTime, isMain, videoPublishedAt,views,likesV, dislikesV, nrCommentsV, description, tituloChannel, idChannel)
-																print(".... id's --> ",game_id, opinion_id, dimension_id) # nao aumentam depois.... colocar aqui toda a anotacao do execute? ou return ID's ... em tuplo..? 
+																ids = executeAnnotation(game_id, dimension_id, opinion_id, titulo, videoID, comment, commentID, nr_likes, dateComment, isMain, videoPublishedAt,views,likesV, dislikesV, nrCommentsV, description, tituloChannel, idChannel)
+																opinion_id = ids[0]
+																dimension_id = ids[1]
+																#print(".... id's --> ",opinion_id, dimension_id) # nao aumentam depois.... colocar aqui toda a anotacao do execute? ou return ID's ... em tuplo..? 
 
 																nr_replies = comment_result['snippet']['totalReplyCount']
 																#print(" . . . replies stats = ", nr_replies)
@@ -426,19 +437,25 @@ for ano in range (-1,12): #(-1,12)
 																				likesReply = r['snippet']['likeCount']
 																				publishedAtReply = r['snippet']['updatedAt']
 
+																				try:
+																					dateReply = re.sub('T[0-9:Z]+','',publishedAtReply)
+																				except Exception as e:
+																					#print(e)
+																					print("something wrong on convert dates...")
 																				#print(r['snippet']['textDisplay'])
 																				#nrComentarios+=1
 																				countReplies+=1
 																				isMain = "Reply"
-																				isMain = "Main"
 																				try:
 																					commentReply = runPreprocessing(textReply)
 																					if (commentReply != "None"):
 																						#game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID
-																						executeAnnotation(game_id, dimension_id, opinion_id, titulo, videoID, commentReply, replyID, likesReply, publishedAtReply, isMain, videoPublishedAt,views,likesV, dislikesV, nrCommentsV, description, tituloChannel, idChannel)
-																						print(".... id's --> ",game_id, opinion_id, dimension_id)
+																						ids = executeAnnotation(game_id, dimension_id, opinion_id, titulo, videoID, commentReply, replyID, likesReply, dateReply, isMain, videoPublishedAt,views,likesV, dislikesV, nrCommentsV, description, tituloChannel, idChannel)
+																						opinion_id = ids[0]
+																						dimension_id = ids[1]
+																						#print(".... id's --> ", opinion_id, dimension_id)
 																				except Exception as e:
-																					print(e)	
+																					print("replys -" + e)	
 																	except HttpError as e:
 																		print("comments() - replies — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
 																		if("quotaExceeded" in str(e.content)):
@@ -446,7 +463,7 @@ for ano in range (-1,12): #(-1,12)
 																	#except (ConnectionError, ReadTimeout):
 																		#print("ERROR! Connection or TIME OUT!")
 																	except Exception as e:
-																		print(e)
+																		print("get replys - "+ e)
 																		#print("comments() - replies — something wrong ...")
 																else:
 																	continue
@@ -456,7 +473,7 @@ for ano in range (-1,12): #(-1,12)
 																#skip statements inside the loop
 																continue
 														except Exception as e:
-															print(e)
+															print("comments -" + e)
 
 													if nextPT is None:
 														#time.sleep(5)
@@ -488,15 +505,14 @@ for ano in range (-1,12): #(-1,12)
 									#except (ConnectionError, ReadTimeout):
 										#print("ERROR! Connection or TIME OUT!")
 									except Exception as e:
-										print(e)
+										print("videos (stats) " + e)
 										#print("videos (stats) - something wrong ...")
-									
-									
 								else:
-									#print(" X REJECT! Video repetido\n")
+									# é preciso???
+									print(" X REJECT! Video repetido\n")
 									break
 							else:
-								print("video já inserido na BD...")
+								print("		>>> video já inserido na BD...")
 								# VAI BUSCAR OS COMENTÁRIOS SÓ A PARTIR DA DATA XXX
 								#....
 						else:
@@ -513,7 +529,7 @@ for ano in range (-1,12): #(-1,12)
 			#except (ConnectionError, ReadTimeout):
 				#print("ERROR! Connection or TIME OUT!")
 			except Exception as e:
-				print(e)
+				print("search () -" + e)
 				#print("search () - something wrong ...")
 				#DEVELOPER_KEY = "AIzaSyAL0ChC4DB6Su9C6X3YVDJMMzly0o_Mq_4" #backup
 				#DEVELOPER_KEY = "AIzaSyAilu0HwaDQlvkDZEsKxQ6POFMdyvKiU4E" #3a
