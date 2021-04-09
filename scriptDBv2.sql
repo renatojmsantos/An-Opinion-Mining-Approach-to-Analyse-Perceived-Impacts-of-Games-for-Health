@@ -41,7 +41,7 @@ CREATE TABLE comment (
 	polarity	 VARCHAR(512) NOT NULL,
 	likes	 INTEGER NOT NULL,
 	datecomment DATE NOT NULL,
-	maincomment BOOL NOT NULL,
+	maincomment VARCHAR(512) NOT NULL,
 	PRIMARY KEY(commentid)
 );
 

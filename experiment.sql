@@ -37,16 +37,43 @@ CREATE TABLE ux (
 );
 
 
+select o.comment_commentid, c.commentid, o.dimension_dimension_id, d.dimension_id, d.field
+from opinion o, dimension d, comment c
+where o.dimension_dimension_id = d.dimension_id and o.comment_commentid = c.commentid
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 select h.health_hconcept, ux.ux_uxconcept from opinion_health h, opinion_ux ux where h.opinion_commentid= ux.opinion_commentid;
 select h.health_hconcept, h.opinion_commentid, ux.ux_uxconcept, ux.opinion_commentid, u.usability_uconcept, u.opinion_commentid from opinion_health h, opinion_ux ux, opinion_usability u where h.opinion_commentid=ux.opinion_commentid and h.opinion_commentid=u.opinion_commentid;
 
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 select distinct h.health_hconcept, h.opinion_commentid, ux.ux_uxconcept, ux.opinion_commentid, u.usability_uconcept, u.opinion_commentid
 from opinion_health h, opinion_ux ux, opinion_usability u
 where h.opinion_commentid=ux.opinion_commentid and h.opinion_commentid=u.opinion_commentid;
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+select field, count(distinct comment_commentid) as count
+from (
+    select o.comment_commentid, o.dimension_dimension_id, d.dimension_id, d.field
+    from opinion o, dimension d
+    where o.dimension_dimension_id = d.dimension_id
+) as fi
+group by field;
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+select field, count(*) as count
+from (
+    select o.comment_commentid, c.commentid, o.dimension_dimension_id, d.dimension_id, d.field
+    from opinion o, dimension d, comment c
+    where o.dimension_dimension_id = d.dimension_id and o.comment_commentid = c.commentid
+    
+) as fi
+group by field;
 
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
+select concept, count(*) as c from dimension where field = 'UX' group by concept
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
 with u as(
     select count(distinct o.dimension_dimension_id) as usability from opinion o, dimension d where d.field='Usability'
 ),
@@ -58,12 +85,11 @@ h as(
 )
 select usability, userexperience, health from u, ux, h 
 
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+select count(distinct o.dimension_dimension_id) from opinion o, dimension d where d.field='Usability'
 
-
-    select count(distinct o.dimension_dimension_id) from opinion o, dimension d where d.field='Usability'
-
-
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 with u as(
     select count(*) as usability from opinion_usability
@@ -76,6 +102,8 @@ h as(
 )
 select usability, userexperience, health from u, ux, h [[where opinion_commentid = {{Field}}]];
 
-
-
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
 select count(*) as u from opinion_usability [[where u = {{usability}}]
+
+
+

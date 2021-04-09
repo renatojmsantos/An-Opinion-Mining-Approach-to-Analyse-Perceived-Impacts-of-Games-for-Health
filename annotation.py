@@ -1,5 +1,5 @@
 
-from preprocessing import *
+#from preprocessing import *
 from connectDB import *
 
 from vocabulary import *
@@ -13,16 +13,10 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 from nltk.corpus import wordnet
+import re 
 
+from textblob import TextBlob, Word
 
-#from vocabulary import *
-
-#tagger = SequenceTagger.load("flair/ner-english-large") # EXPLODE ....
-#tagger = SequenceTagger.load("ner") # ESTE !!
-
-
-#nltk.download('averaged_perceptron_tagger')
-#tagger = SequenceTagger.load("flair/ner-english-large")
 
 def insertToTable(query):
 	idBack = None
@@ -345,259 +339,168 @@ def checkGameID(edition,platform):
 			conn.close()
 	return idBack# is not None #idBack
 
-def executeAnnotation():
-	row = 0
-	opinion_id=0
-	dimension_id=0
-	game_id=0
-	for t in comments: #t in comments: , teste
+def getSentiment(t):
+
+	text = TextBlob(str(t))
+	#print(text.sentiment)
+	#print(text.sentiment.polarity, text.sentiment.subjectivity)
+
+	#sentiment analysis
+
+	if text.sentiment.polarity < 0:
+		polarity="Negative"
+	elif(text.sentiment.polarity > 0):
+		polarity="Positive"
+	else:
+		polarity="Neutral"
+
+	return polarity
+
+def executeAnnotation(game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID):
+
+	try:		
+		title = re.sub('&quot;+','',title)
+		title = title.strip().lower()
+
+		# substituir JD por Just Dance .... no titulo do video ....
+		title = re.sub('jd','just dance',title)
+		title = re.sub('justdance','just dance',title)
+		title = re.sub('ps4','PlayStation 4',title)
+		title = re.sub('ps2','PlayStation 2',title)
+		title = re.sub('ps3','PlayStation 3',title)
+		title = re.sub('x360','PlayStation 4',title)
+		title = re.sub('xbox sx','Xbox Series X',title)
+		title = re.sub('xbox ss','Xbox Series S',title)
+		title = re.sub('switch','Nintendo Switch',title)
+		title = re.sub('nintendo','Nintendo Switch',title)
+		title = re.sub('windows','Microsoft Windows',title)
+		title = re.sub('pc','Microsoft Windows',title)
+
+		titleWords = word_tokenize(title.strip())
+		title = " ".join(titleWords)
+
+		polarity = getSentiment(comment)
+
 		try:
-			t = runPreprocessing(t)
-			if (t != "None"):
-				# print texto tratado e valido
-				#print(">>>>>",t) 
-				#sentiment analysis
-				try:
-					title = videoTitle[row]
-					
-					#title = demoji(title)
-					title = re.sub('&quot;+','',title)
-					title = title.strip().lower()
-
-					
-					#title = " ".join(title.strip().split())
-					#title = re.sub(r"[\W\s]"," ",title)
-					#title = re.sub("\n","",title)
-
-
-					#print(title)
-					if("ps22 chorus" not in title):
-						# substituir JD por Just Dance .... no titulo do video ....
-						title = re.sub('jd','just dance',title)
-						title = re.sub('justdance','just dance',title)
-						title = re.sub('ps4','PlayStation 4',title)
-						title = re.sub('ps2','PlayStation 2',title)
-						title = re.sub('ps3','PlayStation 3',title)
-						title = re.sub('x360','PlayStation 4',title)
-						title = re.sub('xbox sx','Xbox Series X',title)
-						title = re.sub('xbox ss','Xbox Series S',title)
-						title = re.sub('switch','Nintendo Switch',title)
-						title = re.sub('nintendo','Nintendo Switch',title)
-						title = re.sub('windows','Microsoft Windows',title)
-						title = re.sub('pc','Microsoft Windows',title)
-
-						titleWords = word_tokenize(title.strip())
-						title = " ".join(titleWords)
-
-						text = TextBlob(str(t))
-						#print(text.sentiment)
-						#print(text.sentiment.polarity, text.sentiment.subjectivity)
-
-						#sentiment analysis
-						if text.sentiment.polarity < 0:
-							polarity="Negative"
-						elif(text.sentiment.polarity > 0):
-							polarity="Positive"
-						else:
-							polarity="Neutral"
-						try:
-							dateComment = timestampComment[row]
-							dateVideo = videoPublishedAt[row]
-							dateComment = re.sub('T[0-9:Z]+','',dateComment)
-							dateVideo = re.sub('T[0-9:Z]+','',dateVideo)
-						except Exception as e:
-							print(e)
-							#print("something wrong on convert dates...")
-
-						isMain = mainComment[row] # TRUE -> comentario principal
-
-						descript = description[row]
-						descriptWords = word_tokenize(descript.strip())
-						descript = " ".join(descriptWords)
-
-						descript = " ".join(descript.strip().split())
-						descript = re.sub(r"[\W\s]"," ",descript)
-						descript = re.sub("\n","",descript)
-
-						#print(title)
-						#https://en.wikipedia.org/wiki/Just_Dance_(video_game_series)
-						games = ['Just Dance 2', 'Just Dance 3', 'Just Dance 4', 'Just Dance 2014', 'Just Dance 2015', 'Just Dance 2016', 'Just Dance 2017', 'Just Dance 2018', 'Just Dance 2019', 'Just Dance 2020', 'Just Dance 2021',
-								'Just Dance Wii', 'Just Dance Wii 2', 'Just Dance Wii U', 'Yo-kai Watch Dance: Just Dance Special Version',
-								'Just Dance Kids', 'Just Dance Kids 2', 'Just Dance Kids 2014',
-								'Just Dance: Disney Party', 'Just Dance: Disney Party 2',
-								'Just Dance: Greatest Hits',
-								'Just Dance: Summer Party', 'Just Dance Now', 'Just Dance Unlimited']
-						# Just Dance é o ultimo jogo a ser inserido... RISCO neste!!! pode nao ser o 1.º JD.... pq no titulo podem nao especificar qual é a versao
-						# quem nao quiser saber de qual é a edicao, simplesmente nao aplica o filtro, e vê tudo.
-
-						platforms = ['Wii', 'Wii U', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'Xbox 360', 'Xbox One', 'Xbox Series X', 'Xbox Series S','iOS', 'Android', 'Nintendo Switch', 'Microsoft Windows', 'Stadia']
-						# tratar abreviaturas das consolas... ps3 -> playstation 3 ou no if... meter as duas hipoteses...
-
-						if (isMain):
-							isMain = "Main"
-						else:
-							isMain = "Reply"
-						#insert youtube video ...
-						query = "insert into video values('"+str(channelID[row])+"', '"+channel[row]+"', '"+str(videoID[row])+"','"+title+"','"+str(dateVideo)+"', '"+str(views[row])+"', '"+str(likesVideo[row])+"', '"+str(dislikesVideo[row])+"', '"+str(totalCommentsVideo[row])+"', '"+descript+"')"
-						insertToTable(query)
-						query = "insert into comment values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"')"
-						insertToTable(query)
-
-						# detetar plataforma no titulo do video e na descrição ...
-						#for p in plataform:
-							#print(p)
-						platform = ""
-						for p in platforms:
-							c = p.lower()
-							if(c in title.lower()):
-								platform = p
-								break
-							elif(c in descript.strip().lower()):
-								platform = p
-								break
-						if(platform==""):
-							platform="Unknown"
-
-						#print(console)
-						# detetar o nome do jogo no titulo do video ...
-						edition=""
-						serie=""
-						
-						for game in games:
-							serie = game.lower()
-							if(serie in title.lower()):
-								#print("\n1...Video ID = "+str(videoID[row])+'\nConsole = '+ console + "\nGame = "+ game + "\nTitle = " +title)
-								# select where edition  = ... and console = .... ---> get ID
-								#query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
-								#insertToTable(query)
-								edition=game
-								break
-							elif(serie in descript.lower().lower()):
-								#print("\n2...Video ID = "+str(videoID[row])+'\nConsole = '+ console + "\nGame = "+ game + "\nTitle = " +title)
-								# select where edition  = ... and console = .... ---> get ID
-								#query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(game)+"', '"+str(console)+"', '"+str(polarity)+"', '"+str(videoID[row])+"')"
-								#query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
-								#insertToTable(query)
-								edition=game
-								break
-							else:
-								serie=""
-						if(serie ==""):
-							serie = "Just Dance"
-							if(serie.lower() in title.lower()):
-								#print("\n3...Video ID = "+str(videoID[row])+'\nConsole = '+ console + "\nGame = "+ edition + "\nTitle = " +title)
-								edition = "Just Dance"
-								# select where edition  = ... and console = .... ---> get ID
-								#query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(edition)+"', '"+str(console)+"', '"+str(polarity)+"', '"+str(videoID[row])+"')"
-								#query = "insert into opinion values('"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
-								#insertToTable(query)
-
-						#game_id = checkGameID(edition, platform)
-						#game_id = str(game_id)
-						#game_id = game_id.replace(',','')
-						#game_id = game_id.replace('(','')
-						#game_id = game_id.replace(')','')
-						#game_id = game_id.replace('[','')
-						#game_id = game_id.replace(']','')
-						game_id +=1 
-						query = "insert into game values('"+str(game_id)+"', '"+str(edition)+"', '"+str(platform)+"')"
-						insertToTable(query)
-
-						DictResult = annotate(str(t),str(polarity)) 
-						#print("> ",DictResult)
-						if(bool(DictResult)):
-							#print("		######################################## true")
-							#print("> ",result[0])
-							#print(">>",result[1])
-							#print(DictResult)
-							for field in DictResult.keys():
-								#print("FIELD = ", field)
-								for concept in DictResult[field]:
-									opinion_id+=1
-									dimension_id+=1
-									#print(field + "->"+concept)
-									#print(concept)
-									if (field == "Usability"):
-										# select where field = ... and concept = ... get dimension_id
-										#query = "insert into opinion_usability values('"+str(commentID[row])+"', '"+str(concept)+"')"
-										#dimension_id = checkDimensionID(field,concept)
-										#dimension_id = str(dimension_id)
-										#print(dimension_id)
-										#dimension_id = dimension_id.replace(',','')
-										#dimension_id = dimension_id.replace('(','')
-										#dimension_id = dimension_id.replace(')','')
-										#dimension_id = dimension_id.replace('[','')
-										#dimension_id = dimension_id.replace(']','')
-										#query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID[row])+"', '"+str(t)+"', '"+str(polarity)+"', '"+str(likes[row])+"', '"+str(dateComment)+"', '"+str(isMain)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
-										
-										query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
-										insertToTable(query)
-
-										query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID[row])+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
-										
-										#query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
-										#print(query)
-										insertToTable(query)
-									elif (field == "UX"):
-										"""
-										dimension_id = checkDimensionID(field,concept)
-										dimension_id = str(dimension_id)
-										#print(dimension_id)
-										dimension_id = dimension_id.replace(',','')
-										dimension_id = dimension_id.replace('(','')
-										dimension_id = dimension_id.replace(')','')
-										dimension_id = dimension_id.replace('[','')
-										dimension_id = dimension_id.replace(']','')
-										"""
-
-										query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
-										insertToTable(query)
-
-										query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID[row])+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
-										#query = "insert into opinion_ux values('"+str(commentID[row])+"', '"+str(concept)+"')"
-										#query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
-										#print(query)
-										insertToTable(query)
-									elif (field == "Health"):
-										"""
-										dimension_id = checkDimensionID(field,concept)
-										dimension_id = str(dimension_id)
-										#print(dimension_id)
-										dimension_id = dimension_id.replace(',','')
-										dimension_id = dimension_id.replace('(','')
-										dimension_id = dimension_id.replace(')','')
-										dimension_id = dimension_id.replace('[','')
-										dimension_id = dimension_id.replace(']','')
-										"""
-										
-										query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
-										insertToTable(query)
-
-										query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID[row])+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID[row])+"')"
-										#query = "insert into opinion_health values('"+str(commentID[row])+"', '"+str(concept)+"')"
-										#query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
-										#print(query)
-										insertToTable(query)
-						
-				except Exception as e:
-					print(e)
-					#print("something wrong.... annotate")
-			row += 1
+			dateComment = re.sub('T[0-9:Z]+','',dateComment)
+			dateVideo = re.sub('T[0-9:Z]+','',dateVideo)
 		except Exception as e:
-			print(e)
-		#row += 1
+			#print(e)
+			print("something wrong on convert dates...")
+
+		#isMain = mainComment[row] # TRUE -> comentario principal
+
+		#descript = description[row]
+		descriptWords = word_tokenize(descript.strip())
+		descript = " ".join(descriptWords)
+
+		descript = " ".join(descript.strip().split())
+		descript = re.sub(r"[\W\s]"," ",descript)
+		descript = re.sub("\n","",descript)
+
+		descript = descript.lower()
+		descript = re.sub('jd','just dance',descript)
+		descript = re.sub('justdance','just dance',descript)
+		descript = re.sub('ps4','PlayStation 4',descript)
+		descript = re.sub('ps2','PlayStation 2',descript)
+		descript = re.sub('ps3','PlayStation 3',descript)
+		descript = re.sub('x360','PlayStation 4',descript)
+		descript = re.sub('xbox sx','Xbox Series X',descript)
+		descript = re.sub('xbox ss','Xbox Series S',descript)
+		descript = re.sub('switch','Nintendo Switch',descript)
+		descript = re.sub('nintendo','Nintendo Switch',descript)
+		descript = re.sub('windows','Microsoft Windows',descript)
+		descript = re.sub('pc','Microsoft Windows',descript)
+
+		#print(title)
+		#https://en.wikipedia.org/wiki/Just_Dance_(video_game_series)
+		games = ['Just Dance 2', 'Just Dance 3', 'Just Dance 4', 'Just Dance 2014', 'Just Dance 2015', 'Just Dance 2016', 'Just Dance 2017', 'Just Dance 2018', 'Just Dance 2019', 'Just Dance 2020', 'Just Dance 2021',
+				'Just Dance Wii', 'Just Dance Wii 2', 'Just Dance Wii U', 'Yo-kai Watch Dance: Just Dance Special Version',
+				'Just Dance Kids', 'Just Dance Kids 2', 'Just Dance Kids 2014',
+				'Just Dance: Disney Party', 'Just Dance: Disney Party 2',
+				'Just Dance: Greatest Hits',
+				'Just Dance: Summer Party', 'Just Dance Now', 'Just Dance Unlimited']
+		# Just Dance é o ultimo jogo a ser inserido... RISCO neste!!! pode nao ser o 1.º JD.... pq no titulo podem nao especificar qual é a versao
+		# quem nao quiser saber de qual é a edicao, simplesmente nao aplica o filtro, e vê tudo.
+
+		platforms = ['Wii', 'Wii U', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'Xbox 360', 'Xbox One', 'Xbox Series X', 'Xbox Series S','iOS', 'Android', 'Nintendo Switch', 'Microsoft Windows', 'Stadia']
+		# tratar abreviaturas das consolas... ps3 -> playstation 3 ou no if... meter as duas hipoteses...
+
+		#insert youtube video ...
+		query = "insert into video values('"+str(channelID)+"', '"+channel+"', '"+str(videoID)+"','"+title+"','"+str(dateVideo)+"', '"+str(views)+"', '"+str(likesVideo)+"', '"+str(dislikesVideo)+"', '"+str(totalCommentsVideo)+"', '"+descript+"')"
+		insertToTable(query)
+		query = "insert into comment values('"+str(commentID)+"', '"+str(comment)+"', '"+str(polarity)+"', '"+str(likes)+"', '"+str(dateComment)+"', '"+str(isMain)+"')"
+		insertToTable(query)
+
+		# detetar plataforma no titulo do video e na descrição ...
+		platform = ""
+		for p in platforms:
+			c = p.lower()
+			if(c in title.lower()):
+				platform = p
+				break
+			elif(c in descript.strip().lower()):
+				platform = p
+				break
+		if(platform==""):
+			platform="Unknown"
+
+		#print(console)
+		# detetar o nome do jogo no titulo do video ...
+		edition=""
+		serie=""
+		
+		for game in games:
+			serie = game.lower()
+			if(serie in title.lower()):
+				edition=game
+				break
+			elif(serie in descript.lower().lower()):
+				edition=game
+				break
+			else:
+				serie=""
+		if(serie ==""):
+			serie = "Just Dance"
+			if(serie.lower() in title.lower()):
+				edition = "Just Dance"
+
+		game_id +=1 
+		query = "insert into game values('"+str(game_id)+"', '"+str(edition)+"', '"+str(platform)+"')"
+		insertToTable(query)
+
+		DictResult = annotate(str(comment),str(polarity)) 
+		if(bool(DictResult)):
+			for field in DictResult.keys():
+				for concept in DictResult[field]:
+					opinion_id+=1
+					dimension_id+=1
+					if (field == "Usability"):
+						query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
+						insertToTable(query)
+
+						query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID)+"')"
+						insertToTable(query)
+					elif (field == "UX"):
+						query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
+						insertToTable(query)
+
+						query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID)+"')"
+						insertToTable(query)
+					elif (field == "Health"):
+						query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
+						insertToTable(query)
+
+						query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID)+"')"
+						insertToTable(query)
+			
+	except Exception as e:
+		print(e)
+	
 
 #insertTablesConceitos()
-executeAnnotation()
 
-#connect()
-"""
-print("tables")
-query="SELECT * FROM opinion"
-t = pd.read_sql_query(query,conn)
-print(t)
-"""
-#closeConnection()
+#executeAnnotation()
 
 
 

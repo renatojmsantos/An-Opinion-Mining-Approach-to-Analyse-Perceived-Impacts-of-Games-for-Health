@@ -23,7 +23,61 @@ tagger = SequenceTagger.load("ner") # ESTE !!
 
 DetectorFactory.seed = 0
 
+
 # link csv: https://we.tl/t-umTQCE5Z8w
+
+
+#path = '../CSV/YT_10_03_2021_v6 - cópia 2.csv'
+#path = '../CSV/YT_repliesDif-Descript-ALL.csv'
+#path='../csv/dataset.csv'
+
+#path = 'YT_repliesDif-Descript-ALL'
+#path = '../CSV/YT_10_03_2021_v6.csv'
+#data = pd.read_csv(path,lineterminator='\n',encoding='utf-8')
+
+"""
+data.dropna(inplace=True)
+
+#df = data.set_index("Comment", drop = False)
+#data = pd.DataFrame(index=comments)
+
+comments = data['Comment']
+commentID = data['CommentID']
+videoTitle = data['Video Title']
+videoID = data['videoID']
+likes = data['Likes']
+timestampComment = data['TimeStampComment']
+channel = data['Channel']
+channelID = data['ChannelID']
+videoPublishedAt = data['VideoPublishedAt']
+views = data['ViewsVideo']
+likesVideo = data['likesVideo']
+dislikesVideo = data['dislikesVideo']
+totalCommentsVideo = data['totalCommentsVideo']
+
+description = data['Description']
+mainComment = data['MainComment']
+"""
+
+#demoji.download_codes()
+#demoji.last_downloaded_timestamp()
+
+#remove emojis
+"""
+def demoji(text):
+	emoji_pattern = re.compile("["
+							   u"\U0001F600-\U0001F64F"  # emoticons
+							   u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+							   u"\U0001F680-\U0001F6FF"  # transport & map symbols
+							   u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+							   u"\U00002702-\U000027B0"
+							   u"\U000024C2-\U0001F251"
+							   u"\U00010000-\U0010ffff"
+							   "]+", flags=re.UNICODE)
+	return (emoji_pattern.sub(r'', text))
+"""
+
+#comment = comment.astype(str).apply(lambda x: demoji(x))
 
 def isEnglish(text):
 	if(len(text.split()) <= 3):
@@ -65,6 +119,11 @@ def isEnglish(text):
 	return False
 	
 
+#listaPalavras = ["🤗","l","I’d like to know how I’d done that!","I'd like to play!", "abc","sex","stop","this game/ is! great!","this is great", "isto é bom","i love thiq gam ","u know","hi","a","aaa","big https://wwww.uc.pt THE BEST url: http://blah.com/path/to/here?p=1&q=abc,def#posn2 #ahashtag http://t.co/FNkPfmii-","@rui ola 🙀🤗🤗🤗🤗","best game #yolo :)","my best  friend from   germany !!!!!!!!!! lol ...... ","beautifulllll","OMG 🤯", "YOU 🤯🤯🤯🤯are goooood ", "issijjsij","laranja","orange","how","fix this"]
+#listaPalavras = ["o meu nome é renato", "pastel", "futebol", "i live in Portugal, and i think Just Dance is the best ever! ", "Renato Santos is the boss!", "adoro comer", "90 years old", "it's ok! ", "i'm renato", "u are good","renato", "benfica champions", "luv omg bff 4ever", "bd eheheheheheni ijij","you are my bff", "yes omg ", "ly <3", "@rui ola 🙀🤗🤗🤗🤗","OMG 🤯", "LOL", "amazing thing 2 u", "Donald Trump is the USA president", "YOU 🤯🤯🤯🤯are goooood "]
+#listaPalavras = ["🙀","🤗","that's great", "90 years old", "it's ok! " "my name is Renato", "u are good"]
+
+
 def emojiToCLDRshortName(text):
 	has_emoji = bool(emoji.get_emoji_regexp().search(text))
 	#print(has_emoji)
@@ -81,6 +140,9 @@ def emojiToCLDRshortName(text):
 
 
 def clearText(text):
+	# remove emojis
+	#text = demoji(text)
+	#print("0 — " , text)
 
 	#contracoes inglesas... that's -> that is
 	text = contractions(text)
