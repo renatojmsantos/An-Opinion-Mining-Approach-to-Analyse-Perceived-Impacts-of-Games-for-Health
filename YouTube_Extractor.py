@@ -296,7 +296,7 @@ for ano in range (-1,12): #(-1,12)
 						# detect language of video title?? with preprocesing? 
 
 						videoName = titulo.lower()
-						if ( ("lady gaga" not in videoName) and ("paul johnson" not in videoName) and ("remix" not in videoName) and ("flashmob" not in videoName) and ("ps22 chorus" not in videoName) and ("alvin" not in videoName) and ("chipettes" not in videoName) and ("chipmunk" not in videoName) and ("chipmunks" not in videoName) and ("just dance india" not in videoName) and ("official music video" not in videoName) and ("lyrics" not in videoName)
+						if ( ("lady gaga" not in videoName) and ("Jerónimo de Sousa" not in videoName) and ("paul johnson" not in videoName) and ("remix" not in videoName) and ("flashmob" not in videoName) and ("ps22 chorus" not in videoName) and ("alvin" not in videoName) and ("chipettes" not in videoName) and ("chipmunk" not in videoName) and ("chipmunks" not in videoName) and ("just dance india" not in videoName) and ("official music video" not in videoName) and ("lyrics" not in videoName)
 							and (("just dance" in videoName) or ("justdance" in videoName))):
 							
 							tituloChannel=search_result["snippet"]["channelTitle"]
@@ -322,7 +322,7 @@ for ano in range (-1,12): #(-1,12)
 							videoID = search_result["id"]["videoId"]
 							#print(">>>",checkVideoID(str(videoID)))
 							if (checkVideoID(str(videoID)) is False): # videoID nao está na BD ... vai buscar todos os comentarios
-								print("a adicionar novo video...")
+								#print("a adicionar novo video...")
 								if videoID not in lista_videoID: # é preciso???
 
 									lista_videoID.append(videoID)
@@ -393,14 +393,15 @@ for ano in range (-1,12): #(-1,12)
 															dateComment = re.sub('T[0-9:Z]+','',publishTime)
 														except Exception as e:
 															#print(e)
-															print("something wrong on convert dates...")
+															print("something wrong on convert dates...", e)
 														
 														isMain = "Main"
 														try:
 															comment = runPreprocessing(comentario)
 															if (comment != "None"):
 																#game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID
-																ids = executeAnnotation(game_id, dimension_id, opinion_id, titulo, videoID, comment, commentID, nr_likes, dateComment, isMain, videoPublishedAt,views,likesV, dislikesV, nrCommentsV, description, tituloChannel, idChannel)
+																#def executeAnnotation(game_id, dimension_id, opinion_id, videoID, comment, commentID, likes, dateComment, isMain):
+																ids = executeAnnotation(game_id, dimension_id, opinion_id, videoID, comment, commentID, nr_likes, dateComment, isMain)
 																opinion_id = ids[0]
 																dimension_id = ids[1]
 																#print(".... id's --> ",opinion_id, dimension_id) # nao aumentam depois.... colocar aqui toda a anotacao do execute? ou return ID's ... em tuplo..? 
@@ -450,12 +451,12 @@ for ano in range (-1,12): #(-1,12)
 																					commentReply = runPreprocessing(textReply)
 																					if (commentReply != "None"):
 																						#game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID
-																						ids = executeAnnotation(game_id, dimension_id, opinion_id, titulo, videoID, commentReply, replyID, likesReply, dateReply, isMain, videoPublishedAt,views,likesV, dislikesV, nrCommentsV, description, tituloChannel, idChannel)
+																						ids = executeAnnotation(game_id, dimension_id, opinion_id, videoID, commentReply, replyID, likesReply, dateReply, isMain)
 																						opinion_id = ids[0]
 																						dimension_id = ids[1]
 																						#print(".... id's --> ", opinion_id, dimension_id)
 																				except Exception as e:
-																					print("replys -" + e)	
+																					print("replys -", e)	
 																	except HttpError as e:
 																		print("comments() - replies — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
 																		if("quotaExceeded" in str(e.content)):
@@ -463,7 +464,7 @@ for ano in range (-1,12): #(-1,12)
 																	#except (ConnectionError, ReadTimeout):
 																		#print("ERROR! Connection or TIME OUT!")
 																	except Exception as e:
-																		print("get replys - "+ e)
+																		print("get replys - ", e)
 																		#print("comments() - replies — something wrong ...")
 																else:
 																	continue
@@ -473,7 +474,7 @@ for ano in range (-1,12): #(-1,12)
 																#skip statements inside the loop
 																continue
 														except Exception as e:
-															print("comments -" + e)
+															print("comments -", e)
 
 													if nextPT is None:
 														#time.sleep(5)
@@ -505,7 +506,7 @@ for ano in range (-1,12): #(-1,12)
 									#except (ConnectionError, ReadTimeout):
 										#print("ERROR! Connection or TIME OUT!")
 									except Exception as e:
-										print("videos (stats) " + e)
+										print("videos (stats) ", e)
 										#print("videos (stats) - something wrong ...")
 								else:
 									# é preciso???
@@ -529,7 +530,7 @@ for ano in range (-1,12): #(-1,12)
 			#except (ConnectionError, ReadTimeout):
 				#print("ERROR! Connection or TIME OUT!")
 			except Exception as e:
-				print("search () -" + e)
+				print("search () -", e)
 				#print("search () - something wrong ...")
 				#DEVELOPER_KEY = "AIzaSyAL0ChC4DB6Su9C6X3YVDJMMzly0o_Mq_4" #backup
 				#DEVELOPER_KEY = "AIzaSyAilu0HwaDQlvkDZEsKxQ6POFMdyvKiU4E" #3a

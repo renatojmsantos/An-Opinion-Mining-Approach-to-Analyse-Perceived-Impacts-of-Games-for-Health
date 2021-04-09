@@ -37,7 +37,7 @@ CREATE TABLE dimension (
 
 CREATE TABLE comment (
 	commentid	 VARCHAR(512),
-	comment	 VARCHAR(512) NOT NULL,
+	comment	 VARCHAR(2000) NOT NULL,
 	polarity	 VARCHAR(512) NOT NULL,
 	likes	 INTEGER NOT NULL,
 	datecomment DATE NOT NULL,

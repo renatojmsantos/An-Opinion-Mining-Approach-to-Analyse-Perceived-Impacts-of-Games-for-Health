@@ -1,4 +1,4 @@
-import pandas as pd
+#import pandas as pd
 import re   # regular expression
 import demoji
 import numpy as np
@@ -37,7 +37,7 @@ def isEnglish(text):
 			else:
 				return False
 		except Exception as e:
-			print("isEnglish - " + e)
+			print("isEnglish - ", e)
 			#print("fail text blob")
 			try:
 				language = detect(text)
@@ -48,7 +48,7 @@ def isEnglish(text):
 				else:
 					return False
 			except Exception as e:
-				print("isEnglish - " +e)
+				print("isEnglish - ", e)
 	else:
 		#print("len > 4")
 		try:
@@ -60,7 +60,7 @@ def isEnglish(text):
 			else:
 				return False
 		except Exception as e:
-			print("isEnglish - " +e)
+			print("isEnglish - ", e)
 	
 	return False
 	
@@ -80,7 +80,7 @@ def emojiToCLDRshortName(text):
 		else:
 			return text
 	except Exception as e:
-		print("Emoji convert - "+ e)
+		print("Emoji convert - ", e)
 
 
 def clearText(text):
@@ -118,7 +118,7 @@ def clearText(text):
 
 		#print("3 — " , text)
 	except Exception as e:
-		print("clearText - "+ e)
+		print("clearText - ", e)
 
 	return text
 
@@ -258,7 +258,7 @@ def contractions(text):
 		#print(text)
 		return text
 	except Exception as e:
-		print("contractions"+ e)
+		print("contractions", e)
 
 
 def caracteresRepetidos(text):
@@ -274,7 +274,7 @@ def caracteresRepetidos(text):
 		else:
 			return text
 	except Exception as e:
-		print("caracteresRepetidos - "+ e)
+		print("caracteresRepetidos - ", e)
 
 
 #tagger = SequenceTagger.load("ner")
@@ -302,7 +302,7 @@ def spellCorrection(text):
 		else:
 			text = TextBlob(text).correct()
 	except Exception as e:
-		print("spellCorrection - " + e)
+		print("spellCorrection - ", e)
 	
 	return text
 

@@ -4,7 +4,7 @@ from connectDB import *
 
 from vocabulary import *
 
-import pandas as pd
+#import pandas as pd
 
 from nrclex import NRCLex
 #from senticnet.senticnet import SenticNet
@@ -40,7 +40,7 @@ def insertToTable(query):
 		#cur.execute("select * from usability")
 		#print(cur.fetchone())
 		query = query + " returning 1;" # duplicados deste id = 1 ????
-		print(query)
+		#print(query)
 		#print(tableName)
 		#cur.execute(query, (tableName,))
 		cur.execute(query)
@@ -60,7 +60,7 @@ def insertToTable(query):
 
 #insertTablesConceitos()
 
-def annotate(text, polarity):
+def annotate(text):
 	#print("\n>>>>>>> ",text)
 	#print(">>> ", polarity)
 
@@ -113,7 +113,6 @@ def annotate(text, polarity):
 
 	text_lemmas = " ".join(lemmas)
 
-
 	#print(text_lemmas)
 
 	"""
@@ -124,7 +123,6 @@ def annotate(text, polarity):
 	keywords = [word for word in words if not word in text_lemmas]
 	print(keywords)
 	"""
-
 
 	dictAnotado = {}
 	for items in dict.items():
@@ -453,7 +451,7 @@ def getEditionAndPlataform(game_id, title, descript):
 
 		return game_id
 	except Exception as e:
-		print("get game and console ->" + e)
+		print("get game and console ->", e)
 
 def insertVideo(channelID,channel,videoID,title,dateVideo,views,likesVideo,dislikesVideo,totalCommentsVideo,descript):
 	#insert youtube video ...
@@ -462,7 +460,7 @@ def insertVideo(channelID,channel,videoID,title,dateVideo,views,likesVideo,disli
 	#pass
 
 
-def executeAnnotation(game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID):
+def executeAnnotation(game_id, dimension_id, opinion_id, videoID, comment, commentID, likes, dateComment, isMain):
 
 	try:		
 		polarity = getSentiment(comment)
@@ -475,7 +473,7 @@ def executeAnnotation(game_id, dimension_id, opinion_id, title, videoID, comment
 		query = "insert into comment values('"+str(commentID)+"', '"+str(comment)+"', '"+str(polarity)+"', '"+str(likes)+"', '"+str(dateComment)+"', '"+str(isMain)+"')"
 		insertToTable(query)
 
-		DictResult = annotate(str(comment),str(polarity)) 
+		DictResult = annotate(str(comment)) 
 		if(bool(DictResult)):
 			for field in DictResult.keys():
 				for concept in DictResult[field]:
@@ -500,7 +498,7 @@ def executeAnnotation(game_id, dimension_id, opinion_id, title, videoID, comment
 						insertToTable(query)
 			
 	except Exception as e:
-		print("execute annotation - "+ e)
+		print("execute annotation - ", e)
 
 	return (opinion_id,dimension_id)
 #insertTablesConceitos()

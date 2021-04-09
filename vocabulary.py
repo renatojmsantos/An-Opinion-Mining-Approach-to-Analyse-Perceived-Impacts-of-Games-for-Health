@@ -7,8 +7,8 @@ dict={
 		'Usability':{
 			'Memorability': {'memory': 1.0, 'forgot': 0.6, 'remember': 0.8}, 
 			'Learnability': {'learnability': 1.0, 'learn': 1.0, 'intuit': 1.0, 'easier': 1.0,'figur': 0.8,'straightforward': 0.8,'foreword': 0.8, 'practic': 0.6}, 
-			'Efficiency': {'efficiency': 1.0, 'perfect': 0.9, 'works well': 1.0, 'amazing': 1.0}, 
-			'Errors/Effectiveness': {'errors': 1.0,'effectiveness':1.0, 'fix': 0.8,'problem':0.5, 'broken': 0.7,'camera': 0.7, 'glitch': 0.8,'issu': 0.8,'slow':0.9, 'lag': 0.8,'bug': 0.8, 'inconsist': 0.8},
+			'Efficiency': {'efficiency': 1.0, 'perfect': 0.9, 'effectiveness': 0.6, 'works well': 1.0, 'amazing': 1.0}, 
+			'Errors/Effectiveness': {'errors': 1.0,'effectiveness':1.0, 'fix': 0.8,'problem':0.5, 'incompetent': 0.2, 'broken': 0.7,'camera': 0.7, 'glitch': 0.8,'issu': 0.8,'slow':0.9, 'lag': 0.8,'bug': 0.8, 'inconsist': 0.8},
 			'Satisfaction': {'happy': 1.0, 'fun': 1.0, 'great': 1.0, 'love': 1.0, 'worth': 1.0, 'nice': 1.0, 'best': 1.0, 'recommend': 1.0, 'disappoint': 0.8, 'good': 0.8, 'favorite': 0.8, 'cool': 0.8, 'perfect': 1.0}
 		},
 		'UX':{
