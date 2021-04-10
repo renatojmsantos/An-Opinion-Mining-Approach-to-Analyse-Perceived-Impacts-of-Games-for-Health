@@ -70,7 +70,9 @@ def emojiToCLDRshortName(text):
 		has_emoji = bool(emoji.get_emoji_regexp().search(text))
 		#print(has_emoji)
 		if (has_emoji):
-			emoji_chars = emoji.EMOJI_ALIAS_UNICODE.values()
+			#emoji.emojize('u'\U0001F4D3' ',use_aliases=True)
+			#emoji_chars = emoji.EMOJI_ALIAS_UNICODE.values()
+			emoji_chars = emoji.EMOJI_ALIAS_UNICODE_ENGLISH.values()
 			def _emoji(char):
 				if char in emoji_chars:
 					return unicodedata.name(char) + " "
