@@ -143,9 +143,9 @@ def countRowsTable(tableName):
 
 #print(countRowsTable('game'))
 
-game_id = int(countRowsTable(str('game')))# + 1
-opinion_id = int(countRowsTable(str('opinion')))# + 1
-dimension_id = int(countRowsTable(str('dimension')))# + 1
+game_id = countRowsTable(str('game'))# + 1
+opinion_id = countRowsTable(str('opinion'))# + 1
+dimension_id = countRowsTable(str('dimension'))# + 1
 #game_id = 0
 
 lista_videoID=[]
