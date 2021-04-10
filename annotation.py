@@ -460,7 +460,7 @@ def insertVideo(channelID,channel,videoID,title,dateVideo,views,likesVideo,disli
 	#pass
 
 
-def executeAnnotation(game_id, dimension_id, opinion_id, videoID, comment, commentID, likes, dateComment, isMain):
+def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment, commentID, likes, dateComment, isMain):
 
 	try:		
 		polarity = getSentiment(comment)
@@ -470,37 +470,38 @@ def executeAnnotation(game_id, dimension_id, opinion_id, videoID, comment, comme
 		#insert youtube video ...
 		#query = "insert into video values('"+str(channelID)+"', '"+channel+"', '"+str(videoID)+"','"+title+"','"+str(dateVideo)+"', '"+str(views)+"', '"+str(likesVideo)+"', '"+str(dislikesVideo)+"', '"+str(totalCommentsVideo)+"', '"+descript+"')"
 		#insertToTable(query)
-		query = "insert into comment values('"+str(commentID)+"', '"+str(comment)+"', '"+str(polarity)+"', '"+str(likes)+"', '"+str(dateComment)+"', '"+str(isMain)+"')"
+		original_comment = original_comment.replace("'","")
+		query = "insert into comment values('"+str(commentID)+"', '"+str(original_comment)+"', '"+str(comment)+"', '"+str(polarity)+"', '"+str(likes)+"', '"+str(dateComment)+"', '"+str(isMain)+"')"
 		insertToTable(query)
 
 		DictResult = annotate(str(comment)) 
 		if(bool(DictResult)):
 			for field in DictResult.keys():
 				for concept in DictResult[field]:
-					opinion_id+=1
-					dimension_id+=1
+					annotation_id+=1
+					#dimension_id+=1
 					if (field == "Usability"):
-						query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
-						insertToTable(query)
-						query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID)+"')"
+						#query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
+						#insertToTable(query)
+						query = "insert into annotation values('"+str(annotation_id)+"', '"+str(field)+"', '"+str(concept)+"', '"+str(commentID)+"', '"+str(game_id)+"', '"+str(videoID)+"')"
 						insertToTable(query)
 					elif (field == "UX"):
-						query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
-						insertToTable(query)
+						#query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
+						#insertToTable(query)
 
-						query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID)+"')"
+						query = "insert into annotation values('"+str(annotation_id)+"', '"+str(field)+"', '"+str(concept)+"', '"+str(commentID)+"', '"+str(game_id)+"', '"+str(videoID)+"')"
 						insertToTable(query)
 					elif (field == "Health"):
-						query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
-						insertToTable(query)
+						#query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
+						#insertToTable(query)
 
-						query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID)+"')"
+						query = "insert into annotation values('"+str(annotation_id)+"', '"+str(field)+"', '"+str(concept)+"', '"+str(commentID)+"', '"+str(game_id)+"', '"+str(videoID)+"')"
 						insertToTable(query)
 			
 	except Exception as e:
 		print("execute annotation - ", e)
 
-	return (opinion_id,dimension_id)
+	return annotation_id
 #insertTablesConceitos()
 
 #executeAnnotation()

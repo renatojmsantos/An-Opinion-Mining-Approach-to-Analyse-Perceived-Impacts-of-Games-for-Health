@@ -33,7 +33,6 @@ YOUTUBE_API_VERSION = "v3"
 listaKeys = []
 
 
-
 def readKeys(filename='dev_keys.txt'):
 	with open(filename) as file:
 		for line in file:
@@ -55,38 +54,7 @@ def checkVideoID(videoid): # CHECK VIDEO ID DA OPINION ....
 		#print(query)
 		cur.execute(query)
 
-		idBack = cur.fetchone()
-		#print(idBack)
-		#conn.commit()
-		#print("inserted!")
-		
-		cur.close()
-	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO!", error)
-	finally:
-		if conn is not None:
-			#print("closing connection...")
-			conn.close()
-	return idBack is not None #idBack
-
-def checkCommentID(commentid):
-	idBack = None
-	conn = None
-	try:
-		params = config()
-		conn = psycopg2.connect(**params)
-		#conn.autocommit = True
-		cur = conn.cursor()
-
-		query = "SELECT commentid FROM opinion WHERE commentid = '"+ commentid +"' "
-		#print(query)
-		cur.execute(query)
-
-		idBack = cur.fetchone()
-		print(idBack)
-		#conn.commit()
-		#print("inserted!")
-		
+		idBack = cur.fetchone()		
 		cur.close()
 	except (Exception, psycopg2.DatabaseError) as error:
 		print("ERRO!", error)
@@ -108,9 +76,7 @@ def countRowsTable(tableName):
 		query = "SELECT count(*) FROM "+tableName+""
 
 		#print(query)
-
 		cur.execute(query)
-
 		idBack = cur.fetchone() # TUPLO
 		
 		cur.close()
@@ -128,12 +94,12 @@ def countRowsTable(tableName):
 #========================================================================================================================================================================
 
 gameid = countRowsTable(str('game'))# + 1
-opinionid = countRowsTable(str('opinion'))# + 1
-dimensionid = countRowsTable(str('dimension'))# + 1
+annotationid = countRowsTable(str('annotation'))# + 1
+#dimensionid = countRowsTable(str('dimension'))# + 1
 
 game_id = int(gameid[0])
-opinion_id = int(opinionid[0])
-dimension_id = int(dimensionid[0])
+annotation_id = int(annotationid[0])
+#dimension_id = int(dimensionid[0])
 
 
 giveDate = sys.argv[1]
@@ -215,7 +181,7 @@ while 1:
 								#titulo = unidecode.unidecode(titulo)
 								
 								videoName = titulo.lower()
-								if ( ("lady gaga" not in videoName) and ("fuck it" not in videoName) and ("maristela" not in videoName) and ("killebom" not in videoName) and ("ladies free" not in videoName) and ("brand new band" not in videoName) and ("ivi adamou" not in videoName) and ("talent show" not in videoName) and ("effy" not in videoName) and ("music video" not in videoName) and ("the nanny" not in videoName) and ("josh turner" not in videoName) and ("karaoke" not in videoName) and ("quadriphonix" not in videoName) and ("acoustic" not in videoName) and ("cover" not in videoName) and ("Jerónimo de Sousa" not in videoName) and ("paul johnson" not in videoName) and ("remix" not in videoName) and ("flashmob" not in videoName) and ("ps22 chorus" not in videoName) and ("alvin" not in videoName) and ("chipettes" not in videoName) and ("chipmunk" not in videoName) and ("chipmunks" not in videoName) and ("just dance india" not in videoName) and ("official music video" not in videoName) and ("lyrics" not in videoName)
+								if ( ("lady gaga" not in videoName) and ("ladygaga" not in videoName) and ("lyric" not in videoName) and ("dialysis" not in videoName) and ("fuck it" not in videoName) and ("maristela" not in videoName) and ("killebom" not in videoName) and ("ladies free" not in videoName) and ("brand new band" not in videoName) and ("ivi adamou" not in videoName) and ("talent show" not in videoName) and ("effy" not in videoName) and ("music video" not in videoName) and ("the nanny" not in videoName) and ("josh turner" not in videoName) and ("karaoke" not in videoName) and ("quadriphonix" not in videoName) and ("acoustic" not in videoName) and ("cover" not in videoName) and ("Jerónimo de Sousa" not in videoName) and ("paul johnson" not in videoName) and ("remix" not in videoName) and ("flashmob" not in videoName) and ("ps22 chorus" not in videoName) and ("alvin" not in videoName) and ("chipettes" not in videoName) and ("chipmunk" not in videoName) and ("chipmunks" not in videoName) and ("just dance india" not in videoName) and ("official music video" not in videoName) and ("lyrics" not in videoName)
 									and (("just dance" in videoName) or ("justdance" in videoName))):
 									
 									tituloChannel=search_result["snippet"]["channelTitle"]
@@ -306,15 +272,15 @@ while 1:
 																#print(e)
 																print("something wrong on convert dates...", e)
 															
-															isMain = "Main"
+															
 															try:
 																comment = runPreprocessing(comentario)
 																if (comment != "None"):
 																	#game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID
 																	#def executeAnnotation(game_id, dimension_id, opinion_id, videoID, comment, commentID, likes, dateComment, isMain):
-																	ids = executeAnnotation(game_id, dimension_id, opinion_id, videoID, comment, commentID, nr_likes, dateComment, isMain)
-																	opinion_id = ids[0]
-																	dimension_id = ids[1]
+																	isMain = "Main"
+																	annotation_id = executeAnnotation(game_id, annotation_id, videoID, comment, comentario, commentID, nr_likes, dateComment, isMain)
+																	
 																	#print(".... id's --> ",opinion_id, dimension_id) # nao aumentam depois.... colocar aqui toda a anotacao do execute? ou return ID's ... em tuplo..? 
 
 																	nr_replies = comment_result['snippet']['totalReplyCount']
@@ -350,14 +316,15 @@ while 1:
 																						print("something wrong on convert dates...", e)
 																				
 																					countReplies+=1
-																					isMain = "Reply"
+																					
 																					try:
 																						commentReply = runPreprocessing(textReply)
 																						if (commentReply != "None"):
 																							#game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID
-																							ids = executeAnnotation(game_id, dimension_id, opinion_id, videoID, commentReply, replyID, likesReply, dateReply, isMain)
-																							opinion_id = ids[0]
-																							dimension_id = ids[1]
+																							isMain = "Reply"
+																							annotation_id = executeAnnotation(game_id, annotation_id, videoID, commentReply, textReply, replyID, likesReply, dateReply, isMain)
+																							#opinion_id = ids[0]
+																							#annotation_id = ids
 																							#print(".... id's --> ", opinion_id, dimension_id)
 																					except Exception as e:
 																						print("replys -", e)	

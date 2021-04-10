@@ -36,14 +36,28 @@ CREATE TABLE ux (
 	PRIMARY KEY(uxconcept)
 );
 
-
-delete from opinion;
+# delete content
+delete from annotation;
 delete from comment;
-delete from dimension;
 delete from game;
 delete from video;
-	
-#--------
+
+#drop tables
+drop table annotation cascade;
+drop table comment cascade;
+drop table game cascade;
+drop table video cascade;
+
+#-----------------------
+select g.game_id, g.edition, g.platform, o.game_game_id, o.comment_commentid, c.commentid, c.polarity
+from game g, opinion o, comment c 
+[[where g.game_id=o.game_game_id and o.comment_commentid=c.commentid and c.polarity={{polarity}}]]
+
+select g.game_id, g.edition, g.platform, o.game_game_id, o.comment_commentid, c.commentid, c.polarity
+from game g, opinion o, comment c 
+where g.game_id=o.game_game_id and o.comment_commentid=c.commentid and c.polarity={{polarity}}
+
+#-------------------------
 select o.comment_commentid, c.commentid, o.dimension_dimension_id, d.dimension_id, d.field
 from opinion o, dimension d, comment c
 where o.dimension_dimension_id = d.dimension_id and o.comment_commentid = c.commentid
