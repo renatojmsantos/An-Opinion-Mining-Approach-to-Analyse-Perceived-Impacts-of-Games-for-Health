@@ -138,24 +138,16 @@ def countRowsTable(tableName):
 		if conn is not None:
 			#print("closing connection...")
 			conn.close()
-	return idBack[0]# is not None #idBack
+	return idBack# is not None #idBack
 
 
 #print(countRowsTable('game'))
-game_id = int(countRowsTable('game'))# + 1
-opinion_id = int(countRowsTable('opinion'))# + 1
-dimension_id = int(countRowsTable('dimension'))# + 1
 
-#print(".... id's --> ",game_id, opinion_id, dimension_id)
-
-
-# INICIALIZAR ID'S... COUNT DA TABLE + 1
-# DIMENSION_ID, OPINION_ID, GAME_ID
-# ...
+#game_id = int(countRowsTable('game'))# + 1
+#opinion_id = int(countRowsTable('opinion'))# + 1
+#dimension_id = int(countRowsTable('dimension'))# + 1
 
 
-#writedComments = 0
-#conta = 0
 lista_videoID=[]
 
 
