@@ -1,8 +1,8 @@
 
 
-from connectDB import *
 
-from vocabulary import *
+from annotation import * 
+
 
 def annotate(text):
 	#print("\n>>>>>>> ",text)
@@ -281,7 +281,7 @@ def getdimension_id(commentid):
 		#conn.autocommit = True
 		cur = conn.cursor()
 
-		query = "SELECT o.dimension_dimension_id, o.commentid, c.commentid FROM comment c, opinion o, dimension d where o.commentid = c.commentid"
+		query = "SELECT dimension_dimension_id, comment_commentid FROM opinion where comment_commentid='"+commentid+"'"
 		#print(query)
 		cur.execute(query)
 		idBack = cur.fetchall()
@@ -289,55 +289,176 @@ def getdimension_id(commentid):
 		cur.close()
 		#return idBack
 	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO!", error)
+		print("ERRO dim!", error)
 	finally:
 		if conn is not None:
 			#print("closing connection...")
 			conn.close()
 	return idBack# is not None #idBack
 
+def getAnnotation(dimensionid):
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
 
+		query = "SELECT field, concept FROM dimension where dimension_id='"+dimensionid+"'"
+		print(query)
+		cur.execute(query)
+		idBack = cur.fetchall()
+
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO anno!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
+
+def getGameVideoID(commentid):
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		query = "SELECT game_game_id, video_videoid FROM opinion where comment_commentid='"+commentid+"'"
+		print(query)
+		cur.execute(query)
+		idBack = cur.fetchone()
+
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO anno!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
+
+def updateDimension(dimensionid, field, concept):
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		#query = "SELECT field, concept FROM dimension where dimension_id='"+dimensionid+"'"
+		query = "UPDATE dimension SET field = '"+field+"', concept = '"+concept+"' where dimension_id='"+dimensionid+"' returning *;"
+		print(query)
+		cur.execute(query)
+		idBack = cur.fetchall()
+
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO upd!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
 
 #print(countRowsTable('game'))
 #game_id = int(countRowsTable('game'))# + 1
-last_opinion_id = int(countRowsTable('opinion'))# + 1
-last_dimension_id = int(countRowsTable('dimension'))# + 1
+
+def insertToTable(query):
+	idBack = None
+	conn = None
+	
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		conn.autocommit = True
+		cur = conn.cursor()
+
+		query = query + " returning 1;" 
+		print(query)
+		cur.execute(query)
+		idBack = cur.fetchone()
+		#print(idBack)
+		conn.commit()
+		#print("inserted!")
+		cur.close()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack
+
+
+
 
 def update():
-	comments = getcommentID()
+	opinionid = int(countRowsTable('opinion'))# + 1
+	dimensionid = int(countRowsTable('dimension'))# + 1
+
+	comments = getcomments()
 	#print(idBack)
 	for c in comments:
 		if (c is not None):
 			#print(c[0])
 			comment = c[0]
 			commentid = c[1]
+			req = getGameVideoID(commentid)
+			if (req is not None):
+				game_id = req[0]
+				videoID = req[1]
+				print(game_id,videoID)
 			try:
-				DictResult = annotate(str(comment)) 
+				DictResult = annotate(str(comment))
+
+				#idsDimensions = getdimension_id(commentid)
+				old = []
+				for dim in getdimension_id(str(commentid)):
+					dimID = dim[0]
+					#print(dim[0])
+					
+					annot = getAnnotation(str(dimID))
+					#print(annot)
+					
+					for res in annot:
+						#field_OLD = res[0]
+						concept_OLD = res[1]
+						#print(field_OLD,concept_OLD)
+						old.append(concept_OLD)
+					
+				print(old)
+				print(DictResult)
 				if(bool(DictResult)):
 					for field in DictResult.keys():
 						for concept in DictResult[field]:
 							#opinion_id+=1
 							#dimension_id+=1
-							if (field == "Usability"):
-								query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
-								insertToTable(query)
-								query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID)+"')"
-								insertToTable(query)
-							elif (field == "UX"):
-								query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
-								insertToTable(query)
-
-								query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID)+"')"
-								insertToTable(query)
-							elif (field == "Health"):
-								query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
+							if(concept in old):
+								break
+							else:	
+								dimensionid +=1
+								opinionid += 1
+								#updateDimension(str(dimID), field, concept) ???? NAO FAZ UPDATE !!!!!!!!!!!!!!!! SÓ ESTAMOS A ACRESCENTAR MAIS COISAS...
+								query = "insert into dimension values('"+str(dimensionid)+"', '"+str(field)+"', '"+str(concept)+"')"
 								insertToTable(query)
 
-								query = "insert into opinion values('"+str(opinion_id)+"', '"+str(commentID)+"', '"+str(dimension_id)+"', '"+str(game_id)+"', '"+str(videoID)+"')"
+								query = "insert into opinion values('"+str(opinionid)+"', '"+str(commentid)+"', '"+str(dimensionid)+"', '"+str(game_id)+"', '"+str(videoID)+"')"
 								insertToTable(query)
-					
+								# ver caso do nr de ids da dimensao desse comentario exceder...... ou nao tiver, e entao é apagado.
+						
 			except Exception as e:
 				print("execute annotation - ", e)
+		else:
+			print("none....")
 
 update()
 

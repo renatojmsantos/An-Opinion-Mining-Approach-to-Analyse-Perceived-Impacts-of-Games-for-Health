@@ -1,4 +1,4 @@
-#import pandas as pd
+import pandas as pd
 import re   # regular expression
 import demoji
 import numpy as np
@@ -86,13 +86,13 @@ def emojiToCLDRshortName(text):
 def clearText(text):
 	try:
 		#contracoes inglesas... that's -> that is
-		text = contractions(text)
+		text = contractions(str(text))
 		#print("1 — " , text)
 		# acronimos e expressoes da giria popular
-		text = slangs(text)
+		text = slangs(str(text))
 		#print("2 — " , text)
 		# emojis to string
-		text = str(emojiToCLDRshortName(text))
+		text = str(emojiToCLDRshortName(str(text)))
 		#print("#",text)
 		# remove URLs
 		text = re.sub('https?://[A-Za-z0-9./?&=_]+','',text)
@@ -338,14 +338,15 @@ def slangs(text):
 		print(e)
 	except FileNotFoundError:
 		print("File not found...", file)
-	except Exception:
-		print("slangs...", file)
+	except Exception as ex:
+		print("slangs...", ex)
 	
 	#return text
 
 def runPreprocessing(t):
 	#print("running clean ... ")
 	#check csv slangs...
+	#print("-----> ",t)
 	t = clearText(t)
 	#t = slangs(t)
 	if(len(t) >= 3):
@@ -357,6 +358,7 @@ def runPreprocessing(t):
 			t = spellCorrection(t) # rever
 			#print(t)
 			if (len(t) >= 3 and isEnglish(str(t))):
+				#print("--->", t)
 				return t
 	return "None"
 	

@@ -146,7 +146,7 @@ game_id = int(countRowsTable('game'))# + 1
 opinion_id = int(countRowsTable('opinion'))# + 1
 dimension_id = int(countRowsTable('dimension'))# + 1
 
-print(".... id's --> ",game_id, opinion_id, dimension_id)
+#print(".... id's --> ",game_id, opinion_id, dimension_id)
 
 
 # INICIALIZAR ID'S... COUNT DA TABLE + 1
@@ -314,7 +314,7 @@ for ano in range (-1,12): #(-1,12)
 								print("something wrong on convert dates...")
 
 							#print("#############################################")
-							print("Titulo: ", search_result["snippet"]["title"])
+							print("\nTitulo: ", search_result["snippet"]["title"])
 							#print("Descricao: ", search_result["snippet"]["description"])
 							print("Video ID: ",search_result["id"]["videoId"])
 							print("Published at: ",search_result["snippet"]["publishedAt"])
