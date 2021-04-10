@@ -42,6 +42,7 @@ delete from comment;
 delete from dimension;
 delete from game;
 delete from video;
+	
 #--------
 select o.comment_commentid, c.commentid, o.dimension_dimension_id, d.dimension_id, d.field
 from opinion o, dimension d, comment c
