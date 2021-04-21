@@ -401,7 +401,7 @@ def updateComment(commentid, polarity):
 	try:
 		params = config()
 		conn = psycopg2.connect(**params)
-		#conn.autocommit = True
+		conn.autocommit = True
 		cur = conn.cursor()
 
 		#query = "SELECT field, concept FROM dimension where dimension_id='"+dimensionid+"'"
@@ -410,6 +410,7 @@ def updateComment(commentid, polarity):
 		cur.execute(query)
 		idBack = cur.fetchall()
 
+		conn.commit()
 		cur.close()
 		#return idBack
 	except (Exception, psycopg2.DatabaseError) as error:
@@ -426,7 +427,7 @@ def updateGame(gameid, edition, platform):
 	try:
 		params = config()
 		conn = psycopg2.connect(**params)
-		#conn.autocommit = True
+		conn.autocommit = True
 		cur = conn.cursor()
 
 		#query = "SELECT field, concept FROM dimension where dimension_id='"+dimensionid+"'"
@@ -435,6 +436,7 @@ def updateGame(gameid, edition, platform):
 		cur.execute(query)
 		idBack = cur.fetchall()
 
+		conn.commit()
 		cur.close()
 		#return idBack
 	except (Exception, psycopg2.DatabaseError) as error:
@@ -484,7 +486,7 @@ def deleteRow(query):
 		conn.autocommit = True
 		cur = conn.cursor()
 
-		query = query + " returning *;" 
+		query = query + ";" 
 		print(query)
 		cur.execute(query)
 		idBack = cur.fetchone()
