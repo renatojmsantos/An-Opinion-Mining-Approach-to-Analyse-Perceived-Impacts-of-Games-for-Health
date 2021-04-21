@@ -486,7 +486,7 @@ def deleteRow(query):
 		conn.autocommit = True
 		cur = conn.cursor()
 
-		query = query + ";" 
+		query = query + " returning *;" 
 		print(query)
 		cur.execute(query)
 		idBack = cur.fetchone()
