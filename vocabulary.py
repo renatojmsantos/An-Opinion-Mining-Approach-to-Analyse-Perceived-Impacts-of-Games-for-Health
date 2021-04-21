@@ -16,6 +16,14 @@ We would like the honour of having at least 10 comments annoted, but if possible
 By proceeding, you agree to the collection of information requested for further analysis in this study.
 """
 
+
+"""
+--> TER  DOIS DICTS :
+		-> um com os conceitos e palavras associadas: este é que percorre os comentários
+		-> outro com os fields e conceitos: este é só no final com os resultados obtidos !!!!!
+
+"""
+
 dict={	
 		'Usability':{
 			'Memorability': {'memory': 1.0, 'forgot': 0.6, 'remember': 0.8}, 

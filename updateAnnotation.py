@@ -211,39 +211,6 @@ def annotate(text):
 	return dictAnotado
 
 
-def getcomments():
-	idBack = None
-	conn = None
-	try:
-		params = config()
-		conn = psycopg2.connect(**params)
-		#conn.autocommit = True
-		cur = conn.cursor()
-
-		query = "SELECT comment, commentid FROM comment"
-		#print(query)
-		cur.execute(query)
-
-		idBack = cur.fetchall()
-		#print(idBack)
-		#for row in idBack:
-		#	if (row is not None):
-		#		print(row)
-				#idBack=row
-				#return idBack 
-		#print(idBack)
-		#conn.commit()
-		#print("inserted!")
-		cur.close()
-		#return idBack
-	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO!", error)
-	finally:
-		if conn is not None:
-			#print("closing connection...")
-			conn.close()
-	return idBack# is not None #idBack
-
 
 def countRowsTable(tableName):
 	idBack = None
@@ -265,14 +232,14 @@ def countRowsTable(tableName):
 		cur.close()
 		#return idBack
 	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO!", error)
+		print("ERRO! count rows", error)
 	finally:
 		if conn is not None:
 			#print("closing connection...")
 			conn.close()
 	return idBack[0]# is not None #idBack
 
-def getdimension_id(commentid):
+def getcomments():
 	idBack = None
 	conn = None
 	try:
@@ -281,7 +248,40 @@ def getdimension_id(commentid):
 		#conn.autocommit = True
 		cur = conn.cursor()
 
-		query = "SELECT dimension_dimension_id, comment_commentid FROM opinion where comment_commentid='"+commentid+"'"
+		query = "SELECT commentid, originaltext, processedtext FROM comment"
+		#print(query)
+		cur.execute(query)
+
+		idBack = cur.fetchall()
+		#print(idBack)
+		#for row in idBack:
+		#	if (row is not None):
+		#		print(row)
+				#idBack=row
+				#return idBack 
+		#print(idBack)
+		#conn.commit()
+		#print("inserted!")
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO! get comments", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
+
+def getAnnotation(commentid):
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		query = "SELECT field, concept, game_game_id, video_videoid FROM annotation where comment_commentid='"+commentid+"'"
 		#print(query)
 		cur.execute(query)
 		idBack = cur.fetchall()
@@ -289,14 +289,14 @@ def getdimension_id(commentid):
 		cur.close()
 		#return idBack
 	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO dim!", error)
+		print("ERRO get annotation!", error)
 	finally:
 		if conn is not None:
 			#print("closing connection...")
 			conn.close()
 	return idBack# is not None #idBack
 
-def getAnnotation(dimensionid):
+def getVideo(videoid):
 	idBack = None
 	conn = None
 	try:
@@ -305,31 +305,7 @@ def getAnnotation(dimensionid):
 		#conn.autocommit = True
 		cur = conn.cursor()
 
-		query = "SELECT field, concept FROM dimension where dimension_id='"+dimensionid+"'"
-		print(query)
-		cur.execute(query)
-		idBack = cur.fetchall()
-
-		cur.close()
-		#return idBack
-	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO anno!", error)
-	finally:
-		if conn is not None:
-			#print("closing connection...")
-			conn.close()
-	return idBack# is not None #idBack
-
-def getGameVideoID(commentid):
-	idBack = None
-	conn = None
-	try:
-		params = config()
-		conn = psycopg2.connect(**params)
-		#conn.autocommit = True
-		cur = conn.cursor()
-
-		query = "SELECT game_game_id, video_videoid FROM opinion where comment_commentid='"+commentid+"'"
+		query = "SELECT videotitle, description FROM video where videoid='"+videoid+"'"
 		print(query)
 		cur.execute(query)
 		idBack = cur.fetchone()
@@ -337,14 +313,40 @@ def getGameVideoID(commentid):
 		cur.close()
 		#return idBack
 	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO anno!", error)
+		print("ERRO get video!", error)
 	finally:
 		if conn is not None:
 			#print("closing connection...")
 			conn.close()
 	return idBack# is not None #idBack
 
-def updateDimension(dimensionid, field, concept):
+def getGame(gameid):
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		query = "SELECT edition, platform FROM game where game_id='"+gameid+"'"
+		print(query)
+		cur.execute(query)
+		idBack = cur.fetchone()
+
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO get game!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
+
+# UPDATE
+
+def updateAnnotation(annotationid, field, concept):
 	idBack = None
 	conn = None
 	try:
@@ -354,7 +356,7 @@ def updateDimension(dimensionid, field, concept):
 		cur = conn.cursor()
 
 		#query = "SELECT field, concept FROM dimension where dimension_id='"+dimensionid+"'"
-		query = "UPDATE dimension SET field = '"+field+"', concept = '"+concept+"' where dimension_id='"+dimensionid+"' returning *;"
+		query = "UPDATE annotation SET field = '"+field+"', concept = '"+concept+"' where annotationid='"+annotationid+"' returning *;"
 		print(query)
 		cur.execute(query)
 		idBack = cur.fetchall()
@@ -369,6 +371,55 @@ def updateDimension(dimensionid, field, concept):
 			conn.close()
 	return idBack# is not None #idBack
 
+def updateComment(commentid, polarity):
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		#query = "SELECT field, concept FROM dimension where dimension_id='"+dimensionid+"'"
+		query = "UPDATE comment SET polarity = '"+polarity+"' where commentid='"+commentid+"' returning *;"
+		print(query)
+		cur.execute(query)
+		idBack = cur.fetchall()
+
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO upd!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
+
+def updateGame(gameid, edition, platform):
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		#query = "SELECT field, concept FROM dimension where dimension_id='"+dimensionid+"'"
+		query = "UPDATE game SET edition = '"+edition+"', platform = '"+platform+"' where game_id='"+gameid+"' returning *;"
+		print(query)
+		cur.execute(query)
+		idBack = cur.fetchall()
+
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO upd!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
 #print(countRowsTable('game'))
 #game_id = int(countRowsTable('game'))# + 1
 
@@ -399,13 +450,32 @@ def insertToTable(query):
 	return idBack
 
 
+#-----------
+# UPDATE ALSO GAME EDITION!!! NAO DETECT JUST DANCE 2016, 2017, ...
+# select videotitle from video
+# where videotitle like '%Just Dance 2014%'
 
+#-----------------------------------------------------------------------------------------
+
+def updateVocabulary():
+	pass
+
+def updatePolarityComment():
+	pass
+
+def updateInfoGame():
+	pass
+
+
+updateInfoGame()
+
+
+#-----------------------------------------------------------------------------------------
 
 def update():
 	opinionid = int(countRowsTable('opinion'))# + 1
-	dimensionid = int(countRowsTable('dimension'))# + 1
 
-	comments = getcomments()
+	  = getcomments()
 	#print(idBack)
 	for c in comments:
 		if (c is not None):
@@ -460,5 +530,5 @@ def update():
 		else:
 			print("none....")
 
-update()
+#update()
 

@@ -185,7 +185,7 @@ while 1:
 									and (("just dance" in videoName) or ("justdance" in videoName))):
 									
 									tituloChannel=search_result["snippet"]["channelTitle"]
-									tituloChannel = unidecode.unidecode(tituloChannel)
+									tituloChannel = unidecode.unidecode(tituloChannel) # tira aqui numeros????????
 
 									description = search_result["snippet"]["description"]
 

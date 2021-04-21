@@ -358,7 +358,7 @@ def getSentiment(t):
 def getEditionAndPlataform(game_id, title, descript):
 	try:
 		title = re.sub('&quot;+','',title)
-		title = title.strip().lower()
+		title = title.strip().lower() 
 
 		# substituir JD por Just Dance .... no titulo do video ....
 		title = re.sub('jd','just dance',title)
@@ -374,12 +374,12 @@ def getEditionAndPlataform(game_id, title, descript):
 		title = re.sub('windows','Microsoft Windows',title)
 		title = re.sub('pc','Microsoft Windows',title)
 
-		titleWords = word_tokenize(title.strip())
+		titleWords = word_tokenize(title.strip()) # PROBLEM 2017, 2018?
 		title = " ".join(titleWords)
 
 
 		#descript = description[row]
-		descriptWords = word_tokenize(descript.strip())
+		descriptWords = word_tokenize(descript.strip()) # PROBLEM 2017, 2018?
 		descript = " ".join(descriptWords)
 
 		descript = " ".join(descript.strip().split())
@@ -435,12 +435,12 @@ def getEditionAndPlataform(game_id, title, descript):
 			if(serie in title.lower()):
 				edition=game
 				break
-			elif(serie in descript.lower().lower()):
+			elif(serie in descript.lower()):
 				edition=game
 				break
 			else:
 				serie=""
-		if(serie ==""):
+		if(serie ==""): # PROBLEM 2018, 2019 ???
 			serie = "Just Dance"
 			if(serie.lower() in title.lower()):
 				edition = "Just Dance"
@@ -478,7 +478,7 @@ def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment
 		if(bool(DictResult)):
 			for field in DictResult.keys():
 				for concept in DictResult[field]:
-					annotation_id+=1
+					annotation_id+=1 # ERRO ANNOTATION ID Already exists..... a atualizar dados ....
 					#dimension_id+=1
 					if (field == "Usability"):
 						#query = "insert into dimension values('"+str(dimension_id)+"', '"+str(field)+"', '"+str(concept)+"')"
