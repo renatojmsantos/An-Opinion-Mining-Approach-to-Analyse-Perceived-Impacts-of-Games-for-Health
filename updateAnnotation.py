@@ -533,6 +533,7 @@ def updatePolarityComment():
 			#print("#",originalPolarity)
 			#print(vsOriginal)
 			#print(vsOriginal['compound'])
+			
 			if (vsOriginal['compound'] >= 0.05):
 				polarity = "Positive"
 			elif(vsOriginal['compound'] <= -0.05):
