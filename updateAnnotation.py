@@ -3,6 +3,8 @@
 
 from annotation import * 
 
+#from vaderSentiment import SentimentIntensityAnalyzer
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 def annotate(text):
 	#print("\n>>>>>>> ",text)
@@ -248,7 +250,7 @@ def getcomments():
 		#conn.autocommit = True
 		cur = conn.cursor()
 
-		query = "SELECT commentid, originaltext, processedtext FROM comment"
+		query = "SELECT commentid, originaltext FROM comment"
 		#print(query)
 		cur.execute(query)
 
@@ -406,7 +408,7 @@ def updateComment(commentid, polarity):
 
 		#query = "SELECT field, concept FROM dimension where dimension_id='"+dimensionid+"'"
 		query = "UPDATE comment SET polarity = '"+polarity+"' where commentid='"+commentid+"' returning *;"
-		print(query)
+		#print(query)
 		cur.execute(query)
 		idBack = cur.fetchall()
 
@@ -513,7 +515,43 @@ def updateVocabulary():
 	pass
 
 def updatePolarityComment():
-	pass
+	
+	#print(idBack)
+	try:
+		comments = getcomments()
+		analyzer = SentimentIntensityAnalyzer()
+		for c in comments:
+			commentid = c[0]
+			originaltext = c[1]
+			#processedtext = c[2]
+			#originalPolarity = c[3]
+			#print(commentid, originaltext, processedtext)
+			vsOriginal = analyzer.polarity_scores(originaltext)
+			#vsProcessed = analyzer.polarity_scores(processedtext)
+			#print("{:-<65} {}".format(originaltext, str(vsOriginal)))
+			#print("\n>>>>>>> ", originaltext)
+			#print("#",originalPolarity)
+			#print(vsOriginal)
+			#print(vsOriginal['compound'])
+			if (vsOriginal['compound'] >= 0.05):
+				polarity = "Positive"
+			elif(vsOriginal['compound'] <= -0.05):
+				polarity = "Negative"
+			else:
+				polarity = "Neutral"
+			#print(polarity)
+			updateComment(commentid,polarity)
+			
+
+			#positive sentiment: compound score >= 0.05
+			#neutral sentiment: (compound score > -0.05) and (compound score < 0.05)
+			#negative sentiment: compound score <= -0.05
+
+	except Exception as e:
+		print(e)
+
+
+updatePolarityComment()
 
 def checkInfoGame(title, descript):
 	try:
@@ -684,7 +722,8 @@ def updateInfoGame():
 		print(e)
 
 
-updateInfoGame()
+#updateInfoGame()
+
 
 
 #-----------------------------------------------------------------------------------------
