@@ -6,6 +6,11 @@ from annotation import *
 #from vaderSentiment import SentimentIntensityAnalyzer
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
+from flair.data import Sentence
+from flair.models import SequenceTagger
+
+tagger = SequenceTagger.load("hunflair-disease")
+
 def annotate(text):
 	#print("\n>>>>>>> ",text)
 	#print(">>> ", polarity)
@@ -505,11 +510,15 @@ def deleteRow(query):
 	return idBack
 
 
-#-----------
-# UPDATE ALSO GAME EDITION!!! NAO DETECT JUST DANCE 2016, 2017, ...
-# select videotitle from video where videotitle like '%Just Dance 2 %'
+def getDiseases(comment):
+	sentence = Sentence(comment)
+	tagger.predict(sentence)
 
-#-----------------------------------------------------------------------------------------
+	diseases = []
+	for disease in sentence.get_spans():
+		diseases.append(disease)
+
+	return diseases
 
 def updateVocabulary():
 	pass
@@ -533,7 +542,7 @@ def updatePolarityComment():
 			#print("#",originalPolarity)
 			#print(vsOriginal)
 			#print(vsOriginal['compound'])
-			
+
 			if (vsOriginal['compound'] >= 0.05):
 				polarity = "Positive"
 			elif(vsOriginal['compound'] <= -0.05):
@@ -543,7 +552,6 @@ def updatePolarityComment():
 			#print(polarity)
 			updateComment(commentid,polarity)
 			
-
 			#positive sentiment: compound score >= 0.05
 			#neutral sentiment: (compound score > -0.05) and (compound score < 0.05)
 			#negative sentiment: compound score <= -0.05
