@@ -9,24 +9,10 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from flair.data import Sentence
 from flair.models import SequenceTagger
 
-tagger = SequenceTagger.load("hunflair-disease")
+#tagger = SequenceTagger.load("hunflair-disease")
 
-def annotate(text):
-	#print("\n>>>>>>> ",text)
-	#print(">>> ", polarity)
-
-	# remove stop words
-
-	# emolex 
-	t = NRCLex(str(text))
-	#print(t)
-	#print(t.affect_list)
-	emotions = t.affect_list
-	#print(t.affect_dict)
-	#print(t.raw_emotion_scores)
-	#print(t.top_emotions)
-	#print(t.affect_frequencies)
-
+def annotate(text, polarity):
+	
 
 	# POS Tagger
 	def pos_tagger(nltk_tag):
@@ -41,22 +27,11 @@ def annotate(text):
 		else:          
 			return None
 
-	# POS Tagger adjetivos
-	def pos_taggerJJ(nltk_tag):
-		if nltk_tag.startswith('J'):
-			return wordnet.ADJ
-		elif nltk_tag.startswith('V'):
-			return wordnet.VERB
-		elif nltk_tag.startswith('N'):
-			return wordnet.NOUN
-		else:          
-			return None
-
 	textWords = word_tokenize(text)
 	pos_tagged = nltk.pos_tag(textWords)
 	#print(pos_tagged)
 
-	wordnet_tagged = list(map(lambda x: (x[0], pos_taggerJJ(x[1])), pos_tagged))
+	wordnet_tagged = list(map(lambda x: (x[0], pos_tagger(x[1])), pos_tagged))
 	#print(wordnet_tagged)
 
 	#lemmas
@@ -69,153 +44,69 @@ def annotate(text):
 	text_lemmas = " ".join(lemmas)
 
 
-	#print(text_lemmas)
+	score = 0.00
+	scoreDict = {}
 
-	"""
-	words = word_tokenize(text_lemmas)
-	print(words)
-	# remove stop words
-	stopwords = nltk.corpus.stopwords.words('english')
-	keywords = [word for word in words if not word in text_lemmas]
-	print(keywords)
-	"""
+	print("\n>>>>>>> ",text_lemmas)
+	print(">>> ", polarity)
+	t = NRCLex(str(text_lemmas))
+	#print(t)
+	#print(t.affect_list)
+	#print(t.affect_dict)
+	#print(t.raw_emotion_scores)
+	#print(t.top_emotions)
+	emotions = t.affect_frequencies
+	# valid > 0.18
+	#print(emotions)
+	emo = {}
+	if(emotions):
+		for c,v in emotions.items():
+			if (v>0.18):
+				#print(c,v)
+				polarity = polarity.lower()
+				if (c == "positive" and c != polarity):
+					#print("erro positive")
+					continue
+				elif(c == "negative" and c != polarity):
+					#print("erro negative")
+					continue
+				elif(polarity == "positive" and c == "anger" and c == "disgust" and c == "fear" and c == "sadness"):
+					continue
+				elif(polarity == "negative" and c == "joy"):
+					continue
+				if (c not in emo.keys()):
+					emo[c] = v
+					# check polarity...
+					#check if is negative and positive...
 
+	print(emo)
+	
+	
+	for d in dictVocabulary.items():
+		#print(voc)
+		concept = d[0]
+		pals = d[1]
+		print("====================="+concept+"=====================")
+		conta = 0
+		for pal, prob in pals.items():
+			for c,v in emo.items():	
+				score=0.00
+				if (c in pal):
+					conta+=1
+					score = v*prob
+					if concept not in scoreDict.keys():
+						scoreDict[concept] = score
+					else:
+						# NR TOTAL DE VEZES QUE APARECE A DIVIDIR PELO NR TOTAL DE VEZES DE pals DETETADOS
+						# 5 PALS DETETADAS.... 2 JOY / 5 = ...
+						#score = score/conta
+						print(pal, conta, v, prob, score)
+						scoreDict[concept] += score
 
-	dictAnotado = {}
-	for items in dict.items():
-		chave = items[0]
-		conceitos = items[1]
-		#print("\n",chave,conceitos)
-		#print("\n>> ",chave)
-		for vocabulario in conceitos.items():
-			termo = vocabulario[0]
-			pals = vocabulario[1]
-			#print(termo,pals)
-			#print(" #", termo)
-			#print("---------->",len(pals), pals)
-			for p in pals.items():
-				#print(len(p),p)
-				# se fosse lista nas pals associadas...
-				# print p   .... in pals
-				pal = p[0]
-				#probalidade = p[1]
-				if (pal in text):
-					if chave not in dictAnotado.keys():
-						dictAnotado[chave] = [termo]
-					elif termo not in dictAnotado[chave]:
-						dictAnotado[chave].append(str(termo))
-					#print(dictAnotado)
-				if (emotions):
-					#estrategia ...
-					#print("TRUE")
-					#print(emotions)
-					for e in emotions:
-						if (e in pal):
-							#print(e, termo)
-							if chave not in dictAnotado.keys():
-								dictAnotado[chave] = [termo]
-							elif termo not in dictAnotado[chave]:
-								dictAnotado[chave].append(str(termo))
-					#continue
-				#print(pal)
+		# STEMMING ......
+		# IF STEM IN PAL... RADICAL DENTRO DOS TERMOS EM ESTUDO.... + FACIL
 
-				# processo de lematização
-				pos_tagged = nltk.pos_tag([pal])
-				#print(pos_tagged)
-				wordnet_tagged = list(map(lambda x: (x[0], pos_tagger(x[1])), pos_tagged))
-				#print(wordnet_tagged)
-				#keyword = []
-				for word, tag in wordnet_tagged:
-					if (tag is not None):
-						keyword = lemmatizer.lemmatize(word, tag)
-						#keyword.append(lemmatizer.lemmatize(word, tag))
-				#print(keyword)
-				#if(pal!=keyword):
-				#	print(pal, keyword)
-
-				# só com a lematização encontra-se logo o termo...
-				if (keyword in text):
-					if chave not in dictAnotado.keys():
-						dictAnotado[chave] = [termo]
-					elif termo not in dictAnotado[chave]:
-						dictAnotado[chave].append(str(termo))
-
-				# check if keyword está nos lemmas do comentario
-				if (keyword in text_lemmas):
-					if chave not in dictAnotado.keys():
-						dictAnotado[chave] = [termo]
-					elif termo not in dictAnotado[chave]:
-						dictAnotado[chave].append(str(termo))
-
-				# sinonimos, hiponimos, meronimos -> wordnet 
-				listAnalysis=[]
-				for lemma in word_tokenize(text_lemmas):
-					#print("->",lemma)
-					# palavras que significam o mesmo
-					#sinonimos = wordnet.synsets(lemma)
-					#print(sinonimos)
-					for syn in wordnet.synsets(lemma):
-						#print(syn.name(), syn.lemma_names())
-						for l in syn.lemmas():
-							#print(l.name())
-							#print(l)
-							if (l.name() not in listAnalysis):
-								listAnalysis.append(l.name())
-
-						#lexical relations
-						lexical = wordnet.synset(syn.name())
-
-						# conceito especifico
-						for s in lexical.hyponyms():
-							for l in s.lemmas():
-								#print(l.name())
-								if (l.name() not in listAnalysis):
-									listAnalysis.append(l.name())
-
-						# conceitos mais gerais
-						for s in lexical.hypernyms():
-							for l in s.lemmas():
-								#print(l.name())
-								if (l.name() not in listAnalysis):
-									listAnalysis.append(l.name())
-
-						# membro de alguma coisa
-						"""
-						for s in lexical.part_holonyms():
-							for l in s.lemmas():
-								#print(l.name())
-								if (l.name() not in listAnalysis):
-									listAnalysis.append(l.name())
-						"""
-						# parte de algo
-						for s in lexical.part_meronyms():
-							for l in s.lemmas():
-								#print(l.name())
-								if (l.name() not in listAnalysis):
-									listAnalysis.append(l.name())
-
-						# entailments -> implicacoes, como estao ligados.. verbos
-						"""
-						for s in lexical.entailments():
-							for l in s.lemmas():
-								#print(l.name())
-								if (l.name() not in listAnalysis):
-									listAnalysis.append(l.name())
-						"""
-
-				#print(listAnalysis)
-				if(keyword in listAnalysis):
-					if chave not in dictAnotado.keys():
-						#print(keyword, termo)
-						dictAnotado[chave] = [termo]
-					elif termo not in dictAnotado[chave]:
-						#print(keyword, termo)
-						dictAnotado[chave].append(str(termo))
-
-				# CHECK SIMILARITY ENTRE AS PALAVRAS DA LISTA E AS KEYWORDS? ...............
-
-
-	return dictAnotado
+	return scoreDict
 
 
 
@@ -246,7 +137,7 @@ def countRowsTable(tableName):
 			conn.close()
 	return idBack[0]# is not None #idBack
 
-def getcomments():
+def getcomments(commentid):
 	idBack = None
 	conn = None
 	try:
@@ -255,7 +146,7 @@ def getcomments():
 		#conn.autocommit = True
 		cur = conn.cursor()
 
-		query = "SELECT commentid, originaltext FROM comment"
+		query = "SELECT processedtext, polarity FROM comment where commentid='"+commentid+"'"
 		#print(query)
 		cur.execute(query)
 
@@ -279,7 +170,7 @@ def getcomments():
 			conn.close()
 	return idBack# is not None #idBack
 
-def getAnnotation(commentid):
+def getIDs():
 	idBack = None
 	conn = None
 	try:
@@ -288,7 +179,7 @@ def getAnnotation(commentid):
 		#conn.autocommit = True
 		cur = conn.cursor()
 
-		query = "SELECT field, concept, game_game_id, video_videoid FROM annotation where comment_commentid='"+commentid+"'"
+		query = "SELECT comment_commentid, game_game_id, video_videoid FROM annotation group by comment_commentid, game_game_id,video_videoid;"
 		#print(query)
 		cur.execute(query)
 		idBack = cur.fetchall()
@@ -336,7 +227,7 @@ def getVideoID(gameid):
 		#conn.autocommit = True
 		cur = conn.cursor()
 
-		query = "SELECT video_videoid, comment_commentid FROM annotation where game_game_id='"+gameid+"'"
+		query = "SELECT videoid FROM video where totalcommentsvideo > 0;"
 		#print(query)
 		cur.execute(query)
 		idBack = cur.fetchone()
@@ -456,6 +347,35 @@ def updateGame(gameid, edition, platform):
 #print(countRowsTable('game'))
 #game_id = int(countRowsTable('game'))# + 1
 
+def updateAnnotation(annotationid, field, concept, commentid,gameid, videoid):
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		conn.autocommit = True
+		cur = conn.cursor()
+
+		#query = "SELECT field, concept FROM dimension where dimension_id='"+dimensionid+"'"
+		query = "UPDATE annotation SET annotationid = '"+annotationid+"', field = '"+field+"', concept = '"+concept+"', comment_commentid = '"+commentid+"', game_game_id = '"+gameid+"' , video_videoid = '"+videoid+"' returning *;"
+		#print(query)
+		cur.execute(query)
+		idBack = cur.fetchall()
+
+		conn.commit()
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO upd!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
+#print(countRowsTable('game'))
+#game_id = int(countRowsTable('game'))# + 1
+
+
 def insertToTable(query):
 	idBack = None
 	conn = None
@@ -518,10 +438,11 @@ def getDiseases(comment):
 	for disease in sentence.get_spans():
 		diseases.append(disease)
 
-	return diseases
-
-def updateVocabulary():
-	pass
+	if(len(diseases)>1):
+		return True
+	else:
+		return False
+	#return diseases
 
 def updatePolarityComment():
 	
@@ -559,8 +480,7 @@ def updatePolarityComment():
 	except Exception as e:
 		print(e)
 
-
-updatePolarityComment()
+#updatePolarityComment()
 
 def checkInfoGame(title, descript):
 	try:
@@ -684,7 +604,6 @@ def checkInfoGame(title, descript):
 		print("erro check update: ", e)
 	pass
 
-
 def updateInfoGame():
 
 	try:
@@ -730,70 +649,35 @@ def updateInfoGame():
 	except Exception as e:
 		print(e)
 
-
 #updateInfoGame()
-
-
 
 #-----------------------------------------------------------------------------------------
 
 def update():
-	opinionid = int(countRowsTable('opinion'))# + 1
-
-	comments = getcomments()
-	#print(idBack)
-	for c in comments:
-		if (c is not None):
-			#print(c[0])
-			comment = c[0]
-			commentid = c[1]
-			req = getGameVideoID(commentid)
-			if (req is not None):
-				game_id = req[0]
-				videoID = req[1]
-				print(game_id,videoID)
-			try:
-				DictResult = annotate(str(comment))
-
-				#idsDimensions = getdimension_id(commentid)
-				old = []
-				for dim in getdimension_id(str(commentid)):
-					dimID = dim[0]
-					#print(dim[0])
-					
-					annot = getAnnotation(str(dimID))
-					#print(annot)
-					
-					for res in annot:
-						#field_OLD = res[0]
-						concept_OLD = res[1]
-						#print(field_OLD,concept_OLD)
-						old.append(concept_OLD)
-					
-				print(old)
-				print(DictResult)
+	annotationid=0
+	
+	try:
+		ids = getIDs()
+		for i in ids:
+			commentid = i[0]
+			gameid = i[1]
+			videoid = i[2]
+			
+			comments = getcomments(commentid)
+			for c in comments:
+				comment = c[0]
+				polarity = c[1]
+				#print(commentid, gameid, videoid, comment)
+				# update ... annotation id = 1,2,3...
+				DictResult = annotate(str(comment), polarity) 
 				if(bool(DictResult)):
-					for field in DictResult.keys():
-						for concept in DictResult[field]:
-							#opinion_id+=1
-							#dimension_id+=1
-							if(concept in old):
-								break
-							else:	
-								dimensionid +=1
-								opinionid += 1
-								#updateDimension(str(dimID), field, concept) ???? NAO FAZ UPDATE !!!!!!!!!!!!!!!! SÓ ESTAMOS A ACRESCENTAR MAIS COISAS...
-								query = "insert into dimension values('"+str(dimensionid)+"', '"+str(field)+"', '"+str(concept)+"')"
-								insertToTable(query)
+					print(DictResult)
 
-								query = "insert into opinion values('"+str(opinionid)+"', '"+str(commentid)+"', '"+str(dimensionid)+"', '"+str(game_id)+"', '"+str(videoID)+"')"
-								insertToTable(query)
-								# ver caso do nr de ids da dimensao desse comentario exceder...... ou nao tiver, e entao é apagado.
-						
-			except Exception as e:
-				print("execute annotation - ", e)
-		else:
-			print("none....")
+					# ... values = dict.values() -> total = sum (values) -> total de cada dim... 
+					#updateAnnotation(annotationid, field, concept, commentid,gameid, videoid)
+	except Exception as e:
+		print(e)
+	
 
-#update()
+update()
 

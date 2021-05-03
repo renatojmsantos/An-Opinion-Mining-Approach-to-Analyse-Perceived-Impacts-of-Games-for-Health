@@ -10,3 +10,7 @@ Example
 
 CTRL+Z -> PAUSE
 fg -> resume
+
+
+
+
