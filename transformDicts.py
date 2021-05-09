@@ -27,7 +27,7 @@ def getDictLemmas():
 		print("\n>",concept)
 		#print(">>> ",pals)
 		
-
+		dictStem={}
 		for pal,prob in pals.items():
 			
 
@@ -37,13 +37,18 @@ def getDictLemmas():
 			#print(">"+pal+"--->"+sb+" | "+pt+" | "+ls)
 			if(sb not in dictStem.keys()):
 				dictStem[sb] = prob
-			print(sb)
+			else:
+				print("REP... " + sb)
+			#print(sb)
+
+			#if sb in dictStem.keys():
+
 
 			#print(">",pal)
 			#print(">>> ",prob)
 			# processo de lematização
 			#pal = word_tokenize(pal)
-			
+			"""
 			pos_tagged = nltk.pos_tag([pal])
 			
 			#print(pos_tagged)
@@ -65,6 +70,7 @@ def getDictLemmas():
 					dictLemmas[pal] = prob
 				#print(pal, prob)
 				#dictLemmas[pal].append(prob)
+			"""
 			#print(pals[pal])
 			#pal = keyword
 			#print(pals)
@@ -73,8 +79,8 @@ def getDictLemmas():
 
 			
 
-	#print(dictLemmas)
-	#for k,v in dictLemmas.items():
+	#print(dictStem)
+	#for k,v in dictStem.items():
 	#	print(k)
 	#	print(v)
 	#	print("\n")
