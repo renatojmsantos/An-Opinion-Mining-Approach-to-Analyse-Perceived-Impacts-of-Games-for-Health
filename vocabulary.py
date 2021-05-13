@@ -187,8 +187,8 @@ dictVocabulary={
 	
 	'Pain and discomfort': {'pain': 1.0, 'discomfort': 1.0,'sore throat': 0.8,'cramp': 0.9,'bone fracture': 0.9,'muscle cramp': 0.9,'toothache': 0.9,'headache': 0.9,'ache': 0.9,'stiffness': 0.9,'drug': 0.8,'distress': 0.8,'unpleasant': 0.8}, 
 	
-	'Personal relationships': {'personal': 1.0, 'homosexual': 0.7,'relationship': 0.7,'heterosexual': 0.7,'marriage': 0.7,'friendship': 0.7,'satisfaction': 0.6,'hug': 0.7,'happy': 0.4,'emotionally': 0.4,
-							'intimate': 0.6,'love': 0.6,'support': 0.5,'people': 0.5,'everybody':0.35, 'partnership': 0.7,'distress': 0.7,'share moments': 0.6,'companionship': 0.7,'friend': 0.9, 'family': 0.9, 'alone': 0.9},
+	'Personal relationships': {'personal': 1.0, 'homosexual': 0.7,'relationship': 0.7,'heterosexual': 0.7,'marriage': 0.7,'friendship': 0.7,'satisfaction': 0.5,'hug': 0.7,'happy': 0.4,'emotionally': 0.4,
+							'intimate': 0.6,'love': 0.5,'support': 0.5,'people': 0.5,'everybody':0.4, 'partnership': 0.7,'distress': 0.7,'share moments': 0.6,'companionship': 0.7,'friend': 0.9, 'family': 0.9, 'alone': 0.9},
 	
 	'Positive feelings': {'positive': 0.4, 'feelings': 0.2, 'enjoyment': 0.8,'hopefulness': 0.8,'happiness': 0.8,'peace': 0.8,'balance': 0.3,'contentment': 0.5},
 	

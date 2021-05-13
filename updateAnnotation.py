@@ -117,19 +117,18 @@ def annotate(text, polarity):
 		#total_pals_dict = len(pals)
 		countPalsDict = 0
 		score=0.00
-		print("====================="+concept+"=====================")
+		#print("====================="+concept+"=====================")
 		#conta = 0
 		for pal, prob in pals.items():
 			if (emo):
 				#emolex
-
 				for c,v in emo.items():	
 					#score=0.00
 					if (c in pal):
-						print("----> emolex")
+						#print("----> emolex")
 						countPalsDict += 1
-						score = (v*prob)*2.0
-						print(score, countPalsDict, c,pal)
+						score = (v*prob)*2
+						#print(score, countPalsDict, c,pal)
 						if concept not in scoreDict.keys():
 							scoreDict[concept] = score
 						else:
@@ -151,12 +150,12 @@ def annotate(text, polarity):
 				#print("#######################"+lemma)
 				if (lemma == pal):
 					# total_pals_dict
-					print("--> MATCH lemma")
+					#print("--> MATCH lemma")
 					countPalsDict += 1
 
 					#score = (prob/total_pals)*1.6
-					score = prob*1.6
-					print(score,countPalsDict,lemma,pal)
+					score = prob*1.5
+					#print(score,countPalsDict,lemma,pal)
 
 					#score = score/total_pals_dict
 					#print(concept,pal, score)
@@ -174,13 +173,13 @@ def annotate(text, polarity):
 							similarity = lemmawn.path_similarity(palwn)
 							
 							if(similarity > 0.19):
-								print("--> lemma")
+								#print("--> lemma")
 								#print("similarity = ",similarity)
 								countPalsDict += 1
 
 								#score = (prob/total_pals)*1.0
-								score = prob*1.15
-								print(score, countPalsDict, lemma,pal)
+								score = prob*0.95
+								#print(score, countPalsDict, lemma,pal)
 
 								#score = score/total_pals_dict
 								#print(concept,pal, score)
@@ -220,12 +219,12 @@ def annotate(text, polarity):
 								# calculate score
 								#print(stem, pal)
 								if (synonym != "" and synonym == pal):
-									print("--> MATCH synonym ")
+									#print("--> MATCH synonym ")
 									countPalsDict += 1
 
 									#score = (prob/total_pals)*1.0
-									score = prob*1.0
-									print(score, countPalsDict, synonym,pal)
+									score = prob*0.75
+									#print(score, countPalsDict, synonym,pal)
 
 									#score = score/total_pals_dict
 									#print(concept,pal, score)
@@ -235,12 +234,12 @@ def annotate(text, polarity):
 									else:
 										scoreDict[concept] += score
 								elif(antonym != "" and antonym == pal):
-									print("--> MATCH antonym")
+									#print("--> MATCH antonym")
 									countPalsDict += 1
 
 									#score = (prob/total_pals)*1.0
-									score = prob*1.0
-									print(score, countPalsDict, antonym,pal)
+									score = prob*0.7
+									#print(score, countPalsDict, antonym,pal)
 
 									#score = score/total_pals_dict
 									#print(concept,pal, score)
@@ -273,13 +272,13 @@ def annotate(text, polarity):
 										similarity = stemwn.path_similarity(palwn)
 										
 										if(similarity > 0.19):
-											print("--> syns")
+											#print("--> syns")
 											#print("similarity = ",similarity)
 											countPalsDict += 1
 
 											#score = (prob/total_pals)*1.0
-											score = prob*0.9
-											print(score, countPalsDict, stem,pal)
+											score = prob*0.65
+											#print(score, countPalsDict, stem,pal)
 
 											#score = score/total_pals_dict
 											#print(concept,pal, score)
@@ -316,12 +315,12 @@ def annotate(text, polarity):
 										#print(stem)
 										# calculate score
 										if (hyponym == pal):
-											print("--> MATCH hyponym")
+											#print("--> MATCH hyponym")
 											countPalsDict += 1
 
 											#score = (prob/total_pals)*0.5
-											score = prob * 0.6
-											print(score, countPalsDict,hyponym,pal)
+											score = prob * 0.4
+											#print(score, countPalsDict,hyponym,pal)
 											#score = score/total_pals_dict
 											#print(concept,pal, score)
 											#print(score)
@@ -339,13 +338,13 @@ def annotate(text, polarity):
 												similarity = stemwn.path_similarity(palwn)
 												
 												if(similarity > 0.19):
-													print("--> hyponyms")
+													#print("--> hyponyms")
 													#print("similarity = ",similarity)
 													countPalsDict += 1
 
 													#score = (prob/total_pals)*0.5
-													score = prob * 0.5
-													print(score, countPalsDict, stem,pal)
+													score = prob * 0.3
+													#print(score, countPalsDict, stem,pal)
 
 													#score = score/total_pals_dict
 													#print(concept,pal, score)
@@ -374,11 +373,11 @@ def annotate(text, polarity):
 										#print(stem)
 										# calculate score
 										if (hypernym == pal):
-											print("----> MATCH hypernym")
+											#print("----> MATCH hypernym")
 											countPalsDict += 1
 											#score = (prob/total_pals)*0.6
-											score = prob * 0.6
-											print(score, countPalsDict,hypernym,pal)
+											score = prob * 0.4
+											#print(score, countPalsDict,hypernym,pal)
 
 											if concept not in scoreDict.keys():
 												scoreDict[concept] = score
@@ -393,13 +392,13 @@ def annotate(text, polarity):
 												similarity = stemwn.path_similarity(palwn)
 												
 												if(similarity > 0.19):
-													print("----> hypernyms")
+													#print("----> hypernyms")
 													#print("similarity = ",similarity)
 													countPalsDict += 1
 
 													#score = (prob/total_pals)*0.5
-													score = prob * 0.5
-													print(score, countPalsDict, stem,pal)
+													score = prob * 0.3
+													#print(score, countPalsDict, stem,pal)
 
 													#score = score/total_pals_dict
 													#print(concept,pal, score)
@@ -429,7 +428,7 @@ def annotate(text, polarity):
 											print("--------> MATCH meronyms")
 											countPalsDict += 1
 											#score = (prob/total_pals)*0.6
-											score = prob * 0.6
+											score = prob * 0.4
 											print(score, countPalsDict,meronym,pal)
 											
 											if concept not in scoreDict.keys():
@@ -445,13 +444,14 @@ def annotate(text, polarity):
 												similarity = stemwn.path_similarity(palwn)
 												
 												if(similarity > 0.19):
-													print("--------> meronyms")
+													#print("--------> meronyms")
 													#print("similarity = ",similarity)
 													countPalsDict += 1
 
 													#score = (prob/total_pals)*0.6
-													score = prob * 0.5
-													print(score, countPalsDict, stem,pal)
+													score = prob * 0.3
+													#print("--------> meronyms")
+													#print(score, countPalsDict, stem,pal)
 
 													#score = score/total_pals_dict
 													#print(concept,pal, score)
@@ -1077,10 +1077,10 @@ def getConceptsAnnotated(comment, polarity):
 		concepts=[]
 		DictResult = annotate(str(comment), polarity) 
 		if(bool(DictResult)):
-			print("\n")
+			#print("\n")
 			print(DictResult)
 			for c,v in DictResult.items():	
-				if (v>0.8):
+				if (v>0.70):
 					#print(c)
 					polarity = polarity.lower()
 					if (c=="Positive feelings" and polarity=="negative"):
@@ -1138,10 +1138,10 @@ def update():
 								annotationid+=1
 								print(annotationid,"... "+str(field)+" --> "+str(c))
 								
-								#query = "delete from annotation where annotationid = "+str(annotationid)+""
-								#deleteRow(query)
-								#query = "insert into annotation values("+str(annotationid)+",'"+str(field)+"','"+str(c)+"','"+str(commentid)+"','"+str(gameid)+"','"+str(videoid)+"')"
-								#insertToTable(query)
+								query = "delete from annotation where annotationid = "+str(annotationid)+""
+								deleteRow(query)
+								query = "insert into annotation values("+str(annotationid)+",'"+str(field)+"','"+str(c)+"','"+str(commentid)+"','"+str(gameid)+"','"+str(videoid)+"')"
+								insertToTable(query)
 				else:
 					print("NAO ANOTADO! sem conceitos ...")
 					continue
