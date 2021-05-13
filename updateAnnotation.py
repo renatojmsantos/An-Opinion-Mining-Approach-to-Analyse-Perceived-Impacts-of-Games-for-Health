@@ -83,6 +83,7 @@ def annotate(text, polarity):
 			if (v>0.18):
 				#print(c,v)
 				polarity = polarity.lower()
+				"""
 				if (c == "positive" and c != polarity):
 					#print("erro positive")
 					continue
@@ -93,6 +94,7 @@ def annotate(text, polarity):
 					continue
 				elif(polarity == "negative" and c == "joy"):
 					continue
+				"""
 				if (c not in emo.keys()):
 					emo[c] = v
 					
@@ -147,7 +149,7 @@ def annotate(text, polarity):
 			for lemma in pals_lemmas:
 				#score...  ?
 				#print("#######################"+lemma)
-				if (lemma == pal):
+				if (lemma == pal): 
 					# total_pals_dict
 					#print("--> MATCH lemma")
 					countPalsDict += 1
