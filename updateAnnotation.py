@@ -9,10 +9,11 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from flair.data import Sentence
 from flair.models import SequenceTagger
 
-#tagger = SequenceTagger.load("hunflair-disease")
+tagger = SequenceTagger.load("hunflair-disease")
 
 def annotate(text, polarity):
-	
+
+	sno = nltk.stem.SnowballStemmer('english') 
 
 	# POS Tagger
 	def pos_tagger(nltk_tag):
@@ -26,6 +27,7 @@ def annotate(text, polarity):
 			return wordnet.ADV
 		else:          
 			return None
+
 
 	textWords = word_tokenize(text)
 	pos_tagged = nltk.pos_tag(textWords)
@@ -43,12 +45,26 @@ def annotate(text, polarity):
 
 	text_lemmas = " ".join(lemmas)
 
+	# remove stop words
+	words = word_tokenize(text_lemmas)
+	stopwords = nltk.corpus.stopwords.words('english')
+	pals_lemmas = [word for word in words if not word in stopwords]
+
+	if (getDiseases(text)):
+		pals_lemmas.append("disease")
+
+	#print(pals_lemmas)
+
+	text_lemmas = " ".join(pals_lemmas)
+	# print(text_lemmas)
 
 	score = 0.00
 	scoreDict = {}
 
 	print("\n>>>>>>> ",text_lemmas)
 	print(">>> ", polarity)
+	total_pals = len(word_tokenize(text_lemmas))
+
 	t = NRCLex(str(text_lemmas))
 	#print(t)
 	#print(t.affect_list)
@@ -76,35 +92,112 @@ def annotate(text, polarity):
 					continue
 				if (c not in emo.keys()):
 					emo[c] = v
-					# check polarity...
-					#check if is negative and positive...
+					
+	#print(emo)
+	#words = word_tokenize(text_lemmas)
+	#pals_stems = [sno.stem(word) for word in words]
 
-	print(emo)
-	
-	
+	# stem = sno.stem(word)
+
+	#print(pals_stems)
+	#pals_stems = " ".join(pals_stems)
+	#print(pals_stems)
+	#print(pals_lemmas)
+
 	for d in dictVocabulary.items():
 		#print(voc)
 		concept = d[0]
 		pals = d[1]
-		print("====================="+concept+"=====================")
-		conta = 0
+		#print("====================="+concept+"=====================")
+		#conta = 0
 		for pal, prob in pals.items():
+			#emolex
 			for c,v in emo.items():	
 				score=0.00
 				if (c in pal):
-					conta+=1
-					score = v*prob
+					#conta+=1
+					score = v*prob*1.7
 					if concept not in scoreDict.keys():
 						scoreDict[concept] = score
 					else:
 						# NR TOTAL DE VEZES QUE APARECE A DIVIDIR PELO NR TOTAL DE VEZES DE pals DETETADOS
 						# 5 PALS DETETADAS.... 2 JOY / 5 = ...
 						#score = score/conta
-						print(pal, conta, v, prob, score)
+						#print(pal, conta, v, prob, score)
 						scoreDict[concept] += score
 
+			# check dict
+			score=0.00
+			stems=[]
+			for lemma in pals_lemmas:
+				#print("#######################"+lemma)
+				if (lemma in pal):
+					score = prob/total_pals
+					#print(score)
+					if concept not in scoreDict.keys():
+						scoreDict[concept] = score
+					else:
+						scoreDict[concept] += score
+				else:
+					for syn in wordnet.synsets(lemma):
+						#print(syn.name(), syn.lemma_names())
+						for l in syn.lemmas():
+							#print(l.name())
+							if (l.antonyms()):
+								#print("###### "+l.antonyms()[0].name())
+								# condicoes...
+								if (concept == "Negative feelings" or concept == "Frustration" or concept == "Positive feelings" or concept == "Frustration" or concept == "Pain and discomfort" 
+									or concept == "Fatigue" or concept == "Pleasure" or concept == "Enjoyment and Fun"):
+									pass
+								else:
+									antonym = l.antonyms()[0].name()
+									stem = sno.stem(antonym)
+							else:
+								#print("---> "+l.name())
+								synonym = l.name()
+								stem = sno.stem(synonym)
+
+							if (stem not in stems):
+								stems.append(stem)
+								#print(stem)
+								# calculate score
+								if (stem in pal):
+									score = (prob/(total_pals*0.95))
+									#print(score)
+									if concept not in scoreDict.keys():
+										scoreDict[concept] = score
+									else:
+										scoreDict[concept] += score
+							else:
+								continue
+
+					#print("######################"+syn.name())
+					#lexical relations
+					#lexical = wordnet.synset(syn.name())
+					
+					"""
+					# conceito especifico
+					for s in lexical.hyponyms():
+						for l in s.lemmas():
+							print("-> "+l.name())
+					"""
+					"""
+					# conceitos mais gerais
+					for s in lexical.hypernyms():
+						for l in s.lemmas():
+							print("##> "+l.name())
+					"""
+					"""
+					for s in lexical.entailments():
+						for l in s.lemmas():
+							print(l.name())
+					"""
+					
+								
 		# STEMMING ......
 		# IF STEM IN PAL... RADICAL DENTRO DOS TERMOS EM ESTUDO.... + FACIL
+		#
+		
 
 	return scoreDict
 
@@ -268,30 +361,7 @@ def getGames():
 
 # UPDATE
 
-def updateAnnotation(annotationid, field, concept):
-	idBack = None
-	conn = None
-	try:
-		params = config()
-		conn = psycopg2.connect(**params)
-		#conn.autocommit = True
-		cur = conn.cursor()
 
-		#query = "SELECT field, concept FROM dimension where dimension_id='"+dimensionid+"'"
-		query = "UPDATE annotation SET field = '"+field+"', concept = '"+concept+"' where annotationid='"+annotationid+"' returning *;"
-		print(query)
-		cur.execute(query)
-		idBack = cur.fetchall()
-
-		cur.close()
-		#return idBack
-	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO upd!", error)
-	finally:
-		if conn is not None:
-			#print("closing connection...")
-			conn.close()
-	return idBack# is not None #idBack
 
 def updateComment(commentid, polarity):
 	idBack = None
@@ -653,6 +723,18 @@ def updateInfoGame():
 
 #-----------------------------------------------------------------------------------------
 
+def getConceptsAnnotated(comment, polarity):
+	concepts=[]
+	DictResult = annotate(str(comment), polarity) 
+	if(bool(DictResult)):
+		#print(DictResult)
+		for c,v in DictResult.items():	
+			if (v>0.65):
+				#print(c)
+				concepts.append(c)
+	# ... values = dict.values() -> total = sum (values) -> total de cada dim... 
+	return concepts
+
 def update():
 	annotationid=0
 	
@@ -669,15 +751,26 @@ def update():
 				polarity = c[1]
 				#print(commentid, gameid, videoid, comment)
 				# update ... annotation id = 1,2,3...
-				DictResult = annotate(str(comment), polarity) 
-				if(bool(DictResult)):
-					print(DictResult)
-
-					# ... values = dict.values() -> total = sum (values) -> total de cada dim... 
-					#updateAnnotation(annotationid, field, concept, commentid,gameid, videoid)
+				concepts = getConceptsAnnotated(str(comment), str(polarity))
+				#print(concepts)
+				if (len(concepts)>0):
+					for d in dictFields.items():
+						field = d[0]
+						conceitos = d[1]
+						#print(d[1])
+						for c in conceitos:
+							if (str(c) in concepts):
+								print("... "+str(field)+" --> "+str(c))
+								annotationid+=1
+								print(annotationid)
+								updateAnnotation(annotationid, field, c, commentid,gameid, videoid)
+				else:
+					print("NAO ANOTADO! sem conceitos ...")
+					continue
 	except Exception as e:
 		print(e)
 	
 
 update()
+#DELETE FROM annotation WHERE annotationid > XXX;
 
