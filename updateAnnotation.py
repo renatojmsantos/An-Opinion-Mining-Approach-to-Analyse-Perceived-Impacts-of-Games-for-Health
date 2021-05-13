@@ -154,7 +154,8 @@ def annotate(text, polarity):
 					print("--> MATCH lemma")
 					countPalsDict += 1
 
-					score = (prob/total_pals)*1.6
+					#score = (prob/total_pals)*1.6
+					score = prob*1.6
 					print(score,countPalsDict,lemma,pal)
 
 					#score = score/total_pals_dict
@@ -165,17 +166,32 @@ def annotate(text, polarity):
 					else:
 						scoreDict[concept] += score
 				elif (lemma in pal and len(lemma) >=3):
-						# total_pals_dict
-						print("--> lemma")
-						countPalsDict += 1
+						try:
+							palwn = wordnet.synsets(str(pal))[0]
+							lemmawn = wordnet.synsets(str(lemma))[0]
+							#print(stemwn.name() + " "+ palwn.name())
 
-						score = (prob/total_pals)*1.3
-						print(score,countPalsDict,lemma,pal)
+							similarity = lemmawn.path_similarity(palwn)
+							
+							if(similarity > 0.19):
+								print("--> lemma")
+								#print("similarity = ",similarity)
+								countPalsDict += 1
 
-						if concept not in scoreDict.keys():
-							scoreDict[concept] = score
-						else:
-							scoreDict[concept] += score
+								#score = (prob/total_pals)*1.0
+								score = prob*1.15
+								print(score, countPalsDict, lemma,pal)
+
+								#score = score/total_pals_dict
+								#print(concept,pal, score)
+								#print(score)
+								if concept not in scoreDict.keys():
+									scoreDict[concept] = score
+								else:
+									scoreDict[concept] += score
+						except Exception as e:
+							#print(e)
+							pass
 				else:
 					for syn in wordnet.synsets(lemma):
 						#print(syn.name(), syn.lemma_names())
@@ -207,7 +223,8 @@ def annotate(text, polarity):
 									print("--> MATCH synonym ")
 									countPalsDict += 1
 
-									score = (prob/total_pals)*1.0
+									#score = (prob/total_pals)*1.0
+									score = prob*1.0
 									print(score, countPalsDict, synonym,pal)
 
 									#score = score/total_pals_dict
@@ -221,7 +238,8 @@ def annotate(text, polarity):
 									print("--> MATCH antonym")
 									countPalsDict += 1
 
-									score = (prob/total_pals)*1.0
+									#score = (prob/total_pals)*1.0
+									score = prob*1.0
 									print(score, countPalsDict, antonym,pal)
 
 									#score = score/total_pals_dict
@@ -248,7 +266,6 @@ def annotate(text, polarity):
 
 									#print(syn, l, syn.lemmas())
 									try:
-										
 										palwn = wordnet.synsets(str(pal))[0]
 										stemwn = wordnet.synsets(str(stem))[0]
 										#print(stemwn.name() + " "+ palwn.name())
@@ -260,7 +277,8 @@ def annotate(text, polarity):
 											#print("similarity = ",similarity)
 											countPalsDict += 1
 
-											score = (prob/total_pals)*1.0
+											#score = (prob/total_pals)*1.0
+											score = prob*0.9
 											print(score, countPalsDict, stem,pal)
 
 											#score = score/total_pals_dict
@@ -301,7 +319,8 @@ def annotate(text, polarity):
 											print("--> MATCH hyponym")
 											countPalsDict += 1
 
-											score = (prob/total_pals)*0.5
+											#score = (prob/total_pals)*0.5
+											score = prob * 0.6
 											print(score, countPalsDict,hyponym,pal)
 											#score = score/total_pals_dict
 											#print(concept,pal, score)
@@ -324,7 +343,8 @@ def annotate(text, polarity):
 													#print("similarity = ",similarity)
 													countPalsDict += 1
 
-													score = (prob/total_pals)*0.5
+													#score = (prob/total_pals)*0.5
+													score = prob * 0.5
 													print(score, countPalsDict, stem,pal)
 
 													#score = score/total_pals_dict
@@ -356,7 +376,8 @@ def annotate(text, polarity):
 										if (hypernym == pal):
 											print("----> MATCH hypernym")
 											countPalsDict += 1
-											score = (prob/total_pals)*0.6
+											#score = (prob/total_pals)*0.6
+											score = prob * 0.6
 											print(score, countPalsDict,hypernym,pal)
 
 											if concept not in scoreDict.keys():
@@ -376,7 +397,8 @@ def annotate(text, polarity):
 													#print("similarity = ",similarity)
 													countPalsDict += 1
 
-													score = (prob/total_pals)*0.5
+													#score = (prob/total_pals)*0.5
+													score = prob * 0.5
 													print(score, countPalsDict, stem,pal)
 
 													#score = score/total_pals_dict
@@ -406,7 +428,8 @@ def annotate(text, polarity):
 										if (meronym == pal):
 											print("--------> MATCH meronyms")
 											countPalsDict += 1
-											score = (prob/total_pals)*0.6
+											#score = (prob/total_pals)*0.6
+											score = prob * 0.6
 											print(score, countPalsDict,meronym,pal)
 											
 											if concept not in scoreDict.keys():
@@ -426,7 +449,8 @@ def annotate(text, polarity):
 													#print("similarity = ",similarity)
 													countPalsDict += 1
 
-													score = (prob/total_pals)*0.6
+													#score = (prob/total_pals)*0.6
+													score = prob * 0.5
 													print(score, countPalsDict, stem,pal)
 
 													#score = score/total_pals_dict
@@ -492,9 +516,13 @@ def annotate(text, polarity):
 		# o que beneficia quem tem muitas...
 		#print(score)
 		#countPalsDict = ...
+		
 		if concept in scoreDict.keys():
-			scoreDict[concept] = score/countPalsDict
-
+			#print(score, countPalsDict)
+			#print(scoreDict[concept])
+			scoreDict[concept] = scoreDict[concept]/countPalsDict #score/countPalsDict
+			#print(scoreDict[concept])
+	#print(scoreDict)
 	return scoreDict
 
 
@@ -1045,40 +1073,42 @@ def updateInfoGame():
 #-----------------------------------------------------------------------------------------
 
 def getConceptsAnnotated(comment, polarity):
-	concepts=[]
-	DictResult = annotate(str(comment), polarity) 
-	if(bool(DictResult)):
-		print("\n")
-		print(DictResult)
-		for c,v in DictResult.items():	
-			if (v>0.8):
-				#print(c)
-				polarity = polarity.lower()
-				if (c=="Positive feelings" and polarity=="negative"):
-					continue
-				elif(c=="Negative feelings" and polarity=="positive"):
-					continue
-				elif(c=="Frustration" and polarity=="positive"):
-					continue
-				elif(c=="Pleasure" and polarity=="negative"):
-					continue
-				elif(c=="Enjoyment and Fun" and polarity=="negative"):
-					continue
-				elif(c=="Positive feelings" and polarity=="neutral"):
-					continue
-				elif(c=="Negative feelings" and polarity=="neutral"):
-					continue
-				elif(c=="Frustration" and polarity=="neutral"):
-					continue
-				elif(c=="Pleasure" and polarity=="neutral"):
-					continue
-				elif(c=="Enjoyment and Fun" and polarity=="neutral"):
-					continue
-				else:
-					concepts.append(c)
-
-	# ... values = dict.values() -> total = sum (values) -> total de cada dim... 
-	return concepts
+	try:
+		concepts=[]
+		DictResult = annotate(str(comment), polarity) 
+		if(bool(DictResult)):
+			print("\n")
+			print(DictResult)
+			for c,v in DictResult.items():	
+				if (v>0.8):
+					#print(c)
+					polarity = polarity.lower()
+					if (c=="Positive feelings" and polarity=="negative"):
+						continue
+					elif(c=="Negative feelings" and polarity=="positive"):
+						continue
+					elif(c=="Frustration" and polarity=="positive"):
+						continue
+					elif(c=="Pleasure" and polarity=="negative"):
+						continue
+					elif(c=="Enjoyment and Fun" and polarity=="negative"):
+						continue
+					elif(c=="Positive feelings" and polarity=="neutral"):
+						continue
+					elif(c=="Negative feelings" and polarity=="neutral"):
+						continue
+					elif(c=="Frustration" and polarity=="neutral"):
+						continue
+					elif(c=="Pleasure" and polarity=="neutral"):
+						continue
+					elif(c=="Enjoyment and Fun" and polarity=="neutral"):
+						continue
+					else:
+						concepts.append(c)
+		# ... values = dict.values() -> total = sum (values) -> total de cada dim... 
+		return concepts
+	except Exception as e:
+		print(e)
 
 def update():
 	
@@ -1106,7 +1136,7 @@ def update():
 						for c in conceitos:
 							if (str(c) in concepts):
 								annotationid+=1
-								print(annotationid+"... "+str(field)+" --> "+str(c))
+								print(annotationid,"... "+str(field)+" --> "+str(c))
 								
 								#query = "delete from annotation where annotationid = "+str(annotationid)+""
 								#deleteRow(query)
