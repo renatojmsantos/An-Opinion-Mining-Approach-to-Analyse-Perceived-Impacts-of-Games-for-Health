@@ -112,7 +112,7 @@ dictVocabulary={
 					'lack': 0.7,'unfortunate': 0.7,'well': 0.6,'fantastic': 0.8,'improve': 0.3,'price': 0.2, 'interest': 0.2,'fan': 0.2},
 
 
-	'aesthetic and Appeal': {'aesthetic': 1.0, 'interface': 0.9, 'semblanc':0.3, 'visual':0.6,'nice':0.15,'pretty':0.2,'excellent':0.3,'awesome':0.3,'correct':0.1,'wonderful':0.4,'great':0.1,'taste': 0.1,'beauty': 0.6,'appreciation': 0.6,
+	'Aesthetic and Appeal': {'aesthetic': 1.0, 'interface': 0.9, 'semblanc':0.3, 'visual':0.6,'nice':0.15,'pretty':0.2,'excellent':0.3,'awesome':0.3,'correct':0.1,'wonderful':0.4,'great':0.1,'taste': 0.1,'beauty': 0.6,'appreciation': 0.6,
 						'appeal': 1.0, 'graphic':0.9, 'sound':0.9, 'song': 0.9, 'nice': 0.15, 'voice':0.9, 'playlist':0.9, 'music':0.9, 'soundtrack':0.9, 'effect':0.6, 'look':0.6, 'color':0.7, 'hear':0.2,'creepiest':0.2,'stun':0.2,'bright':0.3,'realism':0.4,
 						'detail':0.6,'cute':0.3,'model':0.1,'impress':0.3,'sprite':0.3,'sceneri':0.3,'atmosphere':0.4,'environment':0.4,'animation':0.5,'realist':0.4, 'render': 0.5, 'pixel': 0.7},
 	
@@ -132,7 +132,7 @@ dictVocabulary={
 	'Enchantment': {'enchantment': 1.0, 'concentration': 0.7,'love': 0.9,'attention': 0.8,'liveliness': 0.7,'fullness': 0.8,'pleasure': 0.9,'disorientation': 0.7,'experience': 0.5},
 	
 	'Engagement': {'engagement': 1.0, 'enjoyable':0.8,'stop':0.1,'communicate':0.5,'correct':0.5,'connect':0.4,'improve':0.6,'experience':0.8,'challenge': 0.9, 'flow': 1.0,'skill': 1.0,'need': 1.0,'forget': 1.0,
-				'addict': 0.9, 'addition': 1.0, 'replay':0.7, 'nonstop': 0.9, 'most':0.6,'interest':0.6,'become':0.6,'gripper':0.6,'hardest':0.6,'painstaking':0.6,'intense':0.6,'hard':0.5,'tire':0.5,'engagement':0.6,'impossible':0.6,'keep':0.6,'therefore':0.6,
+				'addict': 0.9, 'addition': 1.0, 'replay':0.7, 'nonstop': 0.9, 'lyric':0.85,'sing':0.85,'most':0.5,'interest':0.6,'become':0.6,'gripper':0.6,'hardest':0.6,'painstaking':0.6,'intense':0.6,'hard':0.5,'tire':0.5,'engagement':0.6,'impossible':0.6,'keep':0.6,'therefore':0.6,
 				'deep':0.6,'value':0.6,'tought':0.6,'easy':0.6,'complex':0.6,'moment':0.6,'harder':0.6,'depth':0.6,'hour':0.6,'difficult':0.6,'addict':0.6,'interest':0.7},
 	
 	'Enjoyment and Fun': {'enjoyment': 1.0, 'communicate':0.2,'easy':0.1,'cool':0.7,'wow':0.4,'awesome':0.6,'hope':0.1,'spectacular':0.5,'happy':0.5,'hedonic': 0.9,'emotion': 0.9,'affect': 0.9,'fun': 1.0, 'young': 0.2, 
@@ -141,18 +141,18 @@ dictVocabulary={
 	
 	'Frustration': {'frustration': 1.0, 'irritate':0.8,'wtf':0.8,'terrible':0.8,'harmful':0.6,'hate':0.8,'shit':0.8,'fuck':0.8,'suck':0.8,'horrible':0.8,'awful':0.8,'waste':0.8,'disappointed':0.8,'hardship': 0.7,'boring': 0.8, 
 					'grrrr': 0.4,'anger': 1.0,'hardest': 0.2, 'disadvantage': 0.1, 'flavor':0.3,'scaletta':0.3,'vito':0.2,'insane':0.4,'heck':0.3,'gasp':0.3,'habit':0.3,'melodramat':0.3,'cheat':0.3,'grow':0.2,'flat':0.4,'plain':0.4,
-					'needle':0.1,'grin':0.2,'afterward':0.4,'fuel':0.2,'injury':0.6,'insult':0.6,'perpetu':0.6,'insult': 0.5, 'perpetu':0.3, 'nerv': 0.3, 'unfair':0.4, 'annoy':0.7, 'incompatibility':0.3},
+					'needle':0.1,'grin':0.2,'afterward':0.4,'fuel':0.2,'injury':0.6,'insult':0.6,'perpetu':0.6,'insult': 0.5, 'perpetu':0.3, 'nerv': 0.3, 'unfair':0.4, 'annoy':0.8, 'incompatibility':0.3},
 	
 	'Hedonic': {'hedonic': 1.0, 'fun': 0.8, 'superb':0.8,'enjoy': 0.8, 'love':0.8,'good':0.5,'super':0.4,'awesome':0.8,'happy':0.6,'friend':0.5,'communicate':0.3,'challenge':0.5, 'fulfillment': 0.6, 'need': 0.1, 'pleasure':0.7,
-				'frustration':0.7, 'annoy': 0.8, 'entertain': 0.8, 'game': 0.7,'multiplayer': 0.7, 'gameplay': 0.7, 'play': 0.7, 'humor': 0.8, 'workout': 0.8,'regret': 0.4, 'intrigu': 0.5,'stagger': 0.4,
+				'frustration':0.7, 'annoy': 0.8, 'entertain': 0.8, 'game': 0.7,'multiplayer': 0.7, 'lyric':0.8,'gameplay': 0.7, 'play': 0.7, 'humor': 0.8, 'workout': 0.8,'regret': 0.4, 'intrigu': 0.5,'stagger': 0.4,
 				'nevertheless': 0.4,'nostalgia': 0.5,'afterward': 0.4,'fell': 0.7,'incompatibility': 0.2,'tension': 0.4,'chore': 0.4,'addict': 0.6,'catch': 0.2,'excit': 0.6,'grin': 0.4,'cute': 0.5,'lighter': 0.2,'felt': 0.3,'sooth': 0.3,'hate': 0.5,
 				'funnier': 0.6,'boredom': 0.6},
 	
 	'Impact': {'impact': 1.0, 'pattern': 0.4, 'surprise': 0.8,'fear': 0.8,'wow':0.4, 'gameplay': 0.9, 'change': 0.38},
 	
-	'Likeability': {'likeability': 1.0, 'good':0.9}, 
+	'Likeability': {'likeability': 1.0, 'good':0.9, 'cool':0.85, 'happy': 0.75,'joy': 0.6,'nice':0.7}, 
 	
-	'Motivation': {'motivation': 1.0, 'task': 0.5, 'love':0.8, 'joy': 0.8,'pleasure':0.8},
+	'Motivation': {'motivation': 1.0, 'task': 0.5, 'dance':0.5,'love':0.8, 'joy': 0.8,'pleasure':0.8},
 	
 	'Overall Usability': {'overall usability': 1.0, 'update':0.8,'feature':0.8,'new': 0.25, 'version':0.6, 'upgrade':0.8, 'edition': 0.65, 'previous':0.6 ,'edition':0.3},
 	
@@ -165,7 +165,7 @@ dictVocabulary={
 	'Trust': {'trust': 1.0, 'behavior': 0.8, 'disappointed':0.8, 'easy':0.8, 'quality':0.8, 'exist':0.8, 'handhold':0.8, 'reliev':0.8, 'cute':0.8, 'sooth':0.8,'reliable':0.8,'secure':0.8,'pleasure': 0.5},
 	
 	'User Differences': {'user':0.8, 'group': 0.5,'head-to-head':0.8,'beginner':0.9, 'veteran':0.9,'pro':0.6 ,'player':0.7, 'amateur':0.9,'professional':0.9,'finalist':0.6, 'professional':0.65, 'dancers':0.65,
-						'buyer': 0.7,'target': 0.7,'feature': 0.7, 'difference': 0.8, 'if': 0.6},
+						'buyer': 0.7,'target': 0.7,'feature': 0.7, 'difference': 0.8, 'if': 0.55},
 
 
 
@@ -176,7 +176,7 @@ dictVocabulary={
 	
 	'Energy': {'energy': 1.0, 'alive': 0.8, 'endurance': 0.8,'sinchonized':0.4, 'enthusiasm': 0.8, 'sedentary':0.35, 'dance':0.85, 'workout':0.9},
 	
-	'Fatigue': {'fatigue': 1.0, 'overexertion': 0.8, 'depression': 0.8, 'anxiety': 0.8,'stress': 0.8, 'disease': 0.8, 'illness': 0.8,'tire': 0.8, 'exhaustion': 0.9},
+	'Fatigue': {'fatigue': 1.0, 'overexertion': 0.8, 'depression': 0.8, 'anxiety': 0.8,'stress': 0.75, 'disease': 0.8, 'illness': 0.7,'tire': 0.8, 'exhaustion': 0.8},
 	
 	'Learning': {'cognitive': 0.8, 'education': 0.8,'knowledge': 0.7,'processing deficits': 0.8,'auditory processing disorder': 0.8,'dyscalculia': 0.8,'dysgraphia': 0.8,'dyslexia': 0.8,'pedagogy': 0.7, 'learn': 1.0},
 	
@@ -192,13 +192,13 @@ dictVocabulary={
 	
 	'Positive feelings': {'positive': 0.4, 'feelings': 0.2, 'enjoyment': 0.8,'hopefulness': 0.8,'happiness': 0.8,'peace': 0.8,'balance': 0.3,'contentment': 0.5},
 	
-	'Self-esteem': {'self':1.0, 'esteem': 0.95, 'meaningful': 0.85,'confidence': 0.85,'regard': 0.7,'respect': 0.75, 'competence': 0.6,'belonging': 0.6,'identity': 0.7,'security': 0.6,'acceptance': 0.7,'worth': 0.7,'appraisal': 0.9,'dignity': 0.9,'family': 0.8,'embarrassment':0.85, 'people': 0.5,'education': 0.55,'efficacy': 0.45,'control': 0.45,'oneself': 0.6,'satisfaction': 0.6},
+	'Self-esteem': {'self':1.0, 'esteem': 0.95, 'meaningful': 0.85,'confidence': 0.85,'regard': 0.7,'respect': 0.75, 'competence': 0.6,'belonging': 0.6,'identity': 0.7,'security': 0.6,'acceptance': 0.7,'worth': 0.7,'appraisal': 0.9,'dignity': 0.95,'family': 0.7,'embarrassment':0.85, 'people': 0.5,'education': 0.55,'efficacy': 0.45,'control': 0.45,'oneself': 0.6,'satisfaction': 0.6},
 	
 	'Sexual activity': {'sexual':1.0, 'activity': 0.1, 'physical':0.2 ,'intimacy': 0.4,'fulfillment': 0.2,'expression': 0.1,'drive': 0.1,'desire': 0.25},
 	
 	'Sleep and rest': {'sleep': 1.0,'waking up': 0.8, 'parasomnia': 0.8,'hypersomnia': 0.8,'nightmare':0.4, 'restless leg syndrome': 0.4,'apnea': 0.8,'insomnia': 0.8,'lack of refreshment': 0.4,'rest': 0.97},
 	
-	'Social support': {'social':0.85, 'support': 0.85, 'encouragement': 0.8,'solve': 0.4,'relationship': 0.8,'roommate': 0.8,'help': 0.8,'chill': 0.5,'dude': 0.5,'best':0.3,'friend': 0.7,'physical':0.1,'abuse': 0.4,'verbal': 0.12,'personal': 0.8,'crisis': 0.7,
+	'Social support': {'social':0.85, 'support': 0.85, 'encouragement': 0.8,'solve': 0.4,'relationship': 0.8,'roommate': 0.8,'thanks': 0.65, 'help': 0.8,'chill': 0.5,'dude': 0.5,'best':0.3,'friend': 0.7,'physical':0.1,'abuse': 0.4,'verbal': 0.12,'personal': 0.8,'crisis': 0.7,
 					'responsability': 0.8,'assistance': 0.8,'approval': 0.5,'commitment': 0.5,'family': 0.8},
 	
 	'Thinking': {'think': 1.0,'aware': 0.8,'awake': 0.8,'cognitive': 0.8,'clang': 0.8,'thought disorder': 0.4,'echolalia': 0.4,'distractible speech': 0.4,'alogia': 0.4,'intelligent': 0.7,'idea': 0.4,'thought': 0.7,'decision': 0.55},

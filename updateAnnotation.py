@@ -9,6 +9,10 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from flair.data import Sentence
 from flair.models import SequenceTagger
 
+import spacy
+  
+nlp_spacy = spacy.load('en_core_web_md') #medium ... sm, md, lg (large)
+
 tagger = SequenceTagger.load("hunflair-disease")
 
 def annotate(text, polarity):
@@ -103,50 +107,86 @@ def annotate(text, polarity):
 	#pals_stems = " ".join(pals_stems)
 	#print(pals_stems)
 	#print(pals_lemmas)
-
+	
+	lexs = []
 	for d in dictVocabulary.items():
 		#print(voc)
 		concept = d[0]
 		pals = d[1]
-		#print("====================="+concept+"=====================")
+		#print(len(pals))
+		#total_pals_dict = len(pals)
+		countPalsDict = 0
+		score=0.00
+		print("====================="+concept+"=====================")
 		#conta = 0
 		for pal, prob in pals.items():
-			#emolex
-			for c,v in emo.items():	
-				score=0.00
-				if (c in pal):
-					#conta+=1
-					score = v*prob*1.7
-					if concept not in scoreDict.keys():
-						scoreDict[concept] = score
-					else:
-						# NR TOTAL DE VEZES QUE APARECE A DIVIDIR PELO NR TOTAL DE VEZES DE pals DETETADOS
-						# 5 PALS DETETADAS.... 2 JOY / 5 = ...
-						#score = score/conta
-						#print(pal, conta, v, prob, score)
-						scoreDict[concept] += score
+			if (emo):
+				#emolex
 
+				for c,v in emo.items():	
+					#score=0.00
+					if (c in pal):
+						print("----> emolex")
+						countPalsDict += 1
+						score = (v*prob)*2.0
+						print(score, countPalsDict, c,pal)
+						if concept not in scoreDict.keys():
+							scoreDict[concept] = score
+						else:
+							# NR TOTAL DE VEZES QUE APARECE A DIVIDIR PELO NR TOTAL DE VEZES DE pals DETETADOS
+							# 5 PALS DETETADAS.... 2 JOY / 5 = ...
+							#score = score/conta
+							#print(pal, conta, v, prob, score)
+							scoreDict[concept] += score
+			else:
+				pass
+
+			#print(score)
 			# check dict
-			score=0.00
+			#score=0.00
 			stems=[]
+
 			for lemma in pals_lemmas:
+				#score...  ?
 				#print("#######################"+lemma)
-				if (lemma in pal):
-					score = prob/total_pals
+				if (lemma == pal):
+					# total_pals_dict
+					print("--> MATCH lemma")
+					countPalsDict += 1
+
+					score = (prob/total_pals)*1.6
+					print(score,countPalsDict,lemma,pal)
+
+					#score = score/total_pals_dict
+					#print(concept,pal, score)
 					#print(score)
 					if concept not in scoreDict.keys():
 						scoreDict[concept] = score
 					else:
 						scoreDict[concept] += score
+				elif (lemma in pal and len(lemma) >=3):
+						# total_pals_dict
+						print("--> lemma")
+						countPalsDict += 1
+
+						score = (prob/total_pals)*1.3
+						print(score,countPalsDict,lemma,pal)
+
+						if concept not in scoreDict.keys():
+							scoreDict[concept] = score
+						else:
+							scoreDict[concept] += score
 				else:
 					for syn in wordnet.synsets(lemma):
 						#print(syn.name(), syn.lemma_names())
 						for l in syn.lemmas():
 							#print(l.name())
+							antonym=""
+							synonym=""
 							if (l.antonyms()):
 								#print("###### "+l.antonyms()[0].name())
 								# condicoes...
-								if (concept == "Negative feelings" or concept == "Frustration" or concept == "Positive feelings" or concept == "Frustration" or concept == "Pain and discomfort" 
+								if (concept == "Negative feelings" or concept == "Frustration" or concept == "Positive feelings" or concept == "Pain and discomfort" 
 									or concept == "Fatigue" or concept == "Pleasure" or concept == "Enjoyment and Fun"):
 									pass
 								else:
@@ -158,46 +198,302 @@ def annotate(text, polarity):
 								stem = sno.stem(synonym)
 
 							if (stem not in stems):
+
 								stems.append(stem)
 								#print(stem)
 								# calculate score
-								if (stem in pal):
-									score = (prob/(total_pals*0.95))
+								#print(stem, pal)
+								if (synonym != "" and synonym == pal):
+									print("--> MATCH synonym ")
+									countPalsDict += 1
+
+									score = (prob/total_pals)*1.0
+									print(score, countPalsDict, synonym,pal)
+
+									#score = score/total_pals_dict
+									#print(concept,pal, score)
 									#print(score)
 									if concept not in scoreDict.keys():
 										scoreDict[concept] = score
 									else:
 										scoreDict[concept] += score
+								elif(antonym != "" and antonym == pal):
+									print("--> MATCH antonym")
+									countPalsDict += 1
+
+									score = (prob/total_pals)*1.0
+									print(score, countPalsDict, antonym,pal)
+
+									#score = score/total_pals_dict
+									#print(concept,pal, score)
+									#print(score)
+									if concept not in scoreDict.keys():
+										scoreDict[concept] = score
+									else:
+										scoreDict[concept] += score
+								elif (stem in pal and len(stem)>=3):
+									# similarity
+									# Recall that each synset has one or more parents (hypernyms). If two of them are linked to the same root they might have several hypernyms in common — that fact might mean that they are closely related.
+									
+									# WordNet also introduces a specific metric for quantifying the similarity of two words by measuring shortest path between them. It outputs:
+										# range (0,1) → 0 if not similar at all, 1 if perfectly similar
+										# -1 → if there is no common hypernym
+									
+									#lowest_common_hypernyms()
+									# WORD1.path_similarity(WORD2)
+									
+									# https://www.nltk.org/howto/wordnet.html
+
+									# https://www.geeksforgeeks.org/python-word-similarity-using-spacy/
+
+									#print(syn, l, syn.lemmas())
+									try:
+										
+										palwn = wordnet.synsets(str(pal))[0]
+										stemwn = wordnet.synsets(str(stem))[0]
+										#print(stemwn.name() + " "+ palwn.name())
+
+										similarity = stemwn.path_similarity(palwn)
+										
+										if(similarity > 0.19):
+											print("--> syns")
+											#print("similarity = ",similarity)
+											countPalsDict += 1
+
+											score = (prob/total_pals)*1.0
+											print(score, countPalsDict, stem,pal)
+
+											#score = score/total_pals_dict
+											#print(concept,pal, score)
+											#print(score)
+											if concept not in scoreDict.keys():
+												scoreDict[concept] = score
+											else:
+												scoreDict[concept] += score
+
+									except Exception as e:
+										#print(e)
+										pass
+									
 							else:
 								continue
 
-					#print("######################"+syn.name())
-					#lexical relations
-					#lexical = wordnet.synset(syn.name())
-					
-					"""
-					# conceito especifico
-					for s in lexical.hyponyms():
-						for l in s.lemmas():
-							print("-> "+l.name())
-					"""
-					"""
-					# conceitos mais gerais
-					for s in lexical.hypernyms():
-						for l in s.lemmas():
-							print("##> "+l.name())
-					"""
-					"""
-					for s in lexical.entailments():
-						for l in s.lemmas():
-							print(l.name())
-					"""
+						if (lemma not in lexs):
+							lexs.append(lemma)
+							#print("################### >"+lemma)
+							#print("###"+syn.name())
+
+							#lexical relations
+							lexical = wordnet.synset(syn.name())
+							#print(lexical)
+							
+							# conceito especifico
+							for s in lexical.hyponyms():
+								for l in s.lemmas():
+									#print(l.name())
+									hyponym = l.name()
+									stem = sno.stem(hyponym)
+									if (stem not in stems):
+										stems.append(stem)
+										#print(stem)
+										# calculate score
+										if (hyponym == pal):
+											print("--> MATCH hyponym")
+											countPalsDict += 1
+
+											score = (prob/total_pals)*0.5
+											print(score, countPalsDict,hyponym,pal)
+											#score = score/total_pals_dict
+											#print(concept,pal, score)
+											#print(score)
+											if concept not in scoreDict.keys():
+												scoreDict[concept] = score
+											else:
+												scoreDict[concept] += score
+										elif (stem in pal and len(stem)>=3):
+
+											try:										
+												palwn = wordnet.synsets(str(pal))[0]
+												stemwn = wordnet.synsets(str(stem))[0]
+												#print(stemwn.name() + " "+ palwn.name())
+
+												similarity = stemwn.path_similarity(palwn)
+												
+												if(similarity > 0.19):
+													print("--> hyponyms")
+													#print("similarity = ",similarity)
+													countPalsDict += 1
+
+													score = (prob/total_pals)*0.5
+													print(score, countPalsDict, stem,pal)
+
+													#score = score/total_pals_dict
+													#print(concept,pal, score)
+													#print(score)
+													if concept not in scoreDict.keys():
+														scoreDict[concept] = score
+													else:
+														scoreDict[concept] += score
+
+											except Exception as e:
+												#print(e)
+												pass
+									else:
+										continue
+							
+							
+							#countPalsDict = 0
+							# conceitos mais gerais
+							for s in lexical.hypernyms():
+								for l in s.lemmas():
+									#print(l.name())
+									hypernym = l.name()
+									stem = sno.stem(hypernym)
+									if (stem not in stems):
+										stems.append(stem)
+										#print(stem)
+										# calculate score
+										if (hypernym == pal):
+											print("----> MATCH hypernym")
+											countPalsDict += 1
+											score = (prob/total_pals)*0.6
+											print(score, countPalsDict,hypernym,pal)
+
+											if concept not in scoreDict.keys():
+												scoreDict[concept] = score
+											else:
+												scoreDict[concept] += score
+										elif (stem in pal and len(stem)>=3):
+											try:										
+												palwn = wordnet.synsets(str(pal))[0]
+												stemwn = wordnet.synsets(str(stem))[0]
+												#print(stemwn.name() + " "+ palwn.name())
+
+												similarity = stemwn.path_similarity(palwn)
+												
+												if(similarity > 0.19):
+													print("----> hypernyms")
+													#print("similarity = ",similarity)
+													countPalsDict += 1
+
+													score = (prob/total_pals)*0.5
+													print(score, countPalsDict, stem,pal)
+
+													#score = score/total_pals_dict
+													#print(concept,pal, score)
+													#print(score)
+													if concept not in scoreDict.keys():
+														scoreDict[concept] = score
+													else:
+														scoreDict[concept] += score
+											except Exception as e:
+												#print(e)
+												pass
+									else:
+										continue
+
+							#countPalsDict = 0
+							# parte de algo
+							for s in lexical.part_meronyms():
+								for l in s.lemmas():
+									#print(l.name())
+									meronym = l.name()
+									stem = sno.stem(meronym)
+									if (stem not in stems):
+										stems.append(stem)
+										#print(stem)
+										# calculate score
+										if (meronym == pal):
+											print("--------> MATCH meronyms")
+											countPalsDict += 1
+											score = (prob/total_pals)*0.6
+											print(score, countPalsDict,meronym,pal)
+											
+											if concept not in scoreDict.keys():
+												scoreDict[concept] = score
+											else:
+												scoreDict[concept] += score
+										elif (stem in pal and len(stem)>=3):
+											try:										
+												palwn = wordnet.synsets(str(pal))[0]
+												stemwn = wordnet.synsets(str(stem))[0]
+												#print(stemwn.name() + " "+ palwn.name())
+
+												similarity = stemwn.path_similarity(palwn)
+												
+												if(similarity > 0.19):
+													print("--------> meronyms")
+													#print("similarity = ",similarity)
+													countPalsDict += 1
+
+													score = (prob/total_pals)*0.6
+													print(score, countPalsDict, stem,pal)
+
+													#score = score/total_pals_dict
+													#print(concept,pal, score)
+													#print(score)
+													if concept not in scoreDict.keys():
+														scoreDict[concept] = score
+													else:
+														scoreDict[concept] += score
+											except Exception as e:
+												#print(e)
+												pass
+
+									else:
+										continue
+							"""
+							print("----> root hypernyms")
+							# conceitos mais gerais
+							for s in lexical.root_hypernyms():
+								for l in s.lemmas():
+									print(l.name())
+							"""
+
+							"""
+							# membro de alguma coisa
+							print("------> part holonyms")
+							for s in lexical.part_holonyms():
+								for l in s.lemmas():
+									print(l.name())
+
+							
+							# membro de alguma coisa
+							print("------> substance holonyms")
+							for s in lexical.substance_holonyms():
+								for l in s.lemmas():
+									print(l.name())
+							"""
+
+							
+							
+							"""
+							# parte de algo
+							print("--------> substance meronyms")
+							for s in lexical.substance_meronyms():
+								for l in s.lemmas():
+									print(l.name())
+							"""
+
+							"""
+							print("----------> entailments")
+							for s in lexical.entailments():
+								for l in s.lemmas():
+									print(l.name())
+							"""
+							
+						else:
+							continue
+						
 					
 								
-		# STEMMING ......
-		# IF STEM IN PAL... RADICAL DENTRO DOS TERMOS EM ESTUDO.... + FACIL
-		#
-		
+		# dividir pelo nr de pals detetadas do dicionario...
+		# alguns conceitos Têm muitas e outras poucas...
+		# o que beneficia quem tem muitas...
+		#print(score)
+		#countPalsDict = ...
+		if concept in scoreDict.keys():
+			scoreDict[concept] = score/countPalsDict
 
 	return scoreDict
 
@@ -457,7 +753,7 @@ def insertToTable(query):
 		cur = conn.cursor()
 
 		query = query + " returning 1;" 
-		print(query)
+		#print(query)
 		cur.execute(query)
 		idBack = cur.fetchone()
 		#print(idBack)
@@ -484,7 +780,7 @@ def deleteRow(query):
 		cur = conn.cursor()
 
 		query = query + " returning *;" 
-		print(query)
+		#print(query)
 		cur.execute(query)
 		idBack = cur.fetchone()
 		#print(idBack)
@@ -499,6 +795,31 @@ def deleteRow(query):
 			conn.close()
 	return idBack
 
+def deleteRows(query):
+	idBack = None
+	conn = None
+	
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		conn.autocommit = True
+		cur = conn.cursor()
+
+		query = query + " returning *;" 
+		#print(query)
+		cur.execute(query)
+		idBack = cur.fetchall()
+		#print(idBack)
+		conn.commit()
+		#print("inserted!")
+		cur.close()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack
 
 def getDiseases(comment):
 	sentence = Sentence(comment)
@@ -727,18 +1048,42 @@ def getConceptsAnnotated(comment, polarity):
 	concepts=[]
 	DictResult = annotate(str(comment), polarity) 
 	if(bool(DictResult)):
-		#print(DictResult)
+		print("\n")
+		print(DictResult)
 		for c,v in DictResult.items():	
-			if (v>0.65):
+			if (v>0.8):
 				#print(c)
-				concepts.append(c)
+				polarity = polarity.lower()
+				if (c=="Positive feelings" and polarity=="negative"):
+					continue
+				elif(c=="Negative feelings" and polarity=="positive"):
+					continue
+				elif(c=="Frustration" and polarity=="positive"):
+					continue
+				elif(c=="Pleasure" and polarity=="negative"):
+					continue
+				elif(c=="Enjoyment and Fun" and polarity=="negative"):
+					continue
+				elif(c=="Positive feelings" and polarity=="neutral"):
+					continue
+				elif(c=="Negative feelings" and polarity=="neutral"):
+					continue
+				elif(c=="Frustration" and polarity=="neutral"):
+					continue
+				elif(c=="Pleasure" and polarity=="neutral"):
+					continue
+				elif(c=="Enjoyment and Fun" and polarity=="neutral"):
+					continue
+				else:
+					concepts.append(c)
+
 	# ... values = dict.values() -> total = sum (values) -> total de cada dim... 
 	return concepts
 
 def update():
-	annotationid=0
 	
 	try:
+		annotationid=0
 		ids = getIDs()
 		for i in ids:
 			commentid = i[0]
@@ -760,16 +1105,24 @@ def update():
 						#print(d[1])
 						for c in conceitos:
 							if (str(c) in concepts):
-								print("... "+str(field)+" --> "+str(c))
 								annotationid+=1
-								print(annotationid)
-								updateAnnotation(annotationid, field, c, commentid,gameid, videoid)
+								print(annotationid+"... "+str(field)+" --> "+str(c))
+								
+								#query = "delete from annotation where annotationid = "+str(annotationid)+""
+								#deleteRow(query)
+								#query = "insert into annotation values("+str(annotationid)+",'"+str(field)+"','"+str(c)+"','"+str(commentid)+"','"+str(gameid)+"','"+str(videoid)+"')"
+								#insertToTable(query)
 				else:
 					print("NAO ANOTADO! sem conceitos ...")
 					continue
+
+		#DELETE FROM annotation WHERE annotationid > XXX;
+		print("vai apagar...")
+		query = "delete from annotation where annotationid > "+str(annotationid)+""
+		deleteRows(query)
 	except Exception as e:
 		print(e)
-	
+
 
 update()
 #DELETE FROM annotation WHERE annotationid > XXX;
