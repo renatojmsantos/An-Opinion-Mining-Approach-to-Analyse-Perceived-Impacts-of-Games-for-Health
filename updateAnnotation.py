@@ -9,9 +9,8 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from flair.data import Sentence
 from flair.models import SequenceTagger
 
-import spacy
-  
-nlp_spacy = spacy.load('en_core_web_md') #medium ... sm, md, lg (large)
+#import spacy  
+#nlp_spacy = spacy.load('en_core_web_md') #medium ... sm, md, lg (large)
 
 tagger = SequenceTagger.load("hunflair-disease")
 

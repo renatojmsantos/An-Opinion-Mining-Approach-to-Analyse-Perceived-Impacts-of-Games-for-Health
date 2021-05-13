@@ -51,7 +51,7 @@ dictFields={
 			'Aesthetics and Appeal',
 			'Affect and Emotion',
 			'Anticipation',
-			'likeabilityability', 
+			'Likeability', 
 			'Pleasure',
 			'Comfort',
 			'Trust',
@@ -112,7 +112,7 @@ dictVocabulary={
 					'lack': 0.7,'unfortunate': 0.7,'well': 0.6,'fantastic': 0.8,'improve': 0.3,'price': 0.2, 'interest': 0.2,'fan': 0.2},
 
 
-	'Aesthetic and Appeal': {'aesthetic': 1.0, 'interface': 0.9, 'semblanc':0.3, 'visual':0.6,'nice':0.15,'pretty':0.2,'excellent':0.3,'awesome':0.3,'correct':0.1,'wonderful':0.4,'great':0.1,'taste': 0.1,'beauty': 0.6,'appreciation': 0.6,
+	'Aesthetics and Appeal': {'aesthetic': 1.0, 'interface': 0.9, 'semblanc':0.3, 'visual':0.6,'nice':0.15,'pretty':0.2,'excellent':0.3,'awesome':0.3,'correct':0.1,'wonderful':0.4,'great':0.1,'taste': 0.1,'beauty': 0.6,'appreciation': 0.6,
 						'appeal': 1.0, 'graphic':0.9, 'sound':0.9, 'song': 0.9, 'nice': 0.15, 'voice':0.9, 'playlist':0.9, 'music':0.9, 'soundtrack':0.9, 'effect':0.6, 'look':0.6, 'color':0.7, 'hear':0.2,'creepiest':0.2,'stun':0.2,'bright':0.3,'realism':0.4,
 						'detail':0.6,'cute':0.3,'model':0.1,'impress':0.3,'sprite':0.3,'sceneri':0.3,'atmosphere':0.4,'environment':0.4,'animation':0.5,'realist':0.4, 'render': 0.5, 'pixel': 0.7},
 	
@@ -169,7 +169,7 @@ dictVocabulary={
 
 
 
-	'Bodily image and appearance': {'bodily':1.0, 'image': 0.5, 'appearance': 1.0, 'handicapped': 0.6,'physical': 0.9,'self-concept': 0.8,'body': 0.7,'limb': 0.6,'artificial': 0.5,
+	'Bodily image and Appearance': {'bodily':1.0, 'image': 0.5, 'appearance': 1.0, 'handicapped': 0.6,'physical': 0.9,'self-concept': 0.8,'body': 0.7,'limb': 0.6,'artificial': 0.5,
 									'clothing': 0.6,'make-up': 0.7,'impairment': 0.6,'look': 0.6, 'beard':0.25 ,'skinny':0.6, 'weight':0.25,'body': 0.7},
 	
 	'Concentration': {'aware': 0.8,'awake': 0.8,'alert': 0.8,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,'concussion': 0.8,'attention deficit hyperactivy disorder': 0.8,'alcohol use disorder': 0.8,'attention': 0.8, 'cognitive': 0.8, 'concentration': 1.0},
@@ -185,7 +185,7 @@ dictVocabulary={
 	'Negative feelings': {'negative':0.4, 'feeling': 0.2, 'disgust': 0.8,'panic attacks': 0.8,'cry': 0.8,'mania': 0.4,'depression': 0.9,'distress': 0.9,'lack': 0.15,'frustration': 0.9, 
 						'antidepressant': 0.8,'suicide': 0.8,'lonely': 0.8,'hopeless': 0.8,'fear': 0.8,'boring':0.7, 'lack': 0.4,'angry':0.8, 'disapproval':0.3, 'humiliation':0.8, 'anger': 0.8,'anxiety': 0.8,'nervousness': 0.8,'despair': 0.8,'tearfulness': 0.8,'sadness': 0.8,'guilt': 0.8,'despondency': 0.8},
 	
-	'Pain and discomfort': {'pain': 1.0, 'discomfort': 1.0,'sore throat': 0.8,'cramp': 0.9,'bone fracture': 0.9,'muscle cramp': 0.9,'toothache': 0.9,'headache': 0.9,'ache': 0.9,'stiffness': 0.9,'drug': 0.8,'distress': 0.8,'unpleasant': 0.8}, 
+	'Pain and Discomfort': {'pain': 1.0, 'discomfort': 1.0,'sore throat': 0.8,'cramp': 0.9,'bone fracture': 0.9,'muscle cramp': 0.9,'toothache': 0.9,'headache': 0.9,'ache': 0.9,'stiffness': 0.9,'drug': 0.8,'distress': 0.8,'unpleasant': 0.8}, 
 	
 	'Personal relationships': {'personal': 1.0, 'homosexual': 0.7,'relationship': 0.7,'heterosexual': 0.7,'marriage': 0.7,'friendship': 0.7,'satisfaction': 0.5,'hug': 0.7,'happy': 0.4,'emotionally': 0.4,
 							'intimate': 0.6,'love': 0.5,'support': 0.5,'people': 0.5,'everybody':0.4, 'partnership': 0.7,'distress': 0.7,'share moments': 0.6,'companionship': 0.7,'friend': 0.9, 'family': 0.9, 'alone': 0.9},
@@ -196,7 +196,7 @@ dictVocabulary={
 	
 	'Sexual activity': {'sexual':1.0, 'activity': 0.1, 'physical':0.2 ,'intimacy': 0.4,'fulfillment': 0.2,'expression': 0.1,'drive': 0.1,'desire': 0.25},
 	
-	'Sleep and rest': {'sleep': 1.0,'waking up': 0.8, 'parasomnia': 0.8,'hypersomnia': 0.8,'nightmare':0.4, 'restless leg syndrome': 0.4,'apnea': 0.8,'insomnia': 0.8,'lack of refreshment': 0.4,'rest': 0.97},
+	'Sleep and Rest': {'sleep': 1.0,'waking up': 0.8, 'parasomnia': 0.8,'hypersomnia': 0.8,'nightmare':0.4, 'restless leg syndrome': 0.4,'apnea': 0.8,'insomnia': 0.8,'lack of refreshment': 0.4,'rest': 0.97},
 	
 	'Social support': {'social':0.85, 'support': 0.85, 'encouragement': 0.8,'solve': 0.4,'relationship': 0.8,'roommate': 0.8,'thanks': 0.65, 'help': 0.8,'chill': 0.5,'dude': 0.5,'best':0.3,'friend': 0.7,'physical':0.1,'abuse': 0.4,'verbal': 0.12,'personal': 0.8,'crisis': 0.7,
 					'responsability': 0.8,'assistance': 0.8,'approval': 0.5,'commitment': 0.5,'family': 0.8},
