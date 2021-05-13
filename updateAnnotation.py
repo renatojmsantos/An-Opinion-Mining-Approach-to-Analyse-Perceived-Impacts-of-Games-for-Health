@@ -426,11 +426,11 @@ def annotate(text, polarity):
 										#print(stem)
 										# calculate score
 										if (meronym == pal):
-											print("--------> MATCH meronyms")
+											#print("--------> MATCH meronyms")
 											countPalsDict += 1
 											#score = (prob/total_pals)*0.6
 											score = prob * 0.4
-											print(score, countPalsDict,meronym,pal)
+											#print(score, countPalsDict,meronym,pal)
 											
 											if concept not in scoreDict.keys():
 												scoreDict[concept] = score
