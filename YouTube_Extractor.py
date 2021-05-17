@@ -254,15 +254,21 @@ while 1:
 								#print(search_result["snippet"])
 								titulo = search_result["snippet"]["title"]
 								#titulo = unidecode.unidecode(titulo)
+								description = search_result["snippet"]["description"]
+
 								
 								videoName = titulo.lower()
 								if ( ("lady gaga" not in videoName) and ("ladygaga" not in videoName) and ("lyric" not in videoName) and ("dialysis" not in videoName) and ("fuck it" not in videoName) and ("maristela" not in videoName) and ("killebom" not in videoName) and ("ladies free" not in videoName) and ("brand new band" not in videoName) and ("ivi adamou" not in videoName) and ("talent show" not in videoName) and ("effy" not in videoName) and ("music video" not in videoName) and ("the nanny" not in videoName) and ("josh turner" not in videoName) and ("karaoke" not in videoName) and ("quadriphonix" not in videoName) and ("acoustic" not in videoName) and ("cover" not in videoName) and ("Jerónimo de Sousa" not in videoName) and ("paul johnson" not in videoName) and ("remix" not in videoName) and ("flashmob" not in videoName) and ("ps22 chorus" not in videoName) and ("alvin" not in videoName) and ("chipettes" not in videoName) and ("chipmunk" not in videoName) and ("chipmunks" not in videoName) and ("just dance india" not in videoName) and ("official music video" not in videoName) and ("lyrics" not in videoName)
+									and ("covers" not in description) and ("maristela" not in description) and ("killebom" not in description)
+									and ("ivi adamou" not in description) and ("talent show" not in description) and ("music video" not in description) 
+									and ("the nanny" not in description) and ("josh turner" not in description) and ("karaoke" not in description) and ("quadriphonix" not in description) and ("acoustic" not in description)
+									and ("Jerónimo de Sousa" not in description) and ("paul johnson" not in description) and ("remix" not in description) and ("flashmob" not in description) and ("ps22 chorus" not in description)
+									and ("chipettes" not in description) and ("chipmunk" not in description) and ("chipmunks" not in description) and ("just dance india" not in description) and ("official music video" not in description)
 									and (("just dance" in videoName) or ("justdance" in videoName))):
 									
 									tituloChannel=search_result["snippet"]["channelTitle"]
 									tituloChannel = unidecode.unidecode(tituloChannel) # tira aqui numeros????????
 
-									description = search_result["snippet"]["description"]
 
 									idChannel=search_result["snippet"]["channelId"]
 									videoPublishedAt=search_result["snippet"]["publishedAt"] #2017-02-13T02:52:38Z
@@ -278,11 +284,12 @@ while 1:
 									videoID = search_result["id"]["videoId"]
 									#print(">>>",checkVideoID(str(videoID)))
 
+									print("\nTitulo: ", search_result["snippet"]["title"])
+									#print("Descricao: ", search_result["snippet"]["description"])
+									print("Video ID: ",search_result["id"]["videoId"])
+									print("Published at: ",search_result["snippet"]["publishedAt"])
 									if (checkVideoID(str(videoID)) is False): # videoID nao está na BD ... vai buscar todos os comentarios
-										print("\nTitulo: ", search_result["snippet"]["title"])
-										#print("Descricao: ", search_result["snippet"]["description"])
-										print("Video ID: ",search_result["id"]["videoId"])
-										print("Published at: ",search_result["snippet"]["publishedAt"])
+										
 										#newVideo = True
 										#getInfoVideo(newVideo, initialDate, game_id, opinion_id, dimension_id, titulo, tituloChannel, idChannel, description, dateVideo, videoID)
 										try:
@@ -500,7 +507,7 @@ while 1:
 															commentID = comment_result['snippet']['topLevelComment']['id']
 															
 															if (checkCommentID(str(commentID)) is False):
-
+																print("new comment ! ")
 																comentario = comment_result['snippet']['topLevelComment']['snippet']['textDisplay']
 
 																#comentario = unidecode.unidecode(comentario)
@@ -595,7 +602,7 @@ while 1:
 																except Exception as e:
 																	print("comments -", e)
 															else:
-																#print("comentario ja guardado...")
+																print("comentario ja guardado...")
 																continue
 
 														if nextPT is None:
