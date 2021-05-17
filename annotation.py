@@ -860,8 +860,8 @@ def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment
 						query = "insert into annotation values("+str(annotation_id)+",'"+str(field)+"','"+str(c)+"','"+str(commentID)+"','"+str(game_id)+"','"+str(videoID)+"')"
 						insertToTable(query)
 						
-		else:
-			print("NAO ANOTADO! sem conceitos ...")
+		#else:
+			#print("NAO ANOTADO! sem conceitos ...")
 
 		return annotation_id
 			
