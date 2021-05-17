@@ -150,7 +150,7 @@ dictVocabulary={
 	
 	'Impact': {'impact': 1.0, 'pattern': 0.4, 'surprise': 0.8,'fear': 0.8,'wow':0.4, 'gameplay': 0.9, 'change': 0.38},
 	
-	'Likeability': {'likeability': 1.0, 'good':0.9, 'cool':0.85, 'happy': 0.75,'joy': 0.6,'nice':0.7}, 
+	'Likeability': {'likeability': 1.0, 'good':0.9, 'cool':0.85, 'happy': 0.75,'joy': 0.55,'nice':0.7}, 
 	
 	'Motivation': {'motivation': 1.0, 'task': 0.5, 'dance':0.5,'love':0.8, 'joy': 0.8,'pleasure':0.8},
 	
@@ -174,7 +174,7 @@ dictVocabulary={
 	
 	'Concentration': {'aware': 0.8,'awake': 0.8,'alert': 0.8,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,'concussion': 0.8,'attention deficit hyperactivy disorder': 0.8,'alcohol use disorder': 0.8,'attention': 0.8, 'cognitive': 0.8, 'concentration': 1.0},
 	
-	'Energy': {'energy': 1.0, 'alive': 0.8, 'endurance': 0.8,'sinchonized':0.4, 'enthusiasm': 0.8, 'sedentary':0.35, 'dance':0.85, 'workout':0.9},
+	'Energy': {'energy': 1.0, 'alive': 0.8, 'endurance': 0.8,'sinchonized':0.4, 'enthusiasm': 0.8, 'sedentary':0.35, 'dance':0.65, 'workout':0.9},
 	
 	'Fatigue': {'fatigue': 1.0, 'overexertion': 0.8, 'depression': 0.8, 'anxiety': 0.8,'stress': 0.75, 'disease': 0.8, 'illness': 0.7,'tire': 0.8, 'exhaustion': 0.8},
 	

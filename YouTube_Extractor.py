@@ -64,6 +64,30 @@ def checkVideoID(videoid): # CHECK VIDEO ID DA OPINION ....
 			conn.close()
 	return idBack is not None #idBack
 
+def checkCommentID(commentid):
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		query = "SELECT commentid FROM comment WHERE commentid = '"+ commentid +"' "
+		#print(query)
+		cur.execute(query)
+
+		idBack = cur.fetchone()		
+		cur.close()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack is not None #idBack
+
+
 def countRowsTable(tableName):
 	idBack = None
 	conn = None
@@ -89,18 +113,69 @@ def countRowsTable(tableName):
 			conn.close()
 	return idBack# is not None #idBack
 
+def getLastAnnotationID():
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		query = "select annotationid from annotation order by annotationid desc;"
+
+		#print(query)
+		cur.execute(query)
+		idBack = cur.fetchone() # TUPLO
+		
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
+
+def getLastGameID():
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		query = "select game_id from game order by game_id desc;"
+
+		#print(query)
+		cur.execute(query)
+		idBack = cur.fetchone() # TUPLO
+		
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
 
 #========================================================================================================================================================================
 #========================================================================================================================================================================
 
-gameid = countRowsTable(str('game'))# + 1
-annotationid = countRowsTable(str('annotation'))# + 1
-#dimensionid = countRowsTable(str('dimension'))# + 1
+#gameid = countRowsTable(str('game'))# + 1
+#annotationid = countRowsTable(str('annotation'))# + 1
+
+gameid = getLastGameID()
+annotationid = getLastAnnotationID()
 
 game_id = int(gameid[0])
 annotation_id = int(annotationid[0])
-#dimension_id = int(dimensionid[0])
 
+print("IDS = ",game_id, annotation_id)
 
 giveDate = sys.argv[1]
 interval = sys.argv[2]
@@ -275,8 +350,11 @@ while 1:
 															
 															try:
 																comment = runPreprocessing(comentario)
-																if (comment != "None"):
-																	#game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID
+																#print(type(comment))
+																if (comment != "None" and comment != "none" and comment is not None):
+																	#print(comentario)
+																	#print(comment)
+
 																	#def executeAnnotation(game_id, dimension_id, opinion_id, videoID, comment, commentID, likes, dateComment, isMain):
 																	isMain = "Main"
 																	annotation_id = executeAnnotation(game_id, annotation_id, videoID, comment, comentario, commentID, nr_likes, dateComment, isMain)
@@ -319,7 +397,7 @@ while 1:
 																					
 																					try:
 																						commentReply = runPreprocessing(textReply)
-																						if (commentReply != "None"):
+																						if (commentReply != "None" and commentReply != "none" and commentReply is not None):
 																							#game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID
 																							isMain = "Reply"
 																							annotation_id = executeAnnotation(game_id, annotation_id, videoID, commentReply, textReply, replyID, likesReply, dateReply, isMain)
@@ -385,6 +463,167 @@ while 1:
 										#getInfoVideo(newVideo, nowDate, game_id, opinion_id, dimension_id, titulo, tituloChannel, idChannel, description, dateVideo, videoID)
 										# VAI BUSCAR OS COMENTÁRIOS SÓ A PARTIR DA DATA XXX .. nao dá pra fazer pelo publishedafter
 										#....
+										
+										#if (checkCommentID(str(commentid)) is False):
+										#	pass
+										try:
+											random.shuffle(listaKeys)
+											DEVELOPER_KEY = str(listaKeys[0])
+											yt = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
+											requestStats = yt.videos().list(
+													part='id,statistics', id=videoID, maxResults=100
+											).execute()
+											
+											views = requestStats["items"][0]["statistics"]["viewCount"]
+
+											if(('commentCount' in requestStats["items"][0]["statistics"]) == True):
+												nrCommentsV = requestStats["items"][0]["statistics"]["commentCount"]
+												#contaStatsComments += int(nrCommentsV)
+											else:
+												nrCommentsV=0
+											
+											if(int(nrCommentsV) > 0):
+
+												nextPT = None
+												while 1: #comentarios do videoID
+													try:
+														random.shuffle(listaKeys)
+														DEVELOPER_KEY = str(listaKeys[0])
+														yt_c = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
+
+														comment_response = yt_c.commentThreads().list(
+															part='snippet,replies', videoId=videoID, maxResults=100,
+															order='relevance', textFormat='plainText',pageToken=nextPT).execute()
+														nextPT = comment_response.get('nextPageToken')
+														for comment_result in comment_response.get("items",[]):
+
+															commentID = comment_result['snippet']['topLevelComment']['id']
+															
+															if (checkCommentID(str(commentID)) is False):
+
+																comentario = comment_result['snippet']['topLevelComment']['snippet']['textDisplay']
+
+																#comentario = unidecode.unidecode(comentario)
+																#nrComentarios+=1
+																nr_likes = comment_result['snippet']['topLevelComment']['snippet']['likeCount']
+
+																#print(comment_result['snippet']['topLevelComment']['snippet']['updatedAt'])
+																publishTime = comment_result['snippet']['topLevelComment']['snippet']['updatedAt']
+																#print(publishTime)
+																# updatedAt pq pode incluir possiveis correcoes, ao inves do comment original com "publishedAt"
+
+																try:
+																	dateComment = re.sub('T[0-9:Z]+','',publishTime)
+																except Exception as e:
+																	#print(e)
+																	print("something wrong on convert dates...", e)
+																
+																
+																try:
+																	comment = runPreprocessing(comentario)
+																	#print(type(comment))
+																	if (comment != "None" and comment != "none" and comment is not None):
+																		#print(comentario)
+																		#print(comment)
+
+																		#def executeAnnotation(game_id, dimension_id, opinion_id, videoID, comment, commentID, likes, dateComment, isMain):
+																		isMain = "Main"
+																		annotation_id = executeAnnotation(game_id, annotation_id, videoID, comment, comentario, commentID, nr_likes, dateComment, isMain)
+																		
+																		#print(".... id's --> ",opinion_id, dimension_id) # nao aumentam depois.... colocar aqui toda a anotacao do execute? ou return ID's ... em tuplo..? 
+
+																		nr_replies = comment_result['snippet']['totalReplyCount']
+																		#print(" . . . replies stats = ", nr_replies)
+																		countReplies = 0
+
+																		nextPTreply = None #page token
+																		if (nr_replies > 0):
+																			try:
+																				random.shuffle(listaKeys)
+																				DEVELOPER_KEY = str(listaKeys[0])
+																				yt_r = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
+
+																				while (countReplies <= nr_replies):
+																					commentsReplies = yt_r.comments().list(
+																						parentId = commentID, part='id,snippet', maxResults=100, pageToken=nextPTreply).execute()
+																					nextPTreply = commentsReplies.get('nextPageToken')
+
+																					if(nextPTreply is None):
+																						break
+
+																					for r in commentsReplies.get("items",[]):
+																						#print(r)
+																						replyID = r['id']
+																						textReply = r['snippet']['textDisplay']
+																						likesReply = r['snippet']['likeCount']
+																						publishedAtReply = r['snippet']['updatedAt']
+
+																						try:
+																							dateReply = re.sub('T[0-9:Z]+','',publishedAtReply)
+																						except Exception as e:
+																							#print(e)
+																							print("something wrong on convert dates...", e)
+																					
+																						countReplies+=1
+																						
+																						try:
+																							commentReply = runPreprocessing(textReply)
+																							if (commentReply != "None" and commentReply != "none" and commentReply is not None):
+																								#game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID
+																								isMain = "Reply"
+																								annotation_id = executeAnnotation(game_id, annotation_id, videoID, commentReply, textReply, replyID, likesReply, dateReply, isMain)
+																								#opinion_id = ids[0]
+																								#annotation_id = ids
+																								#print(".... id's --> ", opinion_id, dimension_id)
+																						except Exception as e:
+																							print("replys -", e)	
+																			except HttpError as e:
+																				print("comments() - replies — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
+																				if("quotaExceeded" in str(e.content)):
+																					time.sleep(0.1)
+																			#except (ConnectionError, ReadTimeout):
+																				#print("ERROR! Connection or TIME OUT!")
+																			except Exception as e:
+																				print("get replys - ", e)
+																				#print("comments() - replies — something wrong ...")
+																		else:
+																			continue
+																	#print(" . . . replies lidos = ",countReplies)
+																	else:
+																		#skip statements inside the loop
+																		continue
+																except Exception as e:
+																	print("comments -", e)
+															else:
+																#print("comentario ja guardado...")
+																continue
+
+														if nextPT is None:
+															#time.sleep(5)
+															#print(". . . nr comentarios total = ",nrComentarios)
+															#print(". . . stats total comentarios = ", contaStatsComments)
+															break
+
+													except HttpError as e:
+														print("commentThreads() — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
+														#commentsDisabled
+														if("quotaExceeded" in str(e.content)):
+															print("SEM QUOTA")
+															time.sleep(0.1)
+														if("commentsDisabled" in str(e.content)):
+															print("COMENTARIOS DESATIVADOS...")
+															break
+													#except (ConnectionError, ReadTimeout):
+														#print("ERROR! Connection or TIME OUT!")
+													except Exception as ex:
+														print("commentThreads() - ", ex)
+											else:
+												#sem comentarios
+												continue
+
+										except Exception as e:
+											print("new comments total - ", e)
+
 								else:
 									#print(" X REJECT! lady gaga or something else\n")
 									continue

@@ -3,6 +3,8 @@
 
 from annotation import * 
 
+import time
+
 #from vaderSentiment import SentimentIntensityAnalyzer
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
@@ -127,8 +129,8 @@ def annotate(text, polarity):
 					#score=0.00
 					if (c in pal):
 						#print("----> emolex")
-						countPalsDict += 1
-						score = (v*prob)*2
+						countPalsDict += 0.35 #1
+						score = (v*prob)*1.8 #2
 						#print(score, countPalsDict, c,pal)
 						if concept not in scoreDict.keys():
 							scoreDict[concept] = score
@@ -139,7 +141,7 @@ def annotate(text, polarity):
 							#print(pal, conta, v, prob, score)
 							scoreDict[concept] += score
 			else:
-				pass
+				continue
 
 			#print(score)
 			# check dict
@@ -152,7 +154,7 @@ def annotate(text, polarity):
 				if (lemma == pal): 
 					# total_pals_dict
 					#print("--> MATCH lemma")
-					countPalsDict += 1
+					countPalsDict += 0.65 #1
 
 					#score = (prob/total_pals)*1.6
 					score = prob*1.5
@@ -191,7 +193,7 @@ def annotate(text, polarity):
 									scoreDict[concept] += score
 						except Exception as e:
 							#print(e)
-							pass
+							continue
 				else:
 					for syn in wordnet.synsets(lemma):
 						#print(syn.name(), syn.lemma_names())
@@ -204,7 +206,8 @@ def annotate(text, polarity):
 								# condicoes...
 								if (concept == "Negative feelings" or concept == "Frustration" or concept == "Positive feelings" or concept == "Pain and discomfort" 
 									or concept == "Fatigue" or concept == "Pleasure" or concept == "Enjoyment and Fun"):
-									pass
+									continue
+									#break
 								else:
 									antonym = l.antonyms()[0].name()
 									stem = sno.stem(antonym)
@@ -212,7 +215,7 @@ def annotate(text, polarity):
 								#print("---> "+l.name())
 								synonym = l.name()
 								stem = sno.stem(synonym)
-
+							#print(stem)
 							if (stem not in stems):
 
 								stems.append(stem)
@@ -234,7 +237,7 @@ def annotate(text, polarity):
 										scoreDict[concept] = score
 									else:
 										scoreDict[concept] += score
-								elif(antonym != "" and antonym == pal):
+								elif (antonym != "" and antonym == pal):
 									#print("--> MATCH antonym")
 									countPalsDict += 1
 
@@ -291,10 +294,11 @@ def annotate(text, polarity):
 
 									except Exception as e:
 										#print(e)
-										pass
+										continue
 									
 							else:
 								continue
+								#break #???????????
 
 						if (lemma not in lexs):
 							lexs.append(lemma)
@@ -357,9 +361,10 @@ def annotate(text, polarity):
 
 											except Exception as e:
 												#print(e)
-												pass
+												continue
 									else:
 										continue
+										#break #???
 							
 							
 							#countPalsDict = 0
@@ -410,9 +415,10 @@ def annotate(text, polarity):
 														scoreDict[concept] += score
 											except Exception as e:
 												#print(e)
-												pass
+												continue
 									else:
 										continue
+										#break#???
 
 							#countPalsDict = 0
 							# parte de algo
@@ -463,10 +469,11 @@ def annotate(text, polarity):
 														scoreDict[concept] += score
 											except Exception as e:
 												#print(e)
-												pass
+												continue
 
 									else:
 										continue
+										#break #???
 							"""
 							print("----> root hypernyms")
 							# conceitos mais gerais
@@ -509,6 +516,7 @@ def annotate(text, polarity):
 							
 						else:
 							continue
+							#break #????
 						
 					
 								
@@ -1143,6 +1151,7 @@ def update():
 								deleteRow(query)
 								query = "insert into annotation values("+str(annotationid)+",'"+str(field)+"','"+str(c)+"','"+str(commentid)+"','"+str(gameid)+"','"+str(videoid)+"')"
 								insertToTable(query)
+								
 				else:
 					print("NAO ANOTADO! sem conceitos ...")
 					continue
