@@ -150,7 +150,7 @@ dictVocabulary={
 	
 	'Impact': {'impact': 1.0, 'pattern': 0.4, 'surprise': 0.8,'fear': 0.8,'wow':0.4, 'gameplay': 0.9, 'change': 0.38},
 	
-	'Likeability': {'likeability': 1.0, 'good':0.9, 'cool':0.85, 'happy': 0.75,'joy': 0.55,'nice':0.7}, 
+	'Likeability': {'likeability': 1.0, 'good':0.9, 'cool':0.85, 'happy': 0.75,'smiling': 0.65,'joy': 0.55,'nice':0.7}, 
 	
 	'Motivation': {'motivation': 1.0, 'task': 0.5, 'dance':0.5,'love':0.8, 'joy': 0.8,'pleasure':0.8},
 	
@@ -162,7 +162,7 @@ dictVocabulary={
 	
 	'Support': {'support':1.0, 'help':0.8, 'service':0.8,'team':0.5,'call':0.8,'contact':0.8,'correct':0.8,'how':0.9, 'should':0.23,'wish': 0.7,'software': 0.7},
 	
-	'Trust': {'trust': 1.0, 'behavior': 0.8, 'disappointed':0.8, 'easy':0.8, 'quality':0.8, 'exist':0.8, 'handhold':0.8, 'reliev':0.8, 'cute':0.8, 'sooth':0.8,'reliable':0.8,'secure':0.8,'pleasure': 0.5},
+	'Trust': {'trust': 1.0, 'behavior': 0.8, 'disappointed':0.8, 'handshake':0.4, 'easy':0.8, 'quality':0.8, 'exist':0.8, 'handhold':0.8, 'reliev':0.8, 'cute':0.8, 'sooth':0.8,'reliable':0.8,'secure':0.8,'pleasure': 0.5},
 	
 	'User Differences': {'user':0.8, 'group': 0.5,'head-to-head':0.8,'beginner':0.9, 'veteran':0.9,'pro':0.6 ,'player':0.7, 'amateur':0.9,'professional':0.9,'finalist':0.6, 'professional':0.65, 'dancers':0.65,
 						'buyer': 0.7,'target': 0.7,'feature': 0.7, 'difference': 0.8, 'if': 0.55},
@@ -178,7 +178,7 @@ dictVocabulary={
 	
 	'Fatigue': {'fatigue': 1.0, 'overexertion': 0.8, 'depression': 0.8, 'anxiety': 0.8,'stress': 0.75, 'disease': 0.8, 'illness': 0.7,'tire': 0.8, 'exhaustion': 0.8},
 	
-	'Learning': {'cognitive': 0.8, 'education': 0.8,'knowledge': 0.7,'processing deficits': 0.8,'auditory processing disorder': 0.8,'dyscalculia': 0.8,'dysgraphia': 0.8,'dyslexia': 0.8,'pedagogy': 0.7, 'learn': 1.0},
+	'Learning': {'cognitive': 0.8, 'education': 0.8,'knowledge': 0.6,'processing deficits': 0.8,'auditory processing disorder': 0.75,'dyscalculia': 0.8,'dysgraphia': 0.8,'dyslexia': 0.8,'pedagogy': 0.7, 'learn': 1.0},
 	
 	'Memory': {'forget': 0.8, 'alzheimer': 0.8, 'old': 0.6, 'dementia': 0.8,'parkinson': 0.8,'korsakoff': 0.8,'huntington': 0.8,'autism': 0.8,'nostalgia':0.9, 'remember':0.8, 'memory': 1.0, 'cognitive': 0.8},
 	
