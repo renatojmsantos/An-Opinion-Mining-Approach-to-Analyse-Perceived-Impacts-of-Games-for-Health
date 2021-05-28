@@ -344,6 +344,8 @@ while 1:
 
 															comentario = comment_result['snippet']['topLevelComment']['snippet']['textDisplay']
 
+															#comentario = "OMG I don’t expect that JD brought me behavioral abnormalities to my body and affected my self-esteem 😡😡😡"
+															
 															#comentario = unidecode.unidecode(comentario)
 															#nrComentarios+=1
 															nr_likes = comment_result['snippet']['topLevelComment']['snippet']['likeCount']
@@ -361,6 +363,7 @@ while 1:
 															
 															try:
 																comment = runPreprocessing(comentario)
+																#comment = runPreprocessing("OMG I don’t expect that JD brought me behavioral abnormalities to my body and affected my self-esteem")
 																#print(type(comment))
 																if (comment != "None" and comment != "none" and comment is not None):
 																	#print(comentario)

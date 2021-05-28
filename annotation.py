@@ -26,6 +26,7 @@ from flair.models import SequenceTagger
 tagger = SequenceTagger.load("hunflair-disease")
 
 
+
 def insertToTable(query):
 	idBack = None
 	conn = None
@@ -126,7 +127,7 @@ def annotate(text, polarity):
 	#print(pals_lemmas)
 
 	text_lemmas = " ".join(pals_lemmas)
-	# print(text_lemmas)
+	#print(text_lemmas)
 
 	score = 0.00
 	scoreDict = {}
@@ -797,7 +798,7 @@ def getConceptsAnnotated(comment, polarity):
 		DictResult = annotate(str(comment), polarity) 
 		if(bool(DictResult)):
 			#print("\n")
-			#print(DictResult)
+			print(DictResult)
 			for c,v in DictResult.items():	
 				if (v>0.70):
 					#print(c)
@@ -832,7 +833,7 @@ def getConceptsAnnotated(comment, polarity):
 def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment, commentID, likes, dateComment, isMain):
 
 	try:
-
+		print(original_comment)
 		#polarity = getSentiment(comment)
 		polarity = getSentiment(original_comment)
 
