@@ -175,7 +175,7 @@ dictVocabulary={
 	'Bodily image and Appearance': {'bodily':1.0, 'image': 0.5, 'appearance': 1.0, 'handicapped': 0.6,'physical': 0.9,'self-concept': 0.8,'body': 0.7,'limb': 0.6,'artificial': 0.5,
 									'clothing': 0.6,'make-up': 0.7,'impairment': 0.6,'look': 0.6, 'beard':0.25 ,'skinny':0.6, 'weight':0.35,'body': 0.7},
 	
-	'Concentration': {'aware': 0.8,'awake': 0.8,'alert': 0.8,'performance': 0.9,'insomnia': 0.8,'focus': 0.8,'pressure': 0.5,'thinking': 0.7,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
+	'Concentration': {'aware': 0.8,'awake': 0.8,'alert': 0.8,'performance': 0.9,'thinking':0.55,'insomnia': 0.8,'focus': 0.8,'pressure': 0.5,'thinking': 0.7,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
 					'concussion': 0.8,'attention deficit hyperactivy disorder': 0.8,'alcohol use disorder': 0.8,'attention': 0.9, 'cognitive': 0.8, 'concentration': 1.0},
 	
 	'Energy': {'energy': 1.0, 'alive': 0.8, 'endurance': 0.8,'sinchonized':0.4, 'enthusiasm': 0.6, 'sedentary':0.35, 'dance':0.50, 'workout':0.9},
