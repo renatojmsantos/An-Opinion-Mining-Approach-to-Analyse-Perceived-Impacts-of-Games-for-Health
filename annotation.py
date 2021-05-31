@@ -84,8 +84,8 @@ def getDiseases(comment):
 	#return diseases
 
 def annotate(text, polarity):
-	print("\n>>>>>>> ",text)
-	print(">>> ", polarity)
+	#print("\n>>>>>>> ",text)
+	#print(">>> ", polarity)
 
 	sno = nltk.stem.SnowballStemmer('english') 
 
@@ -839,6 +839,9 @@ def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment
 		#print(original_comment)
 		#polarity = getSentiment(comment)
 		polarity = getSentiment(original_comment)
+
+		print("\n>>>>>>> ",original_comment)
+		print(">>> ", polarity)
 
 		#isMain = mainComment[row] # TRUE -> comentario principal
 
