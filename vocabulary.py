@@ -125,9 +125,9 @@ dictVocabulary={
 	'Comfort': {'comfort': 1.0, 'problem':0.7,'bad':0.3,'mistake':0.3,'crash':0.3,'alert':0.3,'lock':0.3,'poor':0.3,'freeze':0.3,'slow':0.3,'physical': 0.4, 'workout': 0.7, 'fits':0.25, 
 				'comfy':0.9,'feel':0.6, 'cozy':0.9, 'pleasure':0.6, 'well':0.3, 'being':0.1, 'happy': 0.6, 'physical need': 0.9, 'body':0.4, 'care':0.2, 'active':0.2},
 	
-	'Detailed Usability': {'detailed usability': 1.0, 'problem': 0.7, 'great': 0.4, 'detail': 0.4, 'function': 0.7, 'satisfaction': 0.6,'usability': 0.9, 'quality': 0.6,'perfect': 0.6,'perfect': 0.6,'cool': 0.6,'interest': 0.6,'improve': 0.6,'price': 0.6,
-					'feel': 0.6,'well': 0.4,'definite': 0.5,'memorability': 0.6,'error': 0.6,'efficiency': 0.6,'memory': 0.6,'favorite': 0.5,'learn': 0.6,'good': 0.5,'sound': 0.6,'fun': 0.6,'disappoint': 0.6,'bad': 0.6,'prettier': 0.6,'issue': 0.6,'recommend': 0.6,
-					'easy': 0.6,'graphic': 0.6,'overall': 0.55,'love': 0.6,'worth': 0.6,'nice': 0.3,'really': 0.4,'best':0.5 },
+	'Detailed Usability': {'detailed usability': 1.0, 'problem': 0.8, 'performance':0.8, 'latencies':0.8,'great': 0.4, 'detail': 0.4, 'function': 0.7, 'satisfaction': 0.8,'usability': 0.9, 'quality': 0.6,'perfect': 0.6,'perfect': 0.6,'cool': 0.6,'interest': 0.6,'improve': 0.6,'price': 0.6,
+					'feel': 0.6,'well': 0.4,'definite': 0.5,'memorability': 0.8,'effectiveness':0.8,'error': 0.8,'efficiency': 0.8,'memory': 0.6,'favorite': 0.5,'learnability': 0.8,'good': 0.5,'sound': 0.6,'fun': 0.6,'disappoint': 0.6,'bad': 0.6,'prettier': 0.6,'issue': 0.6,
+					'recommend': 0.6,'easy': 0.6,'graphic': 0.6,'overall': 0.55,'love': 0.6,'worth': 0.6,'nice': 0.3,'really': 0.4,'best':0.5},
 	
 	'Enchantment': {'enchantment': 1.0, 'concentration': 0.7,'love': 0.9,'clapping':0.7,'attention': 0.8,'hearts':0.6,'liveliness': 0.7,'grinning':0.70,'fullness': 0.8,'pleasure': 0.9,'disorientation': 0.7,'experience': 0.5},
 	
@@ -144,18 +144,18 @@ dictVocabulary={
 					'grrrr': 0.4,'anger': 1.0,'hardest': 0.2, 'disadvantage': 0.1, 'flavor':0.3,'scaletta':0.3,'vito':0.2,'insane':0.4,'heck':0.3,'gasp':0.3,'habit':0.3,'melodramat':0.3,'cheat':0.3,'grow':0.2,'flat':0.4,'plain':0.4,
 					'needle':0.1,'grin':0.2,'afterward':0.4,'fuel':0.2,'injury':0.6,'insult':0.6,'angry':0.8,'perpetu':0.6,'pouting': 0.75,'insult': 0.5, 'perpetu':0.3, 'nerv': 0.3, 'unfair':0.4, 'annoy':0.8, 'incompatibility':0.3},
 	
-	'Hedonic': {'hedonic': 1.0, 'fun': 0.8, 'superb':0.8,'enjoy': 0.8, 'love':0.8,'good':0.5,'super':0.4,'awesome':0.8,'happy':0.6,'friend':0.5,'communicate':0.3,'challenge':0.5, 'fulfillment': 0.6, 'need': 0.1, 'pleasure':0.7,
-				'frustration':0.7, 'annoy': 0.8, 'entertain': 0.8, 'game': 0.7,'multiplayer': 0.7, 'lyric':0.8,'gameplay': 0.7, 'play': 0.7, 'humor': 0.8, 'workout': 0.8,'regret': 0.4, 'intrigu': 0.5,'stagger': 0.4,
+	'Hedonic': {'hedonic': 1.0, 'fun': 0.8, 'superb':0.8,'enjoy': 0.8, 'excitement':0.9, 'love':0.7,'good':0.5,'super':0.4,'awesome':0.8,'happy':0.6,'friend':0.5,'communicate':0.3,'challenge':0.5, 'fulfillment': 0.6, 'need': 0.1, 'pleasure':0.9,
+				'frustration':0.9, 'annoy': 0.8, 'entertain': 0.8, 'game': 0.7,'multiplayer': 0.7, 'lyric':0.8,'gameplay': 0.7, 'play': 0.7, 'humor': 0.8, 'workout': 0.8,'regret': 0.4, 'intrigu': 0.5,'stagger': 0.4,
 				'nevertheless': 0.4,'nostalgia': 0.5,'afterward': 0.4,'fell': 0.7,'incompatibility': 0.2,'tension': 0.4,'chore': 0.4,'addict': 0.6,'catch': 0.2,'excit': 0.6,'grin': 0.4,'cute': 0.5,'lighter': 0.2,'felt': 0.3,'sooth': 0.3,'hate': 0.5,
 				'funnier': 0.6,'boredom': 0.6},
 	
-	'Impact': {'impact': 1.0, 'pattern': 0.4, 'surprise': 0.8,'zany':0.5,'fear': 0.8,'wow':0.4, 'gameplay': 0.9, 'change': 0.38},
+	'Impact': {'impact': 1.0, 'pattern': 0.4, 'surprise': 0.8,'zany':0.5,'fear': 0.8,'wow':0.4, 'gameplay': 0.9, 'change': 0.37},
 	
 	'Likeability': {'likeability': 1.0, 'good':0.9, 'cool':0.85, 'happy': 0.75,'clapping':0.73,'smiling': 0.69,'joy': 0.55,'smiling':0.71,'grinning':0.70,'nice':0.7}, 
 	
 	'Motivation': {'motivation': 1.0, 'task': 0.3, 'dance':0.35,'love':0.6, 'joy': 0.65,'pleasure':0.65},
 	
-	'Overall Usability': {'overall usability': 1.0, 'update':0.8,'feature':0.8,'new': 0.55, 'version':0.6, 'upgrade':0.8, 'edition': 0.7, 'previous':0.6},
+	'Overall Usability': {'overall usability': 1.0, 'update':0.8,'experience':0.9, 'retention':0.9, 'expectation':0.9, 'anticipation':0.9, 'old':0.7, 'satisfaction':0.9, 'effectiveness':0.9, 'feature':0.73,'new': 0.7, 'version':0.6, 'upgrade':0.8, 'edition': 0.7, 'previous':0.6},
 	
 	'Pleasure': {'pleasure': 1.0, 'fun': 0.8, 'moneybag':0.35, 'enjoy': 0.7, 'love': 0.7, 'entertain': 0.7, 'awesome': 0.8, 'stimulation':0.5, 'felt': 0.6, 'sooth': 0.7, 'adict': 0.7, 'countless': 0.5,'everytim': 0.5,'perpetu': 0.5,
 				'regardless': 0.5,'shatter': 0.5,'intrigu': 0.5,'afterward': 0.5,'laugh': 0.7,'nevertheless': 0.5,'fell': 0.6,'incompatibility': 0.3,'chore': 0.3,'humor': 0.7,'grin': 0.4,
@@ -165,13 +165,13 @@ dictVocabulary={
 	
 	'Trust': {'trust': 1.0, 'behavior': 0.8, 'disappointed':0.8, 'handshake':0.4, 'easy':0.8, 'quality':0.8, 'exist':0.8, 'handhold':0.8, 'reliev':0.8, 'cute':0.8, 'sooth':0.8,'reliable':0.8,'secure':0.8,'pleasure': 0.5},
 	
-	'User Differences': {'user':0.8, 'group': 0.5,'head-to-head':0.8,'beginner':0.9, 'veteran':0.9,'pro':0.6 ,'player':0.7, 'amateur':0.9,'professional':0.9,'finalist':0.6, 'professional':0.65, 'dancers':0.65,
+	'User Differences': {'user':0.8, 'group': 0.5,'head-to-head':0.8,'beginner':0.9, 'veteran':0.9,'pro':0.6 ,'reliability':0.7, 'features':0.6,'player':0.7, 'amateur':0.9,'professional':0.9,'finalist':0.6, 'professional':0.65, 'dancers':0.65,
 						'buyer': 0.7,'target': 0.7,'feature': 0.7, 'difference': 0.8, 'if': 0.55},
 
 
 
 	'Bodily image and Appearance': {'bodily':1.0, 'image': 0.5, 'appearance': 1.0, 'handicapped': 0.6,'physical': 0.9,'self-concept': 0.8,'body': 0.7,'limb': 0.6,'artificial': 0.5,
-									'clothing': 0.6,'make-up': 0.7,'impairment': 0.6,'look': 0.6, 'beard':0.25 ,'skinny':0.6, 'weight':0.25,'body': 0.7},
+									'clothing': 0.6,'make-up': 0.7,'impairment': 0.6,'look': 0.6, 'beard':0.25 ,'skinny':0.6, 'weight':0.35,'body': 0.7},
 	
 	'Concentration': {'aware': 0.8,'awake': 0.8,'alert': 0.8,'insomnia': 0.8,'focus': 0.8,'pressure': 0.5,'thinking': 0.7,'attention': 0.8,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,'concussion': 0.8,'attention deficit hyperactivy disorder': 0.8,'alcohol use disorder': 0.8,'attention': 0.8, 'cognitive': 0.8, 'concentration': 1.0},
 	
