@@ -20,7 +20,7 @@ def annotate(text, polarity):
 
 	print("\n>>>>>>> ",text)
 	print(">>> ", polarity)
-	
+
 	sno = nltk.stem.SnowballStemmer('english') 
 
 	# POS Tagger
@@ -1161,9 +1161,9 @@ def update():
 
 		#DELETE FROM annotation WHERE annotationid > XXX;
 		#print("fim...")
-		#print("vai apagar...")
-		#query = "delete from annotation where annotationid > "+str(annotationid)+""
-		#deleteRows(query)
+		print("vai apagar...")
+		query = "delete from annotation where annotationid > "+str(annotationid)+""
+		deleteRows(query)
 	except Exception as e:
 		print(e)
 
