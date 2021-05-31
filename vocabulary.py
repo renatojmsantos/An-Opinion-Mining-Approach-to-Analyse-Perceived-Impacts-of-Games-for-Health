@@ -173,7 +173,7 @@ dictVocabulary={
 
 
 	'Bodily image and Appearance': {'bodily':1.0, 'image': 0.55, 'appearance': 1.0, 'handicapped': 0.75,'physical': 0.9,'self-concept': 0.8,'body': 0.95,'limb': 0.6,'artificial': 0.5,
-									'clothes': 0.8,'dress':0.78,'make-up': 0.72,'impairment': 0.6,'acne':0.8,'ugly':0.8,'beautiful':0.77,'look': 0.67, 'fat':0.8,'beard':0.25 ,'skinny':0.8, 'weight':0.6},
+									'clothes': 0.8,'boots':0.75,'dress':0.78,'make-up': 0.72,'impairment': 0.6,'acne':0.8,'ugly':0.8,'beautiful':0.77,'look': 0.67, 'fat':0.8,'beard':0.25 ,'skinny':0.8, 'weight':0.6},
 	
 	'Concentration': {'aware': 0.8,'awake': 0.8,'alert': 0.8,'performance': 0.9,'thinking':0.55,'insomnia': 0.8,'focus': 0.8,'pressure': 0.5,'thinking': 0.7,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
 					'concussion': 0.8,'attention deficit hyperactivy disorder': 0.8,'alcohol use disorder': 0.8,'attention': 0.9, 'cognitive': 0.8, 'concentration': 1.0},
