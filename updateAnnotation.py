@@ -18,8 +18,8 @@ tagger = SequenceTagger.load("hunflair-disease")
 
 def annotate(text, polarity):
 
-	print("\n>>>>>>> ",text)
-	print(">>> ", polarity)
+	#print("\n>>>>>>> ",text)
+	#print(">>> ", polarity)
 
 	sno = nltk.stem.SnowballStemmer('english') 
 
@@ -1139,6 +1139,8 @@ def update():
 				#print(commentid, gameid, videoid, comment)
 				# update ... annotation id = 1,2,3...
 				concepts = getConceptsAnnotated(str(comment), str(polarity))
+				print("\n>>>>>>> ",original_comment)
+				print(">>> ", polarity)
 				#print(concepts)
 				if (len(concepts)>0):
 					for d in dictFields.items():

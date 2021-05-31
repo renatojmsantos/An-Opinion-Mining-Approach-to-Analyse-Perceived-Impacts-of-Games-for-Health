@@ -347,13 +347,15 @@ def slangs(text):
 
 def runPreprocessing(t):
 	#print("running clean ... ")
-	#check csv slangs...
+	
 	#print("-----> ",t)
-	t = clearText(t)
-	#t = slangs(t)
-	if(len(t) >= 3):
+	
+	#t = clearText(t)
+	
+	if(len(t) > 1 and isEnglish(str(t)) and len(t) < 1800):
 		#print("\n",t)
 		#print(len(t))
+		t = clearText(t)
 		t = caracteresRepetidos(t)
 		#print(t)
 		if(isEnglish(str(t))):

@@ -153,7 +153,7 @@ dictVocabulary={
 	
 	'Likeability': {'likeability': 1.0, 'good':0.9, 'cool':0.85, 'happy': 0.75,'clapping':0.73,'smiling': 0.69,'joy': 0.55,'smiling':0.71,'grinning':0.70,'nice':0.7}, 
 	
-	'Motivation': {'motivation': 1.0, 'task': 0.3, 'dance':0.35,'love':0.6, 'joy': 0.65,'pleasure':0.65},
+	'Motivation': {'motivation': 1.0, 'task': 0.1, 'dance':0.25,'love':0.5,'curiosity': 0.5,'competition': 0.5,'joy': 0.4,'pleasure':0.5},
 	
 	'Overall Usability': {'overall usability': 1.0, 'update':0.8,'experience':0.9, 'retention':0.9, 'expectation':0.9, 'anticipation':0.9, 'old':0.7, 'satisfaction':0.9, 'effectiveness':0.9, 'feature':0.73,'new': 0.7, 'version':0.6, 'upgrade':0.8, 'edition': 0.7, 'previous':0.6},
 	
