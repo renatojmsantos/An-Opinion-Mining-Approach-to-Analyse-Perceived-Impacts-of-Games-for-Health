@@ -84,6 +84,9 @@ def getDiseases(comment):
 	#return diseases
 
 def annotate(text, polarity):
+	print("\n>>>>>>> ",text)
+	print(">>> ", polarity)
+
 	sno = nltk.stem.SnowballStemmer('english') 
 
 	# POS Tagger
@@ -798,7 +801,7 @@ def getConceptsAnnotated(comment, polarity):
 		DictResult = annotate(str(comment), polarity) 
 		if(bool(DictResult)):
 			#print("\n")
-			print(DictResult)
+			#print(DictResult)
 			for c,v in DictResult.items():	
 				if (v>0.70):
 					#print(c)
@@ -833,7 +836,7 @@ def getConceptsAnnotated(comment, polarity):
 def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment, commentID, likes, dateComment, isMain):
 
 	try:
-		print(original_comment)
+		#print(original_comment)
 		#polarity = getSentiment(comment)
 		polarity = getSentiment(original_comment)
 
@@ -856,7 +859,7 @@ def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment
 				for c in conceitos:
 					if (str(c) in concepts):
 						annotation_id+=1
-						#print(annotationid,"... "+str(field)+" --> "+str(c))
+						print(annotation_id,"... "+str(field)+" --> "+str(c))
 											
 						query = "insert into annotation values("+str(annotation_id)+",'"+str(field)+"','"+str(c)+"','"+str(commentID)+"','"+str(game_id)+"','"+str(videoID)+"')"
 						insertToTable(query)

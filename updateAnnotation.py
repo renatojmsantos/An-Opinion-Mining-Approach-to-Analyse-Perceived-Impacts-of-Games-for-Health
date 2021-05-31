@@ -18,6 +18,9 @@ tagger = SequenceTagger.load("hunflair-disease")
 
 def annotate(text, polarity):
 
+	print("\n>>>>>>> ",text)
+	print(">>> ", polarity)
+	
 	sno = nltk.stem.SnowballStemmer('english') 
 
 	# POS Tagger
@@ -66,8 +69,8 @@ def annotate(text, polarity):
 	score = 0.00
 	scoreDict = {}
 
-	print("\n>>>>>>> ",text_lemmas)
-	print(">>> ", polarity)
+	#print("\n>>>>>>> ",text_lemmas)
+	#print(">>> ", polarity)
 	total_pals = len(word_tokenize(text_lemmas))
 
 	t = NRCLex(str(text_lemmas))
@@ -1087,7 +1090,7 @@ def getConceptsAnnotated(comment, polarity):
 		DictResult = annotate(str(comment), polarity) 
 		if(bool(DictResult)):
 			#print("\n")
-			print(DictResult)
+			#print(DictResult)
 			for c,v in DictResult.items():	
 				if (v>0.70):
 					#print(c)
@@ -1157,9 +1160,10 @@ def update():
 					continue
 
 		#DELETE FROM annotation WHERE annotationid > XXX;
-		print("vai apagar...")
-		query = "delete from annotation where annotationid > "+str(annotationid)+""
-		deleteRows(query)
+		#print("fim...")
+		#print("vai apagar...")
+		#query = "delete from annotation where annotationid > "+str(annotationid)+""
+		#deleteRows(query)
 	except Exception as e:
 		print(e)
 
