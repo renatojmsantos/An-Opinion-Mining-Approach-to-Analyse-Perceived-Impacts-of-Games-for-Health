@@ -226,7 +226,7 @@ def annotate(text, polarity):
 					countPalsDict += 0.65 #1
 
 					#score = (prob/total_pals)*1.6
-					score = prob*1.5
+					score = prob*1.4
 					#print(score,countPalsDict,lemma,pal)
 
 					#score = score/total_pals_dict
@@ -250,7 +250,7 @@ def annotate(text, polarity):
 								countPalsDict += 1
 
 								#score = (prob/total_pals)*1.0
-								score = prob*0.95
+								score = prob*1.0
 								#print(score, countPalsDict, lemma,pal)
 
 								#score = score/total_pals_dict
@@ -296,7 +296,7 @@ def annotate(text, polarity):
 									countPalsDict += 1
 
 									#score = (prob/total_pals)*1.0
-									score = prob*0.75
+									score = prob*0.72
 									#print(score, countPalsDict, synonym,pal)
 
 									#score = score/total_pals_dict
@@ -311,7 +311,7 @@ def annotate(text, polarity):
 									countPalsDict += 1
 
 									#score = (prob/total_pals)*1.0
-									score = prob*0.7
+									score = prob*0.67
 									#print(score, countPalsDict, antonym,pal)
 
 									#score = score/total_pals_dict
@@ -350,7 +350,7 @@ def annotate(text, polarity):
 											countPalsDict += 1
 
 											#score = (prob/total_pals)*1.0
-											score = prob*0.65
+											score = prob*0.62
 											#print(score, countPalsDict, stem,pal)
 
 											#score = score/total_pals_dict

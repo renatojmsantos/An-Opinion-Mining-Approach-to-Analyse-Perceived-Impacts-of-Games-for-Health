@@ -160,7 +160,7 @@ def annotate(text, polarity):
 					countPalsDict += 0.65 #1
 
 					#score = (prob/total_pals)*1.6
-					score = prob*1.5
+					score = prob*1.4
 					#print(score,countPalsDict,lemma,pal)
 
 					#score = score/total_pals_dict
@@ -181,10 +181,10 @@ def annotate(text, polarity):
 							if(similarity > 0.19):
 								#print("--> lemma")
 								#print("similarity = ",similarity)
-								countPalsDict += 1
+								countPalsDict += 0.9
 
 								#score = (prob/total_pals)*1.0
-								score = prob*0.95
+								score = prob*1.0
 								#print(score, countPalsDict, lemma,pal)
 
 								#score = score/total_pals_dict
