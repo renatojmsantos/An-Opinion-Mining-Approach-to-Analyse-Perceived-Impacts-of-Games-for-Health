@@ -172,17 +172,17 @@ dictVocabulary={
 
 
 
-	'Bodily image and Appearance': {'bodily':1.0, 'image': 0.5, 'appearance': 1.0, 'handicapped': 0.6,'physical': 0.9,'self-concept': 0.8,'body': 0.7,'limb': 0.6,'artificial': 0.5,
-									'clothing': 0.6,'make-up': 0.7,'impairment': 0.6,'look': 0.6, 'beard':0.25 ,'skinny':0.6, 'weight':0.35,'body': 0.7},
+	'Bodily image and Appearance': {'bodily':1.0, 'image': 0.55, 'appearance': 1.0, 'handicapped': 0.75,'physical': 0.9,'self-concept': 0.8,'body': 0.95,'limb': 0.6,'artificial': 0.5,
+									'clothes': 0.8,'dress':0.78,'make-up': 0.72,'impairment': 0.6,'acne':0.8,'ugly':0.8,'beautiful':0.77,'look': 0.67, 'fat':0.8,'beard':0.25 ,'skinny':0.8, 'weight':0.6},
 	
 	'Concentration': {'aware': 0.8,'awake': 0.8,'alert': 0.8,'performance': 0.9,'thinking':0.55,'insomnia': 0.8,'focus': 0.8,'pressure': 0.5,'thinking': 0.7,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
 					'concussion': 0.8,'attention deficit hyperactivy disorder': 0.8,'alcohol use disorder': 0.8,'attention': 0.9, 'cognitive': 0.8, 'concentration': 1.0},
 	
-	'Energy': {'energy': 1.0, 'alive': 0.8, 'endurance': 0.8,'sinchonized':0.4, 'enthusiasm': 0.6, 'sedentary':0.35, 'dance':0.50, 'workout':0.9},
+	'Energy': {'energy': 1.0, 'alive': 0.3, 'endurance': 0.8,'sinchonized':0.3, 'calories':0.8, 'enthusiasm': 0.7, 'sedentary':0.35, 'dancing':0.54, 'workout':0.9},
 	
 	'Fatigue': {'fatigue': 1.0, 'overexertion': 0.8, 'depression': 0.8, 'cramps':0.71, 'weariness': 0.77, 'anxiety': 0.8,'stress': 0.75, 'disease': 0.97, 'illness': 0.7,'tire': 0.8, 'exhaustion': 0.8},
 	
-	'Learning': {'cognitive': 0.8, 'education': 0.5,'knowledge': 0.55,'processing deficits': 0.5,'auditory processing disorder': 0.5,'dyscalculia': 0.65,'dysgraphia': 0.6,'dyslexia': 0.6,'pedagogy': 0.65, 'learn': 1.0},
+	'Learning': {'cognitive': 0.8, 'education': 0.5,'knowledge': 0.55,'teach': 0.70,'processing deficits': 0.5,'auditory processing disorder': 0.5,'dyscalculia': 0.65,'dysgraphia': 0.6,'dyslexia': 0.6,'pedagogy': 0.65, 'learn': 1.0},
 	
 	'Memory': {'forget': 0.8, 'alzheimer': 0.8, 'old': 0.65, 'dementia': 0.8,'parkinson': 0.8,'korsakoff': 0.8,'huntington': 0.8,'autism': 0.8,'nostalgia':0.9, 'remember':0.8, 'memory': 1.0, 'cognitive': 0.8},
 	
@@ -201,17 +201,19 @@ dictVocabulary={
 						'satisfaction': 0.8,'altruism': 0.8,'elevation': 0.8,'amusement': 0.8,'pride': 0.8,'gratitude': 0.8,'serenity': 0.8,'interest': 0.75,'inspiration': 0.7,'romance': 0.7,'hope': 0.65,
 						'love': 0.8,'awe': 0.4,'fun': 0.8,'enjoyment': 0.8,'hopefulness': 0.8,'grinning':0.70,'happiness': 0.8,'peace': 0.8,'balance': 0.3},
 	
-	'Self-esteem': {'self':1.0, 'esteem': 0.95, 'meaningful': 0.85,'appearance':0.76,'confidence': 0.85,'narcissisism': 0.8,'superiority': 0.8,'honour': 0.8,'egoism': 0.8,'pride': 0.8,'arrogance': 0.8,
-				'admiration': 0.8,'prestige': 0.8,'well-being': 0.8,'ashamed': 0.8,'guilty': 0.8,'worthless': 0.8,'regard': 0.7,'respect': 0.75, 'competence': 0.6,'belonging': 0.6,'identity': 0.7,'security': 0.6,
+	'Self-esteem': {'self':1.0, 'esteem': 0.95, 'self-esteem':1.0,'meaningful': 0.85,'appearance':0.76,'enthusiastic':0.7,'inspired':0.7,'distressed': 0.80,'strong': 0.80,'proud': 0.9,'confidence': 0.85,'narcissisism': 0.8,
+				'superiority': 0.8,'honour': 0.8,'egoism': 0.8,'pride': 0.8,'arrogance': 0.8,
+				'admiration': 0.8,'prestige': 0.8,'well-being': 0.8,'ashamed': 0.85,'guilty': 0.8,'worthless': 0.8,'regard': 0.7,'respect': 0.75, 'competence': 0.6,'belonging': 0.6,'identity': 0.7,'security': 0.6,
 				'acceptance': 0.7,'worth': 0.7,'appraisal': 0.9,'dignity': 0.95,
-				'family': 0.7,'embarrassment':0.85, 'people': 0.5,'education': 0.55,'efficacy': 0.45,'control': 0.55,'oneself': 0.6,'satisfaction': 0.6},
+				'family': 0.7,'embarrassment':0.85, 'people': 0.5,'education': 0.55,'efficacy': 0.45,'control': 0.55,'oneself': 0.6,'satisfaction': 0.7},
 	
 	'Sexual activity': {'sexual':1.0, 'activity': 0.1, 'physical':0.2 ,'intimacy': 0.4,'fulfillment': 0.2,'expression': 0.1,'drive': 0.1,'desire': 0.25},
 	
 	'Sleep and Rest': {'sleep': 1.0,'waking up': 0.8, 'parasomnia': 0.8,'hypersomnia': 0.8,'yawning':0.66, 'nightmare':0.4, 'restless leg syndrome': 0.4,'apnea': 0.8,'insomnia': 0.8,'lack of refreshment': 0.4,'rest': 0.97},
 	
-	'Social support': {'social':0.85, 'support': 0.85, 'encouragement': 0.8,'solve': 0.4,'relationship': 0.8,'handshake':0.62,'roommate': 0.8,'thanks': 0.65, 'help': 0.8,'chill': 0.5,'dude': 0.5,'best':0.3,'friend': 0.7,'physical':0.1,'abuse': 0.4,
-					'verbal': 0.12,'personal': 0.8,'crisis': 0.7,'responsability': 0.8,'assistance': 0.8,'approval': 0.5,'kiss': 0.62,'commitment': 0.5,'family': 0.8},
+	'Social support': {'social':0.95, 'support': 0.85, 'encouragement': 0.8,'asking':0.6, 'share': 0.60,'talking': 0.72,'teaching': 0.85,'companionship':0.8,'empathy':0.8,'sympathy':0.8,'esteem':0.8,'solve': 0.4,'relationship': 0.85,'handshake':0.65,'roommate': 0.85,
+					'thanks': 0.70, 'help': 0.9,'chill': 0.5,'dude': 0.6,'best':0.3,'friend': 0.9,'physical':0.1,'abuse': 0.4,
+					'verbal': 0.12,'personal': 0.8,'crisis': 0.7,'responsability': 0.8,'assistance': 0.85,'approval': 0.5,'kiss': 0.62,'commitment': 0.5,'family': 0.9},
 	
 	'Thinking': {'think': 1.0,'aware': 0.8,'awake': 0.8,'cognitive': 0.8,'clang': 0.8,'thought disorder': 0.4,'echolalia': 0.4,'distractible speech': 0.4,'alogia': 0.4,'intelligent': 0.7,'idea': 0.4,'thought': 0.7,'decision': 0.55},
 
