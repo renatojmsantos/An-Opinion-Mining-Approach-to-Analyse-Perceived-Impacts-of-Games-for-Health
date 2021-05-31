@@ -1160,10 +1160,10 @@ def update():
 					continue
 
 		#DELETE FROM annotation WHERE annotationid > XXX;
-		#print("fim...")
-		print("vai apagar...")
-		query = "delete from annotation where annotationid > "+str(annotationid)+""
-		deleteRows(query)
+		print("fim...")
+		#print("vai apagar...")
+		#query = "delete from annotation where annotationid > "+str(annotationid)+""
+		#deleteRows(query)
 	except Exception as e:
 		print(e)
 
