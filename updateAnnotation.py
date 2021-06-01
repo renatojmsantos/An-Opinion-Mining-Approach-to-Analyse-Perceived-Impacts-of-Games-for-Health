@@ -1139,7 +1139,7 @@ def update():
 				#print(commentid, gameid, videoid, comment)
 				# update ... annotation id = 1,2,3...
 				concepts = getConceptsAnnotated(str(comment), str(polarity))
-				print("\n>>>>>>> ",original_comment)
+				print("\n>>>>>>> ",comment)
 				print(">>> ", polarity)
 				#print(concepts)
 				if (len(concepts)>0):
@@ -1163,9 +1163,9 @@ def update():
 
 		#DELETE FROM annotation WHERE annotationid > XXX;
 		print("fim...")
-		#print("vai apagar...")
-		#query = "delete from annotation where annotationid > "+str(annotationid)+""
-		#deleteRows(query)
+		print("vai apagar...")
+		query = "delete from annotation where annotationid > "+str(annotationid)+""
+		deleteRows(query)
 	except Exception as e:
 		print(e)
 
