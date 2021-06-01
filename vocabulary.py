@@ -122,8 +122,8 @@ dictVocabulary={
 	
 	'Anticipation': {'anticipation': 1.0, 'expectation': 0.9, 'hope':0.7,'pre-purchase':0.83,'presale':0.83},
 	
-	'Comfort': {'comfort': 1.0, 'problem':0.7,'bad':0.3,'mistake':0.3,'crash':0.3,'alert':0.3,'lock':0.3,'poor':0.3,'freeze':0.3,'slow':0.3,'physical': 0.4, 'workout': 0.7, 'fits':0.25, 
-				'comfy':0.9,'feel':0.6, 'cozy':0.9, 'pleasure':0.6, 'well':0.3, 'being':0.1, 'happy': 0.6, 'physical need': 0.9, 'body':0.4, 'care':0.2, 'active':0.2},
+	'Comfort': {'comfort': 1.0, 'problem':0.67,'bad':0.3,'mistake':0.3,'crash':0.3,'alert':0.3,'lock':0.3,'poor':0.3,'freeze':0.3,'slow':0.3,'physical': 0.45, 'workout': 0.7, 'fits':0.40, 
+				'comfy':0.9,'feel':0.6, 'cozy':0.9, 'pleasure':0.6, 'well':0.3, 'being':0.1, 'happy': 0.6, 'physical need': 0.9, 'body':0.55, 'care':0.2, 'active':0.2},
 	
 	'Detailed Usability': {'detailed usability': 1.0, 'problem': 0.88, 'performance':0.88, 'latencies':0.8,'great': 0.4, 'detail': 0.4, 'function': 0.7, 'satisfaction': 0.88,'usability': 0.9, 'quality': 0.6,'perfect': 0.6,'perfect': 0.6,'cool': 0.6,
 					'interest': 0.6,'improve': 0.6,'price': 0.6,'feel': 0.6,'well': 0.4,'definite': 0.5,'memorability': 0.8,'effectiveness':0.8,'error': 0.8,'efficiency': 0.8,'memory': 0.6,'favorite': 0.5,'learnability': 0.8,'good': 0.5,
