@@ -163,7 +163,7 @@ dictVocabulary={
 				'regardless': 0.5,'shatter': 0.5,'intrigu': 0.5,'afterward': 0.5,'laugh': 0.7,'nevertheless': 0.5,'fell': 0.6,'incompatibility': 0.3,'chore': 0.3,'humor': 0.7,'grin': 0.4,
 				'workout': 0.6,'lighter': 0.4,'sooth': 0.3,'annoy': 0.7,'boredom': 0.7,'nostalgia': 0.65},
 	
-	'Support': {'support':1.0, 'help':0.8, 'service':0.8,'team':0.5,'call':0.8,'contact':0.8,'correct':0.8,'how':0.9, 'request':0.75,'improve':0.55,'please':0.6,'want':0.65,'should':0.23,'wish': 0.7,'software': 0.7},
+	'Support': {'support':1.0, 'help':0.8, 'service':0.8,'team':0.5,'call':0.7,'need':0.45, 'contact':0.8,'correct':0.8,'how':0.9, 'request':0.75,'improve':0.55,'please':0.6,'want':0.65,'should':0.3,'wish': 0.7,'software': 0.7},
 	
 	'Trust': {'trust': 1.0, 'behavior': 0.8, 'disappointed':0.8, 'handshake':0.4, 'easy':0.8, 'quality':0.8, 'exist':0.8, 'handhold':0.8, 'reliev':0.8, 'cute':0.8, 'sooth':0.8,'reliable':0.8,'secure':0.8,'pleasure': 0.5},
 	
@@ -213,7 +213,7 @@ dictVocabulary={
 	
 	'Social support': {'social':0.95, 'support': 0.85, 'encouragement': 0.8,'asking':0.6, 'share': 0.60,'talking': 0.72,'teaching': 0.85,'companionship':0.8,'empathy':0.8,'sympathy':0.8,'esteem':0.8,'solve': 0.4,'relationship': 0.85,'handshake':0.65,'roommate': 0.85,
 					'thanks': 0.70, 'help': 0.9,'chill': 0.5,'dude': 0.6,'best':0.3,'friend': 0.9,'physical':0.1,'abuse': 0.4,
-					'verbal': 0.12,'personal': 0.8,'crisis': 0.7,'responsability': 0.8,'assistance': 0.85,'approval': 0.5,'kiss': 0.62,'commitment': 0.5,'family': 0.9},
+					'verbal': 0.12,'personal': 0.8,'crisis': 0.7,'responsability': 0.8,'assistance': 0.85,'together':0.65,'approval': 0.5,'kiss': 0.62,'commitment': 0.5,'family': 0.9},
 	
 	'Thinking': {'think': 1.0,'aware': 0.8,'awake': 0.8,'cognitive': 0.8,'clang': 0.8,'thought disorder': 0.4,'echolalia': 0.4,'distractible speech': 0.4,'alogia': 0.4,'intelligent': 0.7,'idea': 0.4,'thought': 0.7,'decision': 0.55},
 
