@@ -173,12 +173,12 @@ dictVocabulary={
 
 
 	'Bodily image and Appearance': {'bodily':1.0, 'image': 0.55, 'appearance': 1.0, 'handicapped': 0.75,'physical': 0.9,'self-concept': 0.8,'body': 0.95,'limb': 0.6,'artificial': 0.5,
-									'clothes': 0.8,'boots':0.75,'dress':0.78,'outfit':0.75,'muscles':0.71,'make-up': 0.72,'impairment': 0.6,'acne':0.8,'ugly':0.8,'beautiful':0.77,'look': 0.35, 'fat':0.8,'beard':0.50 ,'skinny':0.8, 'weight':0.6},
+									'clothes': 0.8,'boots':0.75,'dress':0.78,'workout':0.57, 'outfit':0.75,'muscles':0.71,'make-up': 0.72,'impairment': 0.6,'acne':0.8,'ugly':0.8,'beautiful':0.77,'look': 0.35, 'fat':0.8,'beard':0.50 ,'skinny':0.8, 'weight':0.6},
 	
 	'Concentration': {'aware': 0.8,'awake': 0.8,'alert': 0.8,'performance': 0.9,'thinking':0.55,'insomnia': 0.8,'focus': 0.8,'pressure': 0.5,'thinking': 0.7,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
 					'concussion': 0.8,'attention deficit hyperactivy disorder': 0.8,'alcohol use disorder': 0.8,'attention': 0.9, 'cognitive': 0.8, 'concentration': 1.0},
 	
-	'Energy': {'energy': 1.0, 'alive': 0.3, 'endurance': 0.8,'sinchonized':0.3, 'calories':0.8, 'strong':0.76,'enthusiasm': 0.7, 'sedentary':0.35, 'dancing':0.63, 'workout':0.9},
+	'Energy': {'energy': 1.0, 'alive': 0.3, 'endurance': 0.8,'sinchonized':0.3, 'calories':0.8, 'exercise':0.8, 'strong':0.7,'enthusiasm': 0.67, 'sedentary':0.35, 'dancing':0.60, 'workout':0.9},
 	
 	'Fatigue': {'fatigue': 1.0, 'overexertion': 0.8, 'depression': 0.8, 'cramps':0.71, 'weariness': 0.77, 'anxiety': 0.8,'stress': 0.75, 'disease': 0.97, 'illness': 0.7,'tire': 0.8, 'exhaustion': 0.8},
 	
