@@ -1131,35 +1131,37 @@ def update():
 			commentid = i[0]
 			gameid = i[1]
 			videoid = i[2]
-			
-			comments = getcomments(commentid)
-			for c in comments:
-				comment = c[0]
-				polarity = c[1]
-				#print(commentid, gameid, videoid, comment)
-				# update ... annotation id = 1,2,3...
-				concepts = getConceptsAnnotated(str(comment), str(polarity))
-				print("\n>>>>>>> ",comment)
-				print(">>> ", polarity)
-				#print(concepts)
-				if (len(concepts)>0):
-					for d in dictFields.items():
-						field = d[0]
-						conceitos = d[1]
-						#print(d[1])
-						for c in conceitos:
-							if (str(c) in concepts):
-								annotationid+=1
-								print(annotationid,"... "+str(field)+" --> "+str(c))
-								
-								query = "delete from annotation where annotationid = "+str(annotationid)+""
-								deleteRow(query)
-								query = "insert into annotation values("+str(annotationid)+",'"+str(field)+"','"+str(c)+"','"+str(commentid)+"','"+str(gameid)+"','"+str(videoid)+"')"
-								insertToTable(query)
-								
-				else:
-					print("NAO ANOTADO! sem conceitos ...")
-					continue
+			try:
+				comments = getcomments(commentid)
+				for c in comments:
+					comment = c[0]
+					polarity = c[1]
+					#print(commentid, gameid, videoid, comment)
+					# update ... annotation id = 1,2,3...
+					concepts = getConceptsAnnotated(str(comment), str(polarity))
+					print("\n>>>>>>> ",comment)
+					print(">>> ", polarity)
+					#print(concepts)
+					if (len(concepts)>0):
+						for d in dictFields.items():
+							field = d[0]
+							conceitos = d[1]
+							#print(d[1])
+							for c in conceitos:
+								if (str(c) in concepts):
+									annotationid+=1
+									print(annotationid,"... "+str(field)+" --> "+str(c))
+									
+									query = "delete from annotation where annotationid = "+str(annotationid)+""
+									deleteRow(query)
+									query = "insert into annotation values("+str(annotationid)+",'"+str(field)+"','"+str(c)+"','"+str(commentid)+"','"+str(gameid)+"','"+str(videoid)+"')"
+									insertToTable(query)
+									
+					else:
+						print("NAO ANOTADO! sem conceitos ...")
+						continue
+			except Exception as e:
+				print(e)
 
 		#DELETE FROM annotation WHERE annotationid > XXX;
 		print("fim...")

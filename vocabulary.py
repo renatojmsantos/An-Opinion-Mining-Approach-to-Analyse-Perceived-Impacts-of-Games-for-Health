@@ -197,9 +197,9 @@ dictVocabulary={
 	'Personal relationships': {'personal': 1.0, 'homosexual': 0.7,'relationship': 0.85,'heterosexual': 0.7,'marriage': 0.7,'friendship': 0.8,'satisfaction': 0.5,'hug': 0.8,'happy': 0.4,'emotionally': 0.5,
 							'intimate': 0.6,'love': 0.45,'support': 0.5,'people': 0.5,'everybody':0.4, 'partnership': 0.7,'distress': 0.6,'share moments': 0.6,'companionship': 0.7,'friend': 0.9, 'family': 0.9, 'alone': 0.9},
 	
-	'Positive feelings': {'positive': 0.6, 'feeling': 0.3,'optimism': 0.8,'contentment': 0.8,'euphoria': 0.8,'eagerness': 0.8,'admiration': 0.8,'confidence': 0.8,'affection': 0.8,'relief': 0.8,
-						'satisfaction': 0.8,'altruism': 0.8,'elevation': 0.8,'amusement': 0.8,'pride': 0.8,'gratitude': 0.8,'serenity': 0.8,'interest': 0.75,'inspiration': 0.7,'romance': 0.7,'hope': 0.65,
-						'love': 0.8,'awe': 0.4,'fun': 0.8,'enjoyment': 0.8,'hopefulness': 0.8,'grinning':0.70,'happiness': 0.8,'peace': 0.8,'balance': 0.3},
+	'Positive feelings': {'positive': 0.55, 'feeling': 0.3,'optimism': 0.7,'contentment': 0.7,'euphoria': 0.57,'eagerness': 0.7,'admiration': 0.7,'confidence': 0.7,'affection': 0.67,'relief': 0.7,
+						'satisfaction': 0.8,'altruism': 0.75,'elevation': 0.65,'amusement': 0.70,'pride': 0.73,'gratitude': 0.73,'serenity': 0.73,'interest': 0.71,'inspiration': 0.7,'romance': 0.7,'hope': 0.66,
+						'love': 0.8,'awe': 0.4,'fun': 0.8,'enjoyment': 0.8,'hopefulness': 0.8,'grinning':0.70,'happiness': 0.8,'peace': 0.76,'balance': 0.3},
 	
 	'Self-esteem': {'self':1.0, 'esteem': 0.95, 'self-esteem':1.0,'meaningful': 0.85,'appearance':0.76,'enthusiastic':0.7,'inspired':0.7,'distressed': 0.80,'strong': 0.80,'proud': 0.9,'confidence': 0.85,'narcissisism': 0.8,
 				'superiority': 0.8,'honour': 0.8,'egoism': 0.8,'pride': 0.8,'arrogance': 0.8,
