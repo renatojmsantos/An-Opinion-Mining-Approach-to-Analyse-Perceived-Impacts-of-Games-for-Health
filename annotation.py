@@ -852,25 +852,29 @@ def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment
 		query = "insert into comment values('"+str(commentID)+"', '"+str(original_comment)+"', '"+str(comment)+"', '"+str(polarity)+"', '"+str(likes)+"', '"+str(dateComment)+"', '"+str(isMain)+"')"
 		insertToTable(query)
 
-		concepts = getConceptsAnnotated(str(comment), str(polarity))
-		#print(concepts)
-		if (len(concepts)>0):
-			for d in dictFields.items():
-				field = d[0]
-				conceitos = d[1]
-				#print(d[1])
-				for c in conceitos:
-					if (str(c) in concepts):
-						annotation_id+=1
-						print(annotation_id,"... "+str(field)+" --> "+str(c))
-											
-						query = "insert into annotation values("+str(annotation_id)+",'"+str(field)+"','"+str(c)+"','"+str(commentID)+"','"+str(game_id)+"','"+str(videoID)+"')"
-						insertToTable(query)
-						
-		#else:
-			#print("NAO ANOTADO! sem conceitos ...")
+		try:
+			concepts = getConceptsAnnotated(str(comment), str(polarity))
+			#print(concepts)
+			if (len(concepts)>0):
+				for d in dictFields.items():
+					field = d[0]
+					conceitos = d[1]
+					#print(d[1])
+					for c in conceitos:
+						if (str(c) in concepts):
+							annotation_id+=1
+							print(annotation_id,"... "+str(field)+" --> "+str(c))
+												
+							query = "insert into annotation values("+str(annotation_id)+",'"+str(field)+"','"+str(c)+"','"+str(commentID)+"','"+str(game_id)+"','"+str(videoID)+"')"
+							insertToTable(query)
+							
+			#else:
+				#print("NAO ANOTADO! sem conceitos ...")
 
-		return annotation_id
+			return annotation_id
+			
+		except Exception as e:
+			print(e)
 			
 	except Exception as e:
 		print("execute annotation - ", e)

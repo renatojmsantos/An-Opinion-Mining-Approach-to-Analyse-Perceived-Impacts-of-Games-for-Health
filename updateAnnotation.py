@@ -567,9 +567,10 @@ def countRowsTable(tableName):
 	return idBack[0]# is not None #idBack
 
 def getcomments(commentid):
-	idBack = None
-	conn = None
+	
 	try:
+		idBack = None
+		conn = None
 		params = config()
 		conn = psycopg2.connect(**params)
 		#conn.autocommit = True
@@ -1132,34 +1133,36 @@ def update():
 			gameid = i[1]
 			videoid = i[2]
 			try:
+				
 				comments = getcomments(commentid)
 				for c in comments:
-					comment = c[0]
-					polarity = c[1]
-					#print(commentid, gameid, videoid, comment)
-					# update ... annotation id = 1,2,3...
-					concepts = getConceptsAnnotated(str(comment), str(polarity))
-					print("\n>>>>>>> ",comment)
-					print(">>> ", polarity)
-					#print(concepts)
-					if (len(concepts)>0):
-						for d in dictFields.items():
-							field = d[0]
-							conceitos = d[1]
-							#print(d[1])
-							for c in conceitos:
-								if (str(c) in concepts):
-									annotationid+=1
-									print(annotationid,"... "+str(field)+" --> "+str(c))
-									
-									query = "delete from annotation where annotationid = "+str(annotationid)+""
-									deleteRow(query)
-									query = "insert into annotation values("+str(annotationid)+",'"+str(field)+"','"+str(c)+"','"+str(commentid)+"','"+str(gameid)+"','"+str(videoid)+"')"
-									insertToTable(query)
-									
-					else:
-						print("NAO ANOTADO! sem conceitos ...")
-						continue
+					if (c != "None" and c != "none" and c is not None):
+						comment = c[0]
+						polarity = c[1]
+						#print(commentid, gameid, videoid, comment)
+						# update ... annotation id = 1,2,3...
+						concepts = getConceptsAnnotated(str(comment), str(polarity))
+						print("\n>>>>>>> ",comment)
+						print(">>> ", polarity)
+						#print(concepts)
+						if (len(concepts)>0):
+							for d in dictFields.items():
+								field = d[0]
+								conceitos = d[1]
+								#print(d[1])
+								for c in conceitos:
+									if (str(c) in concepts):
+										annotationid+=1
+										print(annotationid,"... "+str(field)+" --> "+str(c))
+										
+										query = "delete from annotation where annotationid = "+str(annotationid)+""
+										deleteRow(query)
+										query = "insert into annotation values("+str(annotationid)+",'"+str(field)+"','"+str(c)+"','"+str(commentid)+"','"+str(gameid)+"','"+str(videoid)+"')"
+										insertToTable(query)
+										
+						else:
+							print("NAO ANOTADO! sem conceitos ...")
+							continue
 			except Exception as e:
 				print(e)
 
