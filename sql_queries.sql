@@ -147,23 +147,52 @@ ORDER BY date_trunc('year', comment.datecomment) ASC
 
 
 
+#most frequent words
+
+SELECT * FROM ts_stat('SELECT to_tsvector(''english'',originaltext) from comment') ORDER BY nentry DESC
+limit 25;
+
+SELECT * FROM ts_stat('SELECT to_tsvector(''english'',originaltext) from comment','dance') ORDER BY nentry DESC
+limit 25;
+
+
+SELECT word, count(*) as count
+FROM ( 
+  SELECT regexp_split_to_table(originaltext, ' ') as word
+  FROM comment
+) t
+GROUP BY word
+order by count DESC
+
+
+
+SELECT * FROM ts_stat('SELECT to_tsvector(''english'',originaltext) from comment left join annotation on annotation.comment_commentid = comment.commentid ') 
+ORDER BY nentry DESC, ndoc DESC, word  
+limit 25;
+
+
+with terms as (select originaltext from comment where polarity='Negative')
+SELECT * FROM ts_stat($$SELECT to_tsvector('english',originaltext) from terms$$) ORDER BY nentry DESC
+limit 25;
+
+
+SELECT * FROM ts_stat($$SELECT to_tsvector('english',originaltext) from comment where polarity='Negative'$$)
+ORDER BY nentry DESC
+limit 25;
+
+
+SELECT * FROM ts_stat($$SELECT to_tsvector('english',processedtext) from comment left join annotation on annotation.comment_commentid = comment.commentid where field='Usability' $$)
+ORDER BY nentry DESC
+limit 30;
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+SELECT * FROM ts_stat(format($$SELECT to_tsvector(''english'',originaltext) from comment left join annotation on annotation.comment_commentid = comment.commentid where polarity = ''Negative'' $$))
+ORDER BY nentry DESC
+limit 25
 
 #as text
 select concept, count(*)

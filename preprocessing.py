@@ -125,7 +125,8 @@ def clearText(text):
 	return text
 
 def contractions(text):
-	#https://gist.github.com/nealrs/96342d8231b75cf4bb82
+	# https://gist.github.com/nealrs/96342d8231b75cf4bb82
+	# https://en.wikipedia.org/wiki/Wikipedia:List_of_English_contractions
 
 	cDict = {
 	  "ain't": "am not",
