@@ -266,5 +266,15 @@ where word != 'face' and word != 'im' and word != 'one' and word != '2' and word
 order by nentry desc
 limit 30;
 
+#presence of dimensions editions jd
+SELECT field as "Dimension", count(distinct comment_commentid) as "Total", game.edition as "Edition"
+FROM annotation
+join game on game.game_id = annotation.game_game_id
+join comment on comment.commentid = annotation.comment_commentid
+join video on video.videoid = annotation.video_videoid
+where {{concept}} and {{dimension}} and {{polarity}} and {{datecomment}} and {{edition}} and {{platform}}
+GROUP BY field, game.edition
+ORDER BY count(distinct comment_commentid) desc
+
 
 
