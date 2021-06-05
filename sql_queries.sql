@@ -1,5 +1,4 @@
 # dimensions presents on comments
-
 select field as Field, count(distinct comment_commentid) as count
 from (
     select comment_commentid, field
@@ -182,6 +181,17 @@ limit 25;
 
 
 SELECT * FROM ts_stat($$SELECT to_tsvector('english',processedtext) from comment left join annotation on annotation.comment_commentid = comment.commentid where field='Usability' $$)
+ORDER BY nentry DESC
+limit 30;
+
+SELECT word, nentry FROM ts_stat($$SELECT to_tsvector('english',processedtext) from comment left join annotation on annotation.comment_commentid = comment.commentid where concept='Errors/Effectiveness'$$)
+where word != 'face' and word != 'im'
+ORDER BY nentry DESC
+limit 30;
+
+
+SELECT word, nentry FROM ts_stat($$SELECT to_tsvector('english',processedtext) from comment left join annotation on annotation.comment_commentid = comment.commentid where concept='Errors/Effectiveness'$$)
+where word != 'face' and word != 'im' and word != 'one' and word != '2' and word != '3' and word != '1'
 ORDER BY nentry DESC
 limit 30;
 

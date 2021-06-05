@@ -1116,6 +1116,8 @@ def getConceptsAnnotated(comment, polarity):
 						continue
 					elif(c=="Enjoyment and Fun" and polarity=="neutral"):
 						continue
+					elif(c=="Fatigue" and polarity=="positive"):
+						continue
 					else:
 						concepts.append(c)
 		# ... values = dict.values() -> total = sum (values) -> total de cada dim... 

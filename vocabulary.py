@@ -171,18 +171,17 @@ dictVocabulary={
 						'professional':0.9,'finalist':0.63, 'dancers':0.7,'buyer': 0.7,'target': 0.7,'feature': 0.7, 'difference': 0.8, 'if': 0.55},
 
 
-
 	'Bodily image and Appearance': {'bodily':1.0, 'image': 0.55, 'appearance': 1.0, 'handicapped': 0.75,'physical': 0.9,'self-concept': 0.8,'body': 0.95,'limb': 0.6,'artificial': 0.5,
 									'clothes': 0.8,'boots':0.75,'dress':0.78,'workout':0.57, 'outfit':0.75,'muscles':0.71,'make-up': 0.72,'impairment': 0.6,'acne':0.8,'ugly':0.8,'beautiful':0.77,'look': 0.35, 'fat':0.8,'beard':0.50 ,'skinny':0.8, 'weight':0.6},
 	
-	'Concentration': {'aware': 0.8,'awake': 0.8,'alert': 0.8,'performance': 0.9,'thinking':0.55,'insomnia': 0.8,'focus': 0.8,'pressure': 0.5,'thinking': 0.7,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
+	'Concentration': {'aware': 0.8,'awake': 0.8,'alert': 0.8,'performance': 0.9,'thinking':0.55,'memory':0.4,'learning':0.4,'insomnia': 0.8,'focus': 0.8,'pressure': 0.5,'think':0.49,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
 					'concussion': 0.8,'attention deficit hyperactivy disorder': 0.8,'alcohol use disorder': 0.8,'attention': 0.9, 'cognitive': 0.8, 'concentration': 1.0},
 	
 	'Energy': {'energy': 1.0, 'alive': 0.3, 'endurance': 0.8,'sinchonized':0.3, 'calories':0.8, 'exercise':0.8, 'strong':0.7,'enthusiasm': 0.67, 'sedentary':0.35, 'dancing':0.60, 'workout':0.9},
 	
 	'Fatigue': {'fatigue': 1.0, 'overexertion': 0.8, 'depression': 0.8, 'cramps':0.71, 'weariness': 0.77, 'anxiety': 0.8,'stress': 0.75, 'disease': 0.97, 'illness': 0.7,'tire': 0.8, 'exhaustion': 0.8},
 	
-	'Learning': {'cognitive': 0.8, 'education': 0.5,'knowledge': 0.55,'teach': 0.70,'processing deficits': 0.5,'auditory processing disorder': 0.5,'dyscalculia': 0.65,'dysgraphia': 0.6,'dyslexia': 0.6,'pedagogy': 0.65, 'learn': 1.0},
+	'Learning': {'cognitive': 0.8, 'education': 0.5,'knowledge': 0.55,'teach': 0.70,'concentration':0.5,'memory':0.4,'thinking':0.4,'processing deficits': 0.5,'auditory processing disorder': 0.5,'dyscalculia': 0.65,'dysgraphia': 0.6,'dyslexia': 0.6,'pedagogy': 0.65, 'learn': 1.0},
 	
 	'Memory': {'forget': 0.8, 'alzheimer': 0.8, 'old': 0.65, 'dementia': 0.8,'parkinson': 0.8,'korsakoff': 0.8,'huntington': 0.8,'autism': 0.8,'nostalgia':0.9, 'remember':0.8, 'memory': 1.0, 'cognitive': 0.8},
 	
@@ -215,7 +214,7 @@ dictVocabulary={
 					'thanks': 0.70, 'help': 0.9,'chill': 0.5,'dude': 0.6,'best':0.3,'friend': 0.9,'physical':0.1,'abuse': 0.4,
 					'verbal': 0.12,'personal': 0.8,'crisis': 0.7,'responsability': 0.8,'assistance': 0.85,'together':0.65,'approval': 0.5,'kiss': 0.62,'commitment': 0.5,'family': 0.9},
 	
-	'Thinking': {'think': 1.0,'aware': 0.8,'awake': 0.8,'cognitive': 0.8,'clang': 0.8,'thought disorder': 0.4,'echolalia': 0.4,'distractible speech': 0.4,'alogia': 0.4,'intelligent': 0.7,'idea': 0.4,'thought': 0.7,'decision': 0.55},
+	'Thinking': {'think': 1.0,'aware': 0.8,'awake': 0.8,'cognitive': 0.8,'concentration':0.5,'memory':0.4,'learning':0.4,'clang': 0.8,'thought disorder': 0.4,'echolalia': 0.4,'distractible speech': 0.4,'alogia': 0.4,'intelligent': 0.7,'idea': 0.4,'thought': 0.7,'decision': 0.55},
 
 	#'Thinking, learning, memory and concentration': {'thinking': 1.0, 'aware': 1.0,'awake': 1.0,'alert': 1.0,'cognitive': 1.0,'thought': 1.0,'decisions': 1.0,'forget': 1.0, 'learning': 1.0, 'memory': 1.0, 'concentration': 1.0},
 		

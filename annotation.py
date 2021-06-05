@@ -826,6 +826,8 @@ def getConceptsAnnotated(comment, polarity):
 						continue
 					elif(c=="Enjoyment and Fun" and polarity=="neutral"):
 						continue
+					elif(c=="Fatigue" and polarity=="positive"):
+						continue
 					else:
 						concepts.append(c)
 		# ... values = dict.values() -> total = sum (values) -> total de cada dim... 
@@ -872,7 +874,7 @@ def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment
 				#print("NAO ANOTADO! sem conceitos ...")
 
 			return annotation_id
-			
+
 		except Exception as e:
 			print(e)
 			
