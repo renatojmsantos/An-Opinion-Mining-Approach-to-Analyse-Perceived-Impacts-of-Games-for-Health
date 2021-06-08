@@ -182,6 +182,18 @@ interval = sys.argv[2]
 sleepTime = sys.argv[3]
 checkNewComments = sys.argv[4]
 
+searchGame = sys.argv[5]
+
+#print(searchGame)
+
+
+games = ['Just Dance 2', 'Just Dance 3', 'Just Dance 4', 'Just Dance 2014', 'Just Dance 2015', 'Just Dance 2016', 'Just Dance 2017', 'Just Dance 2018', 'Just Dance 2019', 'Just Dance 2020', 'Just Dance 2021',
+				'Just Dance Wii', 'Just Dance Wii 2', 'Just Dance Wii U', 'Yo-kai Watch Dance: Just Dance Special Version',
+				'Just Dance Kids', 'Just Dance Kids 2', 'Just Dance Kids 2014',
+				'Just Dance: Disney Party', 'Just Dance: Disney Party 2',
+				'Just Dance: Greatest Hits',
+				'Just Dance: Summer Party', 'Just Dance Now', 'Just Dance Unlimited']
+
 #print(sys.argv[4])
 #print(type(checkNewComments), checkNewComments)
 
@@ -244,8 +256,15 @@ while 1:
 						DEVELOPER_KEY = str(listaKeys[0])
 						youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
 						#print("a ir buscar...") # regionCode
+
+						if (searchGame == 'random'):
+							random.shuffle(games)
+							searchGame = str(games[0])
+						
+						print(searchGame)
+
 						search_response = youtube.search().list(
-							publishedBefore=endDate, publishedAfter=beginDate, q="Just Dance", part="id,snippet", order='relevance', type='video', relevanceLanguage='en', maxResults=100, 
+							publishedBefore=endDate, publishedAfter=beginDate, q=searchGame, part="id,snippet", order='relevance', type='video', relevanceLanguage='en', maxResults=100, 
 							pageToken=nextPage_token).execute()
 						# search () -> custo de 100 units... o resto é de 1 units
 

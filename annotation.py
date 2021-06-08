@@ -218,6 +218,9 @@ def annotate(text, polarity):
 			stems=[]
 
 			for lemma in pals_lemmas:
+
+				word_stem = sno.stem(lemma)
+
 				#score...  ?
 				#print("#######################"+lemma)
 				if (lemma == pal): 
@@ -237,33 +240,40 @@ def annotate(text, polarity):
 					else:
 						scoreDict[concept] += score
 				elif (lemma in pal and len(lemma) >=3):
-						try:
-							palwn = wordnet.synsets(str(pal))[0]
-							lemmawn = wordnet.synsets(str(lemma))[0]
-							#print(stemwn.name() + " "+ palwn.name())
+					try:
+						palwn = wordnet.synsets(str(pal))[0]
+						lemmawn = wordnet.synsets(str(lemma))[0]
 
-							similarity = lemmawn.path_similarity(palwn)
+						similarity = lemmawn.path_similarity(palwn)
+						if(similarity > 0.19):
+							countPalsDict += 1
+							score = prob*1.0
 							
-							if(similarity > 0.19):
-								#print("--> lemma")
-								#print("similarity = ",similarity)
-								countPalsDict += 1
+							if concept not in scoreDict.keys():
+								scoreDict[concept] = score
+							else:
+								scoreDict[concept] += score
+					except Exception as e:
+						#print(e)
+						continue
+				elif (word_stem in pal and len(word_stem)>1):
+					stems.append(word_stem)
+					try:
+						palwn = wordnet.synsets(str(pal))[0]
+						stemwn = wordnet.synsets(str(lemma))[0]
 
-								#score = (prob/total_pals)*1.0
-								score = prob*1.0
-								#print(score, countPalsDict, lemma,pal)
-
-								#score = score/total_pals_dict
-								#print(concept,pal, score)
-								#print(score)
-								if concept not in scoreDict.keys():
-									scoreDict[concept] = score
-								else:
-									scoreDict[concept] += score
-						except Exception as e:
-							#print(e)
-							continue
-				else:
+						similarity = stemwn.path_similarity(palwn)
+						if(similarity > 0.5):
+							countPalsDict += 1
+							score = prob*0.9
+							if concept not in scoreDict.keys():
+								scoreDict[concept] = score
+							else:
+								scoreDict[concept] += score
+					except Exception as e:
+						#print(e)
+						continue
+				else: 
 					for syn in wordnet.synsets(lemma):
 						#print(syn.name(), syn.lemma_names())
 						for l in syn.lemmas():
@@ -334,8 +344,6 @@ def annotate(text, polarity):
 									
 									# https://www.nltk.org/howto/wordnet.html
 
-									# https://www.geeksforgeeks.org/python-word-similarity-using-spacy/
-
 									#print(syn, l, syn.lemmas())
 									try:
 										palwn = wordnet.synsets(str(pal))[0]
@@ -351,11 +359,7 @@ def annotate(text, polarity):
 
 											#score = (prob/total_pals)*1.0
 											score = prob*0.62
-											#print(score, countPalsDict, stem,pal)
-
-											#score = score/total_pals_dict
-											#print(concept,pal, score)
-											#print(score)
+											
 											if concept not in scoreDict.keys():
 												scoreDict[concept] = score
 											else:
@@ -394,10 +398,7 @@ def annotate(text, polarity):
 
 											#score = (prob/total_pals)*0.5
 											score = prob * 0.4
-											#print(score, countPalsDict,hyponym,pal)
-											#score = score/total_pals_dict
-											#print(concept,pal, score)
-											#print(score)
+											
 											if concept not in scoreDict.keys():
 												scoreDict[concept] = score
 											else:
@@ -520,18 +521,11 @@ def annotate(text, polarity):
 												similarity = stemwn.path_similarity(palwn)
 												
 												if(similarity > 0.19):
-													#print("--------> meronyms")
-													#print("similarity = ",similarity)
+													
 													countPalsDict += 1
 
-													#score = (prob/total_pals)*0.6
 													score = prob * 0.3
-													#print("--------> meronyms")
-													#print(score, countPalsDict, stem,pal)
-
-													#score = score/total_pals_dict
-													#print(concept,pal, score)
-													#print(score)
+												
 													if concept not in scoreDict.keys():
 														scoreDict[concept] = score
 													else:
@@ -543,45 +537,7 @@ def annotate(text, polarity):
 									else:
 										continue
 										#break #???
-							"""
-							print("----> root hypernyms")
-							# conceitos mais gerais
-							for s in lexical.root_hypernyms():
-								for l in s.lemmas():
-									print(l.name())
-							"""
-
-							"""
-							# membro de alguma coisa
-							print("------> part holonyms")
-							for s in lexical.part_holonyms():
-								for l in s.lemmas():
-									print(l.name())
-
-							
-							# membro de alguma coisa
-							print("------> substance holonyms")
-							for s in lexical.substance_holonyms():
-								for l in s.lemmas():
-									print(l.name())
-							"""
-
-							
-							
-							"""
-							# parte de algo
-							print("--------> substance meronyms")
-							for s in lexical.substance_meronyms():
-								for l in s.lemmas():
-									print(l.name())
-							"""
-
-							"""
-							print("----------> entailments")
-							for s in lexical.entailments():
-								for l in s.lemmas():
-									print(l.name())
-							"""
+			
 							
 						else:
 							continue
@@ -730,6 +686,7 @@ def getEditionAndPlataform(game_id, title, descript):
 		for p in platforms:
 			c = p.lower()
 			if(c in title.lower()):
+				print(p)
 				platform = p
 				if (platform == "Wii"):
 					continue
@@ -763,16 +720,47 @@ def getEditionAndPlataform(game_id, title, descript):
 		
 		for game in games:
 			serie = game.lower()
+			if (serie == 'yo-kai watch dance: just dance special version'):
+				serie = 'yo-kai watch dance just dance special version'
+
+			elif(serie == 'just dance: disney party'):
+				serie = 'just dance disney party'
+
+			elif(serie == 'just dance: disney party 2'):
+				serie = 'just dance disney party 2'
+
+			elif(serie == 'just dance: greatest hits'):
+				serie = 'just dance greatest hits'
+
+			elif(serie == 'just dance: summer party'):
+				serie = 'just dance summer party'
+
 			if(serie in title.lower()):
 				edition=game
-				#print(edition)
+				print(edition)
 				if (edition == "Just Dance 2"):
+					continue
+				if (edition == "Just Dance Wii"):
+					continue
+				if (edition == "Just Dance Kids"):
+					continue
+				if (edition == "Just Dance Kids 2"):
+					continue
+				if (edition == "Just Dance: Disney Party"):
 					continue
 				else:
 					break
 			elif(serie in descript.lower()):
 				edition=game
 				if (edition == "Just Dance 2"):
+					continue
+				if (edition == "Just Dance Wii"):
+					continue
+				if (edition == "Just Dance Kids"):
+					continue
+				if (edition == "Just Dance Kids 2"):
+					continue
+				if (edition == "Just Dance: Disney Party"):
 					continue
 				else:
 					break
@@ -781,6 +769,7 @@ def getEditionAndPlataform(game_id, title, descript):
 			if(serie.lower() in title.lower()):
 				edition = "Just Dance"
 
+		print("-> ",edition," -> ", platform)
 		game_id +=1 
 		query = "insert into game values('"+str(game_id)+"', '"+str(edition)+"', '"+str(platform)+"')"
 		insertToTable(query)
@@ -815,10 +804,6 @@ def getConceptsAnnotated(comment, polarity):
 					elif(c=="Pleasure" and polarity=="negative"):
 						continue
 					elif(c=="Enjoyment and Fun" and polarity=="negative"):
-						continue
-					elif(c=="Positive feelings" and polarity=="neutral"):
-						continue
-					elif(c=="Negative feelings" and polarity=="neutral"):
 						continue
 					elif(c=="Frustration" and polarity=="neutral"):
 						continue
@@ -870,8 +855,8 @@ def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment
 							query = "insert into annotation values("+str(annotation_id)+",'"+str(field)+"','"+str(c)+"','"+str(commentID)+"','"+str(game_id)+"','"+str(videoID)+"')"
 							insertToTable(query)
 							
-			#else:
-				#print("NAO ANOTADO! sem conceitos ...")
+			else:
+				print("NAO ANOTADO! sem conceitos ...")
 
 			return annotation_id
 

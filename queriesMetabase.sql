@@ -2,6 +2,7 @@
 # left join -> tudo
 # join -> só anotados
 
+https://justdance.dei.uc.pt/public/dashboard/c218930a-9dea-4126-8212-9b9f4e662eb8?dimension={{column:dimension}}
 
 # stacked chart - annotation of each edition
 SELECT concept as "Concept", count(distinct comment_commentid) as "Total", game.edition as "Edition"
@@ -246,19 +247,37 @@ GROUP BY date_trunc('year', video.datevideo)
 ORDER BY date_trunc('year', video.datevideo) ASC
 
 # vocabulary
-SELECT a1.concept, count(distinct comment_commentid)
+SELECT a1.field, a1.concept, count(distinct comment_commentid)
 FROM annotation a1
 JOIN comment ON comment.commentid = a1.comment_commentid
 join game on game.game_id = a1.game_game_id
-join video on video.videoid = a1.video_videoid
 where exists (select 1
               from annotation
-              where {{concept}} and {{polarity}} and {{field}} and {{dateComment}} and {{edition}} and {{platform}} and {{channel}}
+              where {{concept}} and {{polarity}} and {{field}} and {{dateComment}} and {{edition}} and {{platform}}
               and annotation.comment_commentid= a1.comment_commentid
              )
-GROUP BY a1.concept
-ORDER BY a1.concept ASC
+GROUP BY a1.concept, a1.field
+ORDER BY a1.field desc
 
+# nr de letras
+select length(originaltext)
+from comment
+
+#grafico
+select length(originaltext) as l, count(originaltext) as lenght
+from comment
+where length(originaltext) < 500
+group by l
+
+
+# 11 pals em media
+select avg(array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals
+from comment
+order by pals asc
+
+
+# gif
+ ![image description](https://media.giphy.com/media/3oKIPEqDGUULpEU0aQ/giphy.gif)
 
 # most frequentes words
 select word, nentry from ts_stat($$ select to_tsvector('english',processedtext) from comment join annotation on annotation.comment_commentid = comment.commentid where concept='Frustration' $$)
