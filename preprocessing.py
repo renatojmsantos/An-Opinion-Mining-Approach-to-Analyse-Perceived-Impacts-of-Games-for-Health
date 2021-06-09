@@ -353,18 +353,19 @@ def runPreprocessing(t):
 	
 	#t = clearText(t)
 	
-	if(len(t) > 1 and isEnglish(str(t)) and len(t) < 1800):
-		#print("\n",t)
-		#print(len(t))
-		t = clearText(t)
-		t = caracteresRepetidos(t)
-		#print(t)
+	if(len(t) > 2 and len(t) < 1800):
 		if(isEnglish(str(t))):
-			t = spellCorrection(t) # rever
+			#print("\n",t)
+			#print(len(t))
+			t = clearText(t)
+			t = caracteresRepetidos(t)
 			#print(t)
-			if (len(t) >= 3 and isEnglish(str(t))):
-				#print("--->", t)
-				return t
+			if(isEnglish(str(t))):
+				t = spellCorrection(t) # rever
+				#print(t)
+				if (len(t) >= 3 and isEnglish(str(t))):
+					#print("--->", t)
+					return t
 	return "None"
 	
 

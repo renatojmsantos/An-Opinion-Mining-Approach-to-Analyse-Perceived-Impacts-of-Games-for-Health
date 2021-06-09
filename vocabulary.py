@@ -179,7 +179,7 @@ dictVocabulary={
 	'Concentration': {'aware': 0.8,'awake': 0.8,'alert': 0.8,'performance': 0.6,'thinking':0.55,'memory':0.4,'learning':0.4,'insomnia': 0.8,'focus': 0.8,'pressure': 0.5,'think':0.49,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
 					'concussion': 0.8,'attention deficit hyperactivy disorder': 0.8,'alcohol use disorder': 0.8,'attention': 0.9, 'cognitive': 0.8, 'concentration': 1.0},
 	
-	'Energy': {'energy': 1.0, 'alive': 0.3, 'endurance': 0.8,'sinchonized':0.3, 'calories':0.8, 'exercise':0.8, 'exercising':0.7, 'strong':0.7,'enthusiasm': 0.67, 'sedentary':0.35, 'dancing':0.66, 'workout':0.9},
+	'Energy': {'energy': 1.0, 'alive': 0.3, 'endurance': 0.8,'sinchonized':0.3, 'calories':0.8, 'exercise':0.8, 'exercising':0.7, 'strong':0.7,'enthusiasm': 0.67, 'sedentary':0.35, 'dancing':0.67, 'workout':0.9},
 	
 	'Fatigue': {'fatigue': 1.0, 'overexertion': 0.8, 'depression': 0.8, 'cramps':0.71, 'vomit':0.7, 'weariness': 0.77, 'anorexia':0.8, 'disorder':0.7,'anxiety': 0.8,'stress': 0.75, 'disease': 0.97, 'illness': 0.7,'tire': 0.8, 'exhaustion': 0.8},
 	
