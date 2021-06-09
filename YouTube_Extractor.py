@@ -533,8 +533,9 @@ while 1:
 
 										# None type???
 										gameid = getGameID(videoID)
-										gameid = int(gameid[0])
+										
 										if (gameid!= None):
+											gameid = int(gameid[0])
 											updateEditionAndPlataform(gameid, titulo, description)
 										
 										# update views, likes... ??
