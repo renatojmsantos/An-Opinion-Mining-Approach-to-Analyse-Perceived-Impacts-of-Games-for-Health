@@ -609,7 +609,7 @@ def getIDs():
 		#conn.autocommit = True
 		cur = conn.cursor()
 
-		query = "SELECT comment_commentid, game_game_id, video_videoid FROM annotation group by comment_commentid, game_game_id,video_videoid;"
+		query = "SELECT game_game_id, video_videoid FROM annotation;"# group by game_game_id,video_videoid;"
 		#print(query)
 		cur.execute(query)
 		idBack = cur.fetchall()
@@ -1083,21 +1083,23 @@ def checkInfoGame(title, descript):
 def updateInfoGame():
 
 	try:
-		idsGame = getGames()
+		ids = getIDs()
 		#print(idsGame)
-		for g in idsGame:
-			if (g is not None and g[0] is not None):
+		for g in ids:
+			if (g is not None):
 				gameid = g[0]
-				print(gameid)
-				videoid = getVideoID(str(gameid))
-				print(videoid)
+				videoid = g[1]
+				#print(gameid)
+				#videoid = getVideoID(str(gameid))
+				#print(videoid)
 				#print(videoid[0])
 				if (videoid is not None):
-					commentid = videoid[1]
-					video = getVideo(str(videoid[0]))
+					#commentid = videoid[1]
+					video = getVideo(str(videoid))
 					if (video is not None):
-						print(video)
-						descript = str(video[1]).lower()
+						print(video[0])
+						
+						#descript = str(video[1]).lower()
 						#print(descript)
 						"""
 						if (("covers" in descript) or ("maristela" in descript) or ("killebom" in descript)
@@ -1121,7 +1123,7 @@ def updateInfoGame():
 							
 						else:
 						"""
-						check = checkInfoGame(str(video[0]), str(video[1]))
+						check = checkInfoGame(str(video[0]), str(video[1])) # titulo, descricao
 						if (check is not None):
 							print(check[0], check[1])
 							updateGame(str(gameid), str(check[0]), str(check[1]))
