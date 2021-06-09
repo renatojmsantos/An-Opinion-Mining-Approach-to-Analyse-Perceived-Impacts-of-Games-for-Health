@@ -609,7 +609,7 @@ def getIDs():
 		#conn.autocommit = True
 		cur = conn.cursor()
 
-		query = "SELECT game_game_id, video_videoid FROM annotation;"# group by game_game_id,video_videoid;"
+		query = "SELECT game_game_id, video_videoid FROM annotation group by game_game_id,video_videoid;"
 		#print(query)
 		cur.execute(query)
 		idBack = cur.fetchall()
