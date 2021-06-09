@@ -945,6 +945,8 @@ def checkInfoGame(title, descript):
 
 		
 		title = re.sub('yo-kai watch dance just dance special version','yo-kai watch dance: just dance special version', title)
+		title = re.sub('yo-kai watch dance just dance','yo-kai watch dance: just dance special version', title)
+		title = re.sub('yo-kai watch dance: just dance','yo-kai watch dance: just dance special version', title)
 		title = re.sub('just dance disney party','just dance: disney party',title)
 		title = re.sub('just dance disney party 2','just dance: disney party 2',title)
 		title = re.sub('just dance greatest hits','just dance: greatest hits',title)
