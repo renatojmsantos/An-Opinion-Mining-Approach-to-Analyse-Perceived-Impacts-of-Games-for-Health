@@ -1031,12 +1031,14 @@ def checkInfoGame(title, descript):
 					continue
 				else:
 					break
+			"""
 			elif((s in title.lower())):
 				edition=game
 				if (edition == "Just Dance Disney Party"):
 					continue
 				else:
 					break
+			"""
 			"""
 			elif(serie in descript.lower()):
 				edition=game
