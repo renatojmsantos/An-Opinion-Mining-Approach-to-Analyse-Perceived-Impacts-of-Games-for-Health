@@ -817,6 +817,7 @@ def getEditionAndPlataform(game_id, title, descript):
 		# substituir JD por Just Dance .... no titulo do video ....
 		title = re.sub('jd','just dance',title)
 		title = re.sub('justdance','just dance',title)
+		title = re.sub('wiiu','wii u',title)
 		#title = re.sub('ps2','PlayStation 2',title)
 		title = re.sub('ps3','PlayStation 3',title)
 		title = re.sub('ps4','PlayStation 4',title)
@@ -828,7 +829,10 @@ def getEditionAndPlataform(game_id, title, descript):
 		title = re.sub('x360','Xbox 360',title)
 		title = re.sub('xbox sx','Xbox Series X',title)
 		title = re.sub('xbox ss','Xbox Series S',title)
+		title = re.sub('xbox360','Xbox 360',title)
+		title = re.sub('xboxone','Xbox One',title)
 		title = re.sub('switch','Nintendo Switch',title)
+		title = re.sub('nintendoswitch','Nintendo Switch',title)
 		title = re.sub('nintendo','Nintendo Switch',title)
 		title = re.sub('windows','Microsoft Windows',title)
 		title = re.sub('pc','Microsoft Windows',title)
@@ -848,6 +852,7 @@ def getEditionAndPlataform(game_id, title, descript):
 		descript = descript.lower()
 		descript = re.sub('jd','just dance',descript)
 		descript = re.sub('justdance','just dance',descript)
+		descript = re.sub('wiiu','wii u',descript)
 		#descript = re.sub('ps2','PlayStation 2',descript)
 		descript = re.sub('ps3','PlayStation 3',descript)
 		descript = re.sub('ps4','PlayStation 4',descript)
@@ -858,6 +863,9 @@ def getEditionAndPlataform(game_id, title, descript):
 		descript = re.sub('x360','Xbox 360',descript)
 		descript = re.sub('xbox sx','Xbox Series X',descript)
 		descript = re.sub('xbox ss','Xbox Series S',descript)
+		descript = re.sub('xbox360','Xbox 360',descript)
+		descript = re.sub('xboxone','Xbox One',descript)
+		descript = re.sub('nintendoswitch','Nintendo Switch',descript)
 		descript = re.sub('switch','Nintendo Switch',descript)
 		descript = re.sub('nintendo','Nintendo Switch',descript)
 		descript = re.sub('windows','Microsoft Windows',descript)
@@ -870,7 +878,7 @@ def getEditionAndPlataform(game_id, title, descript):
 		for p in platforms:
 			c = p.lower()
 			if(c in title.lower()):
-				print(p)
+				#print(p)
 				platform = p
 				if (platform == "Wii"):
 					continue
@@ -921,7 +929,7 @@ def getEditionAndPlataform(game_id, title, descript):
 
 			if(serie in title.lower()):
 				edition=game
-				print(edition)
+				#print(edition)
 				if (edition == "Just Dance 2"):
 					continue
 				if (edition == "Just Dance Wii"):
