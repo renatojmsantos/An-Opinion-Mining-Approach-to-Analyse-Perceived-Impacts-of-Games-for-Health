@@ -949,6 +949,7 @@ def checkInfoGame(title, descript):
 
 		#descript = description[row]
 
+		"""
 		descriptWords = word_tokenize(descript.strip()) 
 		descript = " ".join(descriptWords)
 
@@ -979,32 +980,8 @@ def checkInfoGame(title, descript):
 		descript = re.sub('pc','Microsoft Windows',descript)
 
 		descript = descript.lower()
+		"""
 
-		platforms = ['Wii', 'Wii U', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'Xbox 360', 'Xbox One', 'Xbox Series X', 'Xbox Series S','iOS', 'Android', 'Nintendo Switch', 'Microsoft Windows', 'Stadia']
-		# detetar plataforma no titulo do video e na descrição ...
-		platform = ""
-		for p in platforms:
-			c = p.lower()
-			if(c in title.lower()):
-				platform = p
-				if (platform == "Wii"):
-					continue
-				elif (platform == "Xbox Series X"):
-					continue
-				else:
-					break
-				#break
-			elif(c in descript.strip().lower()):
-				platform = p
-				if (platform == "Wii"):
-					continue
-				elif (platform == "Xbox Series X"):
-					continue
-				else:
-					break
-
-		if(platform==""):
-			platform="Unknown"
 
 		#print(title)
 		#https://en.wikipedia.org/wiki/Just_Dance_(video_game_series)
@@ -1053,6 +1030,7 @@ def checkInfoGame(title, descript):
 					continue
 				else:
 					break
+			"""
 			elif(serie in descript.lower()):
 				edition=game
 				if (edition == "Just Dance 2"):
@@ -1067,10 +1045,52 @@ def checkInfoGame(title, descript):
 					continue
 				else:
 					break
+			"""
 		if(edition == ""): # PROBLEM 2018, 2019 ???
 			serie = "Just Dance"
 			if(serie.lower() in title.lower()):
 				edition = "Just Dance"
+
+
+
+		platforms = ['Wii', 'Wii U', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'Xbox 360', 'Xbox One', 'Xbox Series X', 'Xbox Series S','iOS', 'Android', 'Nintendo Switch', 'Microsoft Windows', 'Stadia']
+		# detetar plataforma no titulo do video e na descrição ...
+		platform = ""
+		for p in platforms:
+			c = p.lower()
+			if(c in title.lower()):
+				if (c == 'android' or platform == 'ios'):
+					if(edition != "Just Dance Now"):
+						continue
+				platform = p
+				if (platform == "Wii"):
+					continue
+				elif (platform == "Xbox Series X"):
+					continue
+				else:
+					break
+				#break
+			"""
+			elif(c in descript.strip().lower()):
+				platform = p
+				if (platform == "Wii"):
+					continue
+				elif (platform == "Xbox Series X"):
+					continue
+				else:
+					break
+			"""
+
+		#if (platform == 'Android' or platform == 'iOS'):
+		#	if(edition != "Just Dance Now"):
+		#		edition="Unknown"
+
+		if (edition == "Just Dance Now"):
+			if(platform != 'Android' or platform != 'iOS'):
+				platform="Unknown"
+
+		if(platform==""):
+			platform="Unknown"
 
 		#game_id +=1 
 		#query = "insert into game values('"+str(game_id)+"', '"+str(edition)+"', '"+str(platform)+"')"
