@@ -941,12 +941,14 @@ def checkInfoGame(title, descript):
 		title = re.sub('nintendo','Nintendo Switch',title)
 		title = re.sub('windows','Microsoft Windows',title)
 		title = re.sub('pc','Microsoft Windows',title)
+		title = re.sub('iphone','iOS',title)
 
 		titleWords = word_tokenize(title.strip()) 
 		title = " ".join(titleWords)
 		title = title.lower()
 
 		#descript = description[row]
+
 		descriptWords = word_tokenize(descript.strip()) 
 		descript = " ".join(descriptWords)
 
@@ -1091,7 +1093,7 @@ def updateInfoGame():
 				videoid = g[1]
 				#print(gameid)
 				#videoid = getVideoID(str(gameid))
-				#print(videoid)
+				print(videoid)
 				#print(videoid[0])
 				if (videoid is not None):
 					#commentid = videoid[1]
@@ -1099,7 +1101,7 @@ def updateInfoGame():
 					if (video is not None):
 						print("\n--> ",video[0])
 						print("--> ",video[1])
-						
+						print("--> ",videoid)
 						#descript = str(video[1]).lower()
 						#print(descript)
 						"""
