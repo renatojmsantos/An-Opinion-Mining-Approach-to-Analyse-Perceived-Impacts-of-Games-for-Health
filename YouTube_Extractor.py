@@ -163,6 +163,41 @@ def getLastGameID():
 			conn.close()
 	return idBack# is not None #idBack
 
+
+
+def getGameID(videoid):
+	
+	try:
+		idBack = None
+		conn = None
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		query = "SELECT game_game_id  FROM annotation where video_videoid='"+videoid+"'"
+		#print(query)
+		cur.execute(query)
+
+		idBack = cur.fetchone()
+		#print(idBack)
+		#for row in idBack:
+		#	if (row is not None):
+		#		print(row)
+				#idBack=row
+				#return idBack 
+		#print(idBack)
+		#conn.commit()
+		#print("inserted!")
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO! get comments", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
 #========================================================================================================================================================================
 #========================================================================================================================================================================
 
@@ -264,7 +299,7 @@ while 1:
 						print(searchGame)
 
 						search_response = youtube.search().list(
-							publishedBefore=endDate, publishedAfter=beginDate, q=searchGame, part="id,snippet", order='relevance', type='video', relevanceLanguage='en', maxResults=100, 
+							publishedBefore=endDate, publishedAfter=beginDate, q=str(searchGame), part="id,snippet", order='relevance', type='video', relevanceLanguage='en', maxResults=100, 
 							pageToken=nextPage_token).execute()
 						# search () -> custo de 100 units... o resto é de 1 units
 
@@ -344,6 +379,7 @@ while 1:
 											query = "insert into video values('"+str(idChannel)+"', '"+str(tituloChannel)+"', '"+str(videoID)+"','"+titulo+"','"+str(dateVideo)+"', '"+str(views)+"', '"+str(likesV)+"', '"+str(dislikesV)+"', '"+str(nrCommentsV)+"', '"+str(description)+"')"
 											insertToTable(query)
 											
+											print(game_id)
 											game_id = getEditionAndPlataform(game_id, titulo, description)
 											
 											if(int(nrCommentsV) > 0):
@@ -492,15 +528,19 @@ while 1:
 											#print("videos (stats) - something wrong ...")
 									else:
 										print("	 >>> video já inserido na BD...")
-										#newVideo = False
-										#getInfoVideo(newVideo, nowDate, game_id, opinion_id, dimension_id, titulo, tituloChannel, idChannel, description, dateVideo, videoID)
-										# VAI BUSCAR OS COMENTÁRIOS SÓ A PARTIR DA DATA XXX .. nao dá pra fazer pelo publishedafter
-										#....
 										
-										#if (checkCommentID(str(commentid)) is False):
-										#	pass
+										#updateInfoGame()... get videoID do annotationid... to get gameid
+
+										# None type???
+										gameid = getGameID(videoID)
+										gameid = int(gameid[0])
+										if (gameid!= None):
+											updateEditionAndPlataform(gameid, titulo, description)
+										
+										# update views, likes... ??
+
 										if (checkNewComments == "True"):
-											#print("checking new comments")
+											# vai atualizar os comentarios do video...
 											try:
 												random.shuffle(listaKeys)
 												DEVELOPER_KEY = str(listaKeys[0])

@@ -179,7 +179,7 @@ dictVocabulary={
 	'Concentration': {'aware': 0.8,'awake': 0.8,'alert': 0.8,'performance': 0.9,'thinking':0.55,'memory':0.4,'learning':0.4,'insomnia': 0.8,'focus': 0.8,'pressure': 0.5,'think':0.49,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
 					'concussion': 0.8,'attention deficit hyperactivy disorder': 0.8,'alcohol use disorder': 0.8,'attention': 0.9, 'cognitive': 0.8, 'concentration': 1.0},
 	
-	'Energy': {'energy': 1.0, 'alive': 0.3, 'endurance': 0.8,'sinchonized':0.3, 'calories':0.8, 'exercise':0.8, 'strong':0.7,'enthusiasm': 0.67, 'sedentary':0.35, 'dancing':0.63, 'workout':0.9},
+	'Energy': {'energy': 1.0, 'alive': 0.3, 'endurance': 0.8,'sinchonized':0.3, 'calories':0.8, 'exercise':0.8, 'exercising':0.7, 'strong':0.7,'enthusiasm': 0.67, 'sedentary':0.35, 'dance':0.5, 'dancing':0.69, 'workout':0.9},
 	
 	'Fatigue': {'fatigue': 1.0, 'overexertion': 0.8, 'depression': 0.8, 'cramps':0.71, 'vomit':0.7, 'weariness': 0.77, 'anorexia':0.8, 'disorder':0.7,'anxiety': 0.8,'stress': 0.75, 'disease': 0.97, 'illness': 0.7,'tire': 0.8, 'exhaustion': 0.8},
 	
@@ -206,7 +206,7 @@ dictVocabulary={
 	
 	'Self-esteem': {'self':1.0, 'esteem': 0.95, 'self-esteem':1.0,'meaningful': 0.85,'public':0.5, 'appearance':0.8,'enthusiastic':0.75,'inspired':0.7,'distressed': 0.86,'strong': 0.85,'proud': 0.9,'confidence': 0.85,'narcissisism': 0.9,
 				'superiority': 0.8,'honour': 0.8,'egoism': 0.8,'pride': 0.8,'arrogance': 0.8,
-				'admiration': 0.8,'prestige': 0.8, 'well-being': 0.9,'ashamed': 0.9,'guilty': 0.9,'worthless': 0.8,'think':0.4,'regard': 0.76,'respect': 0.75, 'competence': 0.6,'belonging': 0.6,'identity': 0.7,'security': 0.6,
+				'admiration': 0.8,'prestige': 0.8, 'well-being': 0.9,'ashamed': 0.9,'guilty': 0.9,'fat':0.68,'ugly':0.68,'worthless': 0.8,'think':0.4,'regard': 0.76,'respect': 0.75, 'competence': 0.6,'belonging': 0.6,'identity': 0.7,'security': 0.6,
 				'acceptance': 0.7,'worth': 0.77,'appraisal': 0.9,'dignity': 0.95,
 				'family': 0.7,'embarrassment':0.85, 'people': 0.5,'education': 0.55,'efficacy': 0.45,'control': 0.55,'oneself': 0.6,'healthy':0.6,'satisfaction': 0.7},
 	
