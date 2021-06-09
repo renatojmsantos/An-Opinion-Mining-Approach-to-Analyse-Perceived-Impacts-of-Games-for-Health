@@ -1062,6 +1062,8 @@ def checkInfoGame(title, descript):
 				if (c == 'android' or platform == 'ios'):
 					if(edition != "Just Dance Now"):
 						continue
+					else:
+						pass
 				platform = p
 				if (platform == "Wii"):
 					continue
@@ -1085,9 +1087,12 @@ def checkInfoGame(title, descript):
 		#	if(edition != "Just Dance Now"):
 		#		edition="Unknown"
 
-		if (edition != "Just Dance Now"):
-			if(platform != 'Android' or platform != 'iOS'):
+		
+		if(platform == 'Android' or platform == 'iOS'):
+			if (edition != "Just Dance Now"):
 				platform="Unknown"
+			else:
+				pass
 
 		if(platform==""):
 			platform="Unknown"
@@ -1100,7 +1105,7 @@ def checkInfoGame(title, descript):
 		return (edition,platform)
 	except Exception as e:
 		print("erro check update: ", e)
-	pass
+	
 
 def updateInfoGame():
 
