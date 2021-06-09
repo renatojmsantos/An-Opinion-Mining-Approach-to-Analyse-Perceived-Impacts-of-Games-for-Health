@@ -1084,7 +1084,9 @@ def updateInfoGame():
 
 	try:
 		idsGame = getGames()
+		print(idsGame)
 		for g in idsGame:
+			print(g)
 			gameid = g[0]
 
 			videoid = getVideoID(str(gameid))
