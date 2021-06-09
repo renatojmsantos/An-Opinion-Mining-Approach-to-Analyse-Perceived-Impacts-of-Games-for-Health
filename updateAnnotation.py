@@ -1038,7 +1038,7 @@ def checkInfoGame(title, descript):
 
 			if(serie in title.lower()):
 				edition=game
-				print(edition)
+				#print(edition)
 				if (edition == "Just Dance 2"):
 					continue
 				if (edition == "Just Dance Wii"):
@@ -1097,7 +1097,7 @@ def updateInfoGame():
 					#commentid = videoid[1]
 					video = getVideo(str(videoid))
 					if (video is not None):
-						print(video[0])
+						print("--> "video[0])
 						
 						#descript = str(video[1]).lower()
 						#print(descript)
@@ -1125,7 +1125,7 @@ def updateInfoGame():
 						"""
 						check = checkInfoGame(str(video[0]), str(video[1])) # titulo, descricao
 						if (check is not None):
-							print(check[0], check[1])
+							print("> " check[0], check[1])
 							updateGame(str(gameid), str(check[0]), str(check[1]))
 
 	except Exception as e:

@@ -720,7 +720,7 @@ def updateEditionAndPlataform(game_id, title, descript):
 		for p in platforms:
 			c = p.lower()
 			if(c in title.lower()):
-				print(p)
+				#print(p)
 				platform = p
 				if (platform == "Wii"):
 					continue
@@ -775,7 +775,7 @@ def updateEditionAndPlataform(game_id, title, descript):
 
 			if(serie in title.lower()):
 				edition=game
-				print(edition)
+				#print(edition)
 				if (edition == "Just Dance 2"):
 					continue
 				if (edition == "Just Dance Wii"):
