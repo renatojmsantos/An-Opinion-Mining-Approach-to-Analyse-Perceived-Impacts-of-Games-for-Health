@@ -164,7 +164,7 @@ dictVocabulary={
 				'regardless': 0.5,'shatter': 0.5,'intrigu': 0.5,'afterward': 0.5,'laugh': 0.7,'nevertheless': 0.5,'fell': 0.6,'incompatibility': 0.3,'chore': 0.3,'humor': 0.7,'grin': 0.4,
 				'workout': 0.6,'lighter': 0.4,'sooth': 0.3,'annoy': 0.7,'boredom': 0.7,'nostalgia': 0.65},
 	
-	'Support': {'support':1.0, 'help':0.8, 'service':0.8,'team':0.5,'call':0.7,'need':0.45, 'contact':0.8,'correct':0.8,'how':0.95, 'request':0.75,'improve':0.55,'add':0.65'please':0.6,'want':0.65,'should':0.3,'wish': 0.7,'software': 0.7},
+	'Support': {'support':1.0, 'help':0.8, 'service':0.8,'team':0.5,'call':0.7,'need':0.45, 'contact':0.8,'correct':0.8,'how':0.95, 'request':0.75,'improve':0.55,'add':0.65,'please':0.6,'want':0.65,'should':0.3,'wish': 0.7,'software': 0.7},
 	
 	'Trust': {'trust': 1.0, 'behavior': 0.8, 'disappointed':0.8, 'handshake':0.4, 'easy':0.8, 'quality':0.8, 'exist':0.8, 'handhold':0.8, 'reliev':0.8, 'cute':0.8, 'sooth':0.8,'reliable':0.8,'secure':0.8,'pleasure': 0.5},
 	
