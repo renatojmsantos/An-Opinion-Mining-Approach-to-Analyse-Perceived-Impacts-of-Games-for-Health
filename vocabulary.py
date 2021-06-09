@@ -172,9 +172,9 @@ dictVocabulary={
 						'professional':0.9, 'finalist':0.63, 'dancers':0.7,'buyer': 0.7,'target': 0.7,'feature': 0.7, 'difference': 0.8, 'if': 0.55},
 
 
-	'Bodily image and Appearance': {'bodily':1.0, 'image': 0.55, 'appearance': 1.0, 'anorexia':0.8, 'anorexic':0.8, 'handicapped': 0.75,'physical': 0.9,'self-concept': 0.8,'body': 0.95,'limb': 0.6,'artificial': 0.5,
-									'clothes': 0.8,'boots':0.75,'dress':0.78,'workout':0.57, 'eat':0.6, 'outfit':0.75,'muscles':0.71,'make-up': 0.72,'impairment': 0.6,'acne':0.8,'ugly':0.8,'beautiful':0.77,
-									'look': 0.33, 'fat':0.8,'beard':0.50 ,'skinny':0.8, 'weight':0.6},
+	'Bodily image and Appearance': {'bodily':1.0, 'image': 0.55, 'appearance': 1.0, 'anorexia':0.8, 'anorexic':0.8, 'handicapped': 0.75,'physical': 0.9,'self-concept': 0.9,'body': 0.95,'limb': 0.6,'artificial': 0.5,
+									'clothes': 0.8,'boots':0.75,'dress':0.78,'workout':0.57, 'eat':0.6, 'outfit':0.75,'muscles':0.71,'healthy':0.8,'make-up': 0.72,'impairment': 0.6,'acne':0.8,'ugly':0.8,'beautiful':0.77,
+									'look': 0.35, 'fat':0.9,'beard':0.50 ,'skinny':0.9, 'weight':0.8},
 	
 	'Concentration': {'aware': 0.8,'awake': 0.8,'alert': 0.8,'performance': 0.9,'thinking':0.55,'memory':0.4,'learning':0.4,'insomnia': 0.8,'focus': 0.8,'pressure': 0.5,'think':0.49,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
 					'concussion': 0.8,'attention deficit hyperactivy disorder': 0.8,'alcohol use disorder': 0.8,'attention': 0.9, 'cognitive': 0.8, 'concentration': 1.0},
@@ -204,19 +204,22 @@ dictVocabulary={
 						'satisfaction': 0.8,'altruism': 0.75,'elevation': 0.65,'amusement': 0.70,'pride': 0.73,'gratitude': 0.73,'serenity': 0.73,'interest': 0.71,'inspiration': 0.7,'romance': 0.7,'hope': 0.66,
 						'love': 0.8,'awe': 0.4,'fun': 0.8,'enjoyment': 0.8,'hopefulness': 0.8,'grinning':0.70,'happiness': 0.8,'peace': 0.76,'balance': 0.3},
 	
-	'Self-esteem': {'self':1.0, 'esteem': 0.95, 'self-esteem':1.0,'meaningful': 0.85,'public':0.5, 'appearance':0.8,'enthusiastic':0.75,'inspired':0.7,'distressed': 0.86,'strong': 0.85,'proud': 0.9,'confidence': 0.85,'narcissisism': 0.9,
-				'superiority': 0.8,'honour': 0.8,'egoism': 0.8,'pride': 0.8,'arrogance': 0.8,
-				'admiration': 0.8,'prestige': 0.8, 'well-being': 0.9,'ashamed': 0.9,'guilty': 0.9,'fat':0.68,'ugly':0.68,'worthless': 0.8,'think':0.4,'regard': 0.76,'respect': 0.75, 'competence': 0.6,'belonging': 0.6,'identity': 0.7,'security': 0.6,
-				'acceptance': 0.7,'worth': 0.77,'appraisal': 0.9,'dignity': 0.95,
-				'family': 0.7,'embarrassment':0.85, 'people': 0.5,'education': 0.55,'efficacy': 0.45,'control': 0.55,'oneself': 0.6,'healthy':0.6,'satisfaction': 0.7},
+	'Self-esteem': {'self':1.2, 'esteem': 0.95, 'self-esteem':1.0,'meaningful': 0.9,'public':0.5, 'appearance':0.85,'enthusiastic':0.78,'inspired':0.72,'distressed': 0.86,'strong': 0.85,'proud': 0.9,'confidence': 0.85,'narcissisism': 0.9,
+				'superiority': 0.8,'honour': 0.8,'egoism': 0.9,'pride': 0.8,'arrogance': 0.9,
+				'admiration': 0.8,'prestige': 0.8, 'well-being': 0.9,'ashamed': 0.9,'guilty': 0.9,'fat':0.73,'ugly':0.73,'worthless': 0.8,'think':0.45,'regard': 0.76,'respect': 0.75, 'competence': 0.65,'belonging': 0.6,'identity': 0.72,'security': 0.6,
+				'acceptance': 0.73,'worth': 0.77,'appraisal': 0.9,'dignity': 0.95,
+				'family': 0.7,'embarrassment':0.9, 'people': 0.5,'education': 0.55,'unloved':0.66,'achievement':0.7,
+				'win':0.76,'love':0.65, 'morality':0.65, 'creativity':0.63, 'spontaneity':0.65, 'prejudice':0.66,
+				'integrity':0.66,'triumph':0.73, 'despair':0.77,'worthy':0.7, 'efficacy': 0.45,'control': 0.55,'oneself': 0.6,'healthy':0.66,'satisfaction': 0.7},
 	
-	'Sexual activity': {'sexual':0.9, 'activity': 0.1, 'physical':0.2 ,'intimacy': 0.4, 'fulfillment': 0.2,'expression': 0.1,'drive': 0.1,'desire': 0.25},
+	'Sexual activity': {'sexual':0.9, 'sex':0.96,'activity': 0.1, 'physical':0.2 ,'intimacy': 0.4, 'fulfillment': 0.2,'expression': 0.1,'drive': 0.1,'desire': 0.25},
 	
 	'Sleep and Rest': {'sleep': 1.0,'waking':0.5 ,'up': 0.3, 'parasomnia': 0.8,'hypersomnia': 0.8,'yawning':0.66, 'nightmare':0.4, 'restless':0.3, 'leg':0.1 ,'syndrome': 0.1,'apnea': 0.8,'insomnia': 0.8,'lack':0.1, 'refreshment': 0.4,'rest': 0.97},
 	
-	'Social support': {'social':0.95, 'support': 0.85, 'encouragement': 0.8,'asking':0.6, 'share': 0.60,'talking': 0.72,'teaching': 0.85,'companionship':0.8,'empathy':0.8,'sympathy':0.8,'esteem':0.8,'solve': 0.4,'relationship': 0.85,
-					'handshake':0.65,'roommate': 0.85, 'thanks': 0.70, 'help': 0.9,'chill': 0.5,'dude': 0.6,'best':0.3,'friend': 0.9,'physical':0.1,'abuse': 0.4,
-					'verbal': 0.12,'personal': 0.8,'crisis': 0.7,'responsability': 0.8,'assistance': 0.85,'together':0.65,'approval': 0.5,'kiss': 0.62,'commitment': 0.5,'family': 0.9},
+	'Social support': {'social':0.95, 'support': 0.90, 'encouragement': 0.8,'asking':0.72, 'share': 0.7,'talking': 0.8,'teaching': 0.85,'companionship':0.9,'empathy':0.9,'sympathy':0.9,'esteem':0.8,'solve': 0.4,'relationship': 0.95,
+					'handshake':0.69,'roommate': 0.95, 'thanks': 0.75,'inclusive':0.7, 'help': 0.9,'chill': 0.5,'dude': 0.67,'best':0.3,'friend': 0.9,'physical':0.1,'abuse': 0.4,
+					'verbal': 0.12,'personal': 0.8,'crisis': 0.7,'responsability': 0.8,'love':0.5, 'trust':0.67, 'caring':0.8, 'suggestions':0.73, 'encourage':0.8, 'advice':0.82, 'appraisal':0.55, 'information':0.6, 
+					'useful':0.6,'assistance': 0.85,'together':0.7,'approval': 0.5,'kiss': 0.63,'commitment': 0.5,'family': 0.9},
 	
 	'Thinking': {'think': 1.0,'aware': 0.8,'awake': 0.8,'cognitive': 0.8,'concentration':0.5,'memory':0.4,'learning':0.4,'clang': 0.8,'disorder': 0.2,'echolalia': 0.4,'distractible':0.2, 'speech': 0.2,'alogia': 0.4,'intelligent': 0.7,
 				'idea': 0.4,'thought': 0.7,'decision': 0.55},
