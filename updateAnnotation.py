@@ -997,7 +997,7 @@ def checkInfoGame(title, descript):
 		# detetar o nome do jogo no titulo do video ...
 		edition=""
 		serie=""
-		
+		s=""
 		for game in games:
 			serie = game.lower()
 			if (serie == 'yo-kai watch dance: just dance special version'):
@@ -1017,7 +1017,7 @@ def checkInfoGame(title, descript):
 
 			if((serie in title.lower()) or (s in title.lower())):
 				edition=game
-				print(edition)
+				#print(edition)
 				if (edition == "Just Dance 2"):
 					continue
 				elif (edition == "Just Dance Wii"):
