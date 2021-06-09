@@ -1000,6 +1000,7 @@ def checkInfoGame(title, descript):
 		s=""
 		for game in games:
 			serie = game.lower()
+			
 			if (serie == 'yo-kai watch dance: just dance special version'):
 				s = 'yo-kai watch dance just dance special version'
 
@@ -1014,7 +1015,7 @@ def checkInfoGame(title, descript):
 
 			elif(serie == 'just dance: summer party'):
 				s = 'just dance summer party'
-
+			
 			if((serie in title.lower())):
 				edition=game
 				#print(edition)
@@ -1027,6 +1028,12 @@ def checkInfoGame(title, descript):
 				elif (edition == "Just Dance Kids 2"):
 					continue
 				elif (edition == "Just Dance: Disney Party"):
+					continue
+				else:
+					break
+			elif((s in title.lower())):
+				edition=game
+				if (edition == "Just Dance Disney Party"):
 					continue
 				else:
 					break
