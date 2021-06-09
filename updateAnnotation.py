@@ -943,11 +943,17 @@ def checkInfoGame(title, descript):
 		title = re.sub('pc','Microsoft Windows',title)
 		title = re.sub('iphone','iOS',title)
 
+		title = re.sub('yo-kai watch dance just dance special version','yo-kai watch dance: just dance special version', title)
+		title = re.sub('just dance disney party','just dance: disney party',title)
+		title = re.sub('just dance disney party 2','just dance: disney party 2',title)
+		title = re.sub('just dance greatest hits','just dance: greatest hits',title)
+		title = re.sub('just dance summer party','just dance: summer party',title)
+
 		titleWords = word_tokenize(title.strip()) 
 		title = " ".join(titleWords)
 		title = title.lower()
 
-		descript = description[row]
+		#descript = description[row]
 
 		
 		descriptWords = word_tokenize(descript.strip()) 
