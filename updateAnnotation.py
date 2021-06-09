@@ -1088,10 +1088,9 @@ def updateInfoGame():
 		for g in idsGame:
 			if (g is not None and g[0] is not None):
 				gameid = g[0]
-
-
+				print(gameid)
 				videoid = getVideoID(str(gameid))
-				
+				print(videoid)
 				#print(videoid[0])
 				if (videoid is not None):
 					commentid = videoid[1]
