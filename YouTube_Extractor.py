@@ -534,7 +534,7 @@ while 1:
 										# None type???
 										gameid = getGameID(videoID)
 										print(gameid)
-										if (gameid!= None):
+										if (gameid is not None):
 											gameid = int(gameid[0])
 											updateEditionAndPlataform(gameid, titulo, description)
 										

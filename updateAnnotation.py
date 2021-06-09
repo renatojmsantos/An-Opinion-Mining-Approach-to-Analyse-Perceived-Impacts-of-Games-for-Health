@@ -1094,7 +1094,7 @@ def updateInfoGame():
 				commentid = videoid[1]
 				video = getVideo(str(videoid[0]))
 				if (video is not None):
-					#print(video)
+					print(video)
 					descript = str(video[1]).lower()
 					#print(descript)
 					"""
@@ -1121,7 +1121,7 @@ def updateInfoGame():
 					"""
 					check = checkInfoGame(str(video[0]), str(video[1]))
 					if (check is not None):
-						#print(check[0], check[1])
+						print(check[0], check[1])
 						updateGame(str(gameid), str(check[0]), str(check[1]))
 
 	except Exception as e:
@@ -1172,7 +1172,7 @@ def getConceptsAnnotated(comment, polarity):
 		print(e)
 
 def update():
-	updateInfoGame()
+	#updateInfoGame()
 	try:
 		annotationid=0
 		ids = getIDs()
@@ -1222,7 +1222,7 @@ def update():
 	except Exception as e:
 		print(e)
 
-
-update()
+updateInfoGame()
+#update()
 #DELETE FROM annotation WHERE annotationid > XXX;
 
