@@ -1084,47 +1084,47 @@ def updateInfoGame():
 
 	try:
 		idsGame = getGames()
-		print(idsGame)
+		#print(idsGame)
 		for g in idsGame:
-			print(g)
-			gameid = g[0]
+			if(g is not None):
+				gameid = g[0]
 
-			videoid = getVideoID(str(gameid))
-			
-			#print(videoid[0])
-			if (videoid is not None):
-				commentid = videoid[1]
-				video = getVideo(str(videoid[0]))
-				if (video is not None):
-					print(video)
-					descript = str(video[1]).lower()
-					#print(descript)
-					"""
-					if (("covers" in descript) or ("maristela" in descript) or ("killebom" in descript)
-						or ("ivi adamou" in descript) or ("talent show" in descript) or ("music video" in descript) 
-						or ("the nanny" in descript) or ("josh turner" in descript) or ("karaoke" in descript) or ("quadriphonix" in descript) or ("acoustic" in descript)
-						or ("Jerónimo de Sousa" in descript) or ("paul johnson" in descript) and ("remix" in descript) or ("flashmob" in descript) or ("ps22 chorus" in descript)
-						or ("chipettes" in descript) or ("chipmunk" in descript) or ("chipmunks" in descript) or ("just dance india" in descript) or ("official music video" in descript)):
-						
-						query = "delete from annotation where game_game_id='"+str(gameid)+"'"
-						#print(query)
-						deleteRow(query)
-						query = "delete from video where videoid='"+str(videoid[0])+"'"
-						#print(query)
-						deleteRow(query)
-						query = "delete from game where game_id='"+str(gameid)+"'"
-						#print(query)
-						deleteRow(query)
-						query = "delete from comment where commentid='"+str(commentid)+"'"
-						#print(query)
-						deleteRow(query)
-						
-					else:
-					"""
-					check = checkInfoGame(str(video[0]), str(video[1]))
-					if (check is not None):
-						print(check[0], check[1])
-						updateGame(str(gameid), str(check[0]), str(check[1]))
+				videoid = getVideoID(str(gameid))
+				
+				#print(videoid[0])
+				if (videoid is not None):
+					commentid = videoid[1]
+					video = getVideo(str(videoid[0]))
+					if (video is not None):
+						print(video)
+						descript = str(video[1]).lower()
+						#print(descript)
+						"""
+						if (("covers" in descript) or ("maristela" in descript) or ("killebom" in descript)
+							or ("ivi adamou" in descript) or ("talent show" in descript) or ("music video" in descript) 
+							or ("the nanny" in descript) or ("josh turner" in descript) or ("karaoke" in descript) or ("quadriphonix" in descript) or ("acoustic" in descript)
+							or ("Jerónimo de Sousa" in descript) or ("paul johnson" in descript) and ("remix" in descript) or ("flashmob" in descript) or ("ps22 chorus" in descript)
+							or ("chipettes" in descript) or ("chipmunk" in descript) or ("chipmunks" in descript) or ("just dance india" in descript) or ("official music video" in descript)):
+							
+							query = "delete from annotation where game_game_id='"+str(gameid)+"'"
+							#print(query)
+							deleteRow(query)
+							query = "delete from video where videoid='"+str(videoid[0])+"'"
+							#print(query)
+							deleteRow(query)
+							query = "delete from game where game_id='"+str(gameid)+"'"
+							#print(query)
+							deleteRow(query)
+							query = "delete from comment where commentid='"+str(commentid)+"'"
+							#print(query)
+							deleteRow(query)
+							
+						else:
+						"""
+						check = checkInfoGame(str(video[0]), str(video[1]))
+						if (check is not None):
+							print(check[0], check[1])
+							updateGame(str(gameid), str(check[0]), str(check[1]))
 
 	except Exception as e:
 		print(e)
