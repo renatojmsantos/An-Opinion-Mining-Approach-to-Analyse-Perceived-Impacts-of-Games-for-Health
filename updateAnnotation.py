@@ -1097,7 +1097,8 @@ def updateInfoGame():
 					#commentid = videoid[1]
 					video = getVideo(str(videoid))
 					if (video is not None):
-						print("--> ",video[0])
+						print("\n--> ",video[0])
+						print("--> ",video[1])
 						
 						#descript = str(video[1]).lower()
 						#print(descript)
