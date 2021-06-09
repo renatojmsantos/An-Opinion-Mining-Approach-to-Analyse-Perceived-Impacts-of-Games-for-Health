@@ -917,7 +917,7 @@ def updatePolarityComment():
 def checkInfoGame(title, descript):
 	try:
 		title = re.sub('&quot;+','',title)
-		title = title.lower() 
+		title = title.lower().strip()
 
 		# substituir JD por Just Dance .... no titulo do video ....
 		title = re.sub('jd','just dance',title)
@@ -950,8 +950,8 @@ def checkInfoGame(title, descript):
 		title = re.sub('just dance greatest hits','just dance: greatest hits',title)
 		title = re.sub('just dance summer party','just dance: summer party',title)
 
-		titleWords = word_tokenize(title.strip()) 
-		title = " ".join(titleWords)
+		#titleWords = word_tokenize(title.strip()) 
+		#title = " ".join(titleWords)
 		title = title.lower()
 
 		
