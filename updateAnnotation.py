@@ -1018,16 +1018,16 @@ def checkInfoGame(title, descript):
 			
 			if((serie in title.lower())):
 				edition=game
-				#print(edition)
+				print(edition)
 				if (edition == "Just Dance 2"):
 					continue
-				elif (edition == "Just Dance Wii"):
+				if (edition == "Just Dance Wii"):
 					continue
-				elif (edition == "Just Dance Kids"):
+				if (edition == "Just Dance Kids"):
 					continue
-				elif (edition == "Just Dance Kids 2"):
+				if (edition == "Just Dance Kids 2"):
 					continue
-				elif (edition == "Just Dance: Disney Party"):
+				if (edition == "Just Dance: Disney Party"):
 					continue
 				else:
 					break
