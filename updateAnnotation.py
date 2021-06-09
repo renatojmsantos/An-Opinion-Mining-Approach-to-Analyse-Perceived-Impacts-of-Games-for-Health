@@ -1035,8 +1035,7 @@ def checkInfoGame(title, descript):
 					continue
 				if (edition == "Just Dance: Disney Party"):
 					continue
-				else:
-					break
+				#break
 			"""
 			elif(serie in descript.lower()):
 				edition=game
@@ -1075,10 +1074,9 @@ def checkInfoGame(title, descript):
 				platform = p
 				if (platform == "Wii"):
 					continue
-				elif (platform == "Xbox Series X"):
+				if (platform == "Xbox Series X"):
 					continue
-				else:
-					break
+				#break
 				#break
 			"""
 			elif(c in descript.strip().lower()):
