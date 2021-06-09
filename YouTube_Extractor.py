@@ -531,12 +531,13 @@ while 1:
 										
 										#updateInfoGame()... get videoID do annotationid... to get gameid
 
-										# None type???
+										"""
 										gameid = getGameID(videoID)
 										print(gameid)
 										if (gameid is not None):
 											gameid = int(gameid[0])
 											updateEditionAndPlataform(gameid, titulo, description)
+										"""
 										
 										# update views, likes... ??
 

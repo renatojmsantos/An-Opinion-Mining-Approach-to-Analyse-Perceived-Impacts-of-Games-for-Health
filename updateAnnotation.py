@@ -1001,32 +1001,32 @@ def checkInfoGame(title, descript):
 		for game in games:
 			serie = game.lower()
 			if (serie == 'yo-kai watch dance: just dance special version'):
-				serie = 'yo-kai watch dance just dance special version'
+				s = 'yo-kai watch dance just dance special version'
 
 			elif(serie == 'just dance: disney party'):
-				serie = 'just dance disney party'
+				s = 'just dance disney party'
 
 			elif(serie == 'just dance: disney party 2'):
-				serie = 'just dance disney party 2'
+				s = 'just dance disney party 2'
 
 			elif(serie == 'just dance: greatest hits'):
-				serie = 'just dance greatest hits'
+				s = 'just dance greatest hits'
 
 			elif(serie == 'just dance: summer party'):
-				serie = 'just dance summer party'
+				s = 'just dance summer party'
 
-			if(serie in title.lower()):
+			if((serie in title.lower()) or (s in title.lower())):
 				edition=game
-				#print(edition)
+				print(edition)
 				if (edition == "Just Dance 2"):
 					continue
-				if (edition == "Just Dance Wii"):
+				elif (edition == "Just Dance Wii"):
 					continue
-				if (edition == "Just Dance Kids"):
+				elif (edition == "Just Dance Kids"):
 					continue
-				if (edition == "Just Dance Kids 2"):
+				elif (edition == "Just Dance Kids 2"):
 					continue
-				if (edition == "Just Dance: Disney Party"):
+				elif (edition == "Just Dance: Disney Party"):
 					continue
 				else:
 					break
