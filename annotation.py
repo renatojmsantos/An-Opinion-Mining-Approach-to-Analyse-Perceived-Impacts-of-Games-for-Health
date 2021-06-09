@@ -716,12 +716,16 @@ def updateEditionAndPlataform(game_id, title, descript):
 				platform = p
 				if (platform == "Wii"):
 					continue
+				elif (platform == "Xbox Series X"):
+					continue
 				else:
 					break
 				#break
 			elif(c in descript.strip().lower()):
 				platform = p
 				if (platform == "Wii"):
+					continue
+				elif (platform == "Xbox Series X"):
 					continue
 				else:
 					break

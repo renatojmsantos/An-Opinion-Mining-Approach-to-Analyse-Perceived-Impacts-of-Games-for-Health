@@ -967,6 +967,7 @@ def checkInfoGame(title, descript):
 		descript = re.sub('nintendo','Nintendo Switch',descript)
 		descript = re.sub('windows','Microsoft Windows',descript)
 		descript = re.sub('pc','Microsoft Windows',descript)
+
 		descript = descript.lower()
 
 		platforms = ['Wii', 'Wii U', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'Xbox 360', 'Xbox One', 'Xbox Series X', 'Xbox Series S','iOS', 'Android', 'Nintendo Switch', 'Microsoft Windows', 'Stadia']
@@ -978,12 +979,16 @@ def checkInfoGame(title, descript):
 				platform = p
 				if (platform == "Wii"):
 					continue
+				elif (platform == "Xbox Series X"):
+					continue
 				else:
 					break
 				#break
 			elif(c in descript.strip().lower()):
 				platform = p
 				if (platform == "Wii"):
+					continue
+				elif (platform == "Xbox Series X"):
 					continue
 				else:
 					break
@@ -1008,16 +1013,47 @@ def checkInfoGame(title, descript):
 		
 		for game in games:
 			serie = game.lower()
+			if (serie == 'yo-kai watch dance: just dance special version'):
+				serie = 'yo-kai watch dance just dance special version'
+
+			elif(serie == 'just dance: disney party'):
+				serie = 'just dance disney party'
+
+			elif(serie == 'just dance: disney party 2'):
+				serie = 'just dance disney party 2'
+
+			elif(serie == 'just dance: greatest hits'):
+				serie = 'just dance greatest hits'
+
+			elif(serie == 'just dance: summer party'):
+				serie = 'just dance summer party'
+
 			if(serie in title.lower()):
 				edition=game
-				#print(edition)
+				print(edition)
 				if (edition == "Just Dance 2"):
+					continue
+				if (edition == "Just Dance Wii"):
+					continue
+				if (edition == "Just Dance Kids"):
+					continue
+				if (edition == "Just Dance Kids 2"):
+					continue
+				if (edition == "Just Dance: Disney Party"):
 					continue
 				else:
 					break
 			elif(serie in descript.lower()):
 				edition=game
 				if (edition == "Just Dance 2"):
+					continue
+				if (edition == "Just Dance Wii"):
+					continue
+				if (edition == "Just Dance Kids"):
+					continue
+				if (edition == "Just Dance Kids 2"):
+					continue
+				if (edition == "Just Dance: Disney Party"):
 					continue
 				else:
 					break
@@ -1053,6 +1089,7 @@ def updateInfoGame():
 					#print(video)
 					descript = str(video[1]).lower()
 					#print(descript)
+					"""
 					if (("covers" in descript) or ("maristela" in descript) or ("killebom" in descript)
 						or ("ivi adamou" in descript) or ("talent show" in descript) or ("music video" in descript) 
 						or ("the nanny" in descript) or ("josh turner" in descript) or ("karaoke" in descript) or ("quadriphonix" in descript) or ("acoustic" in descript)
@@ -1073,10 +1110,11 @@ def updateInfoGame():
 						deleteRow(query)
 						
 					else:
-						check = checkInfoGame(str(video[0]), str(video[1]))
-						if (check is not None):
-							#print(check[0], check[1])
-							updateGame(str(gameid), str(check[0]), str(check[1]))
+					"""
+					check = checkInfoGame(str(video[0]), str(video[1]))
+					if (check is not None):
+						#print(check[0], check[1])
+						updateGame(str(gameid), str(check[0]), str(check[1]))
 
 	except Exception as e:
 		print(e)
@@ -1126,7 +1164,7 @@ def getConceptsAnnotated(comment, polarity):
 		print(e)
 
 def update():
-	
+	updateInfoGame()
 	try:
 		annotationid=0
 		ids = getIDs()
