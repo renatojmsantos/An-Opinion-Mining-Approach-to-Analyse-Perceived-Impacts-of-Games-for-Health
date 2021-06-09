@@ -1085,7 +1085,7 @@ def checkInfoGame(title, descript):
 		#	if(edition != "Just Dance Now"):
 		#		edition="Unknown"
 
-		if (edition == "Just Dance Now"):
+		if (edition != "Just Dance Now"):
 			if(platform != 'Android' or platform != 'iOS'):
 				platform="Unknown"
 
