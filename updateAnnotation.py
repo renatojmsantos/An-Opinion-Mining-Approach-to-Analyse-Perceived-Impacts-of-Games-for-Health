@@ -1201,6 +1201,7 @@ def update():
 	try:
 		annotationid=0
 		ids = getIDs()
+		print(ids)
 		for i in ids:
 			commentid = i[0]
 			gameid = i[1]
