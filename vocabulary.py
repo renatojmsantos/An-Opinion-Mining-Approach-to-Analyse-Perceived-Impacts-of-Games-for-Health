@@ -205,7 +205,7 @@ dictVocabulary={
 	
 	'Social support': {'social':0.95, 'support': 0.90, 'encouragement': 0.8,'asking':0.72, 'share': 0.7,'talking': 0.8,'teaching': 0.85,'companionship':0.9,'empathy':0.9,'sympathy':0.9,'esteem':0.8,'solve': 0.4,'relationship': 0.95,
 					'handshake':0.69,'roommate': 0.95, 'thanks': 0.75,'inclusive':0.7, 'help': 0.9,'chill': 0.5,'dude': 0.67,'best':0.3,'friend': 0.9,'physical':0.1,'abuse': 0.4,
-					'verbal': 0.12,'personal': 0.8,'crisis': 0.55,'responsability': 0.8,'love':0.5, 'trust':0.69, 'caring':0.8, 'suggestions':0.73, 'encourage':0.8, 'advice':0.82, 'appraisal':0.55, 'information':0.6, 
+					'verbal': 0.12,'personal': 0.8,'crisis': 0.55,'responsability': 0.8,'love':0.5, 'trust':0.69, 'caring':0.8, 'suggestions':0.73, 'encourage':0.8, 'advice':0.82, 'appraisal':0.55, 'information':0.55, 
 					'useful':0.6,'assistance': 0.85,'together':0.7,'approval': 0.5,'kiss': 0.55,'commitment': 0.5,'family': 0.87},
 	
 	'Thinking': {'think': 1.0,'aware': 0.8,'awake': 0.8,'cognitive': 0.8,'concentration':0.5,'memory':0.4,'learning':0.4,'clang': 0.8,'disorder': 0.2,'echolalia': 0.4,'distractible':0.2, 'speech': 0.2,'alogia': 0.4,'intelligent': 0.7,

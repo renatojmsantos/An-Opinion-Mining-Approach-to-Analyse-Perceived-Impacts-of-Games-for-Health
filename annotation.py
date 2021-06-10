@@ -173,7 +173,7 @@ def annotate(text, polarity):
 	#print(t.top_emotions)
 	emotions = t.affect_frequencies
 	# valid > 0.18
-	#print(emotions)
+	print(emotions)
 	emo = {}
 	if(emotions):
 		for c,v in emotions.items():
@@ -251,7 +251,7 @@ def annotate(text, polarity):
 				#print("#######################"+lemma)
 				if (lemma == pal): 
 					# total_pals_dict
-					#print("--> MATCH lemma")
+					#print("--> MATCH ", lemma)
 					countPalsDict += 0.65 #1
 
 					#score = (prob/total_pals)*1.6
@@ -274,7 +274,7 @@ def annotate(text, polarity):
 						if(similarity > 0.45):
 							countPalsDict += 1
 							score = prob*1.0
-							
+							print(" * 1.0 ", lemma)
 							if concept not in scoreDict.keys():
 								scoreDict[concept] = score
 							else:
@@ -286,12 +286,13 @@ def annotate(text, polarity):
 					stems.append(word_stem)
 					try:
 						palwn = wordnet.synsets(str(pal))[0]
-						stemwn = wordnet.synsets(str(lemma))[0]
+						stemwn = wordnet.synsets(str(word_stem))[0]
 
 						similarity = stemwn.path_similarity(palwn)
 						if(similarity > 0.45):
 							countPalsDict += 1
 							score = prob*0.95
+							print(" * 0.95 ", word_stem)
 							if concept not in scoreDict.keys():
 								scoreDict[concept] = score
 							else:
@@ -338,6 +339,7 @@ def annotate(text, polarity):
 									#score = score/total_pals_dict
 									#print(concept,pal, score)
 									#print(score)
+									print("stem * 0.8", synonym)
 									if concept not in scoreDict.keys():
 										scoreDict[concept] = score
 									else:
@@ -353,6 +355,7 @@ def annotate(text, polarity):
 									#score = score/total_pals_dict
 									#print(concept,pal, score)
 									#print(score)
+									print("stem * 0.75", antonym)
 									if concept not in scoreDict.keys():
 										scoreDict[concept] = score
 									else:
@@ -385,7 +388,7 @@ def annotate(text, polarity):
 
 											#score = (prob/total_pals)*1.0
 											score = prob*0.7
-											
+											print("stem 2 * 0.7", stem)
 											if concept not in scoreDict.keys():
 												scoreDict[concept] = score
 											else:
@@ -424,7 +427,7 @@ def annotate(text, polarity):
 
 											#score = (prob/total_pals)*0.5
 											score = prob * 0.6
-											
+											print("match hyponym * 0.6", hyponym)
 											if concept not in scoreDict.keys():
 												scoreDict[concept] = score
 											else:
@@ -444,6 +447,7 @@ def annotate(text, polarity):
 													countPalsDict += 1
 
 													#score = (prob/total_pals)*0.5
+													print(" hyponym * 0.55", stem)
 													score = prob * 0.55
 													#print(score, countPalsDict, stem,pal)
 
@@ -478,6 +482,7 @@ def annotate(text, polarity):
 											#print("----> MATCH hypernym")
 											countPalsDict += 1
 											#score = (prob/total_pals)*0.6
+											print(" match hypernym * 0.55", hypernym)
 											score = prob * 0.55
 											#print(score, countPalsDict,hypernym,pal)
 
@@ -499,6 +504,7 @@ def annotate(text, polarity):
 													countPalsDict += 1
 
 													#score = (prob/total_pals)*0.5
+													print(" hypernym * 0.55", stem)
 													score = prob * 0.5
 													#print(score, countPalsDict, stem,pal)
 
@@ -533,7 +539,7 @@ def annotate(text, polarity):
 											#score = (prob/total_pals)*0.6
 											score = prob * 0.5
 											#print(score, countPalsDict,meronym,pal)
-											
+											print(" meronym * 0.55", meronym)
 											if concept not in scoreDict.keys():
 												scoreDict[concept] = score
 											else:
@@ -551,7 +557,7 @@ def annotate(text, polarity):
 													countPalsDict += 1
 
 													score = prob * 0.45
-												
+													print(" meronym * 0.55", stem)
 													if concept not in scoreDict.keys():
 														scoreDict[concept] = score
 													else:
