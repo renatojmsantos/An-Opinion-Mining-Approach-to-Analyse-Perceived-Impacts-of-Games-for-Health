@@ -214,8 +214,8 @@ def annotate(text, polarity):
 					#score=0.00
 					if (c in pal):
 						#print("----> emolex")
-						countPalsDict += 0.4 #1
-						score = (v*prob)*1.6 #2
+						countPalsDict += 0.5 #1
+						score = (v*prob)*1.5 #2
 						print("# EMO ",concept, score)
 						if concept not in scoreDict.keys():
 							scoreDict[concept] = score
@@ -242,10 +242,10 @@ def annotate(text, polarity):
 				if (lemma == pal): 
 					# total_pals_dict
 					#print("--> MATCH ", lemma)
-					countPalsDict += 0.65 #1
+					countPalsDict += 0.6 #1
 
 					#score = (prob/total_pals)*1.6
-					score = prob*1.4
+					score = prob*1.0
 					#print(score,countPalsDict,lemma,pal)
 
 					#score = score/total_pals_dict
@@ -262,9 +262,9 @@ def annotate(text, polarity):
 						lemmawn = wordnet.synsets(str(lemma))[0]
 
 						similarity = lemmawn.path_similarity(palwn)
-						if(similarity > 0.45):
+						if(similarity > 0.20):
 							countPalsDict += 1
-							score = prob*1.0
+							score = prob*0.97
 							print("in * 1.0 ", lemma,score, concept)
 							if concept not in scoreDict.keys():
 								scoreDict[concept] = score
@@ -280,7 +280,7 @@ def annotate(text, polarity):
 						stemwn = wordnet.synsets(str(word_stem))[0]
 
 						similarity = stemwn.path_similarity(palwn)
-						if(similarity > 0.45):
+						if(similarity > 0.20):
 							countPalsDict += 1
 							score = prob*0.95
 							print("stem * 0.95 ", word_stem,score,concept)
