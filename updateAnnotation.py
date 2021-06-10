@@ -11,11 +11,14 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from flair.data import Sentence
 from flair.models import SequenceTagger
 
+import annotation
 #import spacy  
 #nlp_spacy = spacy.load('en_core_web_md') #medium ... sm, md, lg (large)
 
 tagger = SequenceTagger.load("hunflair-disease")
 
+# usar funcao annotate do extrair....
+"""
 def annotate(text, polarity):
 
 	#print("\n>>>>>>> ",text)
@@ -537,7 +540,7 @@ def annotate(text, polarity):
 	#print(scoreDict)
 	return scoreDict
 
-
+"""
 
 def countRowsTable(tableName):
 	idBack = None
@@ -1173,10 +1176,11 @@ def updateInfoGame():
 #updateInfoGame()
 
 #-----------------------------------------------------------------------------------------
-
+"""
 def getConceptsAnnotated(comment, polarity):
 	try:
 		concepts=[]
+		# usar funcao annotate do extrair....
 		DictResult = annotate(str(comment), polarity) 
 		if(bool(DictResult)):
 			#print("\n")
@@ -1213,7 +1217,7 @@ def getConceptsAnnotated(comment, polarity):
 		return concepts
 	except Exception as e:
 		print(e)
-
+"""
 def update():
 	#updateInfoGame()
 	try:
@@ -1265,7 +1269,7 @@ def update():
 	except Exception as e:
 		print(e)
 
-updateInfoGame()
-#update()
+#updateInfoGame()
+update()
 #DELETE FROM annotation WHERE annotationid > XXX;
 
