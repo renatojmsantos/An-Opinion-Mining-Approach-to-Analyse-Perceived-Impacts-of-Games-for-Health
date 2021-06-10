@@ -865,6 +865,8 @@ def getConceptsAnnotated(comment, polarity):
 					elif(c=="Fatigue" and polarity=="positive"):
 						continue
 					elif (c=="Pain and Discomfort" and polarity=="positive"):
+						continue 
+					elif (c=="Affect and Emotion" and polarity=="neutral"):
 						continue
 					else:
 						concepts.append(c)
