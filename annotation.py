@@ -839,9 +839,10 @@ def getConceptsAnnotated(comment, polarity):
 		if(bool(DictResult)):
 			#print("\n")
 			#print(DictResult)
+			print("-----—————————————————————————————————————————————————————————————-")
 			for c,v in DictResult.items():	
 				if (v>0.70):
-					#print(c)
+					
 					polarity = polarity.lower()
 					if (c=="Positive feelings" and polarity=="negative"):
 						continue
@@ -866,6 +867,7 @@ def getConceptsAnnotated(comment, polarity):
 					elif (c=="Affect and Emotion" and polarity=="neutral"):
 						continue
 					else:
+						print(c, v)
 						concepts.append(c)
 		# ... values = dict.values() -> total = sum (values) -> total de cada dim... 
 		return concepts
@@ -902,7 +904,7 @@ def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment
 					for c in conceitos:
 						if (str(c) in concepts):
 							annotation_id+=1
-							print(annotation_id,"... "+str(field)+" --> "+str(c))
+							#print(annotation_id,"... "+str(field)+" --> "+str(c))
 												
 							query = "insert into annotation values("+str(annotation_id)+",'"+str(field)+"','"+str(c)+"','"+str(commentID)+"','"+str(game_id)+"','"+str(videoID)+"')"
 							insertToTable(query)
