@@ -590,7 +590,7 @@ def getIDs():
 		#conn.autocommit = True
 		cur = conn.cursor()
 
-		query = "SELECT game_game_id, video_videoid FROM annotation group by game_game_id,video_videoid;"
+		query = "SELECT comment_commentid, game_game_id, video_videoid FROM annotation group by game_game_id,video_videoid;"
 		#print(query)
 		cur.execute(query)
 		idBack = cur.fetchall()
@@ -1201,7 +1201,7 @@ def update():
 	try:
 		annotationid=0
 		ids = getIDs()
-		print(ids)
+		#print(ids)
 		for i in ids:
 			commentid = i[0]
 			gameid = i[1]
