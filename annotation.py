@@ -214,7 +214,7 @@ def annotate(text, polarity):
 					#score=0.00
 					if (c in pal):
 						#print("----> emolex")
-						countPalsDict += 0.5 #1
+						countPalsDict += 0.25 #1
 						score = (v*prob)*1.5 #2
 						print("# EMO ",concept, score)
 						if concept not in scoreDict.keys():
