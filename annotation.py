@@ -842,7 +842,7 @@ def getConceptsAnnotated(comment, polarity):
 			print(DictResult)
 			print("-----—————————————————————————————————————————————————————————————-")
 			for c,v in DictResult.items():	
-				if (v>0.70):
+				if (v>=0.70):
 					
 					polarity = polarity.lower()
 					if (c=="Positive feelings" and polarity=="negative"):
@@ -866,6 +866,8 @@ def getConceptsAnnotated(comment, polarity):
 					elif (c=="Pain and Discomfort" and polarity=="positive"):
 						continue 
 					elif (c=="Affect and Emotion" and polarity=="neutral"):
+						continue
+					elif (c=="Trust" and polarity=="neutral"):
 						continue
 					else:
 						print(c, v)

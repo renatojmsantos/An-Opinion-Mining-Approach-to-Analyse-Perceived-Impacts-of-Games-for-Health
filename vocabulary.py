@@ -134,7 +134,7 @@ dictVocabulary={
 					'needle':0.1,'grin':0.2,'afterward':0.4,'injury':0.6,'insult':0.6,'disgust':0.5,'sadness':0.5,'angry':0.8,'pouting': 0.75,'insult': 0.5, 'nerv': 0.4, 'unfair':0.5, 'annoy':0.9, 'incompatibility':0.3},
 	
 	'Hedonic': {'hedonic': 1.0, 'quality':0.95, 'fun': 0.9, 'superb':0.8,'enjoy': 0.8, 'excitement':0.9, 'love':0.8,'good':0.5,'super':0.4,'awesome':0.8,'happy':0.6,'friend':0.5,'communicate':0.3,'challenge':0.7, 'fulfillment': 0.6, 'need': 0.1,
-				'pleasure':0.9, 'frustration':0.9, 'annoy': 0.8, 'entertain': 0.8, 'game': 0.7,'multiplayer': 0.7, 'lyric':0.8,'gameplay': 0.87, 'play': 0.8, 'humor': 0.8, 'workout': 0.8,'regret': 0.4, 'intrigu': 0.5,'stagger': 0.4,
+				'pleasure':0.9, 'frustration':0.9, 'annoy': 0.8, 'entertain': 0.8, 'game': 0.7,'play':0.75,'multiplayer': 0.7, 'lyric':0.8,'gameplay': 0.87, 'play': 0.8, 'humor': 0.8, 'workout': 0.8,'regret': 0.4, 'intrigu': 0.5,'stagger': 0.4,
 				'nevertheless': 0.4,'nostalgia': 0.5,'afterward': 0.4,'fell': 0.7,'incompatibility': 0.2,'tension': 0.4,'chore': 0.4,'addict': 0.65,'catch': 0.2,'excit': 0.6,'grin': 0.4,'cute': 0.5,'lighter': 0.2,'felt': 0.3,'sooth': 0.3,'hate': 0.5,
 				'funnier': 0.6,'boredom': 0.6},
 	
