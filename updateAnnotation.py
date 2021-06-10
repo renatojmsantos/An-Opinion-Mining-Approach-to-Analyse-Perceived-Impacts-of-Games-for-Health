@@ -896,7 +896,7 @@ def updatePolarityComment():
 
 #updatePolarityComment()
 
-def checkInfoGame(title, descript):
+def checkInfoGame2(title, descript):
 	try:
 		title = re.sub('&quot;+','',title)
 		title = title.lower().strip()
@@ -926,9 +926,9 @@ def checkInfoGame(title, descript):
 		title = re.sub('iphone','iOS',title)
 
 		
-		title = re.sub('yo-kai watch dance just dance special version','yo-kai watch dance: just dance special version', title)
-		title = re.sub('yo-kai watch dance just dance','yo-kai watch dance: just dance special version', title)
-		title = re.sub('yo-kai watch dance: just dance','yo-kai watch dance: just dance special version', title)
+		title = re.sub('yo-kai watch dance just dance special version','yo-kai watch dance: jd sv', title)
+		title = re.sub('yo-kai watch dance just dance','yo-kai watch dance: jd sv', title)
+		title = re.sub('yo-kai watch dance: just dance','yo-kai watch dance: jd sv', title)
 		title = re.sub('just dance disney party','just dance: disney party',title)
 		title = re.sub('just dance disney party 2','just dance: disney party 2',title)
 		title = re.sub('just dance greatest hits','just dance: greatest hits',title)
@@ -979,7 +979,7 @@ def checkInfoGame(title, descript):
 		print("##", title)
 		#https://en.wikipedia.org/wiki/Just_Dance_(video_game_series)
 		games = ['Just Dance 2', 'Just Dance 3', 'Just Dance 4', 'Just Dance 2014', 'Just Dance 2015', 'Just Dance 2016', 'Just Dance 2017', 'Just Dance 2018', 'Just Dance 2019', 'Just Dance 2020', 'Just Dance 2021',
-				'Just Dance Wii', 'Just Dance Wii 2', 'Just Dance Wii U', 'Yo-kai Watch Dance: Just Dance Special Version',
+				'Just Dance Wii', 'Just Dance Wii 2', 'Just Dance Wii U', 'Yo-kai Watch Dance: JD SV',
 				'Just Dance Kids', 'Just Dance Kids 2', 'Just Dance Kids 2014',
 				'Just Dance: Disney Party', 'Just Dance: Disney Party 2',
 				'Just Dance: Greatest Hits',
@@ -1250,7 +1250,7 @@ def update():
 	except Exception as e:
 		print(e)
 
-#updateInfoGame()
-update()
+updateInfoGame()
+#update()
 #DELETE FROM annotation WHERE annotationid > XXX;
 
