@@ -838,10 +838,11 @@ def getConceptsAnnotated(comment, polarity):
 		DictResult = annotate(str(comment), polarity) 
 		if(bool(DictResult)):
 			#print("\n")
-			#print(DictResult)
+			print("-----—————————————————————————————————————————————————————————————-")
+			print(DictResult)
 			print("-----—————————————————————————————————————————————————————————————-")
 			for c,v in DictResult.items():	
-				if (v>0.75):
+				if (v>0.70):
 					
 					polarity = polarity.lower()
 					if (c=="Positive feelings" and polarity=="negative"):
