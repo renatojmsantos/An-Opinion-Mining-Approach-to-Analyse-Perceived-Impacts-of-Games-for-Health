@@ -1201,7 +1201,7 @@ def update():
 	try:
 		annotationid=0
 		ids = getIDs()
-		print(ids)
+		#print(ids)
 		for i in ids:
 			commentid = i[0]
 			gameid = i[1]
@@ -1215,9 +1215,10 @@ def update():
 						polarity = c[1]
 						#print(commentid, gameid, videoid, comment)
 						# update ... annotation id = 1,2,3...
-						concepts = getConceptsAnnotated(str(comment), str(polarity))
 						print("\n>>>>>>> ",comment)
 						print(">>> ", polarity)
+						concepts = getConceptsAnnotated(str(comment), str(polarity))
+						
 						#print(concepts)
 						if (len(concepts)>0):
 							for d in dictFields.items():
