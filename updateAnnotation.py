@@ -18,8 +18,8 @@ import annotation
 tagger = SequenceTagger.load("hunflair-disease")
 
 # usar funcao annotate do extrair....
-"""
-def annotate(text, polarity):
+
+def annotate2(text, polarity):
 
 	#print("\n>>>>>>> ",text)
 	#print(">>> ", polarity)
@@ -471,8 +471,8 @@ def annotate(text, polarity):
 									else:
 										continue
 										#break #???
-							"""
-							"""
+							
+							
 							print("----> root hypernyms")
 							# conceitos mais gerais
 							for s in lexical.root_hypernyms():
@@ -504,8 +504,7 @@ def annotate(text, polarity):
 							for s in lexical.entailments():
 								for l in s.lemmas():
 									print(l.name())
-							"""
-							"""
+							
 							
 						else:
 							continue
@@ -527,7 +526,7 @@ def annotate(text, polarity):
 	#print(scoreDict)
 	return scoreDict
 
-"""
+
 
 def countRowsTable(tableName):
 	idBack = None
