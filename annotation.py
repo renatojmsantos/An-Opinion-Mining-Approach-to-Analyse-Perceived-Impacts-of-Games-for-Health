@@ -330,7 +330,7 @@ def annotate(text, polarity):
 									#score = score/total_pals_dict
 									#print(concept,pal, score)
 									#print(score)
-									print("synonym * 0.8", synonym, score, concept)
+									print("synonym * 0.8", lemma, synonym, score, concept)
 									if concept not in scoreDict.keys():
 										scoreDict[concept] = score
 									else:
@@ -346,7 +346,7 @@ def annotate(text, polarity):
 									#score = score/total_pals_dict
 									#print(concept,pal, score)
 									#print(score)
-									print("antonym * 0.75", antonym, score, concept)
+									print("antonym * 0.75", lemma, antonym, score, concept)
 									if concept not in scoreDict.keys():
 										scoreDict[concept] = score
 									else:
@@ -379,7 +379,7 @@ def annotate(text, polarity):
 
 											#score = (prob/total_pals)*1.0
 											score = prob*0.7
-											print("stem syn / ant * 0.7", stem, score, concept)
+											print("stem syn / ant * 0.7", lemma, stem, score, concept)
 											if concept not in scoreDict.keys():
 												scoreDict[concept] = score
 											else:
@@ -418,7 +418,7 @@ def annotate(text, polarity):
 
 											#score = (prob/total_pals)*0.5
 											score = prob * 0.6
-											print("match hyponym * 0.6", hyponym, score, concept)
+											print("match hyponym * 0.6", lemma, hyponym, score, concept)
 											if concept not in scoreDict.keys():
 												scoreDict[concept] = score
 											else:
@@ -438,7 +438,7 @@ def annotate(text, polarity):
 													countPalsDict += 1
 
 													#score = (prob/total_pals)*0.5
-													print(" hyponym * 0.55", stem, score, concept)
+													print(" hyponym * 0.55",lemma, stem, score, concept)
 													score = prob * 0.55
 													#print(score, countPalsDict, stem,pal)
 
@@ -473,7 +473,7 @@ def annotate(text, polarity):
 											#print("----> MATCH hypernym")
 											countPalsDict += 1
 											#score = (prob/total_pals)*0.6
-											print(" match hypernym * 0.55", hypernym, score, concept)
+											print(" match hypernym * 0.55",lemma, hypernym, score, concept)
 											score = prob * 0.55
 											#print(score, countPalsDict,hypernym,pal)
 
@@ -495,7 +495,7 @@ def annotate(text, polarity):
 													countPalsDict += 1
 
 													#score = (prob/total_pals)*0.5
-													print(" hypernym * 0.55", stem, score, concept)
+													print(" hypernym * 0.55", lemma, stem, score, concept)
 													score = prob * 0.5
 													#print(score, countPalsDict, stem,pal)
 
@@ -530,7 +530,7 @@ def annotate(text, polarity):
 											#score = (prob/total_pals)*0.6
 											score = prob * 0.5
 											#print(score, countPalsDict,meronym,pal)
-											print(" meronym * 0.55", meronym, score, concept)
+											print(" meronym * 0.55", lemma, meronym, score, concept)
 											if concept not in scoreDict.keys():
 												scoreDict[concept] = score
 											else:
@@ -548,7 +548,7 @@ def annotate(text, polarity):
 													countPalsDict += 1
 
 													score = prob * 0.45
-													print(" meronym * 0.55", stem, score, concept)
+													print(" meronym * 0.55", lemma, stem, score, concept)
 													if concept not in scoreDict.keys():
 														scoreDict[concept] = score
 													else:
