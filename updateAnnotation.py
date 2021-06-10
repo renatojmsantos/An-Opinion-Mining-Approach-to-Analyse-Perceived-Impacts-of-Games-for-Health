@@ -896,7 +896,7 @@ def updatePolarityComment():
 
 #updatePolarityComment()
 
-def checkInfoGame2(title, descript):
+def checkInfoGame(title, descript):
 	try:
 		title = re.sub('&quot;+','',title)
 		title = title.lower().strip()
@@ -1111,7 +1111,7 @@ def updateInfoGame():
 				videoid = g[1]
 				#print(gameid)
 				#videoid = getVideoID(str(gameid))
-				print(videoid)
+				#print(videoid)
 				#print(videoid[0])
 				if (videoid is not None):
 					#commentid = videoid[1]
