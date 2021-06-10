@@ -92,16 +92,7 @@ def annotate(text, polarity):
 				#print(c,v)
 				polarity = polarity.lower()
 				"""
-				if (c == "positive" and c != polarity):
-					#print("erro positive")
-					continue
-				elif(c == "negative" and c != polarity):
-					#print("erro negative")
-					continue
-				elif(polarity == "positive" and c == "anger" and c == "disgust" and c == "fear" and c == "sadness"):
-					continue
-				elif(polarity == "negative" and c == "joy"):
-					continue
+				
 				"""
 				if (c not in emo.keys()):
 					emo[c] = v
@@ -481,14 +472,15 @@ def annotate(text, polarity):
 										continue
 										#break #???
 							"""
+							"""
 							print("----> root hypernyms")
 							# conceitos mais gerais
 							for s in lexical.root_hypernyms():
 								for l in s.lemmas():
 									print(l.name())
-							"""
+							
 
-							"""
+							
 							# membro de alguma coisa
 							print("------> part holonyms")
 							for s in lexical.part_holonyms():
@@ -501,23 +493,18 @@ def annotate(text, polarity):
 							for s in lexical.substance_holonyms():
 								for l in s.lemmas():
 									print(l.name())
-							"""
-
 							
-							
-							"""
 							# parte de algo
 							print("--------> substance meronyms")
 							for s in lexical.substance_meronyms():
 								for l in s.lemmas():
 									print(l.name())
-							"""
-
-							"""
+							
 							print("----------> entailments")
 							for s in lexical.entailments():
 								for l in s.lemmas():
 									print(l.name())
+							"""
 							"""
 							
 						else:
@@ -584,15 +571,7 @@ def getcomments(commentid):
 		cur.execute(query)
 
 		idBack = cur.fetchall()
-		#print(idBack)
-		#for row in idBack:
-		#	if (row is not None):
-		#		print(row)
-				#idBack=row
-				#return idBack 
-		#print(idBack)
-		#conn.commit()
-		#print("inserted!")
+		
 		cur.close()
 		#return idBack
 	except (Exception, psycopg2.DatabaseError) as error:
