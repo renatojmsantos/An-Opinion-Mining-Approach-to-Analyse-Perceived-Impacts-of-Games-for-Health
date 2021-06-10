@@ -582,6 +582,30 @@ def getcomments(commentid):
 			conn.close()
 	return idBack# is not None #idBack
 
+def getIDsGames():
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		query = "SELECT game_game_id, video_videoid FROM annotation group by game_game_id,video_videoid;"
+		#print(query)
+		cur.execute(query)
+		idBack = cur.fetchall()
+
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO get annotation!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
+
 def getIDs():
 	idBack = None
 	conn = None
@@ -1103,7 +1127,7 @@ def checkInfoGame(title, descript):
 def updateInfoGame():
 
 	try:
-		ids = getIDs()
+		ids = getIDsGames()
 		#print(idsGame)
 		for g in ids:
 			if (g is not None):
