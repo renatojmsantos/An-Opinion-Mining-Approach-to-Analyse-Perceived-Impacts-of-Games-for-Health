@@ -177,7 +177,7 @@ def annotate(text, polarity):
 	emo = {}
 	if(emotions):
 		for c,v in emotions.items():
-			if (v>0.18):
+			if (v>0.25):
 				#print(c,v)
 				polarity = polarity.lower()
 				"""
@@ -271,7 +271,7 @@ def annotate(text, polarity):
 						lemmawn = wordnet.synsets(str(lemma))[0]
 
 						similarity = lemmawn.path_similarity(palwn)
-						if(similarity > 0.19):
+						if(similarity > 0.45):
 							countPalsDict += 1
 							score = prob*1.0
 							
@@ -289,9 +289,9 @@ def annotate(text, polarity):
 						stemwn = wordnet.synsets(str(lemma))[0]
 
 						similarity = stemwn.path_similarity(palwn)
-						if(similarity > 0.5):
+						if(similarity > 0.45):
 							countPalsDict += 1
-							score = prob*0.9
+							score = prob*0.95
 							if concept not in scoreDict.keys():
 								scoreDict[concept] = score
 							else:
@@ -332,7 +332,7 @@ def annotate(text, polarity):
 									countPalsDict += 1
 
 									#score = (prob/total_pals)*1.0
-									score = prob*0.72
+									score = prob*0.8
 									#print(score, countPalsDict, synonym,pal)
 
 									#score = score/total_pals_dict
@@ -347,7 +347,7 @@ def annotate(text, polarity):
 									countPalsDict += 1
 
 									#score = (prob/total_pals)*1.0
-									score = prob*0.67
+									score = prob*0.75
 									#print(score, countPalsDict, antonym,pal)
 
 									#score = score/total_pals_dict
@@ -378,13 +378,13 @@ def annotate(text, polarity):
 
 										similarity = stemwn.path_similarity(palwn)
 										
-										if(similarity > 0.19):
+										if(similarity > 0.45):
 											#print("--> syns")
 											#print("similarity = ",similarity)
 											countPalsDict += 1
 
 											#score = (prob/total_pals)*1.0
-											score = prob*0.62
+											score = prob*0.7
 											
 											if concept not in scoreDict.keys():
 												scoreDict[concept] = score
@@ -423,7 +423,7 @@ def annotate(text, polarity):
 											countPalsDict += 1
 
 											#score = (prob/total_pals)*0.5
-											score = prob * 0.4
+											score = prob * 0.6
 											
 											if concept not in scoreDict.keys():
 												scoreDict[concept] = score
@@ -438,13 +438,13 @@ def annotate(text, polarity):
 
 												similarity = stemwn.path_similarity(palwn)
 												
-												if(similarity > 0.19):
+												if(similarity > 0.45):
 													#print("--> hyponyms")
 													#print("similarity = ",similarity)
 													countPalsDict += 1
 
 													#score = (prob/total_pals)*0.5
-													score = prob * 0.3
+													score = prob * 0.55
 													#print(score, countPalsDict, stem,pal)
 
 													#score = score/total_pals_dict
@@ -478,7 +478,7 @@ def annotate(text, polarity):
 											#print("----> MATCH hypernym")
 											countPalsDict += 1
 											#score = (prob/total_pals)*0.6
-											score = prob * 0.4
+											score = prob * 0.55
 											#print(score, countPalsDict,hypernym,pal)
 
 											if concept not in scoreDict.keys():
@@ -493,13 +493,13 @@ def annotate(text, polarity):
 
 												similarity = stemwn.path_similarity(palwn)
 												
-												if(similarity > 0.19):
+												if(similarity > 0.45):
 													#print("----> hypernyms")
 													#print("similarity = ",similarity)
 													countPalsDict += 1
 
 													#score = (prob/total_pals)*0.5
-													score = prob * 0.3
+													score = prob * 0.5
 													#print(score, countPalsDict, stem,pal)
 
 													#score = score/total_pals_dict
@@ -531,7 +531,7 @@ def annotate(text, polarity):
 											#print("--------> MATCH meronyms")
 											countPalsDict += 1
 											#score = (prob/total_pals)*0.6
-											score = prob * 0.4
+											score = prob * 0.5
 											#print(score, countPalsDict,meronym,pal)
 											
 											if concept not in scoreDict.keys():
@@ -546,11 +546,11 @@ def annotate(text, polarity):
 
 												similarity = stemwn.path_similarity(palwn)
 												
-												if(similarity > 0.19):
+												if(similarity > 0.45):
 													
 													countPalsDict += 1
 
-													score = prob * 0.3
+													score = prob * 0.45
 												
 													if concept not in scoreDict.keys():
 														scoreDict[concept] = score
