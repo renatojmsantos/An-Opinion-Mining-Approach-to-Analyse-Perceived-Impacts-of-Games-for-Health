@@ -87,6 +87,28 @@ def checkCommentID(commentid):
 			conn.close()
 	return idBack is not None #idBack
 
+def checkAnnotatedComment(commentid):
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		query = "SELECT comment_commentid FROM annotation WHERE comment_commentid = '"+ commentid +"' "
+		#print(query)
+		cur.execute(query)
+
+		idBack = cur.fetchone()		
+		cur.close()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack is not None #idBack
 
 def countRowsTable(tableName):
 	idBack = None
@@ -426,7 +448,8 @@ while 1:
 
 																	#def executeAnnotation(game_id, dimension_id, opinion_id, videoID, comment, commentID, likes, dateComment, isMain):
 																	isMain = "Main"
-																	annotation_id = executeAnnotation(game_id, annotation_id, videoID, comment, comentario, commentID, nr_likes, dateComment, isMain)
+																	if(checkAnnotatedComment(str(commentID)) is False):
+																		annotation_id = executeAnnotation(game_id, annotation_id, videoID, comment, comentario, commentID, nr_likes, dateComment, isMain)
 																	
 																	#print(".... id's --> ",opinion_id, dimension_id) # nao aumentam depois.... colocar aqui toda a anotacao do execute? ou return ID's ... em tuplo..? 
 
@@ -469,7 +492,8 @@ while 1:
 																						if (commentReply != "None" and commentReply != "none" and commentReply is not None):
 																							#game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID
 																							isMain = "Reply"
-																							annotation_id = executeAnnotation(game_id, annotation_id, videoID, commentReply, textReply, replyID, likesReply, dateReply, isMain)
+																							if(checkAnnotatedComment(str(replyID)) is False):
+																								annotation_id = executeAnnotation(game_id, annotation_id, videoID, commentReply, textReply, replyID, likesReply, dateReply, isMain)
 																							#opinion_id = ids[0]
 																							#annotation_id = ids
 																							#print(".... id's --> ", opinion_id, dimension_id)
@@ -576,8 +600,9 @@ while 1:
 
 																commentID = comment_result['snippet']['topLevelComment']['id']
 																
-																if (checkCommentID(str(commentID)) is False):
-																	
+																if (checkCommentID(str(commentID)) is False): # FALSE ---> está na bd
+																	print("novo comentario! ")
+
 																	comentario = comment_result['snippet']['topLevelComment']['snippet']['textDisplay']
 
 																	#comentario = unidecode.unidecode(comentario)
@@ -606,7 +631,8 @@ while 1:
 
 																			#def executeAnnotation(game_id, dimension_id, opinion_id, videoID, comment, commentID, likes, dateComment, isMain):
 																			isMain = "Main"
-																			annotation_id = executeAnnotation(game_id, annotation_id, videoID, comment, comentario, commentID, nr_likes, dateComment, isMain)
+																			if(checkAnnotatedComment(str(commentID)) is False):
+																				annotation_id = executeAnnotation(game_id, annotation_id, videoID, comment, comentario, commentID, nr_likes, dateComment, isMain)
 																			
 																			#print(".... id's --> ",opinion_id, dimension_id) # nao aumentam depois.... colocar aqui toda a anotacao do execute? ou return ID's ... em tuplo..? 
 
@@ -649,7 +675,8 @@ while 1:
 																								if (commentReply != "None" and commentReply != "none" and commentReply is not None):
 																									#game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID
 																									isMain = "Reply"
-																									annotation_id = executeAnnotation(game_id, annotation_id, videoID, commentReply, textReply, replyID, likesReply, dateReply, isMain)
+																									if(checkAnnotatedComment(str(replyID)) is False):
+																										annotation_id = executeAnnotation(game_id, annotation_id, videoID, commentReply, textReply, replyID, likesReply, dateReply, isMain)
 																									#opinion_id = ids[0]
 																									#annotation_id = ids
 																									#print(".... id's --> ", opinion_id, dimension_id)

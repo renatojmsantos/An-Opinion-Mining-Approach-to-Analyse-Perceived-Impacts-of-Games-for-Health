@@ -215,7 +215,10 @@ def annotate(text, polarity):
 					if (c in pal):
 						#print("----> emolex")
 						countPalsDict += 0.25 #1
-						score = (v*prob)*1.5 #2
+						if(len(text)>10):
+							score = (v*prob)*1.4
+						else:
+							score = (v*prob)*1.0 #2
 						print("# EMO ",concept, score)
 						if concept not in scoreDict.keys():
 							scoreDict[concept] = score
@@ -848,6 +851,10 @@ def getConceptsAnnotated(comment, polarity):
 					if (c=="Positive feelings" and polarity=="negative"):
 						continue
 					elif(c=="Negative feelings" and polarity=="positive"):
+						continue
+					if (c=="Positive feelings" and polarity=="neutral"):
+						continue
+					elif(c=="Negative feelings" and polarity=="neutral"):
 						continue
 					elif(c=="Frustration" and polarity=="positive"):
 						continue

@@ -1274,7 +1274,7 @@ def update():
 	except Exception as e:
 		print(e)
 
-updateInfoGame()
-#update()
+#updateInfoGame()
+update()
 #DELETE FROM annotation WHERE annotationid > XXX;
 
