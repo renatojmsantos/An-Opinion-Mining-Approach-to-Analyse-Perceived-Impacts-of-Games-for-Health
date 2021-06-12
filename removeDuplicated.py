@@ -168,9 +168,9 @@ def deleteNonEnglish():
 						if(isEnglish(str(original)) is False):
 							print("\n DELETE... ", original)
 							query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
-							#deleteRows(query)
+							deleteRows(query)
 							query = "delete from comment where commentid = '"+str(cid)+"'"
-							#deleteRow(query)
+							deleteRow(query)
 			except Exception as e:
 				print(e)
 	except Exception as e:
