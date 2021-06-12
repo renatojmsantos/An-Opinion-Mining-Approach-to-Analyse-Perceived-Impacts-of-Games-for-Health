@@ -118,7 +118,7 @@ dictVocabulary={
 					'sound': 0.65,'fun': 0.6,'disappoint': 0.65, 'bad': 0.65,'lack': 0.75,'prettier': 0.6,'issue': 0.7,
 					'recommend': 0.6,'easy': 0.6,'graphic': 0.7,'choreography':0.9,'playlist':0.9, 'music':0.9, 'soundtrack':0.9,'overall': 0.6,'love': 0.5,'worth': 0.65,'nice': 0.35,'really': 0.4,'best':0.55},
 	
-	'Enchantment': {'enchantment': 1.0, 'concentration': 0.7,'love': 0.9,'clapping':0.6,'attention': 055,'hearts':0.5,'liveliness': 0.6,'grinning':0.6,'fullness': 0.6,'pleasure': 0.85,'disorientation': 0.7,'experience': 0.6},
+	'Enchantment': {'enchantment': 1.0, 'concentration': 0.7,'love': 0.9,'clapping':0.6,'attention': 0.55,'hearts':0.5,'liveliness': 0.6,'grinning':0.6,'fullness': 0.6,'pleasure': 0.85,'disorientation': 0.7,'experience': 0.6},
 	
 	'Engagement': {'engagement': 1.0, 'enjoyable':0.9,'stop':0.2,'communicate':0.5,'correct':0.5,'connect':0.4,'improve':0.6,'experience':0.8,'challenge': 0.9, 'flow': 1.0,'skill': 0.95,'need': 0.8,'forget': 0.7,
 				'addict': 0.9, 'addition': 1.0, 'replay':0.7, 'nonstop': 0.9, 'lyric':0.85,'sing':0.85,'most':0.5,'interest':0.6,'become':0.6,'gripper':0.6,'hardest':0.6,'painstaking':0.6,'intense':0.6,'hard':0.7,'tire':0.5,
