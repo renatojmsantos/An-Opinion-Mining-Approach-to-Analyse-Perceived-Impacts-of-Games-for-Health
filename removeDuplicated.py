@@ -89,7 +89,7 @@ def getComments():
 		#conn.autocommit = True
 		cur = conn.cursor()
 		#processedtext, originaltext
-		query = "SELECT originaltext,commentid FROM comment join annotation on annotation.comment_commentid = comment.commentid group by originaltext, commentid order by commentid"
+		query = "SELECT originaltext,commentid, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals FROM comment join annotation on annotation.comment_commentid = comment.commentid where (array_length(regexp_split_to_array(originaltext, '\s+'),1)) > 15 group by originaltext, commentid order by pals"
 		#print(query)
 		cur.execute(query)
 		idBack = cur.fetchall()
@@ -162,16 +162,15 @@ def deleteNonEnglish():
 			cid = c[1]
 			try:
 				if(len(original) > 2 and len(original) < 1800):
-					if(len(original.split()) > 12):
+					
+					if(isEnglish(str(original)) is False):
+						print(len(original.split()))
 						if(isEnglish(str(original)) is False):
-							if(len(original.split()) > 15):
-								print(len(original.split()))
-								if(isEnglish(str(original)) is False):
-									print("\n DELETE... ", original)
-									query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
-									#deleteRows(query)
-									query = "delete from comment where commentid = '"+str(cid)+"'"
-									#deleteRow(query)
+							print("\n DELETE... ", original)
+							query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
+							#deleteRows(query)
+							query = "delete from comment where commentid = '"+str(cid)+"'"
+							#deleteRow(query)
 			except Exception as e:
 				print(e)
 	except Exception as e:
