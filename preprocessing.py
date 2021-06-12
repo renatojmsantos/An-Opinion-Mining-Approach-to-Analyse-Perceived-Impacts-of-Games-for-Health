@@ -26,7 +26,7 @@ DetectorFactory.seed = 0
 # link csv: https://we.tl/t-umTQCE5Z8w
 
 def isEnglish(text):
-	if(len(text.split()) < 5):
+	if(len(text.split()) < 6):
 		try:
 			#print("TextBlob")
 			lang = TextBlob(text)
