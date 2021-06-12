@@ -11,6 +11,8 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from flair.data import Sentence
 from flair.models import SequenceTagger
 
+import sys
+
 #import annotation
 #import preprocessing
 #import spacy  
@@ -18,6 +20,8 @@ from flair.models import SequenceTagger
 
 tagger = SequenceTagger.load("hunflair-disease")
 
+
+beginID = sys.argv[1]
 # usar funcao annotate do extrair....
 
 def annotate2(text, polarity):
@@ -1224,7 +1228,8 @@ def getConceptsAnnotated(comment, polarity):
 def update():
 	#updateInfoGame()
 	try:
-		annotationid=0
+		#annotationid=0
+		annotationid=beginID
 		ids = getIDs()
 		#print(ids)
 		for i in ids:

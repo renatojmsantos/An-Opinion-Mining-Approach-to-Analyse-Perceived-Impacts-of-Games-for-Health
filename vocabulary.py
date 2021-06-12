@@ -83,19 +83,19 @@ dictFields={
 
 dictVocabulary={	
 		
-	'Efficiency': {'efficiency': 1.0, 'perfect': 0.9, 'load':0.7,'difficult':0.7,'lock':0.3,'slow':0.9,'limit':0.6, 'fast':0.9, 'ability':0.8,'works': 0.6, 'well':0.3}, 
+	'Efficiency': {'efficiency': 1.0, 'perfect': 0.9, 'load':0.7,'difficult':0.7,'lock':0.3,'slow':0.9,'limit':0.7, 'fast':0.9, 'ability':0.8,'works': 0.6, 'well':0.3}, 
 	
 	'Errors/Effectiveness': {'error': 1.0,'effectiveness':1.0, 'difficult': 0.9, 'waste':0.9,'easy':0.7,'problem':0.9,'miss':0.7,'crash':0.85,'mistake':0.8,'freeze':0.8,'trouble':0.8,'wrong':0.9,'fix': 0.9, 'incompetent': 0.7, 
-							'broken': 0.8,'camera': 0.75, 'glitch': 0.8,'issue': 0.9,'imprecise':0.8, 'lag': 0.9,'bug': 0.9, 'delay':0.9, 'primit':0.5, 'load':0.7, 'respons':0.8, 'resolute':0.8, 'prompt':0.8, 'technic':0.8, 'confuse':0.8, 'data':0.3,
-							'suffer':0.56, 'lack': 0.72,'matter':0.4, 'semblanc':0.3, 'ai':0.3, 'defect':0.79,'shit':0.7,'fuck':0.7,'suck':0.7,'horrible':0.7,'awful':0.8, 'annoy':0.77, 'crowd':0.2, 'flaw':0.4, 'suspect':0.5, 'configure':0.5, 'bump':0.5,
+							'broken': 0.8,'camera': 0.75, 'glitch': 0.8,'issue': 0.9,'imprecise':0.8, 'lag': 0.9,'bug': 0.9, 'delay':0.9, 'primit':0.5, 'load':0.71, 'respons':0.8, 'resolute':0.8, 'prompt':0.8, 'technic':0.8, 'confuse':0.8, 'data':0.3,
+							'suffer':0.59, 'lack': 0.72,'matter':0.4, 'semblanc':0.3, 'ai':0.3, 'defect':0.79,'shit':0.65,'fuck':0.65,'suck':0.65,'horrible':0.71,'awful':0.8, 'annoy':0.77, 'crowd':0.2, 'flaw':0.4, 'suspect':0.5, 'configure':0.5, 'bump':0.5,
 							'inconsistent': 0.8},
 	
 	'Learnability': {'learn': 1.0, 'intuit': 0.9, 'ability':0.6,'easy': 0.8,'figure': 0.4,'straightforward': 0.8,'foreword': 0.8, 'applet':0.6, 'casual':0.5, 'sensor':0.3, 'incred':0.3, 'nunchuk':0.1, 'smooth':0.3, 'master':0.4, 
-					'minute':0.1, 'thus':0.05, 'password':0.1, 'experiment':0.5, 'steam':0.05, 'menu':0.1, 'simple':0.65, 'practice': 0.6}, 
+					'minute':0.1, 'thus':0.05, 'password':0.1, 'experiment':0.5, 'steam':0.05, 'menu':0.2, 'simple':0.65, 'practice': 0.6}, 
 	
 	'Memorability': {'memorability':0.8,'memory': 1.0, 'excellent':0.2,'heard':0.3, 'forgot': 0.8, 'remember': 0.9}, 
 	
-	'Satisfaction': {'satisfaction':1.0,'happy': 0.8, 'fun': 0.9, 'great': 0.6, 'excellent':0.9,'good':0.5, 'disgust':0.65, 'love': 0.9, 'awesome':0.9,'wonderful':0.9,'worth': 0.8, 'best': 0.7, 'recommend': 0.7, 
+	'Satisfaction': {'satisfaction':1.0,'happy': 0.8, 'fun': 0.9, 'great': 0.6, 'excellent':0.9,'good':0.5, 'disgust':0.65, 'love': 0.8, 'awesome':0.9,'wonderful':0.9,'worth': 0.8, 'best': 0.7, 'recommend': 0.7, 
 					'favorite': 0.8, 'cool': 0.5, 'reliable':0.8,'perfect': 0.9,'realli': 0.03,'graphic': 0.2,'sound': 0.2,'music': 0.2,'overall': 0.2,'problem': 0.6,'disappoint': 0.7,'definit': 0.1,'bad': 0.8, 'quality': 0.6,'pretti': 0.5,
 					'lack': 0.7,'unfortunate': 0.5,'well': 0.6,'fantastic': 0.8,'improve': 0.3,'price': 0.2, 'grinning':0.70,'smiling':0.62,'interest': 0.35,'fan': 0.2},
 
@@ -133,7 +133,7 @@ dictVocabulary={
 					'grrrr': 0.4,'anger': 1.0,'hardest': 0.2, 'disadvantage': 0.1, 'flavor':0.3,'scaletta':0.3,'vito':0.2,'insane':0.4,'heck':0.3,'gasp':0.3,'habit':0.3,'melodramat':0.3,'cheat':0.3,'grow':0.2,'flat':0.4,'plain':0.4,
 					'needle':0.1,'grin':0.2,'afterward':0.4,'injury':0.6,'insult':0.6,'disgust':0.5,'sadness':0.5,'angry':0.8,'pouting': 0.75,'insult': 0.5, 'nerv': 0.4, 'unfair':0.5, 'annoy':0.9, 'incompatibility':0.3},
 	
-	'Hedonic': {'hedonic': 1.0, 'quality':0.95, 'fun': 0.9, 'superb':0.8,'enjoy': 0.8, 'excitement':0.9, 'love':0.8,'good':0.5,'super':0.4,'awesome':0.8,'happy':0.6,'friend':0.5,'communicate':0.3,'challenge':0.7, 'fulfillment': 0.6, 'need': 0.1,
+	'Hedonic': {'hedonic': 1.0, 'quality':0.95, 'fun': 0.9, 'superb':0.8,'enjoy': 0.8, 'excitement':0.9, 'love':0.6,'good':0.5,'super':0.4,'awesome':0.8,'happy':0.6,'friend':0.5,'communicate':0.3,'challenge':0.7, 'fulfillment': 0.6, 'need': 0.1,
 				'pleasure':0.9, 'frustration':0.9, 'annoy': 0.8, 'entertain': 0.8, 'game': 0.7,'play':0.75,'multiplayer': 0.7, 'lyric':0.8,'gameplay': 0.87, 'play': 0.8, 'humor': 0.8, 'workout': 0.8,'regret': 0.4, 'intrigu': 0.5,'stagger': 0.4,
 				'nevertheless': 0.4,'nostalgia': 0.5,'afterward': 0.4,'fell': 0.7,'incompatibility': 0.2,'tension': 0.4,'chore': 0.4,'addict': 0.65,'catch': 0.2,'excit': 0.6,'grin': 0.4,'cute': 0.5,'lighter': 0.2,'felt': 0.3,'sooth': 0.3,'hate': 0.5,
 				'funnier': 0.6,'boredom': 0.6},
@@ -185,7 +185,7 @@ dictVocabulary={
 						'unpleasant': 0.8}, 
 	
 	'Personal relationships': {'personal': 1.0, 'homosexual': 0.7,'relationship': 0.85,'heterosexual': 0.7,'marriage': 0.7,'friendship': 0.8,'satisfaction': 0.5,'hug': 0.8,'happy': 0.4,'emotionally': 0.5,
-							'intimate': 0.6,'love': 0.45,'support': 0.5,'people': 0.5,'who':0.5,'everybody':0.4, 'partnership': 0.7,'distress': 0.6,'share':0.35 ,'moments': 0.25,'companionship': 0.7,'friend': 0.9, 'family': 0.9, 'alone': 0.9},
+							'intimate': 0.6,'love': 0.45,'support': 0.5,'people': 0.5,'who':0.5,'everybody':0.4, 'partnership': 0.7,'distress': 0.6,'share':0.6 ,'moments': 0.45,'companionship': 0.7,'friend': 0.9, 'family': 0.9, 'alone': 0.9},
 	
 	'Positive feelings': {'positive': 0.55, 'feeling': 0.3,'optimism': 0.7,'contentment': 0.7,'euphoria': 0.57,'eagerness': 0.7,'admiration': 0.7,'confidence': 0.7,'affection': 0.67,'relief': 0.7,
 						'satisfaction': 0.8,'altruism': 0.75,'elevation': 0.65,'amusement': 0.70,'pride': 0.73,'gratitude': 0.73,'serenity': 0.73,'interest': 0.71,'inspiration': 0.7,'romance': 0.7,'hope': 0.66,
@@ -196,7 +196,7 @@ dictVocabulary={
 				'admiration': 0.8,'prestige': 0.8, 'well-being': 0.9,'ashamed': 0.9,'guilty': 0.9,'fat':0.73,'ugly':0.73,'worthless': 0.8,'think':0.45,'regard': 0.76,'respect': 0.75, 'competence': 0.65,'belonging': 0.6,'identity': 0.62,'security': 0.55,
 				'acceptance': 0.73,'worth': 0.77,'appraisal': 0.9,'dignity': 0.95,'grinning':0.60,'disgust':0.65,'fear':0.65,'sadness':0.65,
 				'family': 0.7,'embarrassment':0.9, 'people': 0.5,'education': 0.55,'unloved':0.66,'achievement':0.7,
-				'win':0.77,'lose':0.72,'love':0.65, 'happy':0.65,'morality':0.65, 'creativity':0.63, 'spontaneity':0.65, 'prejudice':0.66,
+				'win':0.77,'lose':0.72,'love':0.63, 'happy':0.65,'morality':0.65, 'creativity':0.63, 'spontaneity':0.65, 'prejudice':0.66,
 				'integrity':0.66,'triumph':0.73, 'despair':0.77,'worthy':0.7, 'efficacy': 0.45,'control': 0.55,'oneself': 0.6,'healthy':0.66,'satisfaction': 0.7},
 	
 	'Sexual activity': {'sexual':0.9, 'sex':0.96,'activity': 0.1, 'physical':0.2 ,'intimacy': 0.4, 'fulfillment': 0.2,'expression': 0.1,'drive': 0.1,'desire': 0.25},
@@ -205,7 +205,7 @@ dictVocabulary={
 	
 	'Social support': {'social':0.95, 'support': 0.90, 'encouragement': 0.8,'asking':0.72, 'share': 0.7,'talking': 0.8,'teaching': 0.85,'companionship':0.9,'empathy':0.9,'sympathy':0.9,'esteem':0.8,'solve': 0.4,'relationship': 0.95,
 					'handshake':0.69,'roommate': 0.95, 'thanks': 0.75,'inclusive':0.7, 'help': 0.9,'chill': 0.5,'dude': 0.67,'best':0.3,'friend': 0.9,'physical':0.1,'abuse': 0.4,
-					'verbal': 0.12,'personal': 0.8,'crisis': 0.55,'responsability': 0.8,'love':0.5, 'trust':0.69, 'caring':0.8, 'suggestions':0.73, 'encourage':0.8, 'advice':0.82, 'appraisal':0.55, 'information':0.55, 
+					'verbal': 0.12,'personal': 0.8,'crisis': 0.58,'responsability': 0.8,'love':0.5, 'trust':0.69, 'caring':0.8, 'suggestions':0.73, 'encourage':0.8, 'advice':0.82, 'appraisal':0.55, 'information':0.55, 
 					'useful':0.6,'assistance': 0.85,'together':0.7,'approval': 0.5,'kiss': 0.55,'commitment': 0.5,'family': 0.87},
 	
 	'Thinking': {'think': 1.0,'aware': 0.8,'awake': 0.8,'cognitive': 0.8,'concentration':0.5,'memory':0.4,'learning':0.4,'clang': 0.8,'disorder': 0.2,'echolalia': 0.4,'distractible':0.2, 'speech': 0.2,'alogia': 0.4,'intelligent': 0.7,

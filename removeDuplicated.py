@@ -1,5 +1,7 @@
 from connectDB import *
 
+from preprocessing import *
+
 def deleteRow(query):
 	idBack = None
 	conn = None
@@ -14,6 +16,32 @@ def deleteRow(query):
 		#print(query)
 		cur.execute(query)
 		idBack = cur.fetchone()
+		#print(idBack)
+		conn.commit()
+		#print("inserted!")
+		cur.close()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack
+
+def deleteRows(query):
+	idBack = None
+	conn = None
+	
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		conn.autocommit = True
+		cur = conn.cursor()
+
+		query = query + " returning *;" 
+		#print(query)
+		cur.execute(query)
+		idBack = cur.fetchall()
 		#print(idBack)
 		conn.commit()
 		#print("inserted!")
@@ -52,6 +80,29 @@ def getCommentsID():
 			conn.close()
 	return idBack# is not None #idBack
 
+def getComments():
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+		#processedtext, originaltext
+		query = "SELECT originaltext,commentid FROM comment join annotation on annotation.comment_commentid = comment.commentid group by originaltext, commentid order by commentid"
+		#print(query)
+		cur.execute(query)
+		idBack = cur.fetchall()
+
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO get annotation!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
 
 def getIDs(commentid):
 	
@@ -83,6 +134,7 @@ def getIDs(commentid):
 	return idBack# is not None #idBack
 
 
+
 def deleteDuplicated():
 
 	try:
@@ -102,7 +154,32 @@ def deleteDuplicated():
 	except Exception as e:
 		print(e)
 	
-deleteDuplicated()
+def deleteNonEnglish():
+	try:
+		comments = getComments()
+		for c in comments:
+			original = c[0]
+			cid = c[1]
+			try:
+				if(len(original) > 2 and len(original) < 1800):
+					if(len(original.split()) > 12):
+						if(isEnglish(str(original)) is False):
+							if(len(original.split()) > 15):
+								print(len(original.split()))
+								if(isEnglish(str(original)) is False):
+									print("\n DELETE... ", original)
+									query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
+									#deleteRows(query)
+									query = "delete from comment where commentid = '"+str(cid)+"'"
+									#deleteRow(query)
+			except Exception as e:
+				print(e)
+	except Exception as e:
+		print(e)
+
+deleteNonEnglish()
+
+#deleteDuplicated()
 
 """
 
