@@ -177,7 +177,44 @@ def deleteNonEnglish():
 	except Exception as e:
 		print(e)
 
-deleteNonEnglish()
+def removeNon(cid):
+	query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
+	deleteRows(query)
+	query = "delete from comment where commentid = '"+str(cid)+"'"
+	deleteRow(query)
+
+removeNon('UgwEd5Nq8riGYQGokUp4AaABAg')
+removeNon('UgwNdMQQ7laOhp3CxHd4AaABAg')
+removeNon('UgwQuSGcKWzEKyOV2rJ4AaABAg')
+removeNon('Ugx0oVVBJdDW6TxSYoZ4AaABAg')
+removeNon('UgwAz72KFJHYd56LbGh4AaABAg')
+removeNon('Ugg164wF3FHDVXgCoAEC')
+removeNon('UgxMfOKbsW4V9JTSlDt4AaABAg')
+removeNon('UgjYVwM3DscabngCoAEC')
+removeNon('UghALkP-M1vimngCoAEC')
+removeNon('UgwjYYVXR0p_fDKFOGJ4AaABAg')
+removeNon('UggmX20HOTXj1HgCoAEC')
+removeNon('UghKSw08bnhxDngCoAEC')
+removeNon('Ugi-OisBADM_NHgCoAEC')
+removeNon('UgiRxy5YpjMVOXgCoAEC')
+removeNon('UgipAbpp7W22hHgCoAEC')
+removeNon('UggGDnuLJfUrKXgCoAEC')
+removeNon('UgjXPXH8rG_VAngCoAEC')
+removeNon('UgjNJbIvGppyw3gCoAEC')
+removeNon('UgiP-MgbxhH-u3gCoAEC')
+removeNon('UggOvwqP7hPLWngCoAEC')
+removeNon('Ugj5veEzu7O1UngCoAEC')
+removeNon('UgwQeovvRJzvdLvlNER4AaABAg')
+removeNon('UgwfU56pb1i3xZf8lOF4AaABAg')
+removeNon('UgwiVlfUlvF_ynXezKV4AaABAg')
+removeNon('Ugwmph_8D28QL_ojGMp4AaABAg')
+removeNon('UgyX76KbL1PKbg6EzO94AaABAg')
+removeNon('UgygbxZhcXGXbcddnhB4AaABAg')
+removeNon('UgyLRu7dr6SPoFLAzUB4AaABAg')
+removeNon('UginUBcKKm2LhHgCoAEC')
+
+
+#deleteNonEnglish()
 
 #deleteDuplicated()
 
