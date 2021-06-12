@@ -89,7 +89,7 @@ def getComments():
 		#conn.autocommit = True
 		cur = conn.cursor()
 		#processedtext, originaltext
-		query = "SELECT originaltext,commentid, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals FROM comment join annotation on annotation.comment_commentid = comment.commentid where (array_length(regexp_split_to_array(originaltext, '\s+'),1)) > 15 group by originaltext, commentid order by pals"
+		query = "SELECT originaltext,commentid, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals FROM comment join annotation on annotation.comment_commentid = comment.commentid where (array_length(regexp_split_to_array(originaltext, '\s+'),1)) > 14 group by originaltext, commentid order by pals"
 		#print(query)
 		cur.execute(query)
 		idBack = cur.fetchall()

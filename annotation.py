@@ -215,7 +215,7 @@ def annotate(text, polarity):
 					if (c in pal):
 						#print("----> emolex")
 						countPalsDict += 0.25 #1
-						if(len(text)>20):
+						if(len(text.split()) > 7):
 							score = (v*prob)*1.4
 						else:
 							score = (v*prob)*1.0 #2
