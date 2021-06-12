@@ -89,7 +89,7 @@ def getComments():
 		#conn.autocommit = True
 		cur = conn.cursor()
 		#processedtext, originaltext
-		query = "SELECT originaltext,commentid, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals FROM comment join annotation on annotation.comment_commentid = comment.commentid where (array_length(regexp_split_to_array(originaltext, '\s+'),1)) > 14 group by originaltext, commentid order by pals"
+		query = "SELECT originaltext,commentid, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals FROM comment join annotation on annotation.comment_commentid = comment.commentid where (array_length(regexp_split_to_array(originaltext, '\s+'),1)) > 13 group by originaltext, commentid order by pals"
 		#print(query)
 		cur.execute(query)
 		idBack = cur.fetchall()
@@ -161,7 +161,7 @@ def deleteNonEnglish():
 			original = c[0]
 			cid = c[1]
 			try:
-				if(len(original) > 2 and len(original) < 1800):
+				if(len(original) > 2):
 					
 					if(isEnglish(str(original)) is False):
 						print(len(original.split()))
