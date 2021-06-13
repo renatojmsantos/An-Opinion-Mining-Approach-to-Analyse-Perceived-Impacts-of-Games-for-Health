@@ -600,8 +600,8 @@ while 1:
 
 																commentID = comment_result['snippet']['topLevelComment']['id']
 																
-																if (checkCommentID(str(commentID)) is False): # FALSE ---> está na bd
-																	print("novo comentario! ")
+																if (checkCommentID(str(commentID)) is False): # FALSE ---> n está na bd
+																	
 
 																	comentario = comment_result['snippet']['topLevelComment']['snippet']['textDisplay']
 
@@ -625,7 +625,7 @@ while 1:
 																		comment = runPreprocessing(comentario)
 																		#print(type(comment))
 																		if (comment != "None" and comment != "none" and comment is not None):
-																			#print("new comment ! ")
+																			print("new comment ! ")
 																			#print(comentario)
 																			#print(comment)
 
@@ -757,7 +757,7 @@ while 1:
 	#print(nowDate)
 
 	time.sleep(int(sleepTime))
-	break # termina
+	#break # termina
 
 
 

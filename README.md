@@ -15,6 +15,7 @@ Example
 CTRL+Z -> PAUSE
 fg -> resume
 
+ssh admin@193.137.203.84
 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
 
 python3.8
