@@ -115,7 +115,7 @@ dictVocabulary={
 						'excit': 0.7,'cute': 0.5, 'nevertheless': 0.5, 'laugh': 0.6, 'annoy': 0.8, 'nostalgia': 0.58,'creatur': 0.4,'hilarious': 0.6,'incompatibilit': 0.2,'kinda': 0.2,'tension': 0.5,'engagement': 0.7,'truliant': 0.6,
 						'chore': 0.4,'lighter': 0.3,'grin': 0.4,'fell': 0.7,'felt': 0.7,'laughing':0.7,'sooth': 0.7,'humor': 0.7,'scari': 0.7,'grinning':0.70,'amus': 0.7,'love': 0.8,'entertain': 0.65,'boredom':0.7},
 	
-	'Anticipation': {'anticipation': 1.0, 'expectation': 0.9, 'hope':0.7,'pre-order':0.90,'pre-purchase':0.83,'presale':0.83},
+	'Anticipation': {'anticipation': 1.0, 'expectation': 0.9, 'hope':0.7,'pre-order':0.90,'pre-purchase':0.83,'soon':0.75,'presale':0.83},
 	
 	'Comfort': {'comfort': 1.0, 'problem':0.67,'bad':0.3,'mistake':0.3,'crash':0.3,'alert':0.3,'lock':0.3,'poor':0.3,'freeze':0.3,'slow':0.3,'physical': 0.55, 'workout': 0.7, 'fits':0.44, 
 				'comfy':0.9,'feel':0.6, 'cozy':0.9, 'pleasure':0.6,'fear':0.55, 'well':0.3, 'happy': 0.6, 'need': 0.2, 'body':0.55, 'care':0.4, 'active':0.4},
