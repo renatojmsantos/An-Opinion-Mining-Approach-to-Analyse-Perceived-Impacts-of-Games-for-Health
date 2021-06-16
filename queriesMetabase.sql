@@ -295,5 +295,10 @@ where {{concept}} and {{dimension}} and {{polarity}} and {{datecomment}} and {{e
 GROUP BY field, game.edition
 ORDER BY count(distinct comment_commentid) desc
 
+# number of words
+select (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals, count(originaltext) as lenght
+from comment
+where (array_length(regexp_split_to_array(originaltext, '\s+'),1)) < 70
+group by pals
 
 

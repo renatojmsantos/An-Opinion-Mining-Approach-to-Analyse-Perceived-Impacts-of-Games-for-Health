@@ -81,17 +81,24 @@ dictFields={
 
 #WHO_HIS_HSI_Rev.2012.03_eng
 
+# Errors/effectiveness: The number of (non-fatal) errors made by a user during completing a task.
+# Efficiency: The speed or other measure of the cost while performing the task, at a given experience level.
+# Satisfaction: A subjective rating of satisfaction with product use or liking of the product or features.
+# Learnability: The amount of time it takes to learn to use the system, how difficult it is for a first time user or development over time.
+# Memorability: How well users retain information gained about or through the system.
+
 dictVocabulary={	
 		
-	'Efficiency': {'efficiency': 1.0, 'perfect': 0.9, 'load':0.7,'performance':0.65, 'experience':0.65,'difficult':0.7,'lock':0.3,'slow':0.9,'limit':0.7, 'fast':0.9, 'ability':0.8,'works': 0.65, 'well':0.5}, 
+	'Efficiency': {'efficiency': 1.0, 'perfect': 0.65,'speed':0.6, 'load':0.8,'useful':0.7,'performance':0.7, 'experience':0.65,'difficult':0.7,'lock':0.3,'slow':0.9,'limit':0.7, 'fast':0.9, 'ability':0.8,'works': 0.65, 'well':0.5}, 
 	
-	'Errors/Effectiveness': {'error': 1.0,'effectiveness':1.0, 'difficult': 0.9, 'waste':0.9,'easy':0.7,'problem':0.9,'miss':0.7,'crash':0.85,'mistake':0.8,'freeze':0.8,'trouble':0.8,'wrong':0.9,'fix': 0.9, 'incompetent': 0.7, 
-							'broken': 0.8,'camera': 0.75, 'glitch': 0.8,'issue': 0.9,'imprecise':0.8, 'lag': 0.9,'bug': 0.9, 'delay':0.9, 'primit':0.5, 'load':0.71, 'respons':0.8, 'resolute':0.8, 'prompt':0.8, 'technic':0.8, 'confuse':0.8, 'data':0.3,
-							'suffer':0.6, 'lack': 0.75,'matter':0.4, 'semblanc':0.3, 'ai':0.3, 'defect':0.79,'shit':0.65,'fuck':0.65,'suck':0.65,'horrible':0.71,'awful':0.8, 'annoy':0.77, 'crowd':0.2, 'flaw':0.4, 'suspect':0.5, 'configure':0.5, 'bump':0.5,
+	'Errors/Effectiveness': {'error': 1.0,'effectiveness':1.0, 'difficult': 0.9, 'waste':0.9, 'problem':0.9,'miss':0.7,'crash':0.85,'mistake':0.8,'freeze':0.8,'trouble':0.8,'wrong':0.9,'fix': 0.9, 'incompetent': 0.7, 
+							'broken': 0.8,'camera': 0.75, 'glitch': 0.8,'instability':0.8, 'issue': 0.9,'imprecise':0.8, 'lag': 0.9,'bug': 0.9, 'delay':0.9, 'primit':0.5, 'load':0.71, 'respons':0.8, 'resolute':0.8, 'prompt':0.8, 'technic':0.8, 
+							'confuse':0.8, 'poor':0.65, 
+							'suffer':0.6, 'lack': 0.75,'matter':0.4, 'semblanc':0.3, 'laggy':0.7, 'defect':0.79,'shit':0.65,'fuck':0.65,'suck':0.65,'horrible':0.71,'awful':0.8, 'annoy':0.77, 'crowd':0.2, 'flaw':0.4, 'suspect':0.5, 'configure':0.5, 'bump':0.5,
 							'inconsistent': 0.8},
 	
-	'Learnability': {'learn': 1.0, 'intuit': 0.9, 'ability':0.6,'easy': 0.7,'figure': 0.4,'straightforward': 0.8,'foreword': 0.8, 'applet':0.6, 'casual':0.5, 'sensor':0.3, 'incred':0.3, 'nunchuk':0.1, 'smooth':0.3, 'master':0.4, 
-					'minute':0.1, 'experiment':0.5, 'menu':0.2, 'simple':0.67, 'practice': 0.64}, 
+	'Learnability': {'learn': 1.0, 'intuit': 0.9, 'ability':0.6,'easy': 0.7,'figure': 0.4,'straightforward': 0.8,'foreword': 0.8, 'applet':0.6, 'casual':0.5, 'sensor':0.3, 'incred':0.3, 'smooth':0.3, 'master':0.4, 
+					'experiment':0.5, 'simple':0.7, 'practice': 0.65}, 
 	
 	'Memorability': {'memorability':0.8,'memory': 1.0, 'excellent':0.2,'heard':0.3, 'forgot': 0.8, 'remember': 0.9}, 
 	
@@ -100,7 +107,7 @@ dictVocabulary={
 					'lack': 0.7,'unfortunate': 0.5,'well': 0.6,'fantastic': 0.8,'improve': 0.3,'price': 0.2, 'grinning':0.70,'smiling':0.62,'interest': 0.35,'fan': 0.2},
 
 
-	'Aesthetics and Appeal': {'aesthetic': 1.0, 'interface': 0.9, 'semblanc':0.3, 'visual':0.77,'nice':0.15,'pretty':0.4,'excellent':0.3,'awesome':0.3,'correct':0.1,'wonderful':0.5,'great':0.1,'taste': 0.1,'beauty': 0.6,'appreciation': 0.6,
+	'Aesthetics and Appeal': {'aesthetic': 1.0, 'interface': 0.9, 'attractive':0.6,'colour':0.6,'layout':0.7,'semblanc':0.3, 'visual':0.77,'nice':0.15,'pretty':0.4,'excellent':0.3,'awesome':0.3,'correct':0.1,'wonderful':0.5,'great':0.1,'taste': 0.1,'beauty': 0.6,'appreciation': 0.6,
 						'appeal': 1.0, 'graphic':0.9, 'sound':0.9, 'song': 0.9, 'nice': 0.2, 'voice':0.9, 'playlist':0.9, 'music':0.9, 'soundtrack':0.9, 'effect':0.6, 'look':0.6, 'color':0.8, 'hear':0.2,'creepiest':0.2,'stun':0.2,'bright':0.55,'realism':0.65,
 						'detail':0.64,'cute':0.3,'model':0.1,'impress':0.3,'sprite':0.3,'sceneri':0.3,'speaker':0.7,'atmosphere':0.5,'environment':0.6,'animation':0.7,'realist':0.6, 'render': 0.65, 'pixel': 0.7},
 	
@@ -113,17 +120,19 @@ dictVocabulary={
 	'Comfort': {'comfort': 1.0, 'problem':0.67,'bad':0.3,'mistake':0.3,'crash':0.3,'alert':0.3,'lock':0.3,'poor':0.3,'freeze':0.3,'slow':0.3,'physical': 0.55, 'workout': 0.7, 'fits':0.44, 
 				'comfy':0.9,'feel':0.6, 'cozy':0.9, 'pleasure':0.6,'fear':0.55, 'well':0.3, 'happy': 0.6, 'need': 0.2, 'body':0.55, 'care':0.4, 'active':0.4},
 	
-	'Detailed Usability': {'detailed':0.2 ,'usability': 0.95, 'problem': 0.95, 'broken': 0.8,'camera': 0.75, 'lag': 0.9,'bug': 0.9, 'delay':0.9, 'glitch': 0.8,'performance':0.96, 'latencies':0.8, 'great': 0.4, 'detail': 0.6, 'function': 0.7, 'satisfaction': 0.95,'quality': 0.6,'perfect': 0.6,'perfect': 0.6,'cool': 0.6,
+	'Detailed Usability': {'detailed':0.2 ,'usability': 0.95, 'problem': 0.95, 'reliable':0.7,'convenient':0.7,'viewable':0.7,'awkward':0.8,'useful':0.8,'efficient':0.8,'effective':0.8, 'broken': 0.8,'camera': 0.75, 
+					'lag': 0.9,'bug': 0.9, 'delay':0.9, 'glitch': 0.8,'performance':0.96, 'latencies':0.8, 
+					'great': 0.4, 'detail': 0.6, 'function': 0.7, 'satisfaction': 0.95,'quality': 0.6,'perfect': 0.6,'perfect': 0.6,'cool': 0.6,
 					'interest': 0.6,'improve': 0.6,'price': 0.6,'feel': 0.6,'well': 0.4,'definite': 0.5,'memorability': 0.9,'effectiveness':0.9,'error': 0.8,'efficiency': 0.9,'memory': 0.6,'favorite': 0.5,'learnability': 0.9,'good': 0.5,
 					'sound': 0.65,'fun': 0.6,'disappoint': 0.65, 'bad': 0.65,'lack': 0.75,'prettier': 0.6,'issue': 0.7,
 					'recommend': 0.6,'easy': 0.6,'graphic': 0.7,'choreography':0.9,'playlist':0.9, 'music':0.9, 'soundtrack':0.9,'overall': 0.6,'love': 0.5,'worth': 0.65,'nice': 0.35,'really': 0.4,'best':0.55},
 	
 	'Enchantment': {'enchantment': 1.0, 'concentration': 0.7,'love': 0.9,'clapping':0.6,'attention': 0.55,'hearts':0.5,'liveliness': 0.6,'grinning':0.6,'fullness': 0.6,'pleasure': 0.85,'disorientation': 0.7,'experience': 0.6},
 	
-	'Engagement': {'engagement': 1.0, 'enjoyable':0.9,'stop':0.2,'communicate':0.5,'correct':0.5,'connect':0.4,'improve':0.6,'experience':0.8,'challenge': 0.9, 'flow': 1.0,'skill': 0.95,'need': 0.8,'forget': 0.7,
-				'addict': 0.9, 'addition': 1.0, 'replay':0.7, 'nonstop': 0.9, 'lyric':0.85,'sing':0.85,'most':0.5,'interest':0.6,'become':0.6,'gripper':0.6,'hardest':0.6,'painstaking':0.6,'intense':0.6,'hard':0.7,'tire':0.5,
+	'Engagement': {'engagement': 1.0, 'enjoyable':0.9,'communicate':0.5,'correct':0.5,'connect':0.4,'improve':0.6,'experience':0.7,'challenge': 0.9, 'flow': 1.0,'skill': 0.95,'need': 0.8,'forget': 0.7,
+				'addict': 0.9, 'addition': 1.0, 'replay':0.7,'fun':0.7, 'nonstop': 0.9, 'lyric':0.85,'sing':0.85,'most':0.5,'interest':0.6,'become':0.6,'gripper':0.6,'hardest':0.6,'painstaking':0.6,'intense':0.6,'hard':0.7,'tire':0.5,
 				'impossible':0.6,'keep':0.6,'therefore':0.6,
-				'deep':0.6,'value':0.6,'tought':0.6,'easy':0.6,'complex':0.6,'moment':0.7,'hearts':0.7, 'harder':0.6,'depth':0.6,'hour':0.6,'difficult':0.6,'interest':0.8},
+				'value':0.6,'tought':0.5,'easy':0.6,'complex':0.6,'moment':0.7,'hearts':0.7, 'harder':0.6,'depth':0.6,'difficult':0.6,'interest':0.8},
 	
 	'Enjoyment and Fun': {'enjoyment': 1.0, 'communicate':0.2,'cool':0.7,'wow':0.4,'awesome':0.6,'grinning':0.70,'hope':0.1,'spectacular':0.5,'happy':0.5,'hedonic': 0.9,'emotion': 0.7,'affect': 0.7,'fun': 1.0,  
 						'entertain': 0.9, 'cute':0.5, 'nevertheless':0.3,'workout':0.55,'hilari':0.6,'fell':0.6,
@@ -142,7 +151,7 @@ dictVocabulary={
 	
 	'Likeability': {'likeability': 1.0, 'good':0.9, 'cool':0.85, 'happy': 0.75,'disgust':0.65, 'clapping':0.70,'smiling': 0.69,'joy': 0.50,'grinning':0.70,'nice':0.6}, 
 	
-	'Motivation': {'motivation': 1.0, 'task': 0.1, 'dance':0.25,'dancing':0.5, 'workout':0.65, 'exercising':0.7,'love':0.5,'curiosity': 0.5,'competition': 0.5,'joy': 0.4,'pleasure':0.5},
+	'Motivation': {'motivation': 1.0, 'task': 0.1, 'dance':0.25,'dancing':0.5, 'inspiring':0.7,'workout':0.65, 'exercising':0.7,'love':0.5,'curiosity': 0.5,'competition': 0.5,'joy': 0.4,'pleasure':0.5},
 	
 	'Overall Usability': {'overall usability': 1.0, 'update':0.8,'experience':0.77, 'retention':0.8, 'expectation':0.7, 'anticipation':0.7, 'old':0.6, 
 						'satisfaction':0.9, 'effectiveness':0.9, 'feature':0.73,'new': 0.7, 'version':0.6, 'nostalgia':0.65, 'upgrade':0.8, 'edition': 0.7, 'previous':0.6},
@@ -151,7 +160,8 @@ dictVocabulary={
 				'regardless': 0.5,'shatter': 0.5,'intrigu': 0.5,'afterward': 0.5,'laugh': 0.7,'nevertheless': 0.5,'fell': 0.6,'incompatibility': 0.3,'chore': 0.3,'humor': 0.7,'grin': 0.4,
 				'lighter': 0.4,'sooth': 0.3,'boredom': 0.7,'laughing':0.7,'nostalgia': 0.65},
 	
-	'Support': {'support':1.0, 'help':0.8, 'service':0.75,'team':0.5,'call':0.65,'need':0.45, 'FAQ':0.6,'contact':0.8,'correct':0.8,'how':0.95, 'request':0.75,'improve':0.6,'add':0.7,'please':0.6,'want':0.65,'should':0.3,'wish': 0.75,'software': 0.7},
+	'Support': {'support':1.0, 'help':0.8, 'service':0.75,'team':0.5,'customer':0.6,'credibility':0.5,'call':0.6,'need':0.5, 'FAQ':0.6,'contact':0.8,'correct':0.8,'how':0.95, 
+				'request':0.75,'improve':0.6,'add':0.7,'please':0.6,'want':0.65,'should':0.3,'wish': 0.75,'software': 0.7},
 	
 	'Trust': {'trust': 1.0, 'behavior': 0.8, 'disappointed':0.8, 'handshake':0.4, 'easy':0.8, 'quality':0.8, 'exist':0.8, 'handhold':0.8, 'reliev':0.8, 'cute':0.8, 'sooth':0.8,'reliable':0.8,'secure':0.8,'pleasure': 0.5},
 	
@@ -189,7 +199,7 @@ dictVocabulary={
 	
 	'Positive feelings': {'positive': 0.55, 'feeling': 0.3,'optimism': 0.7,'contentment': 0.7,'euphoria': 0.57,'eagerness': 0.7,'admiration': 0.7,'confidence': 0.7,'affection': 0.67,'relief': 0.7,
 						'satisfaction': 0.8,'altruism': 0.75,'elevation': 0.65,'amusement': 0.70,'pride': 0.73,'gratitude': 0.73,'serenity': 0.73,'interest': 0.71,'inspiration': 0.7,'romance': 0.7,'hope': 0.66,
-						'love': 0.8,'awe': 0.4,'fun': 0.8,'enjoyment': 0.8,'hopefulness': 0.8,'grinning':0.70,'happiness': 0.8,'peace': 0.76,'balance': 0.3},
+						'love': 0.8,'awe': 0.4,'fun': 0.8,'enjoyment': 0.8,'hopefulness': 0.8,'relax':0.7,'calm':0.7, 'grinning':0.70,'happiness': 0.8,'peace': 0.76},
 	
 	'Self-esteem': {'self':1.2, 'esteem': 0.95, 'self-esteem':1.0,'meaningful': 0.9,'public':0.5, 'appearance':0.85,'enthusiastic':0.78,'inspired':0.72,'distressed': 0.86,'strong': 0.85,'proud': 0.9,'confidence': 0.85,'narcissisism': 0.9,
 				'superiority': 0.8,'honour': 0.8,'egoism': 0.9,'pride': 0.8,'arrogance': 0.9,
@@ -205,8 +215,8 @@ dictVocabulary={
 	
 	'Social support': {'social':0.95, 'support': 0.90, 'encouragement': 0.8,'asking':0.72, 'share': 0.7,'talking': 0.8,'teaching': 0.85,'companionship':0.9,'empathy':0.9,'sympathy':0.9,'esteem':0.8,'solve': 0.4,'relationship': 0.95,
 					'handshake':0.69,'roommate': 0.95, 'thanks': 0.75,'inclusive':0.7, 'help': 0.9,'chill': 0.5,'dude': 0.67,'best':0.3,'friend': 0.9,'physical':0.1,'abuse': 0.4,
-					'verbal': 0.12,'personal': 0.8,'crisis': 0.58,'responsability': 0.8,'love':0.3, 'trust':0.5, 'caring':0.8, 'suggestions':0.73, 'encourage':0.8, 'advice':0.82, 'appraisal':0.55, 'information':0.55, 
-					'useful':0.6,'assistance': 0.85,'together':0.7,'approval': 0.5,'kiss': 0.55,'commitment': 0.5,'family': 0.87},
+					'verbal': 0.12,'personal': 0.8,'crisis': 0.58,'responsability': 0.8,'love':0.3, 'trust':0.5, 'caring':0.8, 'group':0.7,'community':0.7,'suggestions':0.73, 'encourage':0.8, 'advice':0.82, 'appraisal':0.55, 'information':0.55, 
+					'useful':0.6,'assistance': 0.85,'together':0.7,'approval': 0.5,'kiss': 0.5,'commitment': 0.5,'family': 0.87},
 	
 	'Thinking': {'think': 1.0,'aware': 0.8,'awake': 0.8,'cognitive': 0.8,'concentration':0.5,'memory':0.4,'learning':0.4,'clang': 0.8,'disorder': 0.2,'echolalia': 0.4,'distractible':0.2, 'speech': 0.2,'alogia': 0.4,'intelligent': 0.7,
 				'idea': 0.4,'thought': 0.7,'decision': 0.55},

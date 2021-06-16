@@ -22,6 +22,7 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from flair.data import Sentence
 from flair.models import SequenceTagger
 
+import time
 
 tagger = SequenceTagger.load("hunflair-disease")
 
@@ -102,7 +103,7 @@ def updateGame(gameid, edition, platform):
 def annotate(text, polarity):
 	#print("\n>>>>>>> ",text)
 	#print(">>> ", polarity)
-
+	#begin = time.time()
 	sno = nltk.stem.SnowballStemmer('english') 
 
 	# POS Tagger
@@ -113,8 +114,8 @@ def annotate(text, polarity):
 			return wordnet.VERB
 		elif nltk_tag.startswith('N'):
 			return wordnet.NOUN
-		elif nltk_tag.startswith('R'):
-			return wordnet.ADV
+		#elif nltk_tag.startswith('R'):
+		#	return wordnet.ADV
 		else:          
 			return None
 
@@ -139,14 +140,18 @@ def annotate(text, polarity):
 	words = word_tokenize(text_lemmas)
 	stopwords = nltk.corpus.stopwords.words('english')
 	pals_lemmas = [word for word in words if not word in stopwords]
+	
+	#end = time.time()
+	#print("=======================================================================================================================================================================================================================")
+	#print(end-begin)
+	#print("=======================================================================================================================================================================================================================")
 
 	if (getDiseases(text)):
 		pals_lemmas.append("disease")
 
-	#print(pals_lemmas)
-
+	
 	text_lemmas = " ".join(pals_lemmas)
-	#print(text_lemmas)
+	
 
 	score = 0.00
 	scoreDict = {}
@@ -265,7 +270,7 @@ def annotate(text, polarity):
 						lemmawn = wordnet.synsets(str(lemma))[0]
 
 						similarity = lemmawn.path_similarity(palwn)
-						if(similarity > 0.20):
+						if(similarity > 0.45):
 							countPalsDict += 1
 							score = prob*0.97
 							print("in * 1.0 ", lemma,score, concept)
@@ -283,7 +288,7 @@ def annotate(text, polarity):
 						stemwn = wordnet.synsets(str(word_stem))[0]
 
 						similarity = stemwn.path_similarity(palwn)
-						if(similarity > 0.20):
+						if(similarity > 0.45):
 							countPalsDict += 1
 							score = prob*0.95
 							print("stem * 0.95 ", word_stem,score,concept)
@@ -305,7 +310,7 @@ def annotate(text, polarity):
 								#print("###### "+l.antonyms()[0].name())
 								# condicoes...
 								if (concept == "Negative feelings" or concept == "Frustration" or concept == "Positive feelings" or concept == "Pain and discomfort" 
-									or concept == "Fatigue" or concept == "Pleasure" or concept == "Enjoyment and Fun"):
+									or concept == "Fatigue" or concept == "Pleasure" or concept == "Enjoyment and Fun" or concept == "Errors/Effectiveness"):
 									continue
 									#break
 								else:

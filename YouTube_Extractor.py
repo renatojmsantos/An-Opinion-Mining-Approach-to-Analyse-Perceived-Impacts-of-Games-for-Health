@@ -32,6 +32,38 @@ YOUTUBE_API_VERSION = "v3"
 
 listaKeys = []
 
+#etlID = 6951
+
+
+def insertToTable(query):
+	idBack = None
+	conn = None
+	
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		conn.autocommit = True
+		cur = conn.cursor()
+
+		
+		query = query + " returning 1;" # duplicados deste id = 1 ????
+		#print(query)
+		#print(tableName)
+		#cur.execute(query, (tableName,))
+		cur.execute(query)
+		idBack = cur.fetchone()
+		#print(idBack)
+		conn.commit()
+		#print("inserted!")
+		cur.close()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack
+
 
 def readKeys(filename='dev_keys.txt'):
 	with open(filename) as file:
@@ -277,7 +309,9 @@ after = ''
 
 c=0
 
+
 while 1:
+
 	print("\n getting data ... ")
 	for d in range(delta.days + 2):
 		day = startDate + timedelta(days = d)
@@ -308,6 +342,7 @@ while 1:
 
 				nextPage_token = None
 				while 1:
+					#beginExtract = time.time()
 					try:
 						random.shuffle(listaKeys)
 						DEVELOPER_KEY = str(listaKeys[0])
@@ -408,6 +443,7 @@ while 1:
 												#print("getting comments of video ...")
 												nextPT = None
 												while 1: #comentarios do videoID
+													
 													try:
 														random.shuffle(listaKeys)
 														DEVELOPER_KEY = str(listaKeys[0])
@@ -439,18 +475,38 @@ while 1:
 															
 															
 															try:
+																
+																#tamanhoComentario = len(comentario.split())
+																#query = "INSERT into etl values("
+																#beginTratamento = time.time()
+
 																comment = runPreprocessing(comentario)
 																#comment = runPreprocessing("OMG I don’t expect that JD brought me behavioral abnormalities to my body and affected my self-esteem")
 																#print(type(comment))
 																if (comment != "None" and comment != "none" and comment is not None):
 																	#print(comentario)
 																	#print(comment)
+																	#endTratamento = time.time()
+																	#tempoT = endTratamento-beginTratamento
+																	#query = "INSERT INTO ETL VALUES('"+str(etlID)+",'"+str(tamanhoComentario)+"NULL,'"+str(tempoT)+"', NULL, NULL,NULL"
+																	#insertToTable(query)
 
 																	#def executeAnnotation(game_id, dimension_id, opinion_id, videoID, comment, commentID, likes, dateComment, isMain):
 																	isMain = "Main"
 																	if(checkAnnotatedComment(str(commentID)) is False):
+																		#beginAnotacao = time.time()
 																		annotation_id = executeAnnotation(game_id, annotation_id, videoID, comment, comentario, commentID, nr_likes, dateComment, isMain)
-																	
+																		#endAnotacao = time.time()
+
+																		#tempoA = endAnotacao - beginAnotacao
+																		#query = "INSERT INTO ETL VALUES('"+str(etlID)+",'"+str(tamanhoComentario)+"NULL,NULL,'"+str(tempoA)+"', NULL,NULL"
+																		#insertToTable(query)
+
+																		#etlID+=1
+																		#tempoTotal = endAnotacao - beginTratamento
+																		#query = "INSERT INTO ETL VALUES("+str(etlID)+","+str(tamanhoComentario)+",NULL,"+str(tempoT)+","+str(tempoA)+","+str(tempoTotal)+",NULL)"
+																		#insertToTable(query)
+
 																	#print(".... id's --> ",opinion_id, dimension_id) # nao aumentam depois.... colocar aqui toda a anotacao do execute? ou return ID's ... em tuplo..? 
 
 																	nr_replies = comment_result['snippet']['totalReplyCount']
@@ -738,6 +794,11 @@ while 1:
 						#time.sleep(0.25)
 						if nextPage_token is None:
 							#print("\n~~~~ nr de videos atual: ", conta)
+							#endExtract = time.time()
+							#tempoE = endExtract-beginExtract
+							#print(tempo)
+							#query = "INSERT INTO ETL VALUES("+str(etlID)+",NULL,"+str(tempoE)+",NULL,NULL, NULL, NULL)"
+							#insertToTable(query)
 							break #sem break, começa tudo de novo
 					except HttpError as e:
 						print("search() — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
@@ -755,9 +816,11 @@ while 1:
 	#nowHour = datetime.today().strftime('%H:%M:%S')
 	#nowDate = nowDay+'T'+nowHour+'Z'
 	#print(nowDate)
-
+	print("end...")
 	time.sleep(int(sleepTime))
+	print("again...")
 	#break # termina
+	continue
 
 
 

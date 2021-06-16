@@ -89,7 +89,7 @@ def getComments():
 		#conn.autocommit = True
 		cur = conn.cursor()
 		#processedtext, originaltext
-		query = "SELECT originaltext,commentid, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals FROM comment join annotation on annotation.comment_commentid = comment.commentid where (array_length(regexp_split_to_array(originaltext, '\s+'),1)) > 4 group by originaltext, commentid order by pals"
+		query = "SELECT originaltext,commentid, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals FROM comment join annotation on annotation.comment_commentid = comment.commentid group by originaltext, commentid order by pals"
 		#query = "SELECT originaltext,commentid, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals FROM comment join annotation on annotation.comment_commentid = comment.commentid group by originaltext, commentid order by pals"
 		#print(query)
 		cur.execute(query)
@@ -162,7 +162,7 @@ def deleteNonEnglish():
 			original = c[0]
 			cid = c[1]
 			try:
-				if(len(original) > 2):
+				if(len(original) > 0):
 					
 					if(isEnglish(str(original.lower())) is False):
 						print(len(original.split()))
@@ -183,6 +183,7 @@ def removeNon(cid):
 	query = "delete from comment where commentid = '"+str(cid)+"'"
 	deleteRow(query)
 
+"""
 removeNon('UgwEd5Nq8riGYQGokUp4AaABAg')
 removeNon('UgwNdMQQ7laOhp3CxHd4AaABAg')
 removeNon('UgwQuSGcKWzEKyOV2rJ4AaABAg')
@@ -212,9 +213,9 @@ removeNon('UgyX76KbL1PKbg6EzO94AaABAg')
 removeNon('UgygbxZhcXGXbcddnhB4AaABAg')
 removeNon('UgyLRu7dr6SPoFLAzUB4AaABAg')
 removeNon('UginUBcKKm2LhHgCoAEC')
+"""
 
-
-#deleteNonEnglish()
+deleteNonEnglish()
 
 #deleteDuplicated()
 
@@ -226,7 +227,7 @@ from (select annotation.*,
              row_number() over (partition by comment_commentid order by annotationid) as seqnum
       from annotation
      ) annotation
-where annotationid - seqnum = min_id - 1 and annotationid > 12800
+where annotationid - seqnum != min_id - 1 
 order by annotationid asc
 """
 
