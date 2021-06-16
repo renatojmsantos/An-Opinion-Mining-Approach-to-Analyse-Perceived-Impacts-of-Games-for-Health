@@ -165,7 +165,7 @@ def deleteNonEnglish():
 			try:
 				if(isEnglish(str(original.lower())) is False):
 					if(isEnglish(str(original.lower())) is False):
-						print(len(original.split()," DELETE... ", original))
+						print(len(original.split())," DELETE... ", original)
 						query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
 						deleteRows(query)
 						query = "delete from comment where commentid = '"+str(cid)+"'"
