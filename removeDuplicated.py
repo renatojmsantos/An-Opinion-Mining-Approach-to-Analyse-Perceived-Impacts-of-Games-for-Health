@@ -89,7 +89,7 @@ def getComments():
 		#conn.autocommit = True
 		cur = conn.cursor()
 		#processedtext, originaltext
-		query = "SELECT originaltext,commentid, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals FROM comment join annotation on annotation.comment_commentid = comment.commentid where (array_length(regexp_split_to_array(originaltext, '\s+'),1)) > 3 group by originaltext, commentid order by pals"
+		query = "SELECT originaltext,commentid, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals FROM comment join annotation on annotation.comment_commentid = comment.commentid where (array_length(regexp_split_to_array(originaltext, '\s+'),1)) > 0 group by originaltext, commentid order by pals"
 		#query = "SELECT originaltext,commentid, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals FROM comment join annotation on annotation.comment_commentid = comment.commentid group by originaltext, commentid order by pals"
 		#print(query)
 		cur.execute(query)
@@ -160,14 +160,12 @@ def deleteNonEnglish():
 		comments = getComments()
 		for c in comments:
 			original = c[0]
+			print("\n",original)
 			cid = c[1]
 			try:
-				
-					
 				if(isEnglish(str(original.lower())) is False):
-					print(len(original.split()))
 					if(isEnglish(str(original.lower())) is False):
-						print("\n DELETE... ", original)
+						print(len(original.split()," DELETE... ", original))
 						query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
 						deleteRows(query)
 						query = "delete from comment where commentid = '"+str(cid)+"'"
