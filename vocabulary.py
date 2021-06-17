@@ -143,7 +143,7 @@ dictVocabulary={
 					'injury':0.8,'insult':0.8,'tension': 0.8,'disgust':0.7,'sadness':0.8,'angry':0.8,'pout': 0.7,'nervous': 0.8, 'unfair':0.8, 'annoy':0.9},
 	
 	'Hedonic': {'hedonic': 1.0, 'fun': 0.9, 'superb':0.8,'enjoy': 0.8, 'social':0.7,'memories':0.9,'beauty':0.9,'excitement':0.9, 'love':0.6,'awesome':0.8,'friend':0.65,'ergonomic': 0.7, 
-				'pleasure':0.9, 'frustration':0.9, 'entertain': 0.8, 'multiplayer': 0.7,'gameplay': 0.9, 'happy':0.75,'stimulation':0.65,
+				'pleasure':0.9, 'frustration':0.9, 'entertain': 0.8, 'multiplayer': 0.6,'gameplay': 0.9, 'happy':0.75,'stimulation':0.65,
 				'nostalgia': 0.7,'boredom': 0.6},
 	
 	'Impact': {'impact': 1.0, 'pattern': 0.6, 'wow':0.56,'surprise': 0.8,'gameplay': 0.6, 'life':0.56,'change': 0.6},
@@ -159,7 +159,7 @@ dictVocabulary={
 				'grin': 0.7, 'laugh':0.7,'nostalgia': 0.65},
 	
 	'Support': {'support':1.0, 'help':0.85, 'service':0.7,'customer':0.6,'FAQ':0.6,'contact':0.8,'correct':0.7,'how':0.95, 
-				'request':0.75,'improve':0.65,'add':0.8,'lack': 0.7,'please':0.6,'want':0.65,'should':0.63,'wish': 0.75,'software': 0.7},
+				'request':0.75,'improve':0.65,'add':0.8,'lack': 0.7,'need':0.56,'please':0.6,'want':0.65,'should':0.63,'wish': 0.75,'software': 0.7},
 	
 	'Trust': {'trust': 0.95, 'behavior': 0.7, 'disappoint':0.8, 'quality':0.7, 'belief':0.8, 'reliance':0.8,'reliability':0.8,'reliable':0.8,'secure':0.8},
 	
@@ -195,7 +195,8 @@ dictVocabulary={
 						'unpleasant': 0.8}, 
 	
 	'Personal relationships': {'personal': 1.0, 'homosexual': 0.7,'relationship': 0.85,'talk': 0.8,'heterosexual': 0.7,'marriage': 0.7,'friendship': 0.8,'hug': 0.8,
-							'intimate': 0.7,'love': 0.56,'support': 0.65,'people': 0.65,'who':0.65,'kiss':0.65,'everybody':0.65, 'partner':0.8, 'partnership': 0.8,'share':0.7 ,'companionship': 0.75,'friend': 0.9, 'family': 0.9, 'alone': 0.9},
+							'intimate': 0.7,'multiplayer':0.65,'talk':0.6,'mentor':0.7,'colleagues':0.8,'sympathy':0.7,'support': 0.65,'people': 0.65,'who':0.65,'kiss':0.65,'everybody':0.65,
+							 'partner':0.8, 'partnership': 0.8,'share':0.7 ,'companionship': 0.75,'friend': 0.9, 'family': 0.9, 'alone': 0.9},
 	
 	'Positive feelings': {'positive': 0.6, 'feeling': 0.6,'optimism': 0.8,'contentment': 0.7,'euphoria': 0.8,'enthusiastic': 0.7,'admiration': 0.7,'confidence': 0.8,'affection': 0.7,'relief': 0.8,
 						'satisfaction': 0.8,'altruism': 0.75,'beautiful':0.7, 'awesome':0.8, 'amusement': 0.8,'pride': 0.75,'gratitude': 0.75,'serenity': 0.75,'interest': 0.7,'inspiration': 0.7,'romance': 0.7,'hope': 0.7,
@@ -216,7 +217,7 @@ dictVocabulary={
 	
 	'Social support': {'social':1.0, 'support': 0.90, 'ask':0.75, 'share': 0.7,'talk': 0.7,'teach': 0.85,'companionship':0.9,'empathy':0.9,'sympathy':0.9,'esteem':0.8,'solve': 0.65,'relationship': 0.95,
 					'handshake':0.7,'roommate': 0.95, 'thanks': 0.75,'inclusive':0.7, 'help': 0.9,'chill': 0.6,'dude': 0.67,'friend': 0.9,'abuse': 0.6,
-					'personal': 0.8,'crisis': 0.6, 'trust':0.5, 'care':0.6, 'group':0.7,'collab':0.7,'community':0.75,'suggestions':0.75, 'encourage':0.75, 'advice':0.85, 
+					'personal': 0.8,'crisis': 0.6, 'trust':0.5, 'care':0.6, 'group':0.7,'mentor':0.7,'collab':0.7,'sympathy':0.7,'community':0.75,'suggestions':0.75, 'encourage':0.75, 'advice':0.85, 
 					'assistance': 0.85,'together':0.8,'kiss': 0.65,'family': 0.9},
 	
 	'Thinking': {'think': 1.0,'aware': 0.8,'awake': 0.8,'cognitive': 0.7,'remind':0.56,'concentration':0.56,'memory':0.5,'learn':0.6,'echolalia': 0.7,'distractible':0.7, 'speech': 0.7,'alogia': 0.75,
