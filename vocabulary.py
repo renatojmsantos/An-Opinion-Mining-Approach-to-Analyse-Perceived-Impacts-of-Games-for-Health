@@ -150,7 +150,7 @@ dictVocabulary={
 	
 	'Likeability': {'likeability': 1.0, 'good':0.9, 'cool':0.8, 'satisfaction':0.9,'happy': 0.75,'disgust':0.65, 'clapping':0.70,'smiling': 0.7,'useful':0.8,'joy': 0.60,'grinning':0.70,'nice':0.65}, 
 	
-	'Motivation': {'motivation': 1.0, 'dance':0.5, 'inspiring':0.7,'workout':0.7, 'exercising':0.8,'curiosity': 0.65,'competition': 0.6,'joy': 0.5,'pleasure':0.65},
+	'Motivation': {'motivation': 1.0, 'dance':0.56, 'inspiring':0.7,'workout':0.7, 'exercising':0.8,'curiosity': 0.65,'competition': 0.6,'joy': 0.5,'pleasure':0.65},
 	
 	'Overall Usability': {'overall usability': 1.0, 'update':0.8,'experience':0.75, 'retention':0.8, 'expectation':0.8, 'anticipation':0.65, 'old':0.65, 
 						'satisfaction':0.9, 'effectiveness':0.9, 'feature':0.8,'new': 0.8, 'release':0.75, 'version':0.7, 'nostalgia':0.65, 'upgrade':0.8, 'edition': 0.8, 'previous':0.65},
@@ -175,7 +175,7 @@ dictVocabulary={
 	'Concentration': {'aware': 0.8,'awake': 0.75,'alert': 0.8,'performance': 0.6,'thinking':0.55,'memory':0.4,'distractible':0.7,'learning':0.4,'insomnia': 0.8,'focus': 0.8,'pressure': 0.65,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
 					'alcohol': 0.7,'attention': 0.9, 'cognitive': 0.7, 'synchronized':0.65,'concentration': 1.0},
 	
-	'Energy': {'energy': 1.0, 'alive': 0.6, 'endurance': 0.8, 'sweat':0.75, 'hyperactivy':0.8,'calories':0.9, 'stamina':0.85, 'vitality':0.8, 'animation':0.75,'exercise':0.8, 'exercising':0.9, 'strong':0.75,'enthusiasm': 0.75, 'dance':0.65, 'workout':0.9},
+	'Energy': {'energy': 1.0, 'alive': 0.6, 'endurance': 0.8, 'sweat':0.75, 'hyperactivy':0.8,'calories':0.9, 'stamina':0.85, 'vitality':0.8, 'animation':0.75,'exercise':0.8, 'exercising':0.9, 'strong':0.75,'enthusiasm': 0.75, 'dance':0.67, 'workout':0.9},
 	
 	'Fatigue': {'fatigue': 1.0, 'overexertion': 0.8, 'depression': 0.8, 'cramps':0.75, 'vomit':0.75, 'panic':0.65,'weariness': 0.8, 'anorexia':0.8, 'disorder':0.7,'anxiety': 0.8,'sedentary':0.65,'stress': 0.75, 'disease': 0.95, 'illness': 0.8,'tire': 0.8, 'exhaustion': 0.8},
 	
