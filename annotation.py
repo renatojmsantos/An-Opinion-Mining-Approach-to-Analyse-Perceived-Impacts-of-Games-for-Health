@@ -104,6 +104,8 @@ def annotate(text, polarity):
 	#print("\n>>>>>>> ",text)
 	#print(">>> ", polarity)
 	#begin = time.time()
+	text = re.sub('just dance','',text)
+	print(text)
 	sno = nltk.stem.SnowballStemmer('english') 
 
 	# POS Tagger
