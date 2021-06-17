@@ -1258,7 +1258,7 @@ def update():
 								for c in conceitos:
 									if (str(c) in concepts):
 										annotationid+=1
-										#print(annotationid,"... "+str(field)+" --> "+str(c))
+										print(annotationid,"... "+str(field)+" --> "+str(c))
 										
 										query = "delete from annotation where annotationid = "+str(annotationid)+""
 										deleteRow(query)
