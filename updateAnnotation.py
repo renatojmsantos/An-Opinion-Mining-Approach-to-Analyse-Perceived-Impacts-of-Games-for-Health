@@ -6,10 +6,10 @@ from annotation import *
 #import time
 
 #from vaderSentiment import SentimentIntensityAnalyzer
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+#from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
-from flair.data import Sentence
-from flair.models import SequenceTagger
+#from flair.data import Sentence
+#from flair.models import SequenceTagger
 
 #import sys
 
@@ -18,7 +18,7 @@ from flair.models import SequenceTagger
 #import spacy  
 #nlp_spacy = spacy.load('en_core_web_md') #medium ... sm, md, lg (large)
 
-tagger = SequenceTagger.load("hunflair-disease")
+#tagger = SequenceTagger.load("hunflair-disease")
 
 
 #beginID = sys.argv[1]
