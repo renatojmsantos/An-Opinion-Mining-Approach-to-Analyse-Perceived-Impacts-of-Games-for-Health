@@ -175,9 +175,9 @@ dictVocabulary={
 	'Concentration': {'aware': 0.8,'awake': 0.75,'alert': 0.8,'performance': 0.6,'think':0.55,'memory':0.4,'distractible':0.7,'learn':0.4,'insomnia': 0.8,'focus': 0.8,'pressure': 0.65,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
 					'alcohol': 0.7,'attention': 0.9, 'cognitive': 0.7, 'synchronized':0.65,'choreography':0.7,'concentration': 1.0},
 	
-	'Energy': {'energy': 1.0, 'alive': 0.6, 'endurance': 0.8, 'sweat':0.75, 'hyperactivy':0.8,'choreography':0.7,'calorie':0.9, 'stamina':0.85, 'vitality':0.8, 'animation':0.75,'exercise':0.8, 'strong':0.75,'enthusiasm': 0.75, 'dance':0.55, 'workout':0.9},
+	'Energy': {'energy': 1.0, 'alive': 0.6, 'endurance': 0.8, 'sweat':0.75, 'hyperactivy':0.8,'choreography':0.7,'calorie':0.9, 'stamina':0.85, 'vitality':0.8, 'animation':0.75,'exercise':0.8, 'strong':0.75,'enthusiasm': 0.75, 'dance':0.56, 'workout':0.9},
 	
-	'Fatigue': {'fatigue': 1.0, 'overexertion': 0.8, 'depression': 0.8, 'cramps':0.75, 'vomit':0.75, 'panic':0.65,'weariness': 0.8, 'anorexia':0.8, 'disorder':0.7,'anxiety': 0.8,'sedentary':0.65,'stress': 0.75, 'disease': 0.95, 'illness': 0.8,'tire': 0.55,'tired': 0.9, 'exhaustion': 0.8},
+	'Fatigue': {'fatigue': 1.0, 'overexertion': 0.8, 'depression': 0.8, 'cramps':0.75, 'vomit':0.75, 'panic':0.65,'weariness': 0.8, 'anorexia':0.8, 'disorder':0.7,'anxiety': 0.8,'sedentary':0.65,'stress': 0.75, 'disease': 0.95, 'illness': 0.8,'tire': 0.56,'tired': 0.9, 'exhaustion': 0.8},
 	
 	'Learning': {'cognitive': 0.6, 'school': 0.6,'knowledge': 0.55,'teach': 0.70,'concentration':0.4,'memory':0.4,'think':0.4, 'dyscalculia': 0.7,
 				'dysgraphia': 0.6,'dyslexia': 0.6,'pedagogy': 0.55, 'learn': 1.0},
