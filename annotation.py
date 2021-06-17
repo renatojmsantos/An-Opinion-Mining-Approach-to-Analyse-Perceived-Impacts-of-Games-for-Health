@@ -270,7 +270,7 @@ def annotate(text, polarity):
 						lemmawn = wordnet.synsets(str(lemma))[0]
 
 						similarity = lemmawn.path_similarity(palwn)
-						if(similarity > 0.45):
+						if(similarity > 0.20):
 							countPalsDict += 1
 							score = prob*1.0
 							#print("in * 1.0 ", lemma,score, concept)
@@ -288,9 +288,9 @@ def annotate(text, polarity):
 						stemwn = wordnet.synsets(str(word_stem))[0]
 
 						similarity = stemwn.path_similarity(palwn)
-						if(similarity > 0.45):
+						if(similarity > 0.25):
 							countPalsDict += 1
-							score = prob*0.98
+							score = prob*0.99
 							#print("stem * 0.98 ", word_stem,score,concept)
 							if concept not in scoreDict.keys():
 								scoreDict[concept] = score

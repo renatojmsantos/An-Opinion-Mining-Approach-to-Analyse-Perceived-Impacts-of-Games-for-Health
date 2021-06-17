@@ -138,7 +138,7 @@ dictVocabulary={
 	'Enjoyment and Fun': {'enjoyment': 1.0, 'awesome':0.6,'grinning':0.70,'happy':0.7,'hedonic': 0.9,'emotion': 0.7,'affect': 0.7,'fun': 1.0,  
 						'entertain': 0.9, 'grin':0.7,'humor': 0.7,'excit':0.7,'laughing':0.75,'love':0.75},
 	
-	'Frustration': {'frustration': 1.0, 'irritate':0.8,'wtf':0.65,'terrible':0.8,'harmful':0.7,'hate':0.9,'shit':0.9,'fuck':0.9,'suck':0.9,'horrible':0.9,'awful':0.9,'waste':0.8,'disappointed':0.5,'hardship': 0.6,'boring': 0.9, 
+	'Frustration': {'frustration': 1.0, 'irritate':0.8,'wtf':0.65,'terrible':0.8,'harmful':0.7,'hate':0.9,'shit':0.9,'fuck':0.9,'suck':0.9,'horrible':0.9,'awful':0.9,'waste':0.8,'disappoint':0.6,'hardship': 0.6,'boring': 0.9, 
 					'grrrr': 0.65,'anger': 1.0,'hard': 0.7, 'disadvantage': 0.8, 'insane':0.8,'heck':0.7,'gasp':0.7,'cheat':0.7,
 					'injury':0.8,'insult':0.8,'tension': 0.8,'disgust':0.7,'sadness':0.8,'angry':0.8,'pouting': 0.7,'nervous': 0.8, 'unfair':0.8, 'annoy':0.9},
 	
@@ -175,7 +175,7 @@ dictVocabulary={
 	'Concentration': {'aware': 0.8,'awake': 0.75,'alert': 0.8,'performance': 0.6,'thinking':0.55,'memory':0.4,'distractible':0.7,'learning':0.4,'insomnia': 0.8,'focus': 0.8,'pressure': 0.65,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
 					'alcohol': 0.7,'attention': 0.9, 'cognitive': 0.7, 'synchronized':0.65,'choreography':0.7,'concentration': 1.0},
 	
-	'Energy': {'energy': 1.0, 'alive': 0.6, 'endurance': 0.8, 'sweat':0.75, 'hyperactivy':0.8,'choreography':0.7,'calories':0.9, 'stamina':0.85, 'vitality':0.8, 'animation':0.75,'exercise':0.8, 'exercising':0.9, 'strong':0.75,'enthusiasm': 0.75, 'dance':0.6, 'workout':0.9},
+	'Energy': {'energy': 1.0, 'alive': 0.6, 'endurance': 0.8, 'sweat':0.75, 'hyperactivy':0.8,'choreography':0.7,'calorie':0.9, 'stamina':0.85, 'vitality':0.8, 'animation':0.75,'exercise':0.8, 'exercising':0.9, 'strong':0.75,'enthusiasm': 0.75, 'dance':0.57, 'workout':0.9},
 	
 	'Fatigue': {'fatigue': 1.0, 'overexertion': 0.8, 'depression': 0.8, 'cramps':0.75, 'vomit':0.75, 'panic':0.65,'weariness': 0.8, 'anorexia':0.8, 'disorder':0.7,'anxiety': 0.8,'sedentary':0.65,'stress': 0.75, 'disease': 0.95, 'illness': 0.8,'tire': 0.8, 'exhaustion': 0.8},
 	
