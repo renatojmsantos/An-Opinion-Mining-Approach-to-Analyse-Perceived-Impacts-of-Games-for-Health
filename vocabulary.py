@@ -102,7 +102,7 @@ dictVocabulary={
 	
 	'Memorability': {'memorability':0.8,'memory': 1.0, 'forgot': 0.8, 'remind':0.8,'remember': 0.9}, 
 	
-	'Satisfaction': {'satisfaction':1.0,'happy': 0.8, 'fun': 0.9, 'great': 0.7, 'excellent':0.9,'good':0.6, 'disgust':0.65, 'love': 0.8, 'awesome':0.9,'wonderful':0.9,'worth': 0.8, 'recommend': 0.6, 
+	'Satisfaction': {'satisfaction':1.0,'happy': 0.8, 'fun': 0.9, 'great': 0.7, 'excellent':0.9,'good':0.6, 'disgust':0.65, 'love': 0.56, 'pleasure':0.6,'awesome':0.9,'wonderful':0.9,'worth': 0.8, 'recommend': 0.6, 
 					'favorite': 0.8, 'cool': 0.6, 'reliable':0.8,'perfect': 0.9,'disappoint': 0.7,'bad': 0.8, 'quality': 0.7,
 					'unfortunate': 0.7,'fantastic': 0.8,'grin':0.70,'smile':0.65},
 
@@ -127,7 +127,7 @@ dictVocabulary={
 					'great': 0.65, 'detail': 0.95, 'function': 0.9, 'satisfaction': 0.95,'quality': 0.6,'perfect': 0.6,
 					'interest': 0.6,'improve': 0.6,'memorability': 0.9,'effectiveness':0.9,'error': 0.8,'efficiency': 0.9,'memory': 0.6,'learnability': 0.9,
 					'sound': 0.75,'fun': 0.7,'disappoint': 0.65, 'bad': 0.65,'lack': 0.75,'prettier': 0.6,'issue': 0.7,
-					'recommend': 0.8,'easy': 0.6,'graphic': 0.8,'choreography':0.9,'playlist':0.9, 'music':0.9, 'soundtrack':0.9,'overall': 0.6,'love': 0.5,'worth': 0.65},
+					'recommend': 0.8,'easy': 0.6,'graphic': 0.8,'choreography':0.9,'playlist':0.9, 'music':0.9, 'soundtrack':0.9,'overall': 0.6,'worth': 0.65},
 	
 	'Enchantment': {'enchantment': 1.0, 'concentration': 0.9,'love': 0.8,'clap':0.6,'attention': 0.9,'hearts':0.6,'liveliness': 0.7,'pleasure': 0.85,'disorientation': 0.7,'experience': 0.6},
 	
@@ -152,7 +152,7 @@ dictVocabulary={
 	
 	'Motivation': {'motivation': 1.0, 'dance':0.56, 'inspiring':0.7,'workout':0.7, 'exercise':0.8,'curiosity': 0.65,'competition': 0.6,'joy': 0.56,'pleasure':0.65},
 	
-	'Overall Usability': {'overall usability': 1.0, 'update':0.8,'experience':0.75, 'retention':0.8, 'expectation':0.8, 'anticipation':0.65, 'old':0.65, 
+	'Overall Usability': {'usability': 1.0, 'update':0.8,'experience':0.75, 'retention':0.8, 'expectation':0.8, 'anticipation':0.65, 'old':0.65, 
 						'satisfaction':0.9, 'effectiveness':0.9, 'feature':0.8,'new': 0.8, 'release':0.75, 'version':0.7, 'nostalgia':0.65, 'upgrade':0.8, 'edition': 0.8, 'previous':0.65},
 	
 	'Pleasure': {'pleasure': 1.0, 'fun': 0.8, 'enjoy': 0.7,'wonderful':0.9,'worth': 0.8, 'perfect':0.8, 'beautiful':0.7,'nice':0.65,'attractive':0.7, 'love': 0.75, 'entertain': 0.7, 'awesome': 0.9, 'addict': 0.7, 
@@ -172,7 +172,7 @@ dictVocabulary={
 									'clothes': 0.8,'boots':0.75,'dress':0.8,'workout':0.65, 'eat':0.7, 'outfit':0.75,'muscles':0.75,'healthy':0.8,'make-up': 0.7,'impairment': 0.65,'acne':0.8,'ugly':0.8,'beautiful':0.8,
 									'fat':0.9,'beard':0.70 ,'skinny':0.9, 'exercise':0.6, 'weight':0.8},
 	
-	'Concentration': {'aware': 0.8,'awake': 0.75,'alert': 0.8,'performance': 0.6,'think':0.56,'memory':0.56,'distractible':0.7,'learn':0.56,'insomnia': 0.8,'focus': 0.75,'pressure': 0.65,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
+	'Concentration': {'aware': 0.8,'awake': 0.75,'alert': 0.8,'performance': 0.6,'think':0.56,'memory':0.56,'distractible':0.7,'learn':0.56,'focus': 0.75,'pressure': 0.65,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
 					'alcohol': 0.7,'attention': 0.75, 'cognitive': 0.7, 'synchronized':0.65,'choreography':0.7,'concentration': 1.0},
 	
 	'Energy': {'energy': 1.0, 'alive': 0.6, 'endurance': 0.8, 'sweat':0.75, 'hyperactivy':0.8,'choreography':0.7,'calorie':0.9, 'stamina':0.85, 'vitality':0.8, 'animation':0.75,'exercise':0.8, 'strong':0.75,'enthusiasm': 0.75, 'dance':0.56, 'workout':0.9},
@@ -195,7 +195,7 @@ dictVocabulary={
 						'unpleasant': 0.8}, 
 	
 	'Personal relationships': {'personal': 1.0, 'homosexual': 0.7,'relationship': 0.85,'talk': 0.8,'heterosexual': 0.7,'marriage': 0.7,'friendship': 0.8,'hug': 0.8,
-							'intimate': 0.7,'love': 0.6,'support': 0.65,'people': 0.65,'who':0.65,'kiss':0.65,'everybody':0.65, 'partner':0.8, 'partnership': 0.8,'share':0.7 ,'companionship': 0.75,'friend': 0.9, 'family': 0.9, 'alone': 0.9},
+							'intimate': 0.7,'love': 0.56,'support': 0.65,'people': 0.65,'who':0.65,'kiss':0.65,'everybody':0.65, 'partner':0.8, 'partnership': 0.8,'share':0.7 ,'companionship': 0.75,'friend': 0.9, 'family': 0.9, 'alone': 0.9},
 	
 	'Positive feelings': {'positive': 0.6, 'feeling': 0.6,'optimism': 0.8,'contentment': 0.7,'euphoria': 0.8,'enthusiastic': 0.7,'admiration': 0.7,'confidence': 0.8,'affection': 0.7,'relief': 0.8,
 						'satisfaction': 0.8,'altruism': 0.75,'beautiful':0.7, 'awesome':0.8, 'amusement': 0.8,'pride': 0.75,'gratitude': 0.75,'serenity': 0.75,'interest': 0.7,'inspiration': 0.7,'romance': 0.7,'hope': 0.7,
@@ -207,7 +207,7 @@ dictVocabulary={
 				'admiration': 0.8,'prestige': 0.8, 'wellbeing': 0.9,'ashamed': 0.9,'guilty': 0.9,'fat':0.73,'ugly':0.75,'worthless': 0.8,'think':0.56,'regard': 0.8,'alone':0.7, 'respect': 0.75, 'competence': 0.65,'belong': 0.65,'identity': 0.65,'security': 0.6,
 				'acceptance': 0.75,'worth': 0.7,'appraisal': 0.9,'dignity': 0.95,'grin':0.65,'disgust':0.70,'fear':0.75,'sadness':0.75,
 				'family': 0.7,'embarrassment':0.9, 'unloved':0.75,'achievement':0.7,
-				'win':0.8,'lose':0.8,'love':0.7, 'awe': 0.7,'happy':0.7,'morality':0.7, 'creativity':0.65, 'spontaneity':0.7, 'prejudice':0.7,
+				'win':0.8,'lose':0.8,'love':0.56, 'awe': 0.7,'happy':0.7,'morality':0.7, 'creativity':0.65, 'spontaneity':0.7, 'prejudice':0.7,
 				'integrity':0.7,'triumph':0.8, 'despair':0.8,'worthy':0.7,'oneself': 0.8,'healthy':0.7,'satisfaction': 0.7},
 	
 	'Sexual activity': {'sexual':0.95, 'sex':1.0,'intimacy': 0.6},
