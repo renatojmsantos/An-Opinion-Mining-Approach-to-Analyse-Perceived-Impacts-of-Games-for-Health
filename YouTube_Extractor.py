@@ -656,7 +656,7 @@ while 1:
 
 																commentID = comment_result['snippet']['topLevelComment']['id']
 																
-																if (checkCommentID(str(commentID)) is False): # FALSE ---> n está na bd
+																if (checkCommentID(str(commentID)) is False): # FALSE ---> n está na bd... atualizar anotacoes TRUE e comentar insert comment no executeAnnotation
 																	
 
 																	comentario = comment_result['snippet']['topLevelComment']['snippet']['textDisplay']
