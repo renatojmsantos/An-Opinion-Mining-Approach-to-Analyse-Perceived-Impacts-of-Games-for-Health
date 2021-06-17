@@ -156,7 +156,7 @@ def annotate(text, polarity):
 	score = 0.00
 	scoreDict = {}
 
-	print(">>>>>>> ",text_lemmas)
+	#print(">>>>>>> ",text_lemmas)
 	#print(">>> ", polarity)
 	total_pals = len(word_tokenize(text_lemmas))
 

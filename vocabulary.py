@@ -173,9 +173,9 @@ dictVocabulary={
 									'fat':0.9,'beard':0.70 ,'skinny':0.9, 'workout':0.6,'exercising':0.6, 'weight':0.8},
 	
 	'Concentration': {'aware': 0.8,'awake': 0.75,'alert': 0.8,'performance': 0.6,'thinking':0.55,'memory':0.4,'distractible':0.7,'learning':0.4,'insomnia': 0.8,'focus': 0.8,'pressure': 0.65,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
-					'alcohol': 0.7,'attention': 0.9, 'cognitive': 0.7, 'synchronized':0.65,'concentration': 1.0},
+					'alcohol': 0.7,'attention': 0.9, 'cognitive': 0.7, 'synchronized':0.65,'choreography':0.7,'concentration': 1.0},
 	
-	'Energy': {'energy': 1.0, 'alive': 0.6, 'endurance': 0.8, 'sweat':0.75, 'hyperactivy':0.8,'calories':0.9, 'stamina':0.85, 'vitality':0.8, 'animation':0.75,'exercise':0.8, 'exercising':0.9, 'strong':0.75,'enthusiasm': 0.75, 'dance':0.67, 'workout':0.9},
+	'Energy': {'energy': 1.0, 'alive': 0.6, 'endurance': 0.8, 'sweat':0.75, 'hyperactivy':0.8,'choreography':0.7,'calories':0.9, 'stamina':0.85, 'vitality':0.8, 'animation':0.75,'exercise':0.8, 'exercising':0.9, 'strong':0.75,'enthusiasm': 0.75, 'dance':0.67, 'workout':0.9},
 	
 	'Fatigue': {'fatigue': 1.0, 'overexertion': 0.8, 'depression': 0.8, 'cramps':0.75, 'vomit':0.75, 'panic':0.65,'weariness': 0.8, 'anorexia':0.8, 'disorder':0.7,'anxiety': 0.8,'sedentary':0.65,'stress': 0.75, 'disease': 0.95, 'illness': 0.8,'tire': 0.8, 'exhaustion': 0.8},
 	
@@ -219,7 +219,7 @@ dictVocabulary={
 					'assistance': 0.85,'together':0.8,'kiss': 0.65,'family': 0.9},
 	
 	'Thinking': {'think': 1.0,'aware': 0.8,'awake': 0.8,'cognitive': 0.7,'reminds':0.6,'concentration':0.6,'memory':0.4,'learning':0.6,'echolalia': 0.7,'distractible':0.7, 'speech': 0.7,'alogia': 0.75,'thinking': 0.85,
-				'idea': 0.65,'thought': 0.8,'decision': 0.6},
+				'idea': 0.65,'thought': 0.8,'decision': 0.6, 'choreography':0.7},
 
 	#'Thinking, learning, memory and concentration': {'thinking': 1.0, 'aware': 1.0,'awake': 1.0,'alert': 1.0,'cognitive': 1.0,'thought': 1.0,'decisions': 1.0,'forget': 1.0, 'learning': 1.0, 'memory': 1.0, 'concentration': 1.0},
 		
