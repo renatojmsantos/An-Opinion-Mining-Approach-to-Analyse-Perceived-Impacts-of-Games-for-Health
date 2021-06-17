@@ -132,7 +132,7 @@ dictVocabulary={
 	'Enchantment': {'enchantment': 1.0, 'concentration': 0.9,'love': 0.8,'clap':0.6,'attention': 0.9,'hearts':0.6,'liveliness': 0.7,'pleasure': 0.85,'disorientation': 0.7,'experience': 0.6},
 	
 	'Engagement': {'engagement': 1.0, 'enjoyable':0.9,'experience':0.7,'challenge': 0.95, 'flow': 1.0,'skill': 0.95,'forget': 0.7,
-				'addict': 0.9, 'addition': 1.0, 'replay':0.8,'fun':0.8, 'dance':0.56, 'nonstop': 0.9, 'lyric':0.85,'soundtrack':0.9,'sing':0.85,'hardest':0.6,
+				'addict': 0.9, 'addition': 1.0, 'replay':0.8,'fun':0.8, 'dance':0.7, 'nonstop': 0.9, 'lyric':0.85,'soundtrack':0.9,'sing':0.85,'hardest':0.6,
 				'easy':0.6,'hearts':0.7,'difficult':0.7,'stars':0.7},
 	
 	'Enjoyment and Fun': {'enjoyment': 1.0, 'awesome':0.6,'grin':0.70,'happy':0.7,'hedonic': 0.9,'emotion': 0.7,'affect': 0.7,'fun': 1.0,  
@@ -146,7 +146,7 @@ dictVocabulary={
 				'pleasure':0.9, 'frustration':0.9, 'entertain': 0.8, 'multiplayer': 0.7,'gameplay': 0.9, 'happy':0.75,'stimulation':0.65,
 				'nostalgia': 0.7,'boredom': 0.6},
 	
-	'Impact': {'impact': 1.0, 'pattern': 0.6, 'wow':0.56,'surprise': 0.8,'gameplay': 0.9, 'change': 0.6},
+	'Impact': {'impact': 1.0, 'pattern': 0.6, 'wow':0.56,'surprise': 0.8,'gameplay': 0.6, 'life':0.56,'change': 0.6},
 	
 	'Likeability': {'likeability': 1.0, 'good':0.9, 'cool':0.8, 'satisfaction':0.9,'happy': 0.75,'disgust':0.65, 'clap':0.70,'smile': 0.7,'useful':0.8,'joy': 0.60,'grin':0.70,'nice':0.65}, 
 	

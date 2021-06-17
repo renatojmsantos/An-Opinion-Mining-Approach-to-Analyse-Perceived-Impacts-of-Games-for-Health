@@ -104,8 +104,9 @@ def annotate(text, polarity):
 	#print("\n>>>>>>> ",text)
 	#print(">>> ", polarity)
 	#begin = time.time()
-	text = re.sub('just dance','',text)
+	text = re.sub('just dance','game',text)
 	print(text)
+	
 	sno = nltk.stem.SnowballStemmer('english') 
 
 	# POS Tagger
@@ -128,6 +129,7 @@ def annotate(text, polarity):
 
 	wordnet_tagged = list(map(lambda x: (x[0], pos_tagger(x[1])), pos_tagged))
 	#print(wordnet_tagged)
+
 
 	#lemmas
 	lemmatizer = WordNetLemmatizer()
