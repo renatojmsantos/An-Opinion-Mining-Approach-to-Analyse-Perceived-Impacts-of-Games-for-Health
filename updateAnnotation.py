@@ -1245,6 +1245,7 @@ def update():
 						polarity = c[1]
 						#print(commentid, gameid, videoid, comment)
 						# update ... annotation id = 1,2,3...
+						
 						print("\n>>>>>>> ",comment)
 						#print(">>> ", polarity)
 						concepts = getConceptsAnnotated(str(comment), str(polarity))

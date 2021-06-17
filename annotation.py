@@ -156,7 +156,7 @@ def annotate(text, polarity):
 	score = 0.00
 	scoreDict = {}
 
-	#print("\n>>>>>>> ",text_lemmas)
+	print(">>>>>>> ",text_lemmas)
 	#print(">>> ", polarity)
 	total_pals = len(word_tokenize(text_lemmas))
 
@@ -168,7 +168,7 @@ def annotate(text, polarity):
 	#print(t.top_emotions)
 	emotions = t.affect_frequencies
 	# valid > 0.18
-	print(emotions)
+	#print(emotions)
 	emo = {}
 	if(emotions):
 		for c,v in emotions.items():
