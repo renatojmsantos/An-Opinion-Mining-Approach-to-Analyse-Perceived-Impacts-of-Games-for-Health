@@ -89,12 +89,12 @@ dictFields={
 
 dictVocabulary={	
 		
-	'Efficiency': {'efficiency': 1.0, 'perfect': 0.65,'speed':0.7, 'load':0.8,'useful':0.7,'performance':0.7, 'experience':0.65,'difficult':0.75,'lock':0.5,'prompt':0.8,'slow':0.9,'limit':0.7, 'fast':0.9, 'ability':0.7,'works': 0.7, 'well':0.55}, 
+	'Efficiency': {'efficiency': 1.0, 'perfect': 0.65,'speed':0.7, 'load':0.8,'useful':0.7,'performance':0.7, 'experience':0.65,'difficult':0.75,'lock':0.5,'prompt':0.8,'slow':0.9,'limit':0.7, 'fast':0.9, 'ability':0.7,'works': 0.7, 'well':0.58}, 
 	
 	'Errors/Effectiveness': {'error': 1.0,'effectiveness':1.0, 'difficult': 0.9, 'waste':0.9, 'problem':0.9,'miss':0.7,'crash':0.85,'mistake':0.8,'freeze':0.8,'trouble':0.8,'wrong':0.9,'fix': 0.9, 'incompetent': 0.7, 
 							'broken': 0.8,'camera': 0.75, 'glitch': 0.95,'instability':0.8, 'issue': 0.9,'imprecise':0.8, 'lag': 0.9,'bug': 0.95, 'delay':0.9, 'primit':0.5, 'load':0.75, 'responsive':0.7, 'resolute':0.8, 
 							'confuse':0.8, 'poor':0.65, 
-							'suffer':0.65, 'lack': 0.75, 'laggy':0.8, 'defect':0.79,'shit':0.65,'fuck':0.65,'suck':0.65,'horrible':0.70,'awful':0.8, 'annoy':0.77, 'flaw':0.7, 
+							'suffer':0.65, 'lack': 0.75, 'laggy':0.8, 'defect':0.79,'suck':0.65,'horrible':0.70,'awful':0.8, 'annoy':0.77, 'flaw':0.7, 
 							'inconsistent': 0.8},
 	
 	'Learnability': {'learn': 1.0, 'intuit': 0.9, 'ability':0.65,'easy': 0.7,'straightforward': 0.75,'foreword': 0.75, 'applet':0.8,'smooth':0.5, 'master':0.5, 
@@ -120,7 +120,7 @@ dictVocabulary={
 	'Anticipation': {'anticipation': 1.0, 'expectation': 0.9, 'hope':0.8,'pre-order':0.90,'pre-purchase':0.8,'soon':0.75,'presale':0.8},
 	
 	'Comfort': {'comfort': 1.0, 'problem':0.65,'physical': 0.7, 'workout': 0.65, 'fits':0.45, 'ergonomic': 0.85, 
-				'comfy':0.9, 'cozy':0.9, 'pleasure':0.65,'fear':0.55, 'happy': 0.6, 'body':0.75, 'care':0.6, 'active':0.65},
+				'comfy':0.9, 'cozy':0.9, 'pleasure':0.65, 'body':0.75, 'care':0.6, 'active':0.65},
 	
 	'Detailed Usability': {'usability': 1.0, 'problem': 0.95, 'reliable':0.7,'convenient':0.7,'viewable':0.7,'awkward':0.8,'useful':0.8,'efficient':0.8,'effective':0.8, 'broken': 0.8,'camera': 0.75, 
 					'lag': 0.9,'bug': 0.9, 'delay':0.9, 'glitch': 0.8,'performance':0.96, 'latencies':0.8, 
@@ -152,14 +152,14 @@ dictVocabulary={
 	
 	'Motivation': {'motivation': 1.0, 'dancing':0.5, 'inspiring':0.7,'workout':0.7, 'exercising':0.8,'curiosity': 0.65,'competition': 0.6,'joy': 0.5,'pleasure':0.65},
 	
-	'Overall Usability': {'overall usability': 1.0, 'update':0.8,'experience':0.75, 'retention':0.8, 'expectation':0.8, 'anticipation':0.75, 'old':0.65, 
-						'satisfaction':0.9, 'effectiveness':0.9, 'feature':0.8,'new': 0.8, 'version':0.7, 'nostalgia':0.65, 'upgrade':0.8, 'edition': 0.8, 'previous':0.65},
+	'Overall Usability': {'overall usability': 1.0, 'update':0.8,'experience':0.75, 'retention':0.8, 'expectation':0.8, 'anticipation':0.67, 'old':0.65, 
+						'satisfaction':0.9, 'effectiveness':0.9, 'feature':0.8,'new': 0.8, 'release':0.75, 'version':0.7, 'nostalgia':0.65, 'upgrade':0.8, 'edition': 0.8, 'previous':0.65},
 	
 	'Pleasure': {'pleasure': 1.0, 'fun': 0.8, 'enjoy': 0.7,'wonderful':0.9,'worth': 0.8, 'perfect':0.8, 'beautiful':0.7,'nice':0.65,'attractive':0.7, 'love': 0.7, 'entertain': 0.7, 'awesome': 0.9, 'addict': 0.7, 
 				'grin': 0.7, 'laughing':0.7,'nostalgia': 0.65},
 	
-	'Support': {'support':1.0, 'help':0.8, 'service':0.7,'customer':0.6,'call':0.6,'FAQ':0.6,'contact':0.8,'correct':0.7,'how':0.95, 
-				'request':0.75,'improve':0.65,'add':0.8,'lack': 0.7,'please':0.6,'want':0.65,'should':0.6,'wish': 0.75,'software': 0.7},
+	'Support': {'support':1.0, 'help':0.85, 'service':0.7,'customer':0.6,'FAQ':0.6,'contact':0.8,'correct':0.7,'how':0.95, 
+				'request':0.75,'improve':0.65,'add':0.8,'lack': 0.7,'please':0.6,'want':0.65,'should':0.63,'wish': 0.75,'software': 0.7},
 	
 	'Trust': {'trust': 0.95, 'behavior': 0.7, 'disappointed':0.8, 'quality':0.7, 'belief':0.8, 'reliance':0.8,'reliability':0.8,'reliable':0.8,'secure':0.8},
 	
@@ -168,14 +168,14 @@ dictVocabulary={
 						'professional':0.9, 'finalist':0.65, 'dancers':0.7,'buyer': 0.7,'target': 0.7, 'difference': 0.8, 'if': 0.55},
 
 
-	'Bodily image and Appearance': {'bodily':1.0, 'image': 0.6, 'appearance': 1.0, 'anorexia':0.8, 'anorexic':0.8, 'handicapped': 0.75,'physical': 0.9,'self-concept': 0.9,'body': 0.95,'limb': 0.6,
+	'Bodily image and Appearance': {'bodily':1.0, 'image': 0.6, 'appearance': 1.0, 'hair':0.75, 'anorexia':0.8, 'anorexic':0.8, 'handicapped': 0.75,'physical': 0.9,'self-concept': 0.9,'body': 0.95,'limb': 0.6,
 									'clothes': 0.8,'boots':0.75,'dress':0.8,'workout':0.65, 'eat':0.7, 'outfit':0.75,'muscles':0.75,'healthy':0.8,'make-up': 0.7,'impairment': 0.65,'acne':0.8,'ugly':0.8,'beautiful':0.8,
 									'fat':0.9,'beard':0.70 ,'skinny':0.9, 'workout':0.6,'exercising':0.6, 'weight':0.8},
 	
 	'Concentration': {'aware': 0.8,'awake': 0.75,'alert': 0.8,'performance': 0.6,'thinking':0.55,'memory':0.4,'distractible':0.7,'learning':0.4,'insomnia': 0.8,'focus': 0.8,'pressure': 0.65,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
 					'alcohol': 0.7,'attention': 0.9, 'cognitive': 0.7, 'synchronized':0.65,'concentration': 1.0},
 	
-	'Energy': {'energy': 1.0, 'alive': 0.6, 'endurance': 0.8, 'hyperactivy':0.8,'calories':0.9, 'exercise':0.8, 'exercising':0.9, 'strong':0.75,'enthusiasm': 0.75, 'dancing':0.67, 'workout':0.9},
+	'Energy': {'energy': 1.0, 'alive': 0.6, 'endurance': 0.8, 'sweat':0.75, 'hyperactivy':0.8,'calories':0.9, 'exercise':0.8, 'exercising':0.9, 'strong':0.75,'enthusiasm': 0.75, 'dancing':0.7, 'workout':0.9},
 	
 	'Fatigue': {'fatigue': 1.0, 'overexertion': 0.8, 'depression': 0.8, 'cramps':0.75, 'vomit':0.75, 'panic':0.65,'weariness': 0.8, 'anorexia':0.8, 'disorder':0.7,'anxiety': 0.8,'sedentary':0.65,'stress': 0.75, 'disease': 0.95, 'illness': 0.8,'tire': 0.8, 'exhaustion': 0.8},
 	
@@ -203,19 +203,19 @@ dictVocabulary={
 	'Self-esteem': {'self':1.2, 'esteem': 0.98, 'self-esteem':1.0,'meaningful': 0.9,'anxiety': 0.8,'guilt': 0.8,'despondency': 0.8,'depression': 0.9,'tearfulness': 0.8, 'regret': 0.8, 'appearance':0.85,'shame': 0.8,'enthusiastic':0.78,
 				'inspired':0.75,'distressed': 0.86,'strong': 0.85,'proud': 0.9,'confidence': 0.85,'narcissisism': 0.9,
 				'superiority': 0.8,'honour': 0.8,'egoism': 0.9,'pride': 0.8,'arrogance': 0.9,
-				'admiration': 0.8,'prestige': 0.8, 'well-being': 0.9,'ashamed': 0.9,'guilty': 0.9,'fat':0.73,'ugly':0.75,'worthless': 0.8,'think':0.45,'regard': 0.8,'respect': 0.75, 'competence': 0.65,'belonging': 0.65,'identity': 0.65,'security': 0.6,
+				'admiration': 0.8,'prestige': 0.8, 'well-being': 0.9,'ashamed': 0.9,'guilty': 0.9,'fat':0.73,'ugly':0.75,'worthless': 0.8,'think':0.45,'regard': 0.8,'alone':0.7, 'respect': 0.75, 'competence': 0.65,'belonging': 0.65,'identity': 0.65,'security': 0.6,
 				'acceptance': 0.75,'worth': 0.7,'appraisal': 0.9,'dignity': 0.95,'grinning':0.65,'disgust':0.70,'fear':0.75,'sadness':0.75,
 				'family': 0.7,'embarrassment':0.9, 'people': 0.5,'education': 0.55,'unloved':0.75,'achievement':0.7,
-				'win':0.8,'lose':0.8,'love':0.72, 'awe': 0.7,'happy':0.7,'morality':0.7, 'creativity':0.65, 'spontaneity':0.7, 'prejudice':0.7,
+				'win':0.8,'lose':0.8,'love':0.7, 'awe': 0.7,'happy':0.7,'morality':0.7, 'creativity':0.65, 'spontaneity':0.7, 'prejudice':0.7,
 				'integrity':0.7,'triumph':0.8, 'despair':0.8,'worthy':0.7,'oneself': 0.8,'healthy':0.7,'satisfaction': 0.7},
 	
-	'Sexual activity': {'sexual':0.95, 'sex':1.0,'physical':0.2 ,'intimacy': 0.65, 'desire': 0.5},
+	'Sexual activity': {'sexual':0.95, 'sex':1.0,'physical':0.2 ,'intimacy': 0.65, 'desire': 0.4},
 	
 	'Sleep and Rest': {'sleep': 1.0,'waking':0.85, 'parasomnia': 0.8,'hypersomnia': 0.8,'yawning':0.7, 'nightmare':0.8, 'restless':0.65, 'apnea': 0.8,'insomnia': 0.8,'refreshment': 0.6,'rest': 1.0},
 	
 	'Social support': {'social':1.0, 'support': 0.90, 'asking':0.75, 'share': 0.7,'talking': 0.7,'teaching': 0.85,'companionship':0.9,'empathy':0.9,'sympathy':0.9,'esteem':0.8,'solve': 0.65,'relationship': 0.95,
 					'handshake':0.7,'roommate': 0.95, 'thanks': 0.75,'inclusive':0.7, 'help': 0.9,'chill': 0.6,'dude': 0.67,'friend': 0.9,'abuse': 0.6,
-					'personal': 0.8,'crisis': 0.6, 'trust':0.5, 'caring':0.6, 'group':0.7,'community':0.75,'suggestions':0.75, 'encourage':0.75, 'advice':0.85, 
+					'personal': 0.8,'crisis': 0.6, 'trust':0.5, 'caring':0.6, 'group':0.7,'collab':0.7,'community':0.75,'suggestions':0.75, 'encourage':0.75, 'advice':0.85, 
 					'assistance': 0.85,'together':0.8,'kiss': 0.65,'family': 0.9},
 	
 	'Thinking': {'think': 1.0,'aware': 0.8,'awake': 0.8,'cognitive': 0.7,'reminds':0.6,'concentration':0.6,'memory':0.4,'learning':0.6,'echolalia': 0.7,'distractible':0.7, 'speech': 0.7,'alogia': 0.75,'thinking': 0.85,
