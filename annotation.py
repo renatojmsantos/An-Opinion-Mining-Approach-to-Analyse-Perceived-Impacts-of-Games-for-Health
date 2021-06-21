@@ -143,7 +143,7 @@ def annotate(text, polarity):
 	# remove stop words
 	words = word_tokenize(text_lemmas)
 	stopwords = nltk.corpus.stopwords.words('english')
-	pals_lemmas = [word for word in words if not word in stopwords]
+	pals_lemmas = [word for word in words if not word in stopwords] #n deve tirar should ... must ...
 	
 	#end = time.time()
 	#print("=======================================================================================================================================================================================================================")
@@ -178,7 +178,7 @@ def annotate(text, polarity):
 		for c,v in emotions.items():
 			if (v>0.18):
 				#print(c,v)
-				polarity = polarity.lower()
+				#polarity = polarity.lower()
 				"""
 				if (c == "positive" and c != polarity):
 					#print("erro positive")
@@ -292,7 +292,7 @@ def annotate(text, polarity):
 						stemwn = wordnet.synsets(str(word_stem))[0]
 
 						similarity = stemwn.path_similarity(palwn)
-						if(similarity > 0.25):
+						if(similarity > 0.2):
 							countPalsDict += 1
 							score = prob*0.99
 							#print("stem * 0.98 ", word_stem,score,concept)
@@ -314,7 +314,7 @@ def annotate(text, polarity):
 								#print("###### "+l.antonyms()[0].name())
 								# condicoes...
 								if (concept == "Negative feelings" or concept == "Frustration" or concept == "Positive feelings" or concept == "Pain and discomfort" 
-									or concept == "Fatigue" or concept == "Pleasure" or concept == "Enjoyment and Fun" or concept == "Errors/Effectiveness"):
+									or concept == "Fatigue" or concept == "Pleasure" or concept == "Errors/Effectiveness"):
 									continue
 									#break
 								else:
@@ -336,7 +336,7 @@ def annotate(text, polarity):
 									countPalsDict += 1
 
 									#score = (prob/total_pals)*1.0
-									score = prob*0.86
+									score = prob*0.90
 									#print(score, countPalsDict, synonym,pal)
 
 									#score = score/total_pals_dict
@@ -352,7 +352,7 @@ def annotate(text, polarity):
 									countPalsDict += 1
 
 									#score = (prob/total_pals)*1.0
-									score = prob*0.83
+									score = prob*0.85
 									#print(score, countPalsDict, antonym,pal)
 
 									#score = score/total_pals_dict
@@ -384,13 +384,13 @@ def annotate(text, polarity):
 
 										similarity = stemwn.path_similarity(palwn)
 										
-										if(similarity > 0.7):
+										if(similarity > 0.2):
 											#print("--> syns")
 											#print("similarity = ",similarity)
 											countPalsDict += 1
 
 											#score = (prob/total_pals)*1.0
-											score = prob*0.80
+											score = prob*0.87
 											#print("stem syn / ant * 0.82", lemma, stem, score, concept)
 											if concept not in scoreDict.keys():
 												scoreDict[concept] = score
@@ -444,7 +444,7 @@ def annotate(text, polarity):
 
 												similarity = stemwn.path_similarity(palwn)
 												
-												if(similarity > 0.45):
+												if(similarity > 0.2):
 													#print("--> hyponyms")
 													#print("similarity = ",similarity)
 													countPalsDict += 1
@@ -501,7 +501,7 @@ def annotate(text, polarity):
 
 												similarity = stemwn.path_similarity(palwn)
 												
-												if(similarity > 0.45):
+												if(similarity > 0.2):
 													#print("----> hypernyms")
 													#print("similarity = ",similarity)
 													countPalsDict += 1
@@ -555,7 +555,7 @@ def annotate(text, polarity):
 
 												similarity = stemwn.path_similarity(palwn)
 												
-												if(similarity > 0.45):
+												if(similarity > 0.2):
 													
 													countPalsDict += 1
 
@@ -869,19 +869,21 @@ def getConceptsAnnotated(comment, polarity):
 						continue
 					elif(c=="Pleasure" and polarity=="negative"):
 						continue
-					elif(c=="Enjoyment and Fun" and polarity=="negative"):
+					elif(c=="Enjoyment and Fun" and polarity=="neutral"):
 						continue
-					elif(c=="Pleasure" and polarity=="neutral"):
-						continue
+					#elif(c=="Pleasure" and polarity=="neutral"):
+					#	continue
 					elif(c=="Fatigue" and polarity=="positive"):
 						continue
 					elif (c=="Pain and Discomfort" and polarity=="positive"):
 						continue 
-					elif (c=="Affect and Emotion" and polarity=="neutral"):
-						continue
+					#elif (c=="Affect and Emotion" and polarity=="neutral"):
+					#	continue
 					elif (c=="Trust" and polarity=="neutral"):
 						continue
 					elif (c=="Errors/Effectiveness" and polarity=="positive"):
+						continue
+					elif (c=="Satisfaction" and polarity=="neutral"):
 						continue
 					else:
 						#print(c, v)
@@ -921,11 +923,10 @@ def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment
 					for c in conceitos:
 						if (str(c) in concepts):
 							annotation_id+=1
-							#print(annotation_id,"... "+str(field)+" --> "+str(c))
+							print(annotation_id,"... "+str(field)+" --> "+str(c))
 												
 							query = "insert into annotation values("+str(annotation_id)+",'"+str(field)+"','"+str(c)+"','"+str(commentID)+"','"+str(game_id)+"','"+str(videoID)+"')"
 							insertToTable(query)
-							
 			else:
 				pass
 				#print("NAO ANOTADO! sem conceitos ...")

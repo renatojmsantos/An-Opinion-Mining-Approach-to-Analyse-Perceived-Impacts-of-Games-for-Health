@@ -1,4 +1,19 @@
-from annotation import * 
+#from annotation import * 
+
+from vocabulary import *
+
+#import pandas as pd
+
+from nrclex import NRCLex
+#from senticnet.senticnet import SenticNet
+import nltk
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
+from nltk.corpus import wordnet
+import re 
+
+from textblob import TextBlob, Word
 
 def pos_tagger(nltk_tag):
 		if nltk_tag.startswith('J'):
@@ -27,28 +42,29 @@ def getDictLemmas():
 		print("\n>",concept)
 		#print(">>> ",pals)
 		
-		dictStem={}
+		#dictStem={}
 		for pal,prob in pals.items():
 			
 
-			sb = sno.stem(pal)
+			#sb = sno.stem(pal)
 			#pt = ps.stem(pal)
 			#ls = st.stem(pal)
 			#print(">"+pal+"--->"+sb+" | "+pt+" | "+ls)
-			if(sb not in dictStem.keys()):
-				dictStem[sb] = prob
-			else:
-				print("REP... " + sb)
+			#if(sb not in dictStem.keys()):
+				#dictStem[sb] = prob
+			#else:
+			#	print("REP... " + sb)
 			#print(sb)
 
 			#if sb in dictStem.keys():
 
 
 			#print(">",pal)
+
 			#print(">>> ",prob)
 			# processo de lematização
 			#pal = word_tokenize(pal)
-			"""
+			
 			pos_tagged = nltk.pos_tag([pal])
 			
 			#print(pos_tagged)
@@ -62,15 +78,15 @@ def getDictLemmas():
 			if(pal!=keyword):
 				if keyword not in dictLemmas.keys():
 					dictLemmas[keyword] = prob
-				#print(">"+pal+"--->"+keyword)
-				#print(keyword, prob)
+				print(">"+pal+"--->"+keyword)
+				print(keyword, prob)
 				#dictLemmas[keyword].append(prob)
 			else:
 				if pal not in dictLemmas.keys():
 					dictLemmas[pal] = prob
 				#print(pal, prob)
 				#dictLemmas[pal].append(prob)
-			"""
+			
 			#print(pals[pal])
 			#pal = keyword
 			#print(pals)
@@ -80,12 +96,12 @@ def getDictLemmas():
 			
 
 	#print(dictStem)
-	#for k,v in dictStem.items():
+	#for k,v in dictLemmas.items():
 	#	print(k)
 	#	print(v)
-	#	print("\n")
+		#print("\n")
 
-	#print(dictLemmas)
+	print(dictLemmas)
 
 getDictLemmas()
 

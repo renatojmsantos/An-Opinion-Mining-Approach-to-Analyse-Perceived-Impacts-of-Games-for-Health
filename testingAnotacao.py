@@ -1,34 +1,112 @@
 
+#from preprocessing import *
+#from connectDB import *
+
+from vocabulary import *
+
+#import pandas as pd
+
+from nrclex import NRCLex
+#from senticnet.senticnet import SenticNet
+import nltk
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
+from nltk.corpus import wordnet
+import re 
+
+from textblob import TextBlob, Word
+
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+
+from flair.data import Sentence
+from flair.models import SequenceTagger
+
+import time
+
+tagger = SequenceTagger.load("hunflair-disease")
 
 
-from annotation import * 
 
-#import time
+def insertToTable(query):
+	idBack = None
+	conn = None
+	
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		conn.autocommit = True
+		cur = conn.cursor()
 
-#from vaderSentiment import SentimentIntensityAnalyzer
-#from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+		
+		query = query + " returning 1;" # duplicados deste id = 1 ????
+		#print(query)
+		#print(tableName)
+		#cur.execute(query, (tableName,))
+		cur.execute(query)
+		idBack = cur.fetchone()
+		#print(idBack)
+		conn.commit()
+		#print("inserted!")
+		cur.close()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack
 
-#from flair.data import Sentence
-#from flair.models import SequenceTagger
 
-#import sys
+#insertTablesConceitos()
 
-#import annotation
-#import preprocessing
-#import spacy  
-#nlp_spacy = spacy.load('en_core_web_md') #medium ... sm, md, lg (large)
+def getDiseases(comment):
+	sentence = Sentence(comment)
+	tagger.predict(sentence)
 
-#tagger = SequenceTagger.load("hunflair-disease")
+	diseases = []
+	for disease in sentence.get_spans():
+		diseases.append(disease)
 
+	if(len(diseases)>1):
+		return True
+	else:
+		return False
+	#return diseases
 
-#beginID = sys.argv[1]
-# usar funcao annotate do extrair....
+def updateGame(gameid, edition, platform):
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		conn.autocommit = True
+		cur = conn.cursor()
 
-def annotate2(text, polarity):
+		#query = "SELECT field, concept FROM dimension where dimension_id='"+dimensionid+"'"
+		query = "UPDATE game SET edition = '"+edition+"', platform = '"+platform+"' where game_id = '"+gameid+"' returning *;"
+		#print(query)
+		cur.execute(query)
+		idBack = cur.fetchall()
 
+		conn.commit()
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO upd!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
+
+def annotate(text, polarity):
 	#print("\n>>>>>>> ",text)
 	#print(">>> ", polarity)
-
+	#begin = time.time()
+	text = re.sub('just dance','game',text)
+	#print(text)
+	
 	sno = nltk.stem.SnowballStemmer('english') 
 
 	# POS Tagger
@@ -39,8 +117,8 @@ def annotate2(text, polarity):
 			return wordnet.VERB
 		elif nltk_tag.startswith('N'):
 			return wordnet.NOUN
-		elif nltk_tag.startswith('R'):
-			return wordnet.ADV
+		#elif nltk_tag.startswith('R'):
+		#	return wordnet.ADV
 		else:          
 			return None
 
@@ -51,6 +129,7 @@ def annotate2(text, polarity):
 
 	wordnet_tagged = list(map(lambda x: (x[0], pos_tagger(x[1])), pos_tagged))
 	#print(wordnet_tagged)
+
 
 	#lemmas
 	lemmatizer = WordNetLemmatizer()
@@ -64,20 +143,24 @@ def annotate2(text, polarity):
 	# remove stop words
 	words = word_tokenize(text_lemmas)
 	stopwords = nltk.corpus.stopwords.words('english')
-	pals_lemmas = [word for word in words if not word in stopwords]
+	pals_lemmas = [word for word in words if not word in stopwords] #n deve tirar should ... must ...
+	
+	#end = time.time()
+	#print("=======================================================================================================================================================================================================================")
+	#print(end-begin)
+	#print("=======================================================================================================================================================================================================================")
 
 	if (getDiseases(text)):
 		pals_lemmas.append("disease")
 
-	#print(pals_lemmas)
-
+	
 	text_lemmas = " ".join(pals_lemmas)
-	# print(text_lemmas)
+	
 
 	score = 0.00
 	scoreDict = {}
 
-	#print("\n>>>>>>> ",text_lemmas)
+	#print(">>>>>>> ",text_lemmas)
 	#print(">>> ", polarity)
 	total_pals = len(word_tokenize(text_lemmas))
 
@@ -95,9 +178,18 @@ def annotate2(text, polarity):
 		for c,v in emotions.items():
 			if (v>0.18):
 				#print(c,v)
-				polarity = polarity.lower()
+				#polarity = polarity.lower()
 				"""
-				
+				if (c == "positive" and c != polarity):
+					#print("erro positive")
+					continue
+				elif(c == "negative" and c != polarity):
+					#print("erro negative")
+					continue
+				elif(polarity == "positive" and c == "anger" and c == "disgust" and c == "fear" and c == "sadness"):
+					continue
+				elif(polarity == "negative" and c == "joy"):
+					continue
 				"""
 				if (c not in emo.keys()):
 					emo[c] = v
@@ -122,7 +214,7 @@ def annotate2(text, polarity):
 		#total_pals_dict = len(pals)
 		countPalsDict = 0
 		score=0.00
-		#print("====================="+concept+"=====================")
+		print("====================="+concept+"=====================")
 		#conta = 0
 		for pal, prob in pals.items():
 			if (emo):
@@ -130,10 +222,13 @@ def annotate2(text, polarity):
 				for c,v in emo.items():	
 					#score=0.00
 					if (c in pal):
-						#print("----> emolex")
-						countPalsDict += 0.35 #1
-						score = (v*prob)*1.8 #2
-						#print(score, countPalsDict, c,pal)
+						print("----> emolex",c,pal)
+						countPalsDict += 0.3 #1
+						if(len(text.split()) > 7):
+							score = (v*prob)*1.4
+						else:
+							score = (v*prob)*1.0 #2
+						#print("# EMO ",concept, score)
 						if concept not in scoreDict.keys():
 							scoreDict[concept] = score
 						else:
@@ -151,52 +246,64 @@ def annotate2(text, polarity):
 			stems=[]
 
 			for lemma in pals_lemmas:
+
+				word_stem = sno.stem(lemma)
+
 				#score...  ?
 				#print("#######################"+lemma)
 				if (lemma == pal): 
 					# total_pals_dict
-					#print("--> MATCH lemma")
-					countPalsDict += 0.65 #1
+					print("--> MATCH ", lemma)
+					countPalsDict += 0.8 #1
 
 					#score = (prob/total_pals)*1.6
-					score = prob*1.4
+					score = prob*1.0
 					#print(score,countPalsDict,lemma,pal)
 
 					#score = score/total_pals_dict
 					#print(concept,pal, score)
 					#print(score)
+					#print(" match * 1.0 ", lemma, score, concept)
 					if concept not in scoreDict.keys():
 						scoreDict[concept] = score
 					else:
 						scoreDict[concept] += score
 				elif (lemma in pal and len(lemma) >=3):
-						try:
-							palwn = wordnet.synsets(str(pal))[0]
-							lemmawn = wordnet.synsets(str(lemma))[0]
-							#print(stemwn.name() + " "+ palwn.name())
+					try:
+						palwn = wordnet.synsets(str(pal))[0]
+						lemmawn = wordnet.synsets(str(lemma))[0]
 
-							similarity = lemmawn.path_similarity(palwn)
-							
-							if(similarity > 0.19):
-								#print("--> lemma")
-								#print("similarity = ",similarity)
-								countPalsDict += 0.9
+						similarity = lemmawn.path_similarity(palwn)
+						if(similarity > 0.20):
+							countPalsDict += 1
+							score = prob*1.0
+							print("in * 1.0 ", lemma,score, concept)
+							if concept not in scoreDict.keys():
+								scoreDict[concept] = score
+							else:
+								scoreDict[concept] += score
+					except Exception as e:
+						#print(e)
+						continue
+				elif (word_stem in pal and len(word_stem)>1):
+					stems.append(word_stem)
+					try:
+						palwn = wordnet.synsets(str(pal))[0]
+						stemwn = wordnet.synsets(str(word_stem))[0]
 
-								#score = (prob/total_pals)*1.0
-								score = prob*1.0
-								#print(score, countPalsDict, lemma,pal)
-
-								#score = score/total_pals_dict
-								#print(concept,pal, score)
-								#print(score)
-								if concept not in scoreDict.keys():
-									scoreDict[concept] = score
-								else:
-									scoreDict[concept] += score
-						except Exception as e:
-							#print(e)
-							continue
-				else:
+						similarity = stemwn.path_similarity(palwn)
+						if(similarity > 0.2):
+							countPalsDict += 1
+							score = prob*0.99
+							print("stem * 0.98 ", word_stem,score,concept)
+							if concept not in scoreDict.keys():
+								scoreDict[concept] = score
+							else:
+								scoreDict[concept] += score
+					except Exception as e:
+						#print(e)
+						continue
+				else: 
 					for syn in wordnet.synsets(lemma):
 						#print(syn.name(), syn.lemma_names())
 						for l in syn.lemmas():
@@ -207,7 +314,7 @@ def annotate2(text, polarity):
 								#print("###### "+l.antonyms()[0].name())
 								# condicoes...
 								if (concept == "Negative feelings" or concept == "Frustration" or concept == "Positive feelings" or concept == "Pain and discomfort" 
-									or concept == "Fatigue" or concept == "Pleasure" or concept == "Enjoyment and Fun"):
+									or concept == "Fatigue" or concept == "Pleasure" or concept == "Errors/Effectiveness"):
 									continue
 									#break
 								else:
@@ -229,12 +336,13 @@ def annotate2(text, polarity):
 									countPalsDict += 1
 
 									#score = (prob/total_pals)*1.0
-									score = prob*0.75
+									score = prob*0.90
 									#print(score, countPalsDict, synonym,pal)
 
 									#score = score/total_pals_dict
 									#print(concept,pal, score)
 									#print(score)
+									print("synonym * 0.9", lemma, synonym, score, concept)
 									if concept not in scoreDict.keys():
 										scoreDict[concept] = score
 									else:
@@ -244,12 +352,13 @@ def annotate2(text, polarity):
 									countPalsDict += 1
 
 									#score = (prob/total_pals)*1.0
-									score = prob*0.7
+									score = prob*0.85
 									#print(score, countPalsDict, antonym,pal)
 
 									#score = score/total_pals_dict
 									#print(concept,pal, score)
 									#print(score)
+									print("antonym * 0.85", lemma, antonym, score, concept)
 									if concept not in scoreDict.keys():
 										scoreDict[concept] = score
 									else:
@@ -267,8 +376,6 @@ def annotate2(text, polarity):
 									
 									# https://www.nltk.org/howto/wordnet.html
 
-									# https://www.geeksforgeeks.org/python-word-similarity-using-spacy/
-
 									#print(syn, l, syn.lemmas())
 									try:
 										palwn = wordnet.synsets(str(pal))[0]
@@ -277,18 +384,14 @@ def annotate2(text, polarity):
 
 										similarity = stemwn.path_similarity(palwn)
 										
-										if(similarity > 0.19):
+										if(similarity > 0.2):
 											#print("--> syns")
 											#print("similarity = ",similarity)
 											countPalsDict += 1
 
 											#score = (prob/total_pals)*1.0
-											score = prob*0.65
-											#print(score, countPalsDict, stem,pal)
-
-											#score = score/total_pals_dict
-											#print(concept,pal, score)
-											#print(score)
+											score = prob*0.87
+											print("stem syn / ant * 0.87", lemma, stem, score, concept)
 											if concept not in scoreDict.keys():
 												scoreDict[concept] = score
 											else:
@@ -326,11 +429,8 @@ def annotate2(text, polarity):
 											countPalsDict += 1
 
 											#score = (prob/total_pals)*0.5
-											score = prob * 0.4
-											#print(score, countPalsDict,hyponym,pal)
-											#score = score/total_pals_dict
-											#print(concept,pal, score)
-											#print(score)
+											score = prob * 0.75
+											print("match hyponym * 0.75", lemma, hyponym, score, concept)
 											if concept not in scoreDict.keys():
 												scoreDict[concept] = score
 											else:
@@ -344,13 +444,14 @@ def annotate2(text, polarity):
 
 												similarity = stemwn.path_similarity(palwn)
 												
-												if(similarity > 0.19):
+												if(similarity > 0.2):
 													#print("--> hyponyms")
 													#print("similarity = ",similarity)
 													countPalsDict += 1
 
 													#score = (prob/total_pals)*0.5
-													score = prob * 0.3
+													print(" hyponym * 0.65",lemma, stem, score, concept)
+													score = prob * 0.7
 													#print(score, countPalsDict, stem,pal)
 
 													#score = score/total_pals_dict
@@ -381,10 +482,11 @@ def annotate2(text, polarity):
 										#print(stem)
 										# calculate score
 										if (hypernym == pal):
-											#print("----> MATCH hypernym")
+											print("----> MATCH hypernym")
 											countPalsDict += 1
 											#score = (prob/total_pals)*0.6
-											score = prob * 0.4
+											print(" match hypernym * 0.7",lemma, hypernym, score, concept)
+											score = prob * 0.75
 											#print(score, countPalsDict,hypernym,pal)
 
 											if concept not in scoreDict.keys():
@@ -399,13 +501,14 @@ def annotate2(text, polarity):
 
 												similarity = stemwn.path_similarity(palwn)
 												
-												if(similarity > 0.19):
+												if(similarity > 0.2):
 													#print("----> hypernyms")
 													#print("similarity = ",similarity)
 													countPalsDict += 1
 
 													#score = (prob/total_pals)*0.5
-													score = prob * 0.3
+													print(" hypernym * 0.65", lemma, stem, score, concept)
+													score = prob * 0.7
 													#print(score, countPalsDict, stem,pal)
 
 													#score = score/total_pals_dict
@@ -434,12 +537,12 @@ def annotate2(text, polarity):
 										#print(stem)
 										# calculate score
 										if (meronym == pal):
-											#print("--------> MATCH meronyms")
+											print("--------> MATCH meronyms")
 											countPalsDict += 1
 											#score = (prob/total_pals)*0.6
-											score = prob * 0.4
+											score = prob * 0.75
 											#print(score, countPalsDict,meronym,pal)
-											
+											print(" meronym * 0.65", lemma, meronym, score, concept)
 											if concept not in scoreDict.keys():
 												scoreDict[concept] = score
 											else:
@@ -452,19 +555,12 @@ def annotate2(text, polarity):
 
 												similarity = stemwn.path_similarity(palwn)
 												
-												if(similarity > 0.19):
-													#print("--------> meronyms")
-													#print("similarity = ",similarity)
+												if(similarity > 0.2):
+													
 													countPalsDict += 1
 
-													#score = (prob/total_pals)*0.6
-													score = prob * 0.3
-													#print("--------> meronyms")
-													#print(score, countPalsDict, stem,pal)
-
-													#score = score/total_pals_dict
-													#print(concept,pal, score)
-													#print(score)
+													score = prob * 0.7
+													print(" meronym * 0.6", lemma, stem, score, concept)
 													if concept not in scoreDict.keys():
 														scoreDict[concept] = score
 													else:
@@ -476,40 +572,7 @@ def annotate2(text, polarity):
 									else:
 										continue
 										#break #???
-							
-							
-							print("----> root hypernyms")
-							# conceitos mais gerais
-							for s in lexical.root_hypernyms():
-								for l in s.lemmas():
-									print(l.name())
-							
-
-							
-							# membro de alguma coisa
-							print("------> part holonyms")
-							for s in lexical.part_holonyms():
-								for l in s.lemmas():
-									print(l.name())
-
-							
-							# membro de alguma coisa
-							print("------> substance holonyms")
-							for s in lexical.substance_holonyms():
-								for l in s.lemmas():
-									print(l.name())
-							
-							# parte de algo
-							print("--------> substance meronyms")
-							for s in lexical.substance_meronyms():
-								for l in s.lemmas():
-									print(l.name())
-							
-							print("----------> entailments")
-							for s in lexical.entailments():
-								for l in s.lemmas():
-									print(l.name())
-							
+			
 							
 						else:
 							continue
@@ -533,7 +596,8 @@ def annotate2(text, polarity):
 
 
 
-def countRowsTable(tableName):
+
+def checkGameID(edition,platform):
 	idBack = None
 	conn = None
 	try:
@@ -542,389 +606,62 @@ def countRowsTable(tableName):
 		#conn.autocommit = True
 		cur = conn.cursor()
 
-		query = "SELECT count(*) FROM "+tableName+""
+		query = "SELECT game_id FROM game WHERE edition = '"+edition+"' and platform = '"+platform+"'"
 
 		#print(query)
-
 		cur.execute(query)
 
-		idBack = cur.fetchone() # TUPLO
+		#idBack = cur.fetchone()
+		idBack = cur.fetchall()
+		#while idBack is not None:
+		#	print(idBack)
+		#	return idBack 
+		for row in idBack:
+			if (row is not None):
+				#print(row)
+				idBack=row
+				#return idBack 
+		#print(idBack)
+		#conn.commit()
+		#print("inserted!")
 		
 		cur.close()
 		#return idBack
 	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO! count rows", error)
-	finally:
-		if conn is not None:
-			#print("closing connection...")
-			conn.close()
-	return idBack[0]# is not None #idBack
-
-def getcomments(commentid):
-	
-	try:
-		idBack = None
-		conn = None
-		params = config()
-		conn = psycopg2.connect(**params)
-		#conn.autocommit = True
-		cur = conn.cursor()
-
-		query = "SELECT processedtext, polarity FROM comment where commentid='"+commentid+"' order by commentid"
-		#print(query)
-		cur.execute(query)
-
-		idBack = cur.fetchall()
-		
-		cur.close()
-		#return idBack
-	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO! get comments", error)
-	finally:
-		if conn is not None:
-			#print("closing connection...")
-			conn.close()
-	return idBack# is not None #idBack
-
-def getIDsGames():
-	idBack = None
-	conn = None
-	try:
-		params = config()
-		conn = psycopg2.connect(**params)
-		#conn.autocommit = True
-		cur = conn.cursor()
-
-		query = "SELECT game_game_id, video_videoid FROM annotation group by game_game_id,video_videoid;"
-		#print(query)
-		cur.execute(query)
-		idBack = cur.fetchall()
-
-		cur.close()
-		#return idBack
-	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO get annotation!", error)
-	finally:
-		if conn is not None:
-			#print("closing connection...")
-			conn.close()
-	return idBack# is not None #idBack
-
-def getIDs():
-	idBack = None
-	conn = None
-	try:
-		params = config()
-		conn = psycopg2.connect(**params)
-		#conn.autocommit = True
-		cur = conn.cursor()
-
-		query = "SELECT comment_commentid, game_game_id, video_videoid FROM annotation group by comment_commentid,game_game_id,video_videoid order by comment_commentid;"
-		#print(query)
-		cur.execute(query)
-		idBack = cur.fetchall()
-
-		cur.close()
-		#return idBack
-	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO get annotation!", error)
-	finally:
-		if conn is not None:
-			#print("closing connection...")
-			conn.close()
-	return idBack# is not None #idBack
-
-def getVideo(videoid):
-	idBack = None
-	conn = None
-	try:
-		params = config()
-		conn = psycopg2.connect(**params)
-		#conn.autocommit = True
-		cur = conn.cursor()
-
-		query = "SELECT videotitle, description FROM video where videoid='"+videoid+"'"
-		#print(query)
-		cur.execute(query)
-		idBack = cur.fetchone()
-
-		cur.close()
-		#return idBack
-	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO get video!", error)
-	finally:
-		if conn is not None:
-			#print("closing connection...")
-			conn.close()
-	return idBack# is not None #idBack
-
-def getVideoID(gameid):
-	idBack = None
-	conn = None
-	try:
-		params = config()
-		conn = psycopg2.connect(**params)
-		#conn.autocommit = True
-		cur = conn.cursor()
-
-		query = "SELECT videoid FROM video where totalcommentsvideo > 0;"
-		#print(query)
-		cur.execute(query)
-		idBack = cur.fetchone()
-
-		cur.close()
-		#return idBack
-	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO get video!", error)
-	finally:
-		if conn is not None:
-			#print("closing connection...")
-			conn.close()
-	return idBack# is not None #idBack
-
-def getGames():
-	idBack = None
-	conn = None
-	try:
-		params = config()
-		conn = psycopg2.connect(**params)
-		#conn.autocommit = True
-		cur = conn.cursor()
-
-		query = "SELECT game_id FROM game"
-		#print(query)
-		cur.execute(query)
-		idBack = cur.fetchall()
-
-		cur.close()
-		#return idBack
-	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO get game!", error)
-	finally:
-		if conn is not None:
-			#print("closing connection...")
-			conn.close()
-	return idBack# is not None #idBack
-
-# UPDATE
-
-
-
-def updateComment(commentid, polarity):
-	idBack = None
-	conn = None
-	try:
-		params = config()
-		conn = psycopg2.connect(**params)
-		conn.autocommit = True
-		cur = conn.cursor()
-
-		#query = "SELECT field, concept FROM dimension where dimension_id='"+dimensionid+"'"
-		query = "UPDATE comment SET polarity = '"+polarity+"' where commentid='"+commentid+"' returning *;"
-		#print(query)
-		cur.execute(query)
-		idBack = cur.fetchall()
-
-		conn.commit()
-		cur.close()
-		#return idBack
-	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO upd!", error)
-	finally:
-		if conn is not None:
-			#print("closing connection...")
-			conn.close()
-	return idBack# is not None #idBack
-
-def updateGame(gameid, edition, platform):
-	idBack = None
-	conn = None
-	try:
-		params = config()
-		conn = psycopg2.connect(**params)
-		conn.autocommit = True
-		cur = conn.cursor()
-
-		#query = "SELECT field, concept FROM dimension where dimension_id='"+dimensionid+"'"
-		query = "UPDATE game SET edition = '"+edition+"', platform = '"+platform+"' where game_id = '"+gameid+"' returning *;"
-		#print(query)
-		cur.execute(query)
-		idBack = cur.fetchall()
-
-		conn.commit()
-		cur.close()
-		#return idBack
-	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO upd!", error)
-	finally:
-		if conn is not None:
-			#print("closing connection...")
-			conn.close()
-	return idBack# is not None #idBack
-#print(countRowsTable('game'))
-#game_id = int(countRowsTable('game'))# + 1
-
-def updateAnnotation(annotationid, field, concept, commentid,gameid, videoid):
-	idBack = None
-	conn = None
-	try:
-		params = config()
-		conn = psycopg2.connect(**params)
-		conn.autocommit = True
-		cur = conn.cursor()
-
-		#query = "SELECT field, concept FROM dimension where dimension_id='"+dimensionid+"'"
-		query = "UPDATE annotation SET annotationid = '"+annotationid+"', field = '"+field+"', concept = '"+concept+"', comment_commentid = '"+commentid+"', game_game_id = '"+gameid+"' , video_videoid = '"+videoid+"' returning *;"
-		#print(query)
-		cur.execute(query)
-		idBack = cur.fetchall()
-
-		conn.commit()
-		cur.close()
-		#return idBack
-	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO upd!", error)
-	finally:
-		if conn is not None:
-			#print("closing connection...")
-			conn.close()
-	return idBack# is not None #idBack
-#print(countRowsTable('game'))
-#game_id = int(countRowsTable('game'))# + 1
-
-
-def insertToTable(query):
-	idBack = None
-	conn = None
-	
-	try:
-		params = config()
-		conn = psycopg2.connect(**params)
-		conn.autocommit = True
-		cur = conn.cursor()
-
-		query = query + " returning 1;" 
-		#print(query)
-		cur.execute(query)
-		idBack = cur.fetchone()
-		#print(idBack)
-		conn.commit()
-		#print("inserted!")
-		cur.close()
-	except (Exception, psycopg2.DatabaseError) as error:
 		print("ERRO!", error)
 	finally:
 		if conn is not None:
 			#print("closing connection...")
 			conn.close()
-	return idBack
+	return idBack# is not None #idBack
 
+def getSentiment(t):
 
-def deleteRow(query):
-	idBack = None
-	conn = None
-	
 	try:
-		params = config()
-		conn = psycopg2.connect(**params)
-		conn.autocommit = True
-		cur = conn.cursor()
-
-		query = query + " returning *;" 
-		#print(query)
-		cur.execute(query)
-		idBack = cur.fetchone()
-		#print(idBack)
-		conn.commit()
-		#print("inserted!")
-		cur.close()
-	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO!", error)
-	finally:
-		if conn is not None:
-			#print("closing connection...")
-			conn.close()
-	return idBack
-
-def deleteRows(query):
-	idBack = None
-	conn = None
-	
-	try:
-		params = config()
-		conn = psycopg2.connect(**params)
-		conn.autocommit = True
-		cur = conn.cursor()
-
-		query = query + " returning *;" 
-		#print(query)
-		cur.execute(query)
-		idBack = cur.fetchall()
-		#print(idBack)
-		conn.commit()
-		#print("inserted!")
-		cur.close()
-	except (Exception, psycopg2.DatabaseError) as error:
-		print("ERRO!", error)
-	finally:
-		if conn is not None:
-			#print("closing connection...")
-			conn.close()
-	return idBack
-
-def getDiseases(comment):
-	sentence = Sentence(comment)
-	tagger.predict(sentence)
-
-	diseases = []
-	for disease in sentence.get_spans():
-		diseases.append(disease)
-
-	if(len(diseases)>1):
-		return True
-	else:
-		return False
-	#return diseases
-
-def updatePolarityComment():
-	
-	#print(idBack)
-	try:
-		comments = getcomments()
 		analyzer = SentimentIntensityAnalyzer()
-		for c in comments:
-			commentid = c[0]
-			originaltext = c[1]
-			#processedtext = c[2]
-			#originalPolarity = c[3]
-			#print(commentid, originaltext, processedtext)
-			vsOriginal = analyzer.polarity_scores(originaltext)
-			#vsProcessed = analyzer.polarity_scores(processedtext)
-			#print("{:-<65} {}".format(originaltext, str(vsOriginal)))
-			#print("\n>>>>>>> ", originaltext)
-			#print("#",originalPolarity)
-			#print(vsOriginal)
-			#print(vsOriginal['compound'])
+		vsOriginal = analyzer.polarity_scores(str(t))
+		#vsProcessed = analyzer.polarity_scores(processedtext)
+		#print("{:-<65} {}".format(originaltext, str(vsOriginal)))
+		#print("\n>>>>>>> ", originaltext)
+		#print("#",originalPolarity)
+		#print(vsOriginal)
+		#print(vsOriginal['compound'])
 
-			if (vsOriginal['compound'] >= 0.05):
-				polarity = "Positive"
-			elif(vsOriginal['compound'] <= -0.05):
-				polarity = "Negative"
-			else:
-				polarity = "Neutral"
-			#print(polarity)
-			updateComment(commentid,polarity)
-			
-			#positive sentiment: compound score >= 0.05
-			#neutral sentiment: (compound score > -0.05) and (compound score < 0.05)
-			#negative sentiment: compound score <= -0.05
+		if (vsOriginal['compound'] >= 0.05):
+			polarity = "Positive"
+		elif(vsOriginal['compound'] <= -0.05):
+			polarity = "Negative"
+		else:
+			polarity = "Neutral"
+
+		return polarity
 
 	except Exception as e:
-		print(e)
+		print("sentiment — ",e)
 
-#updatePolarityComment()
 
-def checkInfoGame(title, descript):
+
+def getEditionAndPlataform(game_id, title, descript):
 	try:
 		title = re.sub('&quot;+','',title)
 		title = title.lower().strip()
@@ -953,7 +690,9 @@ def checkInfoGame(title, descript):
 		title = re.sub('pc','Microsoft Windows',title)
 		title = re.sub('iphone','iOS',title)
 
-		
+		#titleWords = word_tokenize(title.strip()) 
+		#title = " ".join(titleWords)
+
 		title = re.sub('yo-kai watch dance just dance special version','yo-kai watch dance: jd sv', title)
 		title = re.sub('yo-kai watch dance just dance','yo-kai watch dance: jd sv', title)
 		title = re.sub('yo-kai watch dance: just dance','yo-kai watch dance: jd sv', title)
@@ -962,14 +701,9 @@ def checkInfoGame(title, descript):
 		title = re.sub('just dance greatest hits','just dance: greatest hits',title)
 		title = re.sub('just dance summer party','just dance: summer party',title)
 
-		#titleWords = word_tokenize(title.strip()) 
-		#title = " ".join(titleWords)
 		title = title.lower()
 
-		
-
 		#descript = description[row]
-
 		"""
 		descriptWords = word_tokenize(descript.strip()) 
 		descript = " ".join(descriptWords)
@@ -999,12 +733,10 @@ def checkInfoGame(title, descript):
 		descript = re.sub('nintendo','Nintendo Switch',descript)
 		descript = re.sub('windows','Microsoft Windows',descript)
 		descript = re.sub('pc','Microsoft Windows',descript)
-
 		descript = descript.lower()
 		"""
 
-
-		print("##", title)
+		#print(title)
 		#https://en.wikipedia.org/wiki/Just_Dance_(video_game_series)
 		games = ['Just Dance 2', 'Just Dance 3', 'Just Dance 4', 'Just Dance 2014', 'Just Dance 2015', 'Just Dance 2016', 'Just Dance 2017', 'Just Dance 2018', 'Just Dance 2019', 'Just Dance 2020', 'Just Dance 2021',
 				'Just Dance Wii', 'Just Dance Wii 2', 'Just Dance Wii U', 'Yo-kai Watch Dance: JD SV',
@@ -1018,28 +750,13 @@ def checkInfoGame(title, descript):
 		# detetar o nome do jogo no titulo do video ...
 		edition=""
 		serie=""
-		#s=""
+		
 		for game in games:
 			serie = game.lower()
-			"""
-			if (serie == 'yo-kai watch dance: just dance special version'):
-				s = 'yo-kai watch dance just dance special version'
 
-			elif(serie == 'just dance: disney party'):
-				s = 'disney party'
-
-			elif(serie == 'just dance: disney party 2'):
-				s = 'disney party 2'
-
-			elif(serie == 'just dance: greatest hits'):
-				s = 'greatest hits'
-
-			elif(serie == 'just dance: summer party'):
-				s = 'summer party'
-			"""
-			if((serie in title.lower())):
+			if(serie in title.lower()):
 				edition=game
-				print(edition)
+				#print(edition)
 				if (edition == "Just Dance 2"):
 					continue
 				if (edition == "Just Dance Wii"):
@@ -1050,7 +767,7 @@ def checkInfoGame(title, descript):
 					continue
 				if (edition == "Just Dance: Disney Party"):
 					continue
-				#break
+				
 			"""
 			elif(serie in descript.lower()):
 				edition=game
@@ -1067,12 +784,10 @@ def checkInfoGame(title, descript):
 				else:
 					break
 			"""
-			
 		if(edition == ""): # PROBLEM 2018, 2019 ???
 			serie = "Just Dance"
 			if(serie.lower() in title.lower()):
 				edition = "Just Dance"
-
 
 
 		platforms = ['Wii', 'Wii U', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'Xbox 360', 'Xbox One', 'Xbox Series X', 'Xbox Series S','iOS', 'Android', 'Nintendo Switch', 'Microsoft Windows', 'Stadia']
@@ -1081,6 +796,7 @@ def checkInfoGame(title, descript):
 		for p in platforms:
 			c = p.lower()
 			if(c in title.lower()):
+				#print(p)
 				if (c == 'android' or platform == 'ios'):
 					if(edition != "Just Dance Now"):
 						continue
@@ -1091,7 +807,7 @@ def checkInfoGame(title, descript):
 					continue
 				if (platform == "Xbox Series X"):
 					continue
-				#break
+				
 				#break
 			"""
 			elif(c in descript.strip().lower()):
@@ -1104,11 +820,6 @@ def checkInfoGame(title, descript):
 					break
 			"""
 
-		#if (platform == 'Android' or platform == 'iOS'):
-		#	if(edition != "Just Dance Now"):
-		#		edition="Unknown"
-
-		
 		if(platform == 'Android' or platform == 'iOS'):
 			if (edition != "Just Dance Now"):
 				platform="Unknown"
@@ -1118,169 +829,127 @@ def checkInfoGame(title, descript):
 		if(platform==""):
 			platform="Unknown"
 
-		#game_id +=1 
-		#query = "insert into game values('"+str(game_id)+"', '"+str(edition)+"', '"+str(platform)+"')"
-		#insertToTable(query)
+		print("-> ",edition," -> ", platform)
+		game_id +=1 
+		query = "insert into game values('"+str(game_id)+"', '"+str(edition)+"', '"+str(platform)+"')"
+		insertToTable(query)
 
-		#return game_id
-		return (edition,platform)
+		return game_id
 	except Exception as e:
-		print("erro check update: ", e)
-	
+		print("get game and console ->", e)
 
-def updateInfoGame():
+def insertVideo(channelID,channel,videoID,title,dateVideo,views,likesVideo,dislikesVideo,totalCommentsVideo,descript):
+	#insert youtube video ...
+	query = "insert into video values('"+str(channelID)+"', '"+channel+"', '"+str(videoID)+"','"+title+"','"+str(dateVideo)+"', '"+str(views)+"', '"+str(likesVideo)+"', '"+str(dislikesVideo)+"', '"+str(totalCommentsVideo)+"', '"+descript+"')"
+	insertToTable(query)
+	#pass
 
-	try:
-		ids = getIDsGames()
-		#print(idsGame)
-		for g in ids:
-			if (g is not None):
-				gameid = g[0]
-				videoid = g[1]
-				#print(gameid)
-				#videoid = getVideoID(str(gameid))
-				#print(videoid)
-				#print(videoid[0])
-				if (videoid is not None):
-					#commentid = videoid[1]
-					video = getVideo(str(videoid))
-					if (video is not None):
-						print("\n--> ",video[0])
-						#print("--> ",video[1])
-						print("--> ",videoid)
-						#descript = str(video[1]).lower()
-						#print(descript)
-						"""
-						if (("covers" in descript) or ("maristela" in descript) or ("killebom" in descript)
-							or ("ivi adamou" in descript) or ("talent show" in descript) or ("music video" in descript) 
-							or ("the nanny" in descript) or ("josh turner" in descript) or ("karaoke" in descript) or ("quadriphonix" in descript) or ("acoustic" in descript)
-							or ("Jerónimo de Sousa" in descript) or ("paul johnson" in descript) and ("remix" in descript) or ("flashmob" in descript) or ("ps22 chorus" in descript)
-							or ("chipettes" in descript) or ("chipmunk" in descript) or ("chipmunks" in descript) or ("just dance india" in descript) or ("official music video" in descript)):
-							
-							query = "delete from annotation where game_game_id='"+str(gameid)+"'"
-							#print(query)
-							deleteRow(query)
-							query = "delete from video where videoid='"+str(videoid[0])+"'"
-							#print(query)
-							deleteRow(query)
-							query = "delete from game where game_id='"+str(gameid)+"'"
-							#print(query)
-							deleteRow(query)
-							query = "delete from comment where commentid='"+str(commentid)+"'"
-							#print(query)
-							deleteRow(query)
-							
-						else:
-						"""
-						check = checkInfoGame(str(video[0]), str(video[1])) # titulo, descricao
-						if (check is not None):
-							print("> ", check[0], check[1])
-							updateGame(str(gameid), str(check[0]), str(check[1]))
-
-	except Exception as e:
-		print(e)
-
-#updateInfoGame()
-
-#-----------------------------------------------------------------------------------------
-"""
 def getConceptsAnnotated(comment, polarity):
 	try:
 		concepts=[]
-		# usar funcao annotate do extrair....
 		DictResult = annotate(str(comment), polarity) 
 		if(bool(DictResult)):
 			#print("\n")
-			#print(DictResult)
+			print("-----—————————————————————————————————————————————————————————————-")
+			print(DictResult)
+			print("-----—————————————————————————————————————————————————————————————-")
 			for c,v in DictResult.items():	
-				if (v>0.70):
-					#print(c)
+				if (v>=0.70):
+					
 					polarity = polarity.lower()
 					if (c=="Positive feelings" and polarity=="negative"):
 						continue
 					elif(c=="Negative feelings" and polarity=="positive"):
 						continue
+					if (c=="Positive feelings" and polarity=="neutral"):
+						continue
+					elif(c=="Negative feelings" and polarity=="neutral"):
+						continue
 					elif(c=="Frustration" and polarity=="positive"):
 						continue
 					elif(c=="Pleasure" and polarity=="negative"):
 						continue
-					elif(c=="Enjoyment and Fun" and polarity=="negative"):
-						continue
-					elif(c=="Positive feelings" and polarity=="neutral"):
-						continue
-					elif(c=="Negative feelings" and polarity=="neutral"):
-						continue
-					elif(c=="Frustration" and polarity=="neutral"):
-						continue
-					elif(c=="Pleasure" and polarity=="neutral"):
-						continue
 					elif(c=="Enjoyment and Fun" and polarity=="neutral"):
 						continue
+					#elif(c=="Pleasure" and polarity=="neutral"):
+					#	continue
 					elif(c=="Fatigue" and polarity=="positive"):
 						continue
+					elif (c=="Pain and Discomfort" and polarity=="positive"):
+						continue 
+					#elif (c=="Affect and Emotion" and polarity=="neutral"):
+					#	continue
+					elif (c=="Trust" and polarity=="neutral"):
+						continue
+					elif (c=="Errors/Effectiveness" and polarity=="positive"):
+						continue
+					elif (c=="Satisfaction" and polarity=="neutral"):
+						continue
 					else:
+						print(c, v)
 						concepts.append(c)
 		# ... values = dict.values() -> total = sum (values) -> total de cada dim... 
 		return concepts
 	except Exception as e:
 		print(e)
-"""
-def update():
-	#updateInfoGame()
+
+def executeAnnotation(comment, original_comment):
+
 	try:
-		annotationid=0
-		#annotationid=beginID
-		ids = getIDs()
-		#print(ids)
-		for i in ids:
-			commentid = i[0]
-			gameid = i[1]
-			videoid = i[2]
-			try:
-				
-				comments = getcomments(commentid)
-				for c in comments:
-					if (c != "None" and c != "none" and c is not None):
-						comment = c[0]
-						polarity = c[1]
-						#print(commentid, gameid, videoid, comment)
-						# update ... annotation id = 1,2,3...
-						
-						print("\n>>>>>>> ",comment)
-						#print(">>> ", polarity)
-						concepts = getConceptsAnnotated(str(comment), str(polarity))
-						
-						#print(concepts)
-						if (len(concepts)>0):
-							for d in dictFields.items():
-								field = d[0]
-								conceitos = d[1]
-								#print(d[1])
-								for c in conceitos:
-									if (str(c) in concepts):
-										annotationid+=1
-										print(annotationid,"... "+str(field)+" --> "+str(c))
-										
-										query = "delete from annotation where annotationid = "+str(annotationid)+""
-										deleteRow(query)
-										query = "insert into annotation values("+str(annotationid)+",'"+str(field)+"','"+str(c)+"','"+str(commentid)+"','"+str(gameid)+"','"+str(videoid)+"')"
-										insertToTable(query)
-										
-						else:
-							print("NAO ANOTADO! sem conceitos ...")
-							continue
-			except Exception as e:
-				print(e)
+		#print(original_comment)
+		#polarity = getSentiment(comment)
+		polarity = getSentiment(original_comment)
 
-		#DELETE FROM annotation WHERE annotationid > XXX;
-		print("fim...")
-		print("vai apagar...")
-		query = "delete from annotation where annotationid > "+str(annotationid)+""
-		deleteRows(query)
+		print("\n>>>>>>> ",original_comment)
+		print(">>> ", polarity)
+
+		#isMain = mainComment[row] # TRUE -> comentario principal
+
+		#insert youtube video ...
+		#query = "insert into video values('"+str(channelID)+"', '"+channel+"', '"+str(videoID)+"','"+title+"','"+str(dateVideo)+"', '"+str(views)+"', '"+str(likesVideo)+"', '"+str(dislikesVideo)+"', '"+str(totalCommentsVideo)+"', '"+descript+"')"
+		#insertToTable(query)
+		original_comment = original_comment.replace("'","")
+		#query = "insert into comment values('"+str(commentID)+"', '"+str(original_comment)+"', '"+str(comment)+"', '"+str(polarity)+"', '"+str(likes)+"', '"+str(dateComment)+"', '"+str(isMain)+"')"
+		#insertToTable(query)
+
+		try:
+			concepts = getConceptsAnnotated(str(comment), str(polarity))
+			#print(concepts)
+			if (len(concepts)>0):
+				for d in dictFields.items():
+					field = d[0]
+					conceitos = d[1]
+					#print(d[1])
+					for c in conceitos:
+						if (str(c) in concepts):
+							#annotation_id+=1
+							print("... "+str(field)+" --> "+str(c))
+												
+							#query = "insert into annotation values("+str(annotation_id)+",'"+str(field)+"','"+str(c)+"','"+str(commentID)+"','"+str(game_id)+"','"+str(videoID)+"')"
+							#insertToTable(query)
+			else:
+				pass
+				#print("NAO ANOTADO! sem conceitos ...")
+
+			#return annotation_id
+
+		except Exception as e:
+			print(e)
+			
 	except Exception as e:
-		print(e)
+		print("execute annotation - ", e)
 
-#updateInfoGame()
-update()
-#DELETE FROM annotation WHERE annotationid > XXX;
+	#return annotation_id
+#insertTablesConceitos()
+
+executeAnnotation('god believe best song french singer france best country love smile face heart - eye thanks start everyday friend burn lot calorie fun dance grin face change sedentary life help behavioral abnormality disease','god believe best song french singer france best country love smile face heart - eye thanks start everyday friend burn lot calorie fun dance grin face change sedentary life help behavioral abnormality disease')
+
+
+
+
+
+
+
+
+
 

@@ -32,7 +32,7 @@ YOUTUBE_API_VERSION = "v3"
 
 listaKeys = []
 
-#etlID = 6951
+etlID = 0
 
 
 def insertToTable(query):
@@ -403,6 +403,9 @@ while 1:
 									#print("Descricao: ", search_result["snippet"]["description"])
 									print("Video ID: ",search_result["id"]["videoId"])
 									print("Published at: ",search_result["snippet"]["publishedAt"])
+
+									#game_id = getEditionAndPlataform(game_id, titulo, description)
+
 									if (checkVideoID(str(videoID)) is False): # videoID nao está na BD ... vai buscar todos os comentarios
 										
 										#newVideo = True
@@ -476,9 +479,9 @@ while 1:
 															
 															try:
 																
-																#tamanhoComentario = len(comentario.split())
+																tamanhoComentario = len(comentario.split())
 																#query = "INSERT into etl values("
-																#beginTratamento = time.time()
+																beginTratamento = time.time()
 
 																comment = runPreprocessing(comentario)
 																#comment = runPreprocessing("OMG I don’t expect that JD brought me behavioral abnormalities to my body and affected my self-esteem")
@@ -486,26 +489,27 @@ while 1:
 																if (comment != "None" and comment != "none" and comment is not None):
 																	#print(comentario)
 																	#print(comment)
-																	#endTratamento = time.time()
-																	#tempoT = endTratamento-beginTratamento
+
+																	endTratamento = time.time()
+																	tempoT = endTratamento-beginTratamento
 																	#query = "INSERT INTO ETL VALUES('"+str(etlID)+",'"+str(tamanhoComentario)+"NULL,'"+str(tempoT)+"', NULL, NULL,NULL"
 																	#insertToTable(query)
 
 																	#def executeAnnotation(game_id, dimension_id, opinion_id, videoID, comment, commentID, likes, dateComment, isMain):
 																	isMain = "Main"
 																	if(checkAnnotatedComment(str(commentID)) is False):
-																		#beginAnotacao = time.time()
+																		beginAnotacao = time.time()
 																		annotation_id = executeAnnotation(game_id, annotation_id, videoID, comment, comentario, commentID, nr_likes, dateComment, isMain)
-																		#endAnotacao = time.time()
+																		endAnotacao = time.time()
 
-																		#tempoA = endAnotacao - beginAnotacao
+																		tempoA = endAnotacao - beginAnotacao
 																		#query = "INSERT INTO ETL VALUES('"+str(etlID)+",'"+str(tamanhoComentario)+"NULL,NULL,'"+str(tempoA)+"', NULL,NULL"
 																		#insertToTable(query)
 
-																		#etlID+=1
-																		#tempoTotal = endAnotacao - beginTratamento
-																		#query = "INSERT INTO ETL VALUES("+str(etlID)+","+str(tamanhoComentario)+",NULL,"+str(tempoT)+","+str(tempoA)+","+str(tempoTotal)+",NULL)"
-																		#insertToTable(query)
+																		etlID+=1
+																		tempoTotal = endAnotacao - beginTratamento
+																		query = "INSERT INTO ETL VALUES("+str(etlID)+","+str(tamanhoComentario)+",NULL,"+str(tempoT)+","+str(tempoA)+","+str(tempoTotal)+",NULL)"
+																		insertToTable(query)
 
 																	#print(".... id's --> ",opinion_id, dimension_id) # nao aumentam depois.... colocar aqui toda a anotacao do execute? ou return ID's ... em tuplo..? 
 
@@ -623,6 +627,9 @@ while 1:
 
 										if (checkNewComments == "True"):
 											# vai atualizar os comentarios do video...
+
+											#select game_id from game where titulo, description == XXXXX XXXX 
+											#game_id = getEditionAndPlataform(game_id, titulo, description)
 											try:
 												random.shuffle(listaKeys)
 												DEVELOPER_KEY = str(listaKeys[0])
@@ -656,7 +663,7 @@ while 1:
 
 																commentID = comment_result['snippet']['topLevelComment']['id']
 																
-																if (checkCommentID(str(commentID)) is False): # FALSE ---> n está na bd... atualizar anotacoes TRUE e comentar insert comment no executeAnnotation
+																if (checkCommentID(str(commentID)) is False): # FALSE ---> n está na bd... atualizar anotacoes TRUE e comentar insert comment no executeAnnotation... falta o getEditionsEPlataforms
 																	
 
 																	comentario = comment_result['snippet']['topLevelComment']['snippet']['textDisplay']
