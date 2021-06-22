@@ -160,7 +160,7 @@ def annotate(text, polarity):
 	score = 0.00
 	scoreDict = {}
 
-	#print(">>>>>>> ",text_lemmas)
+	print(" > ",text_lemmas)
 	#print(">>> ", polarity)
 	total_pals = len(word_tokenize(text_lemmas))
 
@@ -238,7 +238,8 @@ def annotate(text, polarity):
 							#print(pal, conta, v, prob, score)
 							scoreDict[concept] += score
 			else:
-				continue
+				#continue
+				pass
 
 			#print(score)
 			# check dict
@@ -254,7 +255,7 @@ def annotate(text, polarity):
 				if (lemma == pal): 
 					# total_pals_dict
 					#print("--> MATCH ", lemma)
-					countPalsDict += 0.8 #1
+					countPalsDict += 0.85 #1
 
 					#score = (prob/total_pals)*1.6
 					score = prob*1.0
@@ -402,7 +403,8 @@ def annotate(text, polarity):
 										continue
 									
 							else:
-								continue
+								#continue
+								pass
 								#break #???????????
 
 						if (lemma not in lexs):
@@ -466,7 +468,8 @@ def annotate(text, polarity):
 												#print(e)
 												continue
 									else:
-										continue
+										#continue
+										pass
 										#break #???
 							
 							
@@ -522,7 +525,8 @@ def annotate(text, polarity):
 												#print(e)
 												continue
 									else:
-										continue
+										pass
+										#continue
 										#break#???
 
 							#countPalsDict = 0
@@ -570,12 +574,14 @@ def annotate(text, polarity):
 												continue
 
 									else:
-										continue
+										pass
+										#continue
 										#break #???
 			
 							
 						else:
-							continue
+							pass
+							#continue
 							#break #????
 						
 					
@@ -589,7 +595,13 @@ def annotate(text, polarity):
 		if concept in scoreDict.keys():
 			#print(score, countPalsDict)
 			#print(scoreDict[concept])
-			scoreDict[concept] = scoreDict[concept]/countPalsDict #score/countPalsDict
+			#print(total_pals)
+			#if (total_pals > 5):
+			#	scoreDict[concept] = scoreDict[concept]/countPalsDict #score/countPalsDict
+			#else:
+			
+			scoreDict[concept] = scoreDict[concept]/countPalsDict
+
 			#print(scoreDict[concept])
 	#print(scoreDict)
 	return scoreDict
@@ -850,11 +862,11 @@ def getConceptsAnnotated(comment, polarity):
 		DictResult = annotate(str(comment), polarity) 
 		if(bool(DictResult)):
 			#print("\n")
-			#print("-----—————————————————————————————————————————————————————————————-")
-			#print(DictResult)
-			#print("-----—————————————————————————————————————————————————————————————-")
+			print("-----—————————————————————————————————————————————————————————————-")
+			print(DictResult)
+			print("-----—————————————————————————————————————————————————————————————-")
 			for c,v in DictResult.items():	
-				if (v>=0.70):
+				if (v>0.72):
 					
 					polarity = polarity.lower()
 					if (c=="Positive feelings" and polarity=="negative"):
@@ -888,7 +900,8 @@ def getConceptsAnnotated(comment, polarity):
 					else:
 						#print(c, v)
 						concepts.append(c)
-		# ... values = dict.values() -> total = sum (values) -> total de cada dim... 
+		# ... values = dict.values() -> total = sum (values) -> total de cada dim...
+		print ("\n",concepts,"\n")
 		return concepts
 	except Exception as e:
 		print(e)
@@ -899,21 +912,24 @@ def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment
 		#print(original_comment)
 		#polarity = getSentiment(comment)
 		polarity = getSentiment(original_comment)
+		polarity2 = getSentiment(comment)
+		#print("\n>>>>>>> ",original_comment, commentID)
+		print("\n=======================================================================================================================")
+		print(">>> ",original_comment,"\n")
 
-		print("\n>>>>>>> ",original_comment)
-		#print(">>> ", polarity)
+		print("# ", polarity)
+		#print(comment," -> ",commentID)
+	
 
-		#isMain = mainComment[row] # TRUE -> comentario principal
+		#para dar add de anotacoes...
 
-		#insert youtube video ...
-		#query = "insert into video values('"+str(channelID)+"', '"+channel+"', '"+str(videoID)+"','"+title+"','"+str(dateVideo)+"', '"+str(views)+"', '"+str(likesVideo)+"', '"+str(dislikesVideo)+"', '"+str(totalCommentsVideo)+"', '"+descript+"')"
-		#insertToTable(query)
-		original_comment = original_comment.replace("'","")
+		original_comment = original_comment.replace("'"," ")
 		query = "insert into comment values('"+str(commentID)+"', '"+str(original_comment)+"', '"+str(comment)+"', '"+str(polarity)+"', '"+str(likes)+"', '"+str(dateComment)+"', '"+str(isMain)+"')"
 		insertToTable(query)
 
 		try:
 			concepts = getConceptsAnnotated(str(comment), str(polarity))
+			
 			#print(concepts)
 			if (len(concepts)>0):
 				for d in dictFields.items():
@@ -924,7 +940,10 @@ def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment
 						if (str(c) in concepts):
 							annotation_id+=1
 							print(annotation_id,"... "+str(field)+" --> "+str(c))
-												
+
+							#print("\n",original_comment)
+							#print(concepts)
+
 							query = "insert into annotation values("+str(annotation_id)+",'"+str(field)+"','"+str(c)+"','"+str(commentID)+"','"+str(game_id)+"','"+str(videoID)+"')"
 							insertToTable(query)
 			else:

@@ -11,8 +11,6 @@ import csv
 import unidecode
 #import requests
 
-
-
 #import httplib2
 import json
 
@@ -23,9 +21,8 @@ from connectDB import *
 
 import sys
 
-from preprocessing import *
+#from preprocessing import *
 from annotation import * 
-from selectGame import *
 
 from datetime import datetime, date, timedelta
 
@@ -35,7 +32,219 @@ YOUTUBE_API_VERSION = "v3"
 
 listaKeys = []
 
-etlID = 0
+#etlID = 0
+
+
+
+def editionAndPlataform(title, descript):
+	try:
+		title = re.sub('&quot;+','',title)
+		title = title.lower().strip()
+
+		# substituir JD por Just Dance .... no titulo do video ....
+		title = re.sub('jd','just dance',title)
+		title = re.sub('justdance','just dance',title)
+		title = re.sub('wiiu','wii u',title)
+		#title = re.sub('ps2','PlayStation 2',title)
+		title = re.sub('ps3','PlayStation 3',title)
+		title = re.sub('ps4','PlayStation 4',title)
+		title = re.sub('ps5','PlayStation 5',title)
+		#title = re.sub('playstation2','PlayStation 2',title)
+		title = re.sub('playstation3','PlayStation 3',title)
+		title = re.sub('playstation4','PlayStation 4',title)
+		title = re.sub('playstation5','PlayStation 5',title)
+		title = re.sub('x360','Xbox 360',title)
+		title = re.sub('xbox sx','Xbox Series X',title)
+		title = re.sub('xbox ss','Xbox Series S',title)
+		title = re.sub('xbox360','Xbox 360',title)
+		title = re.sub('xboxone','Xbox One',title)
+		title = re.sub('switch','Nintendo Switch',title)
+		title = re.sub('nintendoswitch','Nintendo Switch',title)
+		title = re.sub('nintendo','Nintendo Switch',title)
+		title = re.sub('windows','Microsoft Windows',title)
+		title = re.sub('pc','Microsoft Windows',title)
+		title = re.sub('iphone','iOS',title)
+
+		#titleWords = word_tokenize(title.strip()) 
+		#title = " ".join(titleWords)
+
+		title = re.sub('yo-kai watch dance just dance special version','yo-kai watch dance: jd sv', title)
+		title = re.sub('yo-kai watch dance just dance','yo-kai watch dance: jd sv', title)
+		title = re.sub('yo-kai watch dance: just dance','yo-kai watch dance: jd sv', title)
+		title = re.sub('just dance disney party','just dance: disney party',title)
+		title = re.sub('just dance disney party 2','just dance: disney party 2',title)
+		title = re.sub('just dance greatest hits','just dance: greatest hits',title)
+		title = re.sub('just dance summer party','just dance: summer party',title)
+
+		title = title.lower()
+
+		#descript = description[row]
+		"""
+		descriptWords = word_tokenize(descript.strip()) 
+		descript = " ".join(descriptWords)
+
+		descript = " ".join(descript.strip().split())
+		descript = re.sub(r"[\W\s]"," ",descript)
+		descript = re.sub("\n","",descript)
+
+		descript = descript.lower()
+		descript = re.sub('jd','just dance',descript)
+		descript = re.sub('justdance','just dance',descript)
+		descript = re.sub('wiiu','wii u',descript)
+		#descript = re.sub('ps2','PlayStation 2',descript)
+		descript = re.sub('ps3','PlayStation 3',descript)
+		descript = re.sub('ps4','PlayStation 4',descript)
+		descript = re.sub('ps5','PlayStation 5',descript)
+		descript = re.sub('playstation3','PlayStation 3',descript)
+		descript = re.sub('playstation4','PlayStation 4',descript)
+		descript = re.sub('playstation5','PlayStation 5',descript)
+		descript = re.sub('x360','Xbox 360',descript)
+		descript = re.sub('xbox sx','Xbox Series X',descript)
+		descript = re.sub('xbox ss','Xbox Series S',descript)
+		descript = re.sub('xbox360','Xbox 360',descript)
+		descript = re.sub('xboxone','Xbox One',descript)
+		descript = re.sub('nintendoswitch','Nintendo Switch',descript)
+		descript = re.sub('switch','Nintendo Switch',descript)
+		descript = re.sub('nintendo','Nintendo Switch',descript)
+		descript = re.sub('windows','Microsoft Windows',descript)
+		descript = re.sub('pc','Microsoft Windows',descript)
+		descript = descript.lower()
+		"""
+
+		#print(title)
+		#https://en.wikipedia.org/wiki/Just_Dance_(video_game_series)
+		games = ['Just Dance 2', 'Just Dance 3', 'Just Dance 4', 'Just Dance 2014', 'Just Dance 2015', 'Just Dance 2016', 'Just Dance 2017', 'Just Dance 2018', 'Just Dance 2019', 'Just Dance 2020', 'Just Dance 2021',
+				'Just Dance Wii', 'Just Dance Wii 2', 'Just Dance Wii U', 'Yo-kai Watch Dance: JD SV',
+				'Just Dance Kids', 'Just Dance Kids 2', 'Just Dance Kids 2014',
+				'Just Dance: Disney Party', 'Just Dance: Disney Party 2',
+				'Just Dance: Greatest Hits',
+				'Just Dance: Summer Party', 'Just Dance Now', 'Just Dance Unlimited']
+		# Just Dance é o ultimo jogo a ser inserido... RISCO neste!!! pode nao ser o 1.º JD.... pq no titulo podem nao especificar qual é a versao
+		# quem nao quiser saber de qual é a edicao, simplesmente nao aplica o filtro, e vê tudo.
+		
+		# detetar o nome do jogo no titulo do video ...
+		edition=""
+		serie=""
+		
+		for game in games:
+			serie = game.lower()
+
+			if(serie in title.lower()):
+				edition=game
+				#print(edition)
+				if (edition == "Just Dance 2"):
+					continue
+				if (edition == "Just Dance Wii"):
+					continue
+				if (edition == "Just Dance Kids"):
+					continue
+				if (edition == "Just Dance Kids 2"):
+					continue
+				if (edition == "Just Dance: Disney Party"):
+					continue
+				
+			"""
+			elif(serie in descript.lower()):
+				edition=game
+				if (edition == "Just Dance 2"):
+					continue
+				if (edition == "Just Dance Wii"):
+					continue
+				if (edition == "Just Dance Kids"):
+					continue
+				if (edition == "Just Dance Kids 2"):
+					continue
+				if (edition == "Just Dance: Disney Party"):
+					continue
+				else:
+					break
+			"""
+		if(edition == ""): # PROBLEM 2018, 2019 ???
+			serie = "Just Dance"
+			if(serie.lower() in title.lower()):
+				edition = "Just Dance"
+
+
+		platforms = ['Wii', 'Wii U', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'Xbox 360', 'Xbox One', 'Xbox Series X', 'Xbox Series S','iOS', 'Android', 'Nintendo Switch', 'Microsoft Windows', 'Stadia']
+		# detetar plataforma no titulo do video e na descrição ...
+		platform = ""
+		for p in platforms:
+			c = p.lower()
+			if(c in title.lower()):
+				#print(p)
+				if (c == 'android' or platform == 'ios'):
+					if(edition != "Just Dance Now"):
+						continue
+					else:
+						pass
+				platform = p
+				if (platform == "Wii"):
+					continue
+				if (platform == "Xbox Series X"):
+					continue
+				
+				#break
+			"""
+			elif(c in descript.strip().lower()):
+				platform = p
+				if (platform == "Wii"):
+					continue
+				elif (platform == "Xbox Series X"):
+					continue
+				else:
+					break
+			"""
+
+		if(platform == 'Android' or platform == 'iOS'):
+			if (edition != "Just Dance Now"):
+				platform="Unknown"
+			else:
+				pass
+
+		if(platform==""):
+			platform="Unknown"
+
+		print("-> ",edition," -> ", platform)
+		#game_id +=1 
+		#query = "insert into game values('"+str(game_id)+"', '"+str(edition)+"', '"+str(platform)+"')"
+		#insertToTable(query)
+
+		return edition,platform
+	except Exception as e:
+		print("get game and console ->", e)
+
+def selectIdGame(title, descript):
+	idBack = None
+	conn = None
+	
+	try:
+		idgame = editionAndPlataform(title,descript)
+		edition = idgame[0]
+		platform = idgame[1]
+
+		params = config()
+		conn = psycopg2.connect(**params)
+		conn.autocommit = True
+		cur = conn.cursor()
+
+		
+		query = "select game_id from game where edition='"+str(edition)+"' and platform='"+str(platform)+"'" # duplicados deste id = 1 ????
+		#print(query)
+		#print(tableName)
+		#cur.execute(query, (tableName,))
+		cur.execute(query)
+		idBack = cur.fetchone()
+		#print(idBack)
+		conn.commit()
+		#print("inserted!")
+		cur.close()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack #is not None 
 
 
 def insertToTable(query):
@@ -221,6 +430,32 @@ def getLastGameID():
 	return idBack# is not None #idBack
 
 
+def getComment(commentid):
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		query = "select processedtext from comment where commentid ='"+commentid+"'"
+
+		#print(query)
+		cur.execute(query)
+		idBack = cur.fetchone() # TUPLO
+		
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
+
+
 
 def getGameID(videoid):
 	
@@ -261,13 +496,13 @@ def getGameID(videoid):
 #gameid = countRowsTable(str('game'))# + 1
 #annotationid = countRowsTable(str('annotation'))# + 1
 
-gameid = getLastGameID()
+#gameid = getLastGameID()
 annotationid = getLastAnnotationID()
 
-game_id = int(gameid[0])
+#game_id = int(gameid[0])
 annotation_id = int(annotationid[0])
 
-print("IDS = ",game_id, annotation_id)
+#print("IDS = ",game_id, annotation_id)
 
 giveDate = sys.argv[1]
 interval = sys.argv[2]
@@ -386,9 +621,7 @@ while 1:
 									
 									tituloChannel=search_result["snippet"]["channelTitle"]
 									tituloChannel = unidecode.unidecode(tituloChannel) # tira aqui numeros????????
-									
-									tituloChannel = tituloChannel.replace("'"," ")
-									description = description.replace("'"," ")
+
 
 									idChannel=search_result["snippet"]["channelId"]
 									videoPublishedAt=search_result["snippet"]["publishedAt"] #2017-02-13T02:52:38Z
@@ -410,211 +643,14 @@ while 1:
 									print("Published at: ",search_result["snippet"]["publishedAt"])
 
 									#game_id = getEditionAndPlataform(game_id, titulo, description)
+									g = selectIdGame(titulo, description)
+									print(g)
+									game_id = g[0]
 
+									#print("test")
 									if (checkVideoID(str(videoID)) is False): # videoID nao está na BD ... vai buscar todos os comentarios
-										
-										#newVideo = True
-										#getInfoVideo(newVideo, initialDate, game_id, opinion_id, dimension_id, titulo, tituloChannel, idChannel, description, dateVideo, videoID)
-										try:
-											random.shuffle(listaKeys)
-											DEVELOPER_KEY = str(listaKeys[0])
-											yt = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
-											requestStats = yt.videos().list(
-													part='id,statistics', id=videoID, maxResults=100
-											).execute()
-											
-											views = requestStats["items"][0]["statistics"]["viewCount"]
-
-											if( (('commentCount' in requestStats["items"][0]["statistics"]) == True) and
-												(('likeCount' in requestStats["items"][0]["statistics"]) == True) and
-												(('dislikeCount' in requestStats["items"][0]["statistics"]) == True)
-												):
-												#print("Total comments video = "+requestStats["items"][0]["statistics"]["commentCount"])
-												likesV = requestStats["items"][0]["statistics"]["likeCount"]
-												dislikesV = requestStats["items"][0]["statistics"]["dislikeCount"]
-												nrCommentsV = requestStats["items"][0]["statistics"]["commentCount"]
-												#contaStatsComments += int(nrCommentsV)
-											else:
-												nrCommentsV=0
-												likesV=0
-												dislikesV=0
-											
-											
-											query = "insert into video values('"+str(idChannel)+"', '"+str(tituloChannel)+"', '"+str(videoID)+"','"+titulo+"','"+str(dateVideo)+"', '"+str(views)+"', '"+str(likesV)+"', '"+str(dislikesV)+"', '"+str(nrCommentsV)+"', '"+str(description)+"')"
-											insertToTable(query)
-											
-											print(game_id)
-											game_id = getEditionAndPlataform(game_id, titulo, description)
-											
-											if(int(nrCommentsV) > 0):
-												#print("getting comments of video ...")
-												nextPT = None
-												while 1: #comentarios do videoID
-													
-													try:
-														random.shuffle(listaKeys)
-														DEVELOPER_KEY = str(listaKeys[0])
-														yt_c = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
-
-														comment_response = yt_c.commentThreads().list(
-															part='snippet,replies', videoId=videoID, maxResults=100,
-															order='relevance', textFormat='plainText',pageToken=nextPT).execute()
-														nextPT = comment_response.get('nextPageToken')
-														for comment_result in comment_response.get("items",[]):
-
-															comentario = comment_result['snippet']['topLevelComment']['snippet']['textDisplay']
-
-															#comentario = "OMG I don’t expect that JD brought me behavioral abnormalities to my body and affected my self-esteem 😡😡😡"
-															
-															#comentario = unidecode.unidecode(comentario)
-															#nrComentarios+=1
-															nr_likes = comment_result['snippet']['topLevelComment']['snippet']['likeCount']
-															commentID = comment_result['snippet']['topLevelComment']['id']
-															#print(comment_result['snippet']['topLevelComment']['snippet']['updatedAt'])
-															publishTime = comment_result['snippet']['topLevelComment']['snippet']['updatedAt']
-															#print(publishTime)
-															# updatedAt pq pode incluir possiveis correcoes, ao inves do comment original com "publishedAt"
-															try:
-																dateComment = re.sub('T[0-9:Z]+','',publishTime)
-															except Exception as e:
-																#print(e)
-																print("something wrong on convert dates...", e)
-															
-															
-															try:
-																
-																#tamanhoComentario = len(comentario.split())
-																#query = "INSERT into etl values("
-																#beginTratamento = time.time()
-
-																comment = runPreprocessing(comentario)
-																#comment = runPreprocessing("OMG I don’t expect that JD brought me behavioral abnormalities to my body and affected my self-esteem")
-																#print(type(comment))
-																if (comment != "None" and comment != "none" and comment is not None):
-																	#print(comentario)
-																	#print(comment)
-
-																	#endTratamento = time.time()
-																	#tempoT = endTratamento-beginTratamento
-																	#query = "INSERT INTO ETL VALUES('"+str(etlID)+",'"+str(tamanhoComentario)+"NULL,'"+str(tempoT)+"', NULL, NULL,NULL"
-																	#insertToTable(query)
-
-																	#def executeAnnotation(game_id, dimension_id, opinion_id, videoID, comment, commentID, likes, dateComment, isMain):
-																	isMain = "Main"
-																	if(checkAnnotatedComment(str(commentID)) is False):
-
-																		#beginAnotacao = time.time()
-																		annotation_id = executeAnnotation(game_id, annotation_id, videoID, comment, comentario, commentID, nr_likes, dateComment, isMain)
-																		#endAnotacao = time.time()
-
-																		#tempoA = endAnotacao - beginAnotacao
-																		#query = "INSERT INTO ETL VALUES('"+str(etlID)+",'"+str(tamanhoComentario)+"NULL,NULL,'"+str(tempoA)+"', NULL,NULL"
-																		#insertToTable(query)
-
-																		#etlID+=1
-																		#tempoTotal = endAnotacao - beginTratamento
-																		#query = "INSERT INTO ETL VALUES("+str(etlID)+","+str(tamanhoComentario)+",NULL,"+str(tempoT)+","+str(tempoA)+","+str(tempoTotal)+",NULL)"
-																		#insertToTable(query)
-
-																	#print(".... id's --> ",opinion_id, dimension_id) # nao aumentam depois.... colocar aqui toda a anotacao do execute? ou return ID's ... em tuplo..? 
-
-																	nr_replies = comment_result['snippet']['totalReplyCount']
-																	#print(" . . . replies stats = ", nr_replies)
-																	countReplies = 0
-
-																	nextPTreply = None #page token
-																	if (nr_replies > 0):
-																		try:
-																			random.shuffle(listaKeys)
-																			DEVELOPER_KEY = str(listaKeys[0])
-																			yt_r = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
-
-																			while (countReplies <= nr_replies):
-																				commentsReplies = yt_r.comments().list(
-																					parentId = commentID, part='id,snippet', maxResults=100, pageToken=nextPTreply).execute()
-																				nextPTreply = commentsReplies.get('nextPageToken')
-
-																				if(nextPTreply is None):
-																					break
-
-																				for r in commentsReplies.get("items",[]):
-																					#print(r)
-																					replyID = r['id']
-																					textReply = r['snippet']['textDisplay']
-																					likesReply = r['snippet']['likeCount']
-																					publishedAtReply = r['snippet']['updatedAt']
-
-																					try:
-																						dateReply = re.sub('T[0-9:Z]+','',publishedAtReply)
-																					except Exception as e:
-																						#print(e)
-																						print("something wrong on convert dates...", e)
-																				
-																					countReplies+=1
-																					
-																					try:
-																						commentReply = runPreprocessing(textReply)
-																						if (commentReply != "None" and commentReply != "none" and commentReply is not None):
-																							#game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID
-																							isMain = "Reply"
-																							if(checkAnnotatedComment(str(replyID)) is False):
-																								annotation_id = executeAnnotation(game_id, annotation_id, videoID, commentReply, textReply, replyID, likesReply, dateReply, isMain)
-																							#opinion_id = ids[0]
-																							#annotation_id = ids
-																							#print(".... id's --> ", opinion_id, dimension_id)
-																					except Exception as e:
-																						print("replys -", e)	
-																		except HttpError as e:
-																			print("comments() - replies — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
-																			if("quotaExceeded" in str(e.content)):
-																				time.sleep(0.1)
-																		#except (ConnectionError, ReadTimeout):
-																			#print("ERROR! Connection or TIME OUT!")
-																		except Exception as e:
-																			print("get replys - ", e)
-																			#print("comments() - replies — something wrong ...")
-																	else:
-																		continue
-																#print(" . . . replies lidos = ",countReplies)
-																else:
-																	#skip statements inside the loop
-																	continue
-															except Exception as e:
-																print("comments -", e)
-
-														if nextPT is None:
-															#time.sleep(5)
-															#print(". . . nr comentarios total = ",nrComentarios)
-															#print(". . . stats total comentarios = ", contaStatsComments)
-															break
-
-													except HttpError as e:
-														print("commentThreads() — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
-														#commentsDisabled
-														if("quotaExceeded" in str(e.content)):
-															print("SEM QUOTA")
-															time.sleep(0.1)
-														if("commentsDisabled" in str(e.content)):
-															print("COMENTARIOS DESATIVADOS...")
-															break
-													#except (ConnectionError, ReadTimeout):
-														#print("ERROR! Connection or TIME OUT!")
-													except Exception as ex:
-														print("commentThreads() - ", ex)
-											else:
-												#print("NO COMMENTS!")
-												#break
-												continue
-												#pass        
-										except HttpError as e:
-											print("videos (stats) — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
-											if("quotaExceeded" in str(e.content)):
-												time.sleep(0.1) #6h
-										#except (ConnectionError, ReadTimeout):
-											#print("ERROR! Connection or TIME OUT!")
-										except Exception as e:
-											print("videos (stats) ", e)
-											#print("videos (stats) - something wrong ...")
+										#print("test2")
+										pass
 									else:
 										print("	 >>> video já inserido na BD...")
 										
@@ -630,7 +666,7 @@ while 1:
 										
 										# update views, likes... ??
 
-										if (checkNewComments == "True"):
+										if (checkNewComments == "False"):
 											# vai atualizar os comentarios do video...
 
 											#select game_id from game where titulo, description == XXXXX XXXX 
@@ -653,11 +689,6 @@ while 1:
 												
 												if(int(nrCommentsV) > 0):
 
-													#print(titulo,description)
-													g = selectIdGame(titulo, description)
-													print(g)
-													game_id = g[0]
-
 													nextPT = None
 													while 1: #comentarios do videoID
 														try:
@@ -673,7 +704,7 @@ while 1:
 
 																commentID = comment_result['snippet']['topLevelComment']['id']
 																
-																if (checkCommentID(str(commentID)) is False): # FALSE ---> n está na bd... atualizar anotacoes TRUE e comentar insert comment no executeAnnotation... falta o getEditionsEPlataforms
+																if (checkCommentID(str(commentID)) is True): # FALSE ---> n está na bd... atualizar anotacoes TRUE e comentar insert comment no executeAnnotation... falta o getEditionsEPlataforms
 																	
 
 																	comentario = comment_result['snippet']['topLevelComment']['snippet']['textDisplay']
@@ -695,79 +726,24 @@ while 1:
 																	
 																	
 																	try:
-																		comment = runPreprocessing(comentario)
+																		#comment = runPreprocessing(comentario)
+																		c = getComment(commentID) # NEW .. processado
+																		#print(c)
+																		comment = c[0]
+																		
 																		#print(type(comment))
-																		if (comment != "None" and comment != "none" and comment is not None):
-																			print("new comment ! ")
+																		if (comment != "None" and comment != "none" and comment is not None and len(comment.split())>3):
+																			#print("new comment! ")
 																			#print(comentario)
 																			#print(comment)
-
 
 																			#def executeAnnotation(game_id, dimension_id, opinion_id, videoID, comment, commentID, likes, dateComment, isMain):
 																			isMain = "Main"
 																			if(checkAnnotatedComment(str(commentID)) is False):
-																				
+																				#print(commentID, comentario)
 																				annotation_id = executeAnnotation(game_id, annotation_id, videoID, comment, comentario, commentID, nr_likes, dateComment, isMain)
+																				
 																			
-																			#print(".... id's --> ",opinion_id, dimension_id) # nao aumentam depois.... colocar aqui toda a anotacao do execute? ou return ID's ... em tuplo..? 
-
-																			nr_replies = comment_result['snippet']['totalReplyCount']
-																			#print(" . . . replies stats = ", nr_replies)
-																			countReplies = 0
-
-																			nextPTreply = None #page token
-																			if (nr_replies > 0):
-																				try:
-																					random.shuffle(listaKeys)
-																					DEVELOPER_KEY = str(listaKeys[0])
-																					yt_r = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
-
-																					while (countReplies <= nr_replies):
-																						commentsReplies = yt_r.comments().list(
-																							parentId = commentID, part='id,snippet', maxResults=100, pageToken=nextPTreply).execute()
-																						nextPTreply = commentsReplies.get('nextPageToken')
-
-																						if(nextPTreply is None):
-																							break
-
-																						for r in commentsReplies.get("items",[]):
-																							#print(r)
-																							replyID = r['id']
-																							textReply = r['snippet']['textDisplay']
-																							likesReply = r['snippet']['likeCount']
-																							publishedAtReply = r['snippet']['updatedAt']
-
-																							try:
-																								dateReply = re.sub('T[0-9:Z]+','',publishedAtReply)
-																							except Exception as e:
-																								#print(e)
-																								print("something wrong on convert dates...", e)
-																						
-																							countReplies+=1
-																							
-																							try:
-																								commentReply = runPreprocessing(textReply)
-																								if (commentReply != "None" and commentReply != "none" and commentReply is not None):
-																									#game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID
-																									isMain = "Reply"
-																									if(checkAnnotatedComment(str(replyID)) is False):
-																										annotation_id = executeAnnotation(game_id, annotation_id, videoID, commentReply, textReply, replyID, likesReply, dateReply, isMain)
-																									#opinion_id = ids[0]
-																									#annotation_id = ids
-																									#print(".... id's --> ", opinion_id, dimension_id)
-																							except Exception as e:
-																								print("replys -", e)	
-																				except HttpError as e:
-																					print("comments() - replies — An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
-																					if("quotaExceeded" in str(e.content)):
-																						time.sleep(0.1)
-																				#except (ConnectionError, ReadTimeout):
-																					#print("ERROR! Connection or TIME OUT!")
-																				except Exception as e:
-																					print("get replys - ", e)
-																					#print("comments() - replies — something wrong ...")
-																			else:
-																				continue
 																		#print(" . . . replies lidos = ",countReplies)
 																		else:
 																			#skip statements inside the loop
@@ -839,7 +815,8 @@ while 1:
 	time.sleep(int(sleepTime))
 	print("again...")
 	#break # termina
-	continue
+	#continue
+	pass
 
 
 

@@ -1280,7 +1280,37 @@ def update():
 	except Exception as e:
 		print(e)
 
+
+
 #updateInfoGame()
-update()
+#update()
 #DELETE FROM annotation WHERE annotationid > XXX;
+
+def updateHQOL():
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		conn.autocommit = True
+		cur = conn.cursor()
+
+		query = "UPDATE annotation SET field = 'H-QOL' WHERE field='Health' returning *;"
+		#print(query)
+		cur.execute(query)
+		idBack = cur.fetchall()
+
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO get !", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
+
+updateHQOL()
+
+
 

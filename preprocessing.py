@@ -1,9 +1,9 @@
 import pandas as pd
 import re   # regular expression
+import regex
 import demoji
 import numpy as np
 from nltk.corpus import wordnet
-import regex
 from langdetect import detect
 from langdetect import DetectorFactory
 from emoji.unicode_codes import UNICODE_EMOJI
@@ -353,7 +353,7 @@ def runPreprocessing(t):
 	
 	#t = clearText(t)
 	
-	if(len(t) > 2 and len(t) < 1800):
+	if(len(t) > 3 and len(t) < 1800):
 		if(isEnglish(str(t))):
 			#print("\n",t)
 			#print(len(t))
@@ -363,7 +363,7 @@ def runPreprocessing(t):
 			if(isEnglish(str(t))):
 				t = spellCorrection(t) # rever
 				#print(t)
-				if (len(t) >= 3 and isEnglish(str(t))):
+				if (len(t.split()) > 2 and isEnglish(str(t))):
 					#print("--->", t)
 					return t
 	return "None"
