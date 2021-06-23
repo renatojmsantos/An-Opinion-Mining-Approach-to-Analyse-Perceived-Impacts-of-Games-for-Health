@@ -260,11 +260,11 @@ def removeNon(cid):
 	deleteRow(query)
 
 
-menor3caracteres()
+#menor3caracteres()
 
 #deleteNonEnglish()
 
-#deleteDuplicated()
+deleteDuplicated()
 
 """
 removeNon('UgwEd5Nq8riGYQGokUp4AaABAg')
