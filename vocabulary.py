@@ -208,7 +208,7 @@ dictVocabulary={
 				'admiration': 0.8,'prestige': 0.8, 'wellbeing': 0.9,'ashamed': 0.9,'guilty': 0.9,'fat':0.73,'ugly':0.75,'worthless': 0.8,'think':0.56,'regard': 0.8,'alone':0.8, 'respect': 0.75, 'competence': 0.65,'belong': 0.65,'identity': 0.65,'security': 0.65,
 				'acceptance': 0.75,'worth': 0.7,'appraisal': 0.9,'dignity': 0.95,'grin':0.65,'disgust':0.70,'fear':0.75,'sadness':0.75,
 				'family': 0.7,'embarrassment':0.9, 'unloved':0.75,'achievement':0.7,
-				'win':0.8,'lose':0.8,'love':0.56, 'awe': 0.7,'happy':0.7,'morality':0.7, 'creativity':0.65, 'spontaneity':0.7, 'prejudice':0.7,
+				'win':0.8,'lose':0.8,'love':0.6, 'awe': 0.7,'happy':0.7,'morality':0.7, 'creativity':0.65, 'spontaneity':0.7, 'prejudice':0.7,
 				'integrity':0.7,'triumph':0.8, 'despair':0.8,'worthy':0.7,'oneself': 0.8,'healthy':0.7,'satisfaction': 0.7},
 	
 	'Sexual activity': {'sexual':0.95, 'sex':1.0,'intimacy': 0.6},

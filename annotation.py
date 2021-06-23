@@ -909,6 +909,10 @@ def getConceptsAnnotated(comment, polarity):
 						continue
 					elif (c=="Learning" and polarity=="neutral"): #tirar
 						continue
+					elif (c=="Enchantment" and polarity=="neutral"): #tirar
+						continue
+					elif (c=="Likeability" and polarity=="neutral"): #tirar
+						continue
 					elif (c=="Satisfaction" and polarity=="neutral"):
 						continue
 					else:
