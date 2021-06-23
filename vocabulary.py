@@ -129,7 +129,7 @@ dictVocabulary={
 					'sound': 0.75,'fun': 0.7,'disappoint': 0.65, 'bad': 0.65,'lack': 0.95,'prettier': 0.7,'issue': 0.9,
 					'recommend': 0.8,'easy': 0.8,'graphic': 0.9,'choreography':0.9,'playlist':0.9, 'music':0.9, 'soundtrack':0.9,'overall': 0.6,'worth': 0.85},
 	
-	'Enchantment': {'enchantment': 1.0, 'concentration': 0.9,'love': 0.6,'catchy':0.75,'clap':0.6,'attention': 0.9,'heart':0.65,'liveliness': 0.7,'pleasure': 0.85,'disorientation': 0.7,'experience': 0.6},
+	'Enchantment': {'enchantment': 1.0, 'concentration': 0.9,'love': 0.6,'game':0.85,'catchy':0.75,'clap':0.6,'attention': 0.9,'heart':0.65,'liveliness': 0.7,'pleasure': 0.85,'disorientation': 0.7,'experience': 0.6},
 	
 	'Engagement': {'engagement': 1.0, 'enjoyable':0.9,'experience':0.7,'hours':0.7,'challenge': 0.95, 'flow': 1.0,'skill': 0.95,'forget': 0.7,
 				'addict': 0.9, 'addition': 1.0, 'replay':0.8,'fun':0.8, 'dance':0.7, 'nonstop': 0.9, 'lyric':0.85,'soundtrack':0.9,'sing':0.85,'hardest':0.6,
@@ -168,7 +168,7 @@ dictVocabulary={
 						'professional':0.9, 'finalist':0.65, 'competitive':0.6,'dancer':0.7,'buyer': 0.7,'target': 0.7, 'difference': 0.8},
 
 
-	'Bodily image and Appearance': {'bodily':1.0, 'image': 0.6, 'appearance': 1.0, 'hair':0.75, 'anorexia':0.8, 'anorexic':0.8, 'handicapped': 0.75,'physical': 0.9,'self-concept': 0.9,'body': 0.95,'limb': 0.6,
+	'Bodily image and Appearance': {'bodily':1.0, 'image': 0.6, 'appearance': 1.0, 'wear':0.7,'hair':0.75, 'anorexia':0.8, 'anorexic':0.8, 'handicapped': 0.75,'physical': 0.9,'self-concept': 0.9,'body': 0.95,'limb': 0.6,
 									'clothes': 0.8,'boots':0.75,'dress':0.8,'workout':0.65, 'eat':0.7, 'outfit':0.75,'muscles':0.75,'healthy':0.8,'make-up': 0.7,'impairment': 0.65,'acne':0.8,'ugly':0.8,'beautiful':0.8,
 									'fat':0.9,'beard':0.70 ,'skinny':0.9, 'exercise':0.6, 'weight':0.8},
 	
@@ -190,7 +190,7 @@ dictVocabulary={
 						'antidepressant': 0.8,'suicide': 0.8,'nauseate':0.65,'lonely': 0.8,'hopeless': 0.8,'fear': 0.8,'pout': 0.75, 'boring':0.7, 'lack': 0.56,'angry':0.85, 'suck': 0.7,'humiliation':0.8, 'anger': 0.8,
 						'anxiety': 0.8,'nervousness': 0.8,'tearfulness': 0.8,'sadness': 0.8,'guilt': 0.8,'despondency': 0.8},
 	
-	'Pain and Discomfort': {'pain': 1.0, 'discomfort': 1.0,'injured':0.9,'worthlessness': 0.7,'depression': 0.77,'vomit':0.7, 'sad': 0.8,'grief': 0.8,'distress': 0.9,'panic': 0.8,'sore':0.75, 'sneeze':0.7, 'nauseate':0.7,
+	'Pain and Discomfort': {'pain': 1.0, 'discomfort': 1.0,'injured':0.9,'worthlessness': 0.7,'muscle':0.7,'depression': 0.77,'vomit':0.7, 'sad': 0.8,'grief': 0.8,'distress': 0.9,'panic': 0.8,'sore':0.75, 'sneeze':0.7, 'nauseate':0.7,
 						'fracture': 0.65,'cramp': 0.75,'injury': 0.8,'toothache': 0.9,'binge':0.7,'bulimarexia':0.7,'headache': 0.9,'ache': 0.9,'disorder':0.75,'stiffness': 0.9,'drug': 0.75,
 						'unpleasant': 0.8}, 
 	
@@ -204,7 +204,7 @@ dictVocabulary={
 	
 	'Self-esteem': {'self':1.2, 'esteem': 0.98, 'self-esteem':1.0,'meaningful': 0.9,'anxiety': 0.8,'guilt': 0.8,'despondency': 0.8,'depression': 0.9,'tearfulness': 0.8, 'regret': 0.8, 'appearance':0.85,'shame': 0.8,'enthusiastic':0.78,
 				'inspire':0.75,'distressed': 0.86,'strong': 0.85,'proud': 0.9,'confidence': 0.85,'narcissisism': 0.9,
-				'superiority': 0.8,'honour': 0.8,'egoism': 0.9,'pride': 0.8,'arrogance': 0.9,
+				'superiority': 0.8,'honour': 0.8,'egoism': 0.9,'pride': 0.8,'arrogance': 0.9,'public':0.7,
 				'admiration': 0.8,'prestige': 0.8, 'wellbeing': 0.9,'ashamed': 0.9,'guilty': 0.9,'fat':0.73,'ugly':0.75,'worthless': 0.8,'think':0.56,'regard': 0.8,'alone':0.8, 'respect': 0.75, 'competence': 0.65,'belong': 0.65,'identity': 0.65,'security': 0.65,
 				'acceptance': 0.75,'worth': 0.7,'appraisal': 0.9,'dignity': 0.95,'grin':0.65,'disgust':0.70,'fear':0.75,'sadness':0.75,
 				'family': 0.7,'embarrassment':0.9, 'unloved':0.75,'achievement':0.7,

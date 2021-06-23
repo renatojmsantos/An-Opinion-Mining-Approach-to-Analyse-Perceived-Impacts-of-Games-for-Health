@@ -223,7 +223,7 @@ def annotate(text, polarity):
 					#score=0.00
 					if (c in pal):
 						#print("----> emolex")
-						countPalsDict += 0.3 #1
+						countPalsDict += 0.5 #1
 						if(len(text.split()) > 7):
 							score = (v*prob)*1.4
 						else:
@@ -912,7 +912,7 @@ def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment
 		#print(original_comment)
 		#polarity = getSentiment(comment)
 		polarity = getSentiment(original_comment)
-		polarity2 = getSentiment(comment)
+		#polarity2 = getSentiment(comment)
 		#print("\n>>>>>>> ",original_comment, commentID)
 		print("\n=======================================================================================================================")
 		print(">>> ",original_comment,"\n")

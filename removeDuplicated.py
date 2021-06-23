@@ -80,6 +80,31 @@ def getCommentsID():
 			conn.close()
 	return idBack# is not None #idBack
 
+def getCommentsCaracteres():
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+		#processedtext, originaltext
+		query = "SELECT commentid FROM comment where length(originaltext) < 4"
+		#query = "SELECT originaltext,commentid, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals FROM comment join annotation on annotation.comment_commentid = comment.commentid group by originaltext, commentid order by pals"
+		#print(query)
+		cur.execute(query)
+		idBack = cur.fetchall()
+
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO get annotation!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
+
 def getComments():
 	idBack = None
 	conn = None
@@ -134,12 +159,41 @@ def getIDs(commentid):
 			conn.close()
 	return idBack# is not None #idBack
 
+def getDupAnnotationID():
+	
+	try:
+		idBack = None
+		conn = None
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		#query = "SELECT annotationid, comment_commentid FROM annotationid where comment_commentid='"+commentid+"' group by annotationid, comment_commentid"
+		
+		query = "select annotation.*from (select annotation.*, min(annotationid) over (partition by comment_commentid) as min_id, row_number() over (partition by comment_commentid order by annotationid) as seqnum from annotation) annotation where annotationid - seqnum != min_id - 1 order by annotationid asc"
+
+		#print(query)
+		cur.execute(query)
+
+		idBack = cur.fetchall()
+		
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO! get comments", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
 
 
 def deleteDuplicated():
 
 	try:
-		commentids = getCommentsID()
+		"""
+		commentids = getCommentsID() # É preciso ? 
 
 		for cids in commentids:
 			cid = cids[0]
@@ -152,12 +206,23 @@ def deleteDuplicated():
 
 			except Exception as e:
 				print(e)
+		"""
+
+		a = getDupAnnotationID()
+		try:
+			for i in a:
+				aid = i[0]
+				query = "delete from annotation where annotationid = "+str(aid)+""
+				deleteRow(query)
+
+		except Exception as e:
+			print(e)
 	except Exception as e:
 		print(e)
 	
 def deleteNonEnglish():
 	try:
-		comments = getComments()
+		comments = getComments() 
 		for c in comments:
 			original = c[0]
 			#print("\n",original)
@@ -175,11 +240,31 @@ def deleteNonEnglish():
 	except Exception as e:
 		print(e)
 
+def menor3caracteres():
+
+	try:
+		c = getCommentsCaracteres()
+		for i in c:
+			cid = i[0]
+			query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
+			deleteRows(query)
+			query = "delete from comment where commentid = '"+str(cid)+"'"
+			deleteRow(query)
+	except Exception as e:
+		print(e)
+
 def removeNon(cid):
 	query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
 	deleteRows(query)
 	query = "delete from comment where commentid = '"+str(cid)+"'"
 	deleteRow(query)
+
+
+menor3caracteres()
+
+#deleteNonEnglish()
+
+#deleteDuplicated()
 
 """
 removeNon('UgwEd5Nq8riGYQGokUp4AaABAg')
@@ -213,9 +298,7 @@ removeNon('UgyLRu7dr6SPoFLAzUB4AaABAg')
 removeNon('UginUBcKKm2LhHgCoAEC')
 """
 
-deleteNonEnglish()
 
-#deleteDuplicated()
 
 """
 

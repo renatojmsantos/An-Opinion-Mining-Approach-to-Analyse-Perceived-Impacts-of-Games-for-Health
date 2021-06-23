@@ -312,6 +312,8 @@ after = ''
 
 c=0
 
+nrTotal = 0
+nrValidos = 0
 
 while 1:
 
@@ -376,7 +378,7 @@ while 1:
 
 								
 								videoName = titulo.lower()
-								if ( ("lady gaga" not in videoName) and ("ladygaga" not in videoName) and ("lyric" not in videoName) and ("dialysis" not in videoName) and ("fuck it" not in videoName) and ("maristela" not in videoName) and ("killebom" not in videoName) and ("ladies free" not in videoName) and ("brand new band" not in videoName) and ("ivi adamou" not in videoName) and ("talent show" not in videoName) and ("effy" not in videoName) and ("music video" not in videoName) and ("the nanny" not in videoName) and ("josh turner" not in videoName) and ("karaoke" not in videoName) and ("quadriphonix" not in videoName) and ("acoustic" not in videoName) and ("cover" not in videoName) and ("Jerónimo de Sousa" not in videoName) and ("paul johnson" not in videoName) and ("remix" not in videoName) and ("flashmob" not in videoName) and ("ps22 chorus" not in videoName) and ("alvin" not in videoName) and ("chipettes" not in videoName) and ("chipmunk" not in videoName) and ("chipmunks" not in videoName) and ("just dance india" not in videoName) and ("official music video" not in videoName) and ("lyrics" not in videoName)
+								if ( ("lady gaga" not in videoName) and ("ladygaga" not in videoName) and ("lyric" not in videoName) and ("school" not in videoName) and ("dialysis" not in videoName) and ("fuck it" not in videoName) and ("maristela" not in videoName) and ("killebom" not in videoName) and ("ladies free" not in videoName) and ("brand new band" not in videoName) and ("ivi adamou" not in videoName) and ("talent show" not in videoName) and ("effy" not in videoName) and ("music video" not in videoName) and ("the nanny" not in videoName) and ("josh turner" not in videoName) and ("karaoke" not in videoName) and ("quadriphonix" not in videoName) and ("acoustic" not in videoName) and ("cover" not in videoName) and ("Jerónimo de Sousa" not in videoName) and ("paul johnson" not in videoName) and ("remix" not in videoName) and ("flashmob" not in videoName) and ("ps22 chorus" not in videoName) and ("alvin" not in videoName) and ("chipettes" not in videoName) and ("chipmunk" not in videoName) and ("chipmunks" not in videoName) and ("just dance india" not in videoName) and ("official music video" not in videoName) and ("lyrics" not in videoName)
 									and ("covers" not in description) and ("maristela" not in description) and ("killebom" not in description)
 									and ("ivi adamou" not in description) and ("talent show" not in description) and ("music video" not in description) 
 									and ("the nanny" not in description) and ("josh turner" not in description) and ("karaoke" not in description) and ("quadriphonix" not in description) and ("acoustic" not in description)
@@ -486,6 +488,8 @@ while 1:
 																#tamanhoComentario = len(comentario.split())
 																#query = "INSERT into etl values("
 																#beginTratamento = time.time()
+																nrTotal += 1
+																#nrValidos = 0
 
 																comment = runPreprocessing(comentario)
 																#comment = runPreprocessing("OMG I don’t expect that JD brought me behavioral abnormalities to my body and affected my self-esteem")
@@ -493,6 +497,9 @@ while 1:
 																if (comment != "None" and comment != "none" and comment is not None):
 																	#print(comentario)
 																	#print(comment)
+																	nrValidos+=1
+
+																	print(" -> ",nrValidos,"/", nrTotal, "=", (nrValidos/nrTotal)*100, "%")
 
 																	#endTratamento = time.time()
 																	#tempoT = endTratamento-beginTratamento
@@ -553,9 +560,12 @@ while 1:
 																					countReplies+=1
 																					
 																					try:
+																						nrTotal+=1
 																						commentReply = runPreprocessing(textReply)
 																						if (commentReply != "None" and commentReply != "none" and commentReply is not None):
 																							#game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID
+																							nrValidos+=1
+																							print(" -> ",nrValidos,"/", nrTotal, "=", (nrValidos/nrTotal)*100, "%")
 																							isMain = "Reply"
 																							if(checkAnnotatedComment(str(replyID)) is False):
 																								annotation_id = executeAnnotation(game_id, annotation_id, videoID, commentReply, textReply, replyID, likesReply, dateReply, isMain)
@@ -695,13 +705,16 @@ while 1:
 																	
 																	
 																	try:
+																		nrTotal+=1
 																		comment = runPreprocessing(comentario)
+
 																		#print(type(comment))
 																		if (comment != "None" and comment != "none" and comment is not None):
 																			print("new comment ! ")
 																			#print(comentario)
 																			#print(comment)
-
+																			nrValidos+=1
+																			print(" -> ",nrValidos,"/", nrTotal, "=", (nrValidos/nrTotal)*100, "%")
 
 																			#def executeAnnotation(game_id, dimension_id, opinion_id, videoID, comment, commentID, likes, dateComment, isMain):
 																			isMain = "Main"
@@ -746,9 +759,13 @@ while 1:
 																							countReplies+=1
 																							
 																							try:
+																								nrTotal+=1
 																								commentReply = runPreprocessing(textReply)
+
 																								if (commentReply != "None" and commentReply != "none" and commentReply is not None):
 																									#game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID
+																									nrValidos+=1
+																									print(" -> ",nrValidos,"/", nrTotal, "=", (nrValidos/nrTotal)*100, "%")
 																									isMain = "Reply"
 																									if(checkAnnotatedComment(str(replyID)) is False):
 																										annotation_id = executeAnnotation(game_id, annotation_id, videoID, commentReply, textReply, replyID, likesReply, dateReply, isMain)
