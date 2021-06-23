@@ -188,6 +188,45 @@ def getDupAnnotationID():
 			conn.close()
 	return idBack# is not None #idBack
 
+def getTopAnnotation():
+	
+	try:
+		idBack = None
+		conn = None
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		#query = "SELECT annotationid, comment_commentid FROM annotationid where comment_commentid='"+commentid+"' group by annotationid, comment_commentid"
+		"""
+		SELECT annotation.comment_commentid, count(concept) as total, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals, comment.originaltext
+		FROM annotation
+		join comment on comment.commentid = annotation.comment_commentid
+		where (array_length(regexp_split_to_array(originaltext, '\s+'),1)) < 25 
+		group by annotation.comment_commentid, comment.originaltext
+		having count(concept) > 12
+		order by count(concept) desc
+		"""
+		#3,8
+		query = "SELECT annotation.comment_commentid, count(concept) as total, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals, comment.originaltext FROM annotation join comment on comment.commentid = annotation.comment_commentid where (array_length(regexp_split_to_array(originaltext, '\s+'),1)) < 20  group by annotation.comment_commentid, comment.originaltext having count(concept) > 13 order by count(concept) desc"
+
+		#print(query)
+		cur.execute(query)
+
+		idBack = cur.fetchall()
+		
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO! get comments", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
+
+
 
 def deleteDuplicated():
 
@@ -260,10 +299,25 @@ def removeNon(cid):
 	deleteRow(query)
 
 
-menor3caracteres()
+def deleteTops():
+
+	try:
+		c = getTopAnnotation()
+		for i in c:
+			cid = i[0]
+			query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
+			deleteRows(query)
+			#query = "delete from comment where commentid = '"+str(cid)+"'"
+			#deleteRow(query)
+	except Exception as e:
+		print(e)
+
+
+#menor3caracteres()
 
 #deleteNonEnglish()
 
+deleteTops()
 #deleteDuplicated()
 
 """

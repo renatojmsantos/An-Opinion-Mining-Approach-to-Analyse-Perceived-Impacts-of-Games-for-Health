@@ -923,9 +923,9 @@ def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment
 
 		#para dar add de anotacoes...
 
-		original_comment = original_comment.replace("'"," ")
-		query = "insert into comment values('"+str(commentID)+"', '"+str(original_comment)+"', '"+str(comment)+"', '"+str(polarity)+"', '"+str(likes)+"', '"+str(dateComment)+"', '"+str(isMain)+"')"
-		insertToTable(query)
+		#original_comment = original_comment.replace("'"," ")
+		#query = "insert into comment values('"+str(commentID)+"', '"+str(original_comment)+"', '"+str(comment)+"', '"+str(polarity)+"', '"+str(likes)+"', '"+str(dateComment)+"', '"+str(isMain)+"')"
+		#insertToTable(query)
 
 		try:
 			concepts = getConceptsAnnotated(str(comment), str(polarity))
