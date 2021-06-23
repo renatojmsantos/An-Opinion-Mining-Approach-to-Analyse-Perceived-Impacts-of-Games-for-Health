@@ -879,21 +879,35 @@ def getConceptsAnnotated(comment, polarity):
 						continue
 					elif(c=="Frustration" and polarity=="positive"):
 						continue
+					elif(c=="Frustration" and polarity=="neutral"): #tirar
+						continue
 					elif(c=="Pleasure" and polarity=="negative"):
 						continue
 					elif(c=="Enjoyment and Fun" and polarity=="neutral"):
 						continue
-					#elif(c=="Pleasure" and polarity=="neutral"):
-					#	continue
+					elif(c=="Pleasure" and polarity=="neutral"): #tirar
+						continue
 					elif(c=="Fatigue" and polarity=="positive"):
 						continue
 					elif (c=="Pain and Discomfort" and polarity=="positive"):
 						continue 
-					#elif (c=="Affect and Emotion" and polarity=="neutral"):
-					#	continue
+					elif (c=="Affect and Emotion" and polarity=="neutral"): #tirar
+						continue
 					elif (c=="Trust" and polarity=="neutral"):
 						continue
 					elif (c=="Errors/Effectiveness" and polarity=="positive"):
+						continue
+					elif (c=="Errors/Effectiveness" and polarity=="neutral"): #tirar
+						continue
+					elif (c=="Learnability" and polarity=="neutral"): #tirar
+						continue
+					elif (c=="Learning" and polarity=="neutral"): #tirar
+						continue
+					elif (c=="Motivation" and polarity=="neutral"): #tirar
+						continue
+					elif (c=="Hedonic" and polarity=="neutral"): #tirar
+						continue
+					elif (c=="Learning" and polarity=="neutral"): #tirar
 						continue
 					elif (c=="Satisfaction" and polarity=="neutral"):
 						continue
@@ -906,12 +920,44 @@ def getConceptsAnnotated(comment, polarity):
 	except Exception as e:
 		print(e)
 
+def getPolarity(commentid):
+	idBack = None
+	conn = None
+	
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		conn.autocommit = True
+		cur = conn.cursor()
+
+		query = "select polarity from comment where commentid='"+str(commentid)+"'" # duplicados deste id = 1 ????
+		cur.execute(query)
+		idBack = cur.fetchone()
+		#print(idBack)
+		conn.commit()
+		#print("inserted!")
+		cur.close()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack #is not None
+
+
 def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment, commentID, likes, dateComment, isMain):
 
 	try:
 		#print(original_comment)
 		#polarity = getSentiment(comment)
-		polarity = getSentiment(original_comment)
+		
+		#ORIGINAL - ADD
+		#polarity = getSentiment(original_comment)
+
+		p = getPolarity(commentID)
+		polarity = p[0]
+
 		#polarity2 = getSentiment(comment)
 		#print("\n>>>>>>> ",original_comment, commentID)
 		print("\n=======================================================================================================================")

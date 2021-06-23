@@ -315,9 +315,9 @@ def deleteTops():
 
 #menor3caracteres()
 
-#deleteNonEnglish()
+deleteNonEnglish()
 
-deleteTops()
+#deleteTops()
 #deleteDuplicated()
 
 """
