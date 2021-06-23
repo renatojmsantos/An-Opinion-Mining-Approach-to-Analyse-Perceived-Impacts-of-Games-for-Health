@@ -1283,7 +1283,7 @@ def update():
 
 
 #updateInfoGame()
-update()
+#update()
 #DELETE FROM annotation WHERE annotationid > XXX;
 
 def updateHQOL():
@@ -1310,7 +1310,7 @@ def updateHQOL():
 			conn.close()
 	return idBack# is not None #idBack
 
-#updateHQOL()
+updateHQOL()
 
 
 
