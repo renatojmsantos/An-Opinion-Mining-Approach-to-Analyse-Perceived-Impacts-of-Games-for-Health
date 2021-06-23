@@ -209,7 +209,7 @@ def getTopAnnotation():
 		order by count(concept) desc
 		"""
 		#3,8
-		query = "SELECT annotation.comment_commentid, count(concept) as total, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals, comment.originaltext FROM annotation join comment on comment.commentid = annotation.comment_commentid where (array_length(regexp_split_to_array(originaltext, '\s+'),1)) < 4  group by annotation.comment_commentid, comment.originaltext having count(concept) > 8 order by count(concept) desc"
+		query = "SELECT annotation.comment_commentid, count(concept) as total, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals, comment.originaltext FROM annotation join comment on comment.commentid = annotation.comment_commentid where (array_length(regexp_split_to_array(originaltext, '\s+'),1)) < 5  group by annotation.comment_commentid, comment.originaltext having count(concept) > 10 order by count(concept) desc"
 
 		#print(query)
 		cur.execute(query)
