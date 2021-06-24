@@ -21,3 +21,8 @@ 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
 
 python3.8
 
+
+LINKS
+https://justdance.dei.uc.pt/public/dashboard/3a68d1cb-163b-4120-8461-ebee5096e1c3?edition={{column:edition}}
+https://justdance.dei.uc.pt/public/dashboard/9f4194b4-298d-42b6-8a6e-6a7fc735ad4d?platform={{column:platform}}
+https://justdance.dei.uc.pt/public/dashboard/c218930a-9dea-4126-8212-9b9f4e662eb8?dimension={{column:dimension}}

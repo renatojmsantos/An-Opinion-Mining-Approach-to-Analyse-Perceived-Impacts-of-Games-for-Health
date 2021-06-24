@@ -89,10 +89,10 @@ dictFields={
 
 dictVocabulary={	
 		
-	'Efficiency': {'efficiency': 1.0, 'perfect': 0.85,'speed':0.7, 'load':0.8,'useful':0.7,'performance':0.8, 'experience':0.65,'difficult':0.75,'lock':0.56,'prompt':0.8,'slow':0.9,'limit':0.7, 'fast':0.9, 'ability':0.7,'work': 0.75, 'well':0.6}, 
+	'Efficiency': {'efficiency': 1.0, 'perfect': 0.85,'speed':0.7, 'load':0.8,'useful':0.7,'performance':0.8, 'experience':0.68,'difficult':0.75,'lock':0.56,'prompt':0.8,'slow':0.9,'limit':0.7, 'fast':0.9, 'ability':0.7,'work': 0.75, 'well':0.6}, 
 	
 	'Errors/Effectiveness': {'error': 1.0,'effectiveness':1.0, 'difficult': 0.9, 'waste':0.9, 'problem':0.9,'miss':0.7,'crash':0.85,'mistake':0.8,'freeze':0.8,'trouble':0.8,'wrong':0.9,'fix': 0.9, 'incompetent': 0.7, 
-							'broken': 0.8,'camera': 0.75, 'glitch': 0.95,'instability':0.8, 'fix':0.56, 'issue': 0.9,'imprecise':0.8, 'lag': 0.9,'bug': 0.95, 'delay':0.9,  'load':0.75, 'responsive':0.7, 'resolute':0.8, 
+							'broken': 0.8,'camera': 0.75, 'glitch': 0.95,'instability':0.8, 'issue': 0.9,'imprecise':0.8, 'lag': 0.9,'bug': 0.95, 'delay':0.9,  'load':0.75, 'responsive':0.7, 'resolute':0.8, 
 							'confuse':0.8, 'poor':0.65, 
 							'suffer':0.65, 'lack': 0.75, 'laggy':0.8, 'defect':0.79,'suck':0.65,'horrible':0.70,'awful':0.8, 'annoy':0.77, 'flaw':0.7, 
 							'inconsistent': 0.8},
@@ -122,9 +122,11 @@ dictVocabulary={
 	'Comfort': {'comfort': 1.0, 'problem':0.65,'physical': 0.7, 'workout': 0.65, 'fit':0.65, 'ergonomic': 0.85, 
 				'comfy':0.9, 'cozy':0.9, 'pleasure':0.65, 'body':0.75, 'care':0.6, 'active':0.65},
 	
-	'Detailed Usability': {'usability': 1.0, 'problem': 0.95, 'reliable':0.7,'convenient':0.7,'viewable':0.9,'awkward':0.8,'useful':0.8,'efficient':0.8,'effective':0.8, 'broken': 0.9,'camera': 0.75, 
-					'lag': 0.9,'bug': 0.9, 'delay':0.9, 'glitch': 0.8,'performance':0.96, 'latency':0.9, 
-					'great': 0.65, 'detail': 0.95, 'function': 0.9, 'satisfaction': 0.95,'quality': 0.8,'perfect': 0.6,
+	'Detailed Usability': {'usability': 1.0, 'problem': 0.95, 'reliable':0.7,'convenient':0.7,'viewable':0.9, 'waste':0.9, 'problem':0.9,'miss':0.7,'crash':0.85,'mistake':0.8,'freeze':0.8,'trouble':0.8,'wrong':0.9,'fix': 0.9, 
+					'experience':0.68,'difficult':0.75,'lock':0.56,'prompt':0.8,'slow':0.9,'limit':0.7, 'fast':0.9, 'ability':0.7, 'easy': 0.7,'straightforward': 0.75,
+					'awkward':0.8,'useful':0.8,'efficient':0.8,'effective':0.8, 'broken': 0.9,'camera': 0.75, 'intuit': 0.9, 
+					'lag': 0.9,'bug': 0.9, 'delay':0.9, 'glitch': 0.8,'performance':0.96, 'latency':0.9, 'laggy':0.8, 'fantastic': 0.8,
+					'great': 0.65, 'detail': 0.95, 'function': 0.9, 'satisfaction': 0.95,'quality': 0.8,'perfect': 0.8,
 					'interest': 0.6,'improve': 0.6,'memorability': 0.9,'effectiveness':0.9,'error': 0.9,'efficiency': 0.9,'memory': 0.6,'learnability': 0.9,
 					'sound': 0.75,'fun': 0.7,'disappoint': 0.65, 'bad': 0.65,'lack': 0.95,'prettier': 0.7,'issue': 0.9,
 					'recommend': 0.8,'easy': 0.8,'graphic': 0.9,'choreography':0.9,'playlist':0.9, 'music':0.9, 'soundtrack':0.9,'overall': 0.6,'worth': 0.85},
@@ -153,7 +155,8 @@ dictVocabulary={
 	'Motivation': {'motivation': 1.0, 'dance':0.6, 'inspire':0.7,'workout':0.75, 'exercise':0.8,'curiosity': 0.65,'competition': 0.8,'joy': 0.56,'pleasure':0.65},
 	
 	'Overall Usability': {'usability': 1.0, 'update':0.8,'experience':0.75, 'retention':0.8, 'expectation':0.8, 'anticipation':0.65, 'old':0.65, 
-						'satisfaction':0.9, 'effectiveness':0.9, 'feature':0.8,'new': 0.8, 'release':0.75, 'version':0.7, 'nostalgia':0.65, 'upgrade':0.8, 'edition': 0.8, 'previous':0.65},
+						'satisfaction':0.9, 'effectiveness':0.9, 'feature':0.8,'new': 0.8, 'playstation':0.73,'xbox':0.73,'nintendo':0.73,'ps3':0.73,'ps4':0.73,'wii':0.73,'release':0.75, 'version':0.7, 
+						'nostalgia':0.65, 'upgrade':0.8, 'edition': 0.8, 'previous':0.65},
 	
 	'Pleasure': {'pleasure': 1.0, 'fun': 0.8, 'enjoy': 0.7,'wonderful':0.9,'worth': 0.8, 'perfect':0.8, 'heart': 0.7,'beautiful':0.7,'nice':0.65,'attractive':0.7, 'love': 0.75, 'entertain': 0.7, 'awesome': 0.9, 'addict': 0.7, 
 				'grin': 0.7, 'laugh':0.7,'nostalgia': 0.65},
