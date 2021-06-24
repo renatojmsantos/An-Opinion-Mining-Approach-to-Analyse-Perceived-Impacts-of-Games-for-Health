@@ -337,7 +337,7 @@ def annotate(text, polarity):
 									countPalsDict += 1
 
 									#score = (prob/total_pals)*1.0
-									score = prob*0.90
+									score = prob*0.87
 									#print(score, countPalsDict, synonym,pal)
 
 									#score = score/total_pals_dict
@@ -385,7 +385,7 @@ def annotate(text, polarity):
 
 										similarity = stemwn.path_similarity(palwn)
 										
-										if(similarity > 0.2):
+										if(similarity > 0.5):
 											#print("--> syns")
 											#print("similarity = ",similarity)
 											countPalsDict += 1
@@ -410,7 +410,7 @@ def annotate(text, polarity):
 						if (lemma not in lexs):
 							lexs.append(lemma)
 							continue
-							#print("################### >"+lemma)
+							print("################### >"+lemma)
 							#print("###"+syn.name())
 
 							#lexical relations
