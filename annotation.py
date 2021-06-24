@@ -409,6 +409,7 @@ def annotate(text, polarity):
 
 						if (lemma not in lexs):
 							lexs.append(lemma)
+							continue
 							#print("################### >"+lemma)
 							#print("###"+syn.name())
 
