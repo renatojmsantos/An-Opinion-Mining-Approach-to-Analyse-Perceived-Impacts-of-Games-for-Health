@@ -391,7 +391,7 @@ def annotate(text, polarity):
 											countPalsDict += 1
 
 											#score = (prob/total_pals)*1.0
-											score = prob*0.87
+											score = prob*0.86
 											#print("stem syn / ant * 0.82", lemma, stem, score, concept)
 											if concept not in scoreDict.keys():
 												scoreDict[concept] = score
