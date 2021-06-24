@@ -56,6 +56,7 @@ def editionAndPlataform(title, descript):
 		title = re.sub('windows','Microsoft Windows',title)
 		title = re.sub('pc','Microsoft Windows',title)
 		title = re.sub('iphone','iOS',title)
+		title = re.sub('apple','iOS',title)
 
 		#titleWords = word_tokenize(title.strip()) 
 		#title = " ".join(titleWords)
