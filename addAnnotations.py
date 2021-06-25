@@ -660,9 +660,9 @@ while 1:
 									else:
 										print("	 >>> video já inserido na BD...")
 										
-										language = detect(titulo)
-										print("language Title = ", language)
-										if (checkNewComments == "False" and language == "en"):
+										#language = detect(titulo)
+										#print("language Title = ", language)
+										if (checkNewComments == "False"):
 											# vai atualizar os comentarios do video...
 
 											#select game_id from game where titulo, description == XXXXX XXXX 
@@ -724,9 +724,9 @@ while 1:
 																		c = getComment(commentID) # NEW .. processado
 																		#print(c)
 																		comment = c[0]
-																		language = detect(comment)
+																		#language = detect(comment)
 																		#print(type(comment))
-																		if (comment != "None" and comment != "none" and comment is not None and len(comment.split())>3 and len(comment)>4 and language == "en"):
+																		if (comment != "None" and comment != "none" and comment is not None and len(comment.split())>3 and len(comment)>4):
 																			#print("new comment! ")
 																			#print(comentario)
 																			#print(comment)
@@ -737,8 +737,8 @@ while 1:
 																				#print(commentID, comentario)
 																				annotation_id = executeAnnotation(game_id, annotation_id, videoID, comment, comentario, commentID, nr_likes, dateComment, isMain)
 																			else:
-																				break
-																				#continue
+																				#break
+																				continue
 																			
 																		#print(" . . . replies lidos = ",countReplies)
 																		else:
