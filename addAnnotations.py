@@ -723,9 +723,9 @@ while 1:
 																		c = getComment(commentID) # NEW .. processado
 																		#print(c)
 																		comment = c[0]
-																		
+																		language = detect(comment)
 																		#print(type(comment))
-																		if (comment != "None" and comment != "none" and comment is not None and len(comment.split())>3 and len(comment)>4 and lang.detect_language() =="en"):
+																		if (comment != "None" and comment != "none" and comment is not None and len(comment.split())>3 and len(comment)>4 and language == "en"):
 																			#print("new comment! ")
 																			#print(comentario)
 																			#print(comment)
