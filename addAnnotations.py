@@ -27,6 +27,12 @@ from annotation import *
 from datetime import datetime, date, timedelta
 
 
+from langdetect import detect
+from langdetect import DetectorFactory
+
+DetectorFactory.seed = 0
+
+
 YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
 
@@ -654,18 +660,7 @@ while 1:
 									else:
 										print("	 >>> video já inserido na BD...")
 										
-										#updateInfoGame()... get videoID do annotationid... to get gameid
-
-										"""
-										gameid = getGameID(videoID)
-										print(gameid)
-										if (gameid is not None):
-											gameid = int(gameid[0])
-											updateEditionAndPlataform(gameid, titulo, description)
-										"""
 										
-										# update views, likes... ??
-
 										if (checkNewComments == "False"):
 											# vai atualizar os comentarios do video...
 
@@ -705,7 +700,6 @@ while 1:
 																commentID = comment_result['snippet']['topLevelComment']['id']
 																
 																if (checkCommentID(str(commentID)) is True): # FALSE ---> n está na bd... atualizar anotacoes TRUE e comentar insert comment no executeAnnotation... falta o getEditionsEPlataforms
-																	
 
 																	comentario = comment_result['snippet']['topLevelComment']['snippet']['textDisplay']
 
@@ -724,7 +718,6 @@ while 1:
 																		#print(e)
 																		print("something wrong on convert dates...", e)
 																	
-																	
 																	try:
 																		#comment = runPreprocessing(comentario)
 																		c = getComment(commentID) # NEW .. processado
@@ -732,7 +725,7 @@ while 1:
 																		comment = c[0]
 																		
 																		#print(type(comment))
-																		if (comment != "None" and comment != "none" and comment is not None and len(comment.split())>3):
+																		if (comment != "None" and comment != "none" and comment is not None and len(comment.split())>3 and len(comment)>4 and lang.detect_language() =="en"):
 																			#print("new comment! ")
 																			#print(comentario)
 																			#print(comment)
@@ -744,7 +737,6 @@ while 1:
 																				annotation_id = executeAnnotation(game_id, annotation_id, videoID, comment, comentario, commentID, nr_likes, dateComment, isMain)
 																			else:
 																				continue
-																				
 																			
 																		#print(" . . . replies lidos = ",countReplies)
 																		else:
