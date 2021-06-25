@@ -105,6 +105,7 @@ def annotate(text, polarity):
 	#print(">>> ", polarity)
 	#begin = time.time()
 	text = re.sub('just dance','game',text)
+	text = re.sub('im','i am',text)
 	#print(text)
 	
 	sno = nltk.stem.SnowballStemmer('english') 
