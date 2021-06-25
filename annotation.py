@@ -250,7 +250,6 @@ def annotate(text, polarity):
 
 				word_stem = sno.stem(lemma)
 
-				#score...  ?
 				#print("#######################"+lemma)
 				if (lemma == pal): 
 					# total_pals_dict
@@ -259,23 +258,20 @@ def annotate(text, polarity):
 
 					#score = (prob/total_pals)*1.6
 					score = prob*1.0
-					#print(score,countPalsDict,lemma,pal)
-
-					#score = score/total_pals_dict
-					#print(concept,pal, score)
-					#print(score)
+	
 					#print(" match * 1.0 ", lemma, score, concept)
 					if concept not in scoreDict.keys():
 						scoreDict[concept] = score
 					else:
 						scoreDict[concept] += score
+					continue
 				elif (lemma in pal and len(lemma) >=3):
 					try:
 						palwn = wordnet.synsets(str(pal))[0]
 						lemmawn = wordnet.synsets(str(lemma))[0]
 
 						similarity = lemmawn.path_similarity(palwn)
-						if(similarity > 0.20):
+						if(similarity > 0.18):
 							countPalsDict += 1
 							score = prob*1.0
 							#print("in * 1.0 ", lemma,score, concept)
@@ -283,6 +279,7 @@ def annotate(text, polarity):
 								scoreDict[concept] = score
 							else:
 								scoreDict[concept] += score
+							continue
 					except Exception as e:
 						#print(e)
 						continue
@@ -301,6 +298,7 @@ def annotate(text, polarity):
 								scoreDict[concept] = score
 							else:
 								scoreDict[concept] += score
+							continue
 					except Exception as e:
 						#print(e)
 						continue
@@ -338,11 +336,7 @@ def annotate(text, polarity):
 
 									#score = (prob/total_pals)*1.0
 									score = prob*0.87
-									#print(score, countPalsDict, synonym,pal)
 
-									#score = score/total_pals_dict
-									#print(concept,pal, score)
-									#print(score)
 									#print("synonym * 0.9", lemma, synonym, score, concept)
 									if concept not in scoreDict.keys():
 										scoreDict[concept] = score
@@ -354,11 +348,6 @@ def annotate(text, polarity):
 
 									#score = (prob/total_pals)*1.0
 									score = prob*0.85
-									#print(score, countPalsDict, antonym,pal)
-
-									#score = score/total_pals_dict
-									#print(concept,pal, score)
-									#print(score)
 									#print("antonym * 0.85", lemma, antonym, score, concept)
 									if concept not in scoreDict.keys():
 										scoreDict[concept] = score
@@ -366,18 +355,6 @@ def annotate(text, polarity):
 										scoreDict[concept] += score
 								elif (stem in pal and len(stem)>=3):
 									# similarity
-									# Recall that each synset has one or more parents (hypernyms). If two of them are linked to the same root they might have several hypernyms in common — that fact might mean that they are closely related.
-									
-									# WordNet also introduces a specific metric for quantifying the similarity of two words by measuring shortest path between them. It outputs:
-										# range (0,1) → 0 if not similar at all, 1 if perfectly similar
-										# -1 → if there is no common hypernym
-									
-									#lowest_common_hypernyms()
-									# WORD1.path_similarity(WORD2)
-									
-									# https://www.nltk.org/howto/wordnet.html
-
-									#print(syn, l, syn.lemmas())
 									try:
 										palwn = wordnet.synsets(str(pal))[0]
 										stemwn = wordnet.synsets(str(stem))[0]
@@ -397,14 +374,16 @@ def annotate(text, polarity):
 												scoreDict[concept] = score
 											else:
 												scoreDict[concept] += score
-
+											continue
+										else:
+											continue
 									except Exception as e:
 										#print(e)
 										continue
 									
 							else:
-								#continue
-								pass
+								continue
+								#pass
 								#break #???????????
 
 						if (lemma not in lexs):
@@ -581,8 +560,8 @@ def annotate(text, polarity):
 			
 							
 						else:
-							pass
-							#continue
+							#pass
+							continue
 							#break #????
 						
 					

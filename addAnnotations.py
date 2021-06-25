@@ -742,6 +742,8 @@ while 1:
 																			if(checkAnnotatedComment(str(commentID)) is False):
 																				#print(commentID, comentario)
 																				annotation_id = executeAnnotation(game_id, annotation_id, videoID, comment, comentario, commentID, nr_likes, dateComment, isMain)
+																			else:
+																				continue
 																				
 																			
 																		#print(" . . . replies lidos = ",countReplies)
