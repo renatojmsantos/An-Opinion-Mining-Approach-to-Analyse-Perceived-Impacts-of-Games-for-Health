@@ -743,13 +743,14 @@ while 1:
 																		#print(" . . . replies lidos = ",countReplies)
 																		else:
 																			#skip statements inside the loop
-																			#continue
-																			break
+																			continue
+																			#break
 																	except Exception as e:
 																		print("comments -", e)
 																else:
 																	#print("comentario ja guardado...")
-																	continue
+																	#continue
+																	break
 
 															if nextPT is None:
 																#time.sleep(5)
