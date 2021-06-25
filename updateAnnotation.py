@@ -952,6 +952,8 @@ def checkInfoGame(title, descript):
 		title = re.sub('windows','Microsoft Windows',title)
 		title = re.sub('pc','Microsoft Windows',title)
 		title = re.sub('iphone','iOS',title)
+		title = re.sub('apple','iOS',title)
+
 
 		
 		title = re.sub('yo-kai watch dance just dance special version','yo-kai watch dance: jd sv', title)

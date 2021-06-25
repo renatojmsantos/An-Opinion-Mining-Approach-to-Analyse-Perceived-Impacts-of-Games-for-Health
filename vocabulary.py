@@ -109,7 +109,7 @@ dictVocabulary={
 
 	'Aesthetics and Appeal': {'aesthetic': 1.0, 'interface': 0.9,'semblance':0.75, 'attractive':0.6,'colour':0.65,'layout':0.75,'visual':0.75,'pretty':0.8,'wonderful':0.8,
 						'beauty': 0.9,'appreciation': 0.65,
-						'appeal': 1.0, 'graphic':0.9, 'sound':0.9, 'song': 0.9, 'voice':0.8, 'playlist':0.9, 'lyric':0.75,'music':0.9, 'soundtrack':0.9, 'effect':0.6, 'look':0.65, 'bright':0.65,'realism':0.7,
+						'appeal': 1.0, 'graphic':0.9, 'sound':0.9, 'song': 0.9, 'voice':0.8, 'playlist':0.9, 'lyric':0.75,'music':0.9, 'soundtrack':0.9, 'effect':0.6, 'bright':0.65,'realism':0.7,
 						'detail':0.65,'speaker':0.7,'environment':0.6,'animation':0.7,'render': 0.75, 'pixel': 0.75},
 	
 	'Affect and Emotion': {'affect': 1.0, 'emotion': 1.0, 'fearless':0.7, 'scarier':0.8, 'cry': 0.8,'sadness':0.7, 'hate': 0.8,'trust': 0.75,'surprise': 0.8,'fear': 0.8,'disgust': 0.8,'frustration': 0.8,'anger': 0.8,
@@ -171,9 +171,9 @@ dictVocabulary={
 						'professional':0.9, 'finalist':0.65, 'competitive':0.6,'dancer':0.7,'buyer': 0.7,'target': 0.7, 'difference': 0.8},
 
 
-	'Bodily image and Appearance': {'bodily':1.0, 'image': 0.6, 'appearance': 1.0, 'wear':0.7,'hair':0.75, 'anorexia':0.8, 'anorexic':0.8, 'handicapped': 0.75,'physical': 0.9,'self-concept': 0.9,'body': 0.95,'limb': 0.6,
-									'clothes': 0.8,'boots':0.75,'dress':0.8,'workout':0.65, 'eat':0.7, 'outfit':0.75,'muscles':0.75,'healthy':0.8,'make-up': 0.7,'impairment': 0.65,'acne':0.8,'ugly':0.8,'beautiful':0.8,
-									'fat':0.9,'beard':0.70 ,'skinny':0.9, 'exercise':0.6, 'weight':0.8},
+	'Bodily image and Appearance': {'bodily':1.0, 'image': 0.6, 'appearance': 1.0, 'wear':0.7,'hair':0.75, 'anorexia':0.8, 'anorexic':0.8, 'handicapped': 0.75,'physical': 0.9,'self-concept': 0.9,'body': 0.95,'limb': 0.65,
+									'clothes': 0.8,'boots':0.75,'dress':0.8,'workout':0.7, 'eat':0.7, 'beauty': 0.9,'outfit':0.75,'muscles':0.75,'healthy':0.8,'make-up': 0.7,'impairment': 0.65,'acne':0.8,'ugly':0.8,'beautiful':0.8,
+									'fat':0.9,'beard':0.70 ,'skinny':0.9, 'exercise':0.6, 'weight':0.8, 'look':0.65},
 	
 	'Concentration': {'aware': 0.8,'awake': 0.75,'alert': 0.8,'performance': 0.6,'think':0.56,'memory':0.56,'distractible':0.7,'learn':0.56,'focus': 0.75,'pressure': 0.65,'insomnia': 0.8,'epilepsy': 0.8,'dementia': 0.8,
 					'alcohol': 0.7,'attention': 0.95, 'cognitive': 0.7, 'synchronize':0.58,'choreography':0.7,'concentration': 1.0},
