@@ -377,6 +377,7 @@ def annotate(text, polarity):
 												scoreDict[concept] += score
 											#continue
 										else:
+											pass
 											#continue
 									except Exception as e:
 										#print(e)
