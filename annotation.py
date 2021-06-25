@@ -265,7 +265,7 @@ def annotate(text, polarity):
 						scoreDict[concept] = score
 					else:
 						scoreDict[concept] += score
-					continue
+					#continue
 				elif (lemma in pal and len(lemma) >=3):
 					try:
 						palwn = wordnet.synsets(str(pal))[0]
@@ -280,7 +280,7 @@ def annotate(text, polarity):
 								scoreDict[concept] = score
 							else:
 								scoreDict[concept] += score
-							continue
+							#continue
 					except Exception as e:
 						#print(e)
 						continue
@@ -299,7 +299,7 @@ def annotate(text, polarity):
 								scoreDict[concept] = score
 							else:
 								scoreDict[concept] += score
-							continue
+							#continue
 					except Exception as e:
 						#print(e)
 						continue
@@ -375,16 +375,16 @@ def annotate(text, polarity):
 												scoreDict[concept] = score
 											else:
 												scoreDict[concept] += score
-											continue
+											#continue
 										else:
-											continue
+											#continue
 									except Exception as e:
 										#print(e)
 										continue
 									
 							else:
-								continue
-								#pass
+								#continue
+								pass
 								#break #???????????
 
 						if (lemma not in lexs):

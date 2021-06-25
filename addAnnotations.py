@@ -743,7 +743,8 @@ while 1:
 																		#print(" . . . replies lidos = ",countReplies)
 																		else:
 																			#skip statements inside the loop
-																			continue
+																			#continue
+																			break
 																	except Exception as e:
 																		print("comments -", e)
 																else:
