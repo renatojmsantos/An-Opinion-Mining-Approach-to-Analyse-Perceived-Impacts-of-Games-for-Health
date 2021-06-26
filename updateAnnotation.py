@@ -955,6 +955,8 @@ def checkInfoGame(title, descript):
 		title = re.sub('apple','iOS',title)
 
 
+		title = re.sub('xbox one s','Xbox Series S',title)
+		title = re.sub('xbox one x','Xbox Series X',title)
 		
 		title = re.sub('yo-kai watch dance just dance special version','yo-kai watch dance: jd sv', title)
 		title = re.sub('yo-kai watch dance just dance','yo-kai watch dance: jd sv', title)
@@ -969,7 +971,6 @@ def checkInfoGame(title, descript):
 		title = title.lower()
 
 		
-
 		#descript = description[row]
 
 		"""

@@ -24,7 +24,7 @@ from flair.models import SequenceTagger
 
 import time
 
-tagger = SequenceTagger.load("hunflair-disease")
+#tagger = SequenceTagger.load("hunflair-disease")
 
 
 
@@ -684,6 +684,8 @@ def getEditionAndPlataform(game_id, title, descript):
 		title = re.sub('pc','Microsoft Windows',title)
 		title = re.sub('iphone','iOS',title)
 		title = re.sub('apple','iOS',title)
+		title = re.sub('xbox one s','Xbox Series S',title)
+		title = re.sub('xbox one x','Xbox Series X',title)
 
 		#titleWords = word_tokenize(title.strip()) 
 		#title = " ".join(titleWords)
