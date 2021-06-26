@@ -24,7 +24,7 @@ from flair.models import SequenceTagger
 
 import time
 
-#tagger = SequenceTagger.load("hunflair-disease")
+tagger = SequenceTagger.load("hunflair-disease")
 
 
 
