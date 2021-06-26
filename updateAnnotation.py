@@ -1285,8 +1285,8 @@ def update():
 
 
 
-updateInfoGame()
-#update()
+#updateInfoGame()
+update()
 #DELETE FROM annotation WHERE annotationid > XXX;
 
 def updateHQOL():
