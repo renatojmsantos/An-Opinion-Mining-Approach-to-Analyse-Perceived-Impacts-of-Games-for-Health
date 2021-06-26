@@ -726,7 +726,7 @@ while 1:
 																		comment = c[0]
 																		#language = detect(comment)
 																		#print(type(comment))
-																		if (comment != "None" and comment != "none" and comment is not None and len(comment.split())>3 and len(comment)>4):
+																		if (comment != "None" and comment != "none" and comment is not None and len(comment.split())>3 and len(comment)>6):
 																			#print("new comment! ")
 																			#print(comentario)
 																			#print(comment)
@@ -749,8 +749,8 @@ while 1:
 																		print("comments -", e)
 																else:
 																	#print("comentario ja guardado...")
-																	#continue
-																	break
+																	continue
+																	#break
 
 															if nextPT is None:
 																#time.sleep(5)
