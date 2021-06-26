@@ -656,7 +656,7 @@ while 1:
 									#print("test")
 									if (checkVideoID(str(videoID)) is False): # videoID nao está na BD ... vai buscar todos os comentarios
 										#print("test2")
-										pass
+										continue
 									else:
 										print("	 >>> video já inserido na BD...")
 										
