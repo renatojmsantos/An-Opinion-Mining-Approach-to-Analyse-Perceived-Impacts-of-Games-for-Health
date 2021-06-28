@@ -300,7 +300,6 @@ def removeNon(cid):
 
 
 def deleteTops():
-
 	try:
 		c = getTopAnnotation()
 		for i in c:
@@ -313,9 +312,55 @@ def deleteTops():
 		print(e)
 
 
+
+
+def getCommentsSentiment():
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+		#processedtext, originaltext
+		query = "SELECT commentid from comment where polarity = 'Neutral' order by commentid limit 25000"
+		#query = "SELECT originaltext,commentid, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals FROM comment join annotation on annotation.comment_commentid = comment.commentid group by originaltext, commentid order by pals"
+		#print(query)
+		cur.execute(query)
+		idBack = cur.fetchall()
+
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO get annotation!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
+
+
+
+def removeSentiment():
+	try:
+		c = getCommentsSentiment()
+		for i in c:
+			cid = i[0]
+			query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
+			deleteRows(query)
+			query = "delete from comment where commentid = '"+str(cid)+"'"
+			deleteRow(query)
+			#query = "delete from comment where commentid = '"+str(cid)+"'"
+			#deleteRow(query)
+	except Exception as e:
+		print(e)
+
+
+removeSentiment()
+
 #menor3caracteres()
 
-deleteNonEnglish()
+#deleteNonEnglish()
 
 #deleteTops()
 #deleteDuplicated()
