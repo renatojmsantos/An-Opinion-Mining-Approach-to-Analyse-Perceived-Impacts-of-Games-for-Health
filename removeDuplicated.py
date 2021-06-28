@@ -1,6 +1,6 @@
 from connectDB import *
 
-from preprocessing import *
+#from preprocessing import *
 
 def deleteRow(query):
 	idBack = None
@@ -312,7 +312,7 @@ def deleteTops():
 		print(e)
 
 
-
+# ===================================================================
 
 def getCommentsSentiment():
 	idBack = None
@@ -322,10 +322,10 @@ def getCommentsSentiment():
 		conn = psycopg2.connect(**params)
 		#conn.autocommit = True
 		cur = conn.cursor()
-		#processedtext, originaltext
-		query = "SELECT commentid from comment where polarity = 'Neutral' order by commentid limit 25000"
-		#query = "SELECT originaltext,commentid, (array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals FROM comment join annotation on annotation.comment_commentid = comment.commentid group by originaltext, commentid order by pals"
-		#print(query)
+		#query = "SELECT commentid from comment where polarity = 'Neutral' order by commentid limit 25000"
+		
+		query = "SELECT annotationid from comment join annotation on annotation.comment_commentid = comment.commentid where polarity = 'Neutral' and concept = 'Pleasure'"
+
 		cur.execute(query)
 		idBack = cur.fetchall()
 
@@ -340,18 +340,20 @@ def getCommentsSentiment():
 	return idBack# is not None #idBack
 
 
-
 def removeSentiment():
 	try:
 		c = getCommentsSentiment()
 		for i in c:
 			cid = i[0]
-			query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
-			deleteRows(query)
-			query = "delete from comment where commentid = '"+str(cid)+"'"
+			
+			query = "delete from annotation where annotationid = '"+str(cid)+"'"
 			deleteRow(query)
+
+			#query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
+			#deleteRows(query)
 			#query = "delete from comment where commentid = '"+str(cid)+"'"
 			#deleteRow(query)
+			
 	except Exception as e:
 		print(e)
 
