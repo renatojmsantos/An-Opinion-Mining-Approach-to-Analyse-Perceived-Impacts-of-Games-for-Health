@@ -324,7 +324,7 @@ def getCommentsSentiment():
 		cur = conn.cursor()
 		#query = "SELECT commentid from comment where polarity = 'Neutral' order by commentid limit 20000"
 		
-		query = "SELECT commentid, originaltext,(array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals from comment where polarity = 'Neutral' order by pals asc limit 25000"
+		#query = "SELECT commentid, originaltext,(array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals from comment where polarity = 'Neutral' order by pals asc limit 25000"
 		
 		#query = "SELECT commentid, originaltext,(array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals from comment order by pals asc limit 10000"
 
@@ -337,6 +337,8 @@ def getCommentsSentiment():
 
 		cur.execute(query)
 		idBack = cur.fetchall()
+
+		query = "SELECT comment.*, annotation.* FROM comment FULL JOIN annotation ON (comment.commentid = annotation.comment_commentid) WHERE comment.commentid IS NULL OR annotation.comment_commentid IS NULL order by length(processedtext)"
 
 		cur.close()
 		#return idBack
@@ -358,8 +360,8 @@ def removeSentiment():
 			#query = "delete from annotation where annotationid = '"+str(cid)+"'"
 			#deleteRow(query)
 
-			query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
-			deleteRows(query)
+			#query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
+			#deleteRows(query)
 			query = "delete from comment where commentid = '"+str(cid)+"'"
 			deleteRow(query)
 			
