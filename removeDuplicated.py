@@ -324,7 +324,7 @@ def getCommentsSentiment():
 		cur = conn.cursor()
 		#query = "SELECT commentid from comment where polarity = 'Neutral' order by commentid limit 20000"
 		
-		query = "select commentid from comment where originaltext LIKE 'amo%' "
+		query = "select commentid from comment where originaltext LIKE '%Gospel of salvation of our souls%' or originaltext LIKE '%Com Todas As Novas Músicas%' "
 
 
 		#query = "SELECT annotationid from comment join annotation on annotation.comment_commentid = comment.commentid where concept = 'Learning' order by annotationid asc limit 8000"
