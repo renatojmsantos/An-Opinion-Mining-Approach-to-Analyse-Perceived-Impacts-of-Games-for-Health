@@ -322,9 +322,9 @@ def getCommentsSentiment():
 		conn = psycopg2.connect(**params)
 		#conn.autocommit = True
 		cur = conn.cursor()
-		query = "SELECT commentid from comment where polarity = 'Neutral' order by commentid limit 25000"
+		#query = "SELECT commentid from comment where polarity = 'Neutral' order by commentid limit 25000"
 		
-		#query = "SELECT annotationid from comment join annotation on annotation.comment_commentid = comment.commentid where polarity = 'Neutral' and concept = 'Self-esteem' limit 1000"
+		query = "SELECT annotationid from comment join annotation on annotation.comment_commentid = comment.commentid where concept = 'Learnability' order by annotationid asc limit 8000"
 
 		cur.execute(query)
 		idBack = cur.fetchall()
@@ -346,13 +346,13 @@ def removeSentiment():
 		for i in c:
 			cid = i[0]
 			
-			#query = "delete from annotation where annotationid = '"+str(cid)+"'"
-			#deleteRow(query)
-
-			query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
-			deleteRows(query)
-			query = "delete from comment where commentid = '"+str(cid)+"'"
+			query = "delete from annotation where annotationid = '"+str(cid)+"'"
 			deleteRow(query)
+
+			#query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
+			#deleteRows(query)
+			#query = "delete from comment where commentid = '"+str(cid)+"'"
+			#deleteRow(query)
 			
 	except Exception as e:
 		print(e)
