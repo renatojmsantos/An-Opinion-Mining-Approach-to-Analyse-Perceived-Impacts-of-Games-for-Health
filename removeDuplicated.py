@@ -348,7 +348,7 @@ def getCommentsSentiment():
 		if conn is not None:
 			#print("closing connection...")
 			conn.close()
-	return idBack# is not None #idBack
+	return idBack is not None #idBack
 
 
 def removeSentiment():
@@ -356,7 +356,8 @@ def removeSentiment():
 		c = getCommentsSentiment()
 		for i in c:
 			cid = i[0]
-			
+			print(i)
+			print(cid)
 			#query = "delete from annotation where annotationid = '"+str(cid)+"'"
 			#deleteRow(query)
 
