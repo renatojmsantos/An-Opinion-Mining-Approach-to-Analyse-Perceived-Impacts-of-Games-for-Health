@@ -324,7 +324,7 @@ def getCommentsSentiment():
 		cur = conn.cursor()
 		#query = "SELECT commentid from comment where polarity = 'Neutral' order by commentid limit 25000"
 		
-		query = "SELECT annotationid from comment join annotation on annotation.comment_commentid = comment.commentid where polarity = 'Neutral' and concept = 'Self-esteem' limit 3000"
+		query = "SELECT annotationid from comment join annotation on annotation.comment_commentid = comment.commentid where polarity = 'Neutral' and concept = 'Self-esteem' limit 1000"
 
 		cur.execute(query)
 		idBack = cur.fetchall()
