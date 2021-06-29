@@ -335,7 +335,7 @@ def getCommentsSentiment():
 
 		#query = "SELECT annotationid from comment join annotation on annotation.comment_commentid = comment.commentid where concept = 'Learning' order by annotationid asc limit 8000"
 
-		query = "SELECT comment.*, annotation.* FROM comment FULL JOIN annotation ON (comment.commentid = annotation.comment_commentid) WHERE comment.commentid IS NULL OR annotation.comment_commentid IS NULL order by length(processedtext)"
+		query = "SELECT comment.*, annotation.* FROM comment FULL JOIN annotation ON (comment.commentid = annotation.comment_commentid) WHERE comment.commentid IS NULL OR annotation.comment_commentid IS NULL order by length(commentid)"
 
 		cur.execute(query)
 		idBack = cur.fetchall()
