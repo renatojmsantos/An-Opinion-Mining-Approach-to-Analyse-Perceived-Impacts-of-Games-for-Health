@@ -326,7 +326,7 @@ def getCommentsSentiment():
 		
 		#query = "SELECT commentid, originaltext,(array_length(regexp_split_to_array(originaltext, '\s+'),1)) as pals from comment where polarity = 'Neutral' order by pals asc limit 25000"
 		
-		query = "SELECT commentid, originaltext,length(originaltext) as pals from comment where polarity = 'Neutral' order by pals asc limit 25000"
+		query = "SELECT commentid, originaltext,length(originaltext) as pals from comment order by pals asc limit 25000"
 
 		#query = "select commentid from comment where originaltext LIKE '%Gospel of salvation of our souls%' or originaltext LIKE '%Com Todas As Novas Músicas%' "
 
