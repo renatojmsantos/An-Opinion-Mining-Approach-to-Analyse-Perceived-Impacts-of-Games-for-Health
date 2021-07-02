@@ -9,6 +9,7 @@
 #    sleep 1
 #done
 
+#!/bin/bash
 
 runtime="5 minute"
 endtime=$(date -ud "$runtime" +%s)
