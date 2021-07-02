@@ -855,7 +855,7 @@ while 1:
 	time.sleep(int(sleepTime))
 	print("again...")
 	#break # termina
-	continue
+	#continue
 
 
 

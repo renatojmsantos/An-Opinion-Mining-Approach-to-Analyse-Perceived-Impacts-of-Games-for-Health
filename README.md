@@ -13,6 +13,9 @@ Example
 python3 addAnnotations.py 2011-02-20 3800 2 False 'just dance' 
 > python3 YouTube_Extractor.py 2009-06-08 4380 2 False 'random' 
 
+
+sh runSystem.sh
+
 CTRL+Z -> PAUSE
 fg -> resume
 
