@@ -940,17 +940,14 @@ def getPolarity(commentid):
 def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment, commentID, likes, dateComment, isMain):
 
 	try:
-		#print(original_comment)
-		#polarity = getSentiment(comment)
+		
 		
 		#ORIGINAL - ADD
-		#polarity = getSentiment(original_comment)
+		polarity = getSentiment(original_comment)
 
-		p = getPolarity(commentID)
-		polarity = p[0]
+		#p = getPolarity(commentID)
+		#polarity = p[0]
 
-		#polarity2 = getSentiment(comment)
-		#print("\n>>>>>>> ",original_comment, commentID)
 		print("\n=======================================================================================================================")
 		print(">>> ",original_comment,"\n")
 
@@ -960,9 +957,9 @@ def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment
 
 		#para dar add de anotacoes...
 
-		#original_comment = original_comment.replace("'"," ")
-		#query = "insert into comment values('"+str(commentID)+"', '"+str(original_comment)+"', '"+str(comment)+"', '"+str(polarity)+"', '"+str(likes)+"', '"+str(dateComment)+"', '"+str(isMain)+"')"
-		#insertToTable(query)
+		original_comment = original_comment.replace("'"," ")
+		query = "insert into comment values('"+str(commentID)+"', '"+str(original_comment)+"', '"+str(comment)+"', '"+str(polarity)+"', '"+str(likes)+"', '"+str(dateComment)+"', '"+str(isMain)+"')"
+		insertToTable(query)
 
 		try:
 			concepts = getConceptsAnnotated(str(comment), str(polarity))
