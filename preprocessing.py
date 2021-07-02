@@ -353,7 +353,7 @@ def runPreprocessing(t):
 	
 	#t = clearText(t)
 	
-	if(len(t) > 3 and len(t) < 1800):
+	if(len(t) > 7 and len(t) < 1800):
 		if(isEnglish(str(t))):
 			#print("\n",t)
 			#print(len(t))
@@ -363,7 +363,7 @@ def runPreprocessing(t):
 			if(isEnglish(str(t))):
 				t = spellCorrection(t) # rever
 				#print(t)
-				if (len(t) > 3 and isEnglish(str(t))): #len(t.split()) > 2
+				if (len(t.split()) > 3 and isEnglish(str(t))): #len(t.split()) > 2
 					#print("--->", t)
 					return t
 	return "None"

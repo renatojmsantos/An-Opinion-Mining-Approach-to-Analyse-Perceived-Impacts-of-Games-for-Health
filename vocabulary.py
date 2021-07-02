@@ -148,7 +148,7 @@ dictVocabulary={
 				'pleasure':0.9, 'frustration':0.9, 'entertain': 0.8, 'multiplayer': 0.6,'gameplay': 0.9, 'happy':0.75,'stimulation':0.65,
 				'nostalgia': 0.7,'boredom': 0.6},
 	
-	'Impact': {'impact': 1.0, 'pattern': 0.6, 'wow':0.56,'surprise': 0.7,'gameplay': 0.6, 'corona':0.7,'covid':0.75,'covid19':0.9,'quarantine':0.77,'lockdown':0.9,'life':0.6,'change': 0.65},
+	'Impact': {'impact': 1.0, 'pattern': 0.6, 'wow':0.56,'surprise': 0.7,'gameplay': 0.6, 'corona':0.8,'covid':0.8,'covid19':0.96,'quarantine':0.9,'lockdown':0.9,'life':0.6,'change': 0.65},
 	
 	'Likeability': {'likeability': 1.0, 'good':0.9, 'cool':0.8, 'satisfaction':0.9,'happy': 0.75,'disgust':0.65, 'clap':0.70,'smile': 0.7,'useful':0.8,'joy': 0.60,'grin':0.70,'nice':0.65}, 
 	
@@ -211,7 +211,7 @@ dictVocabulary={
 				'admiration': 0.8,'prestige': 0.8, 'wellbeing': 0.9,'ashamed': 0.9,'guilty': 0.9,'fat':0.73,'ugly':0.75,'worthless': 0.8,'think':0.56,'regard': 0.8,'alone':0.8, 'respect': 0.75, 'competence': 0.65,'belong': 0.65,'identity': 0.65,'security': 0.65,
 				'acceptance': 0.75,'worth': 0.7,'appraisal': 0.9,'dignity': 0.95,'grin':0.65,'disgust':0.70,'fear':0.75,'sadness':0.75,
 				'family': 0.7,'embarrassment':0.9, 'unloved':0.75,'achievement':0.7,
-				'win':0.8,'lose':0.8,'love':0.6, 'awe': 0.7,'happy':0.7,'morality':0.7, 'creativity':0.65, 'spontaneity':0.7, 'prejudice':0.7,
+				'win':0.8,'lose':0.8,'love':0.6, 'awe': 0.75,'happy':0.7,'morality':0.7, 'creativity':0.65, 'spontaneity':0.7, 'prejudice':0.7,
 				'integrity':0.7,'triumph':0.8, 'despair':0.8,'worthy':0.7,'oneself': 0.8,'healthy':0.7,'satisfaction': 0.7},
 	
 	'Sexual activity': {'sexual':0.95, 'sex':1.0,'intimacy': 0.6},

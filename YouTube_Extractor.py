@@ -488,7 +488,7 @@ while 1:
 																#tamanhoComentario = len(comentario.split())
 																#query = "INSERT into etl values("
 																#beginTratamento = time.time()
-																nrTotal += 1
+																#nrTotal += 1
 																#nrValidos = 0
 
 																comment = runPreprocessing(comentario)
@@ -497,9 +497,8 @@ while 1:
 																if (comment != "None" and comment != "none" and comment is not None):
 																	#print(comentario)
 																	#print(comment)
-																	nrValidos+=1
-
-																	print(" -> ",nrValidos,"/", nrTotal, "=", (nrValidos/nrTotal)*100, "%")
+																	#nrValidos+=1
+																	#print(" -> ",nrValidos,"/", nrTotal, "=", (nrValidos/nrTotal)*100, "%")
 
 																	#endTratamento = time.time()
 																	#tempoT = endTratamento-beginTratamento
@@ -560,12 +559,12 @@ while 1:
 																					countReplies+=1
 																					
 																					try:
-																						nrTotal+=1
+																						#nrTotal+=1
 																						commentReply = runPreprocessing(textReply)
 																						if (commentReply != "None" and commentReply != "none" and commentReply is not None):
 																							#game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID
-																							nrValidos+=1
-																							print(" -> ",nrValidos,"/", nrTotal, "=", (nrValidos/nrTotal)*100, "%")
+																							#nrValidos+=1
+																							#print(" -> ",nrValidos,"/", nrTotal, "=", (nrValidos/nrTotal)*100, "%")
 																							isMain = "Reply"
 																							if(checkAnnotatedComment(str(replyID)) is False):
 																								annotation_id = executeAnnotation(game_id, annotation_id, videoID, commentReply, textReply, replyID, likesReply, dateReply, isMain)
@@ -705,7 +704,7 @@ while 1:
 																	
 																	
 																	try:
-																		nrTotal+=1
+																		#nrTotal+=1
 																		comment = runPreprocessing(comentario)
 
 																		#print(type(comment))
@@ -713,8 +712,8 @@ while 1:
 																			print("new comment ! ")
 																			#print(comentario)
 																			#print(comment)
-																			nrValidos+=1
-																			print(" -> ",nrValidos,"/", nrTotal, "=", (nrValidos/nrTotal)*100, "%")
+																			#nrValidos+=1
+																			#print(" -> ",nrValidos,"/", nrTotal, "=", (nrValidos/nrTotal)*100, "%")
 
 																			#def executeAnnotation(game_id, dimension_id, opinion_id, videoID, comment, commentID, likes, dateComment, isMain):
 																			isMain = "Main"
@@ -759,13 +758,13 @@ while 1:
 																							countReplies+=1
 																							
 																							try:
-																								nrTotal+=1
+																								#nrTotal+=1
 																								commentReply = runPreprocessing(textReply)
 
 																								if (commentReply != "None" and commentReply != "none" and commentReply is not None):
 																									#game_id, dimension_id, opinion_id, title, videoID, comment, commentID, likes, dateComment, isMain, dateVideo, views, likesVideo, dislikesVideo,totalCommentsVideo, descript, channel, channelID
-																									nrValidos+=1
-																									print(" -> ",nrValidos,"/", nrTotal, "=", (nrValidos/nrTotal)*100, "%")
+																									#nrValidos+=1
+																									#print(" -> ",nrValidos,"/", nrTotal, "=", (nrValidos/nrTotal)*100, "%")
 																									isMain = "Reply"
 																									if(checkAnnotatedComment(str(replyID)) is False):
 																										annotation_id = executeAnnotation(game_id, annotation_id, videoID, commentReply, textReply, replyID, likesReply, dateReply, isMain)

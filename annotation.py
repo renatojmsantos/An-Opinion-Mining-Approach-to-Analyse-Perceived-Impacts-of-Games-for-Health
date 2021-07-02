@@ -391,7 +391,7 @@ def annotate(text, polarity):
 						if (lemma not in lexs):
 							lexs.append(lemma)
 							#continue
-							#print("################### >"+lemma)
+							print("################### >"+lemma)
 							#print("###"+syn.name())
 
 							#lexical relations
@@ -851,7 +851,7 @@ def getConceptsAnnotated(comment, polarity):
 			print(DictResult)
 			print("-----—————————————————————————————————————————————————————————————-")
 			for c,v in DictResult.items():	
-				if (v>0.7):
+				if (v>=0.75):
 					
 					polarity = polarity.lower()
 					if (c=="Positive feelings" and polarity=="negative"):
@@ -882,8 +882,8 @@ def getConceptsAnnotated(comment, polarity):
 						continue
 					elif (c=="Errors/Effectiveness" and polarity=="positive"):
 						continue
-					elif (c=="Errors/Effectiveness" and polarity=="neutral"): #tirar
-						continue
+					#elif (c=="Errors/Effectiveness" and polarity=="neutral"): #tirar
+					#	continue
 					elif (c=="Learnability" and polarity=="neutral"): #tirar
 						continue
 					elif (c=="Learning" and polarity=="neutral"): #tirar
@@ -892,8 +892,8 @@ def getConceptsAnnotated(comment, polarity):
 						continue
 					elif (c=="Hedonic" and polarity=="neutral"): #tirar
 						continue
-					elif (c=="Learning" and polarity=="neutral"): #tirar
-						continue
+					#elif (c=="Learning" and polarity=="neutral"): #tirar
+					#	continue
 					elif (c=="Enchantment" and polarity=="neutral"): #tirar
 						continue
 					elif (c=="Likeability" and polarity=="neutral"): #tirar
