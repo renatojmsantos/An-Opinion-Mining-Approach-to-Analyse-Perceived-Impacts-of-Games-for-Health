@@ -11,7 +11,7 @@ Example
 > python3 YouTube_Extractor.py 2011-02-20 3650 2 False 'Just Dance Wii U' 
 > python3 YouTube_Extractor.py 2011-02-20 3800 2 False 'just dance' 
 python3 addAnnotations.py 2011-02-20 3800 2 False 'just dance' 
-> python3 YouTube_Extractor.py 2009-06-08 4380 2 False 'random' 
+> python3 YouTube_Extractor.py 2009-06-08 4380 2 False 'random' 2 5
 
 
 sh runSystem.sh

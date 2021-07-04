@@ -977,6 +977,10 @@ def executeAnnotation(game_id, annotation_id, videoID, comment, original_comment
 
 							#print("\n",original_comment)
 							#print(concepts)
+							
+							#original_comment = original_comment.replace("'"," ")
+							#query = "insert into comment values('"+str(commentID)+"', '"+str(original_comment)+"', '"+str(comment)+"', '"+str(polarity)+"', '"+str(likes)+"', '"+str(dateComment)+"', '"+str(isMain)+"')"
+							#insertToTable(query)
 
 							query = "insert into annotation values("+str(annotation_id)+",'"+str(field)+"','"+str(c)+"','"+str(commentID)+"','"+str(game_id)+"','"+str(videoID)+"')"
 							insertToTable(query)
