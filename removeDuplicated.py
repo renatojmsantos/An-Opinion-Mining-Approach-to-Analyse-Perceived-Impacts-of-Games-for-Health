@@ -335,8 +335,10 @@ def getCommentsSentiment():
 
 		#query = "SELECT annotationid from comment join annotation on annotation.comment_commentid = comment.commentid where concept = 'Learning' order by annotationid asc limit 8000"
 
-		query = "SELECT comment.*, annotation.* FROM comment FULL JOIN annotation ON (comment.commentid = annotation.comment_commentid) WHERE comment.commentid IS NULL OR annotation.comment_commentid IS NULL order by (array_length(regexp_split_to_array(originaltext, '\s+'),1))"
+		#query = "SELECT comment.*, annotation.* FROM comment FULL JOIN annotation ON (comment.commentid = annotation.comment_commentid) WHERE comment.commentid IS NULL OR annotation.comment_commentid IS NULL order by (array_length(regexp_split_to_array(originaltext, '\s+'),1))"
 
+		query = "select annotationid from comment join annotation on annotation.comment_commentid = comment.commentid where concept = 'Sexual activity' and originaltext LIKE '%excited%'"
+		
 		cur.execute(query)
 		idBack = cur.fetchall()
 
@@ -359,13 +361,13 @@ def removeSentiment():
 			cid = i[0]
 			#print(i)
 			#print(cid)
-			#query = "delete from annotation where annotationid = '"+str(cid)+"'"
-			#deleteRow(query)
+			query = "delete from annotation where annotationid = '"+str(cid)+"'"
+			deleteRow(query)
 
 			#query = "delete from annotation where comment_commentid = '"+str(cid)+"'"
 			#deleteRows(query)
-			query = "delete from comment where commentid = '"+str(cid)+"'"
-			deleteRow(query)
+			#query = "delete from comment where commentid = '"+str(cid)+"'"
+			#deleteRow(query)
 			
 	except Exception as e:
 		print(e)

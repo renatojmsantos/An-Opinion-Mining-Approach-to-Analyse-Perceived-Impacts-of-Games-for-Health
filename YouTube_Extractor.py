@@ -860,7 +860,7 @@ while 1: #1
 		#nowDate = nowDay+'T'+nowHour+'Z'
 		#print(nowDate)
 		print("end...")
-		print(int(datetime.now()))
+		print(datetime.now())
 		time.sleep(int(sleepTime))
 		print("again...")
 		#break # termina

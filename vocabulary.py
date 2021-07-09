@@ -117,7 +117,7 @@ dictVocabulary={
 						'excit': 0.7,'laugh': 0.65, 'annoy': 0.8, 'nostalgia': 0.65,'hilarious': 0.65,'engagement': 0.7,'truliant': 0.6,
 						'laugh':0.7,'sooth': 0.7,'humor': 0.7,'grin':0.70,'love': 0.8},
 	
-	'Anticipation': {'anticipation': 1.0, 'expectation': 0.9, 'hope':0.8,'pre-order':0.90,'pre-purchase':0.8,'soon':0.75,'presale':0.8},
+	'Anticipation': {'anticipation': 1.0, 'expectation': 0.9, 'excit':0.65,'hope':0.8,'pre-order':0.90,'pre-purchase':0.8,'soon':0.75,'presale':0.8},
 	
 	'Comfort': {'comfort': 1.0, 'problem':0.65,'physical': 0.7, 'workout': 0.65, 'fit':0.65, 'ergonomic': 0.85, 
 				'comfy':0.9, 'cozy':0.9, 'pleasure':0.65, 'body':0.75, 'care':0.6, 'active':0.65},
