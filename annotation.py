@@ -735,7 +735,7 @@ def getEditionAndPlataform(game_id, title, descript):
 
 		#print(title)
 		#https://en.wikipedia.org/wiki/Just_Dance_(video_game_series)
-		games = ['Just Dance 2', 'Just Dance 3', 'Just Dance 4', 'Just Dance 2014', 'Just Dance 2015', 'Just Dance 2016', 'Just Dance 2017', 'Just Dance 2018', 'Just Dance 2019', 'Just Dance 2020', 'Just Dance 2021',
+		games = ['Just Dance 2', 'Just Dance 3', 'Just Dance 4', 'Just Dance 2014', 'Just Dance 2015', 'Just Dance 2016', 'Just Dance 2017', 'Just Dance 2018', 'Just Dance 2019', 'Just Dance 2020', 'Just Dance 2021', 'Just Dance 2022', 'Just Dance 2023',
 				'Just Dance Wii', 'Just Dance Wii 2', 'Just Dance Wii U', 'Yo-kai Watch Dance: JD SV',
 				'Just Dance Kids', 'Just Dance Kids 2', 'Just Dance Kids 2014',
 				'Just Dance: Disney Party', 'Just Dance: Disney Party 2',

@@ -1,7 +1,6 @@
 import pandas as pd
 import time
 import csv
-import unidecode
 
 
 from connectDB import *
@@ -48,6 +47,7 @@ def export():
 			writer.writerow(header)
 
 			cols = getFeatures()
+			print("yes")
 			for col in cols:
 				data = []
 				commentID = col[0]
@@ -78,6 +78,7 @@ def export():
 				data.extend([annotationID,dimension,concept,commentID,originalText,expandedText,sentiment,likes,dateComment,mainComment,gameID,edition,platform,channelID,channelTitle,videoID,videoTitle,dateVideo,viewsVideo, likesVideo,dislikesVideo,totalCommentsVideo,descriptionVideo])
 				#print(data)
 				writer.writerow(data)
+				time.sleep(0.5)
 			
 	except Exception as e:
 		print(e)
