@@ -83,7 +83,80 @@ def getFeatures():
 			conn.close()
 	return idBack# is not None #idBack
 
-getFeatures()
+#getFeatures()
+
+
+
+def getFeaturesYT():
+	idBack = None
+	conn = None
+	try:
+		params = config()
+		conn = psycopg2.connect(**params)
+		#conn.autocommit = True
+		cur = conn.cursor()
+
+		#query = "SELECT * FROM annotation join comment on comment.commentid = annotation.comment_commentid join game on game.game_id = annotation.game_game_id join video on video.videoid = annotation.video_videoid"
+
+		query = "SELECT distinct commentid, originaltext, polarity, likes, dateComment, mainComment, channelID, channelTitle, videoid, videoTitle, dateVideo, viewsVideo, likesVideo, dislikesvideo, totalcommentsvideo, description from comment join annotation on annotation.comment_commentid = comment.commentid join video on video.videoid = annotation.video_videoid"
+		#cur.itersize = 10000
+		#print(query)
+		cur.execute(query)
+		#idBack = cur.fetchall() # TUPLO
+		row = cur.fetchone()
+		print("yes0")
+		with open('../justDance.csv', 'w', encoding='utf-8', newline='') as f:
+
+			header = ['commentID', 'originalText','sentiment','likes','dateComment','mainComment',
+				'channelID','channelTitle','videoID','videoTitle','dateVideo','viewsVideo','likesVideo','dislikesVideo','totalCommentsVideo','descriptionVideo']
+
+			print("yes1")
+			writer = csv.writer(f)
+			print("yes2")
+			writer.writerow(header)
+			print("yes3")
+			while row:	
+				#print(row)
+				col = row	
+				#print(col[0])
+				data = []
+				
+				commentID = col[0]
+				originalText = col[1]
+				sentiment = col[2]
+				likes = col[3]
+				dateComment = col[4]
+				mainComment = col[5]
+				channelID = col[6]
+				channelTitle = col[7]
+				videoID = col[8]
+				videoTitle = col[9]
+				dateVideo = col[10]
+				viewsVideo = col[11]
+				likesVideo = col[12]
+				dislikesVideo = col[13]
+				totalCommentsVideo = col[14]
+				descriptionVideo = col[15]
+
+				#print(commentID,originalText)
+				data.extend([commentID,originalText,sentiment,likes,dateComment,mainComment,channelID,channelTitle,videoID,videoTitle,dateVideo,viewsVideo, likesVideo,dislikesVideo,totalCommentsVideo,descriptionVideo])
+				#print(data)
+				writer.writerow(data)
+				#time.sleep(0.5)
+
+				row = cur.fetchone()
+
+		cur.close()
+		#return idBack
+	except (Exception, psycopg2.DatabaseError) as error:
+		print("ERRO!", error)
+	finally:
+		if conn is not None:
+			#print("closing connection...")
+			conn.close()
+	return idBack# is not None #idBack
+
+getFeaturesYT()
 
 def export():
 	
