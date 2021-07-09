@@ -114,10 +114,10 @@ dictVocabulary={
 	
 	'Affect and Emotion': {'affect': 1.0, 'emotion': 1.0, 'fearless':0.7, 'scarier':0.8, 'cry': 0.8,'sadness':0.7, 'hate': 0.8,'trust': 0.75,'surprise': 0.8,'fear': 0.8,'disgust': 0.8,'frustration': 0.8,'anger': 0.8,
 						'fun': 0.8, 'enjoy': 0.8, 'addict': 0.7,
-						'excit': 0.7,'laugh': 0.65, 'annoy': 0.8, 'nostalgia': 0.65,'hilarious': 0.65,'engagement': 0.7,'truliant': 0.6,
+						'excite': 0.7,'laugh': 0.65, 'annoy': 0.8, 'nostalgia': 0.65,'hilarious': 0.65,'engagement': 0.7,'truliant': 0.6,
 						'laugh':0.7,'sooth': 0.7,'humor': 0.7,'grin':0.70,'love': 0.8},
 	
-	'Anticipation': {'anticipation': 1.0, 'expectation': 0.9, 'excit':0.65,'hope':0.8,'pre-order':0.90,'pre-purchase':0.8,'soon':0.75,'presale':0.8},
+	'Anticipation': {'anticipation': 1.0, 'expectation': 0.9, 'excite':0.65,'hope':0.8,'pre-order':0.90,'pre-purchase':0.8,'soon':0.75,'presale':0.8},
 	
 	'Comfort': {'comfort': 1.0, 'problem':0.65,'physical': 0.7, 'workout': 0.65, 'fit':0.65, 'ergonomic': 0.85, 
 				'comfy':0.9, 'cozy':0.9, 'pleasure':0.65, 'body':0.75, 'care':0.6, 'active':0.65},
@@ -138,7 +138,7 @@ dictVocabulary={
 				'easy':0.6,'heart':0.7,'difficult':0.7,'star':0.7},
 	
 	'Enjoyment and Fun': {'enjoyment': 1.0, 'joy':0.7,'awesome':0.6,'grin':0.70,'happy':0.7,'hedonic': 0.9,'emotion': 0.7,'affect': 0.7,'fun': 1.0,  
-						'entertain': 0.9, 'grin':0.7,'humor': 0.7,'excit':0.7,'hilarious': 0.6,'funny':0.9,'laugh':0.75,'love':0.75},
+						'entertain': 0.9, 'grin':0.7,'humor': 0.7,'excite':0.7,'hilarious': 0.6,'funny':0.9,'laugh':0.75,'love':0.75},
 	
 	'Frustration': {'frustration': 1.0, 'irritate':0.8,'wtf':0.65,'terrible':0.8,'harmful':0.7,'hate':0.9,'shit':0.9,'fuck':0.9,'suck':0.9,'horrible':0.9,'awful':0.9,'waste':0.8,'disappoint':0.6,'hardship': 0.6,'boring': 0.9, 
 					'grrrr': 0.65,'anger': 1.0,'hard': 0.7, 'disadvantage': 0.8, 'insane':0.8,'heck':0.7,'gasp':0.7,'cheat':0.7,

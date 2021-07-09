@@ -337,8 +337,8 @@ def getCommentsSentiment():
 
 		#query = "SELECT comment.*, annotation.* FROM comment FULL JOIN annotation ON (comment.commentid = annotation.comment_commentid) WHERE comment.commentid IS NULL OR annotation.comment_commentid IS NULL order by (array_length(regexp_split_to_array(originaltext, '\s+'),1))"
 
-		query = "select annotationid from comment join annotation on annotation.comment_commentid = comment.commentid where concept = 'Sexual activity' and (originaltext LIKE '%Excited%' or originaltext LIKE '%EXCITED%')"
-		
+		query = "select annotationid from comment join annotation on annotation.comment_commentid = comment.commentid where concept = 'Sexual activity' and originaltext LIKE '%exciting%'"
+
 		cur.execute(query)
 		idBack = cur.fetchall()
 
