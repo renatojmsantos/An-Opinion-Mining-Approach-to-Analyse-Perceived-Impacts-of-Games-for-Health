@@ -38,16 +38,17 @@ def export():
 		#f = open('../justDance','w')
 		#write = csv.writer(f)
 
-	header = ['annotationID','dimension','concept','commentID', 'originalText','expandedText','sentiment','likes','dateComment','mainComment',
+	print("yes0")
+	with open('../justDance.csv', 'w') as f:
+
+		header = ['annotationID','dimension','concept','commentID', 'originalText','expandedText','sentiment','likes','dateComment','mainComment',
 			'gameID','edition','platform','channelID','channelTitle','videoID','videoTitle','dateVideo','viewsVideo','likesVideo','dislikesVideo','totalCommentsVideo','descriptionVideo']
 
-	print("yes0")
-	with open('../justDance.csv', 'w', encoding='UTF8', newline='') as f:
 		print("yes1")
 		writer = csv.writer(f)
 		print("yes2")
 		writer.writerow(header)
-
+		print("yes3")
 		cols = getFeatures()
 		print("yes")
 		for col in cols:
