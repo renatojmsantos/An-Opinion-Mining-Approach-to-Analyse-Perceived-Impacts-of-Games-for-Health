@@ -16,7 +16,7 @@ def getFeatures():
 		#conn.autocommit = True
 		cur = conn.cursor()
 
-		query = "SELECT * FROM comment left join annotation on annotation.comment_commentid = comment.commentid left join game on game.game_id = annotation.game_game_id left join video on video.videoid = annotation.video_videoid limit 100"
+		query = "SELECT * FROM comment join annotation on annotation.comment_commentid = comment.commentid join game on game.game_id = annotation.game_game_id join video on video.videoid = annotation.video_videoid order by annotationid"
 
 		#print(query)
 		cur.execute(query)
@@ -39,7 +39,7 @@ def export():
 		#write = csv.writer(f)
 
 	print("yes0")
-	with open('../justDance.csv', 'w', encoding='utf-8', newline='') as f:
+	with open('../justDance.csv', 'w') as f:
 
 		header = ['annotationID','dimension','concept','commentID', 'originalText','expandedText','sentiment','likes','dateComment','mainComment',
 			'gameID','edition','platform','channelID','channelTitle','videoID','videoTitle','dateVideo','viewsVideo','likesVideo','dislikesVideo','totalCommentsVideo','descriptionVideo']
