@@ -20,7 +20,7 @@ def getFeatures():
 
 		query = "SELECT annotationid,field,concept,comment_commentid,originaltext, processedtext,polarity,likes, dateComment, mainComment, game_game_id, edition, platform, channelID, channelTitle, video_videoid, videoTitle, dateVideo, viewsVideo, likesVideo,dislikesvideo, totalcommentsvideo,description FROM annotation join comment on comment.commentid = annotation.comment_commentid join game on game.game_id = annotation.game_game_id join video on video.videoid = annotation.video_videoid"
 
-
+		cur.itersize = 10000
 		#print(query)
 		cur.execute(query)
 		idBack = cur.fetchall() # TUPLO
@@ -86,6 +86,7 @@ def export():
 			writer.writerow(data)
 			#time.sleep(0.5)
 			
+
 
 export()
 
