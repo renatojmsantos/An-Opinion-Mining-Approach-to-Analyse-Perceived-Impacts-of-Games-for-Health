@@ -3,11 +3,6 @@ import psycopg2
 from configparser import ConfigParser
 import pandas as pd
 
-#ssh admin@193.137.203.84
-#psql -h 193.137.203.84 -d justdancedb -U renato
-#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
-
-# renatojdtese2021
 
 def config(filename='db_credentials.ini', section='postgresql'):
     parser = ConfigParser()
@@ -31,23 +26,13 @@ def connect():
         
         params = config()
 
-        
         print('Connecting to the PostgreSQL database...')
         conn = psycopg2.connect(**params)
-        """
-        conn = psycopg2.connect(
-                                host="localhost",
-                                port="4321",
-                                database="AnalysisJustDance",
-                                user="postgres",
-                                password="123")
-		"""
-        # create a cursor
+     
         cur = conn.cursor()
         print('PostgreSQL database version:')
         cur.execute('SELECT version()')
-        #cur.execute('SELECT * FROM opinion')
-        # display the PostgreSQL database server version
+
         db_version = cur.fetchone()
         print(db_version)
 

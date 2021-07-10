@@ -1,6 +1,0 @@
-from nltk.corpus import wordnet as wn
-
-relative = wn.synsets('monocle', 'n')[0]
-hypos = lambda s:s.hyponyms()
-
-print(list(relative.closure(hypos)))
