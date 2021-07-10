@@ -3,15 +3,15 @@ import re   # regular expression
 import regex
 import demoji
 import numpy as np
+import time
+import emoji
+import unicodedata
+
 from nltk.corpus import wordnet
 from langdetect import detect
 from langdetect import DetectorFactory
 from emoji.unicode_codes import UNICODE_EMOJI
 from textblob import TextBlob, Word
-import time
-import emoji
-import unicodedata
-
 from flair.data import Sentence
 from flair.models import SequenceTagger
 

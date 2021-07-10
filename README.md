@@ -1,5 +1,4 @@
 # Analysing Usability, User Experience, and Perceived Health Impacts related to Quality of Life based on Users' Opinion Mining
-
 Project developed by Renato Santos in the context of the Master Degree in Informatics Engineering, DEI-FCTUC, dissertation titled "Analysing Usability, User Experience, and Perceived Health Impacts related to Quality of Life based on Users' Opinion Mining", under the supervision of Paula Alexandra Silva and Joel Perdiz Arrais.
 
 # Abstract

@@ -16,7 +16,6 @@ from googleapiclient.errors import HttpError
 from langdetect import detect
 from connectDB import *
 
-
 YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
 

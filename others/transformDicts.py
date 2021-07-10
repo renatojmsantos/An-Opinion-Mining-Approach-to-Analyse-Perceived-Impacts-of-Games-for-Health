@@ -1,6 +1,5 @@
 
 from vocabulary import *
-
 from nrclex import NRCLex
 import nltk
 from nltk.corpus import stopwords

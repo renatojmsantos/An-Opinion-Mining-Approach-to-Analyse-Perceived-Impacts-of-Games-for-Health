@@ -1,4 +1,3 @@
-
 from connectDB import *
 
 from vocabulary import *
