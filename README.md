@@ -1,6 +1,24 @@
-# analysisJustDance
-
 # Analysing Usability, User Experience, and Perceived Health Impacts related to Quality of Life based on Users' Opinion Mining
+
+Renato Santos
+University of Coimbra
+
+# Abstract
+With the growth of social media and the spread of the Internet, the user’s opinion become accessible in public forums. It became then possible to analyse and extract knowledge based on the textual data published by users, through the application of Natural Language Processing and Text Mining techniques. In this dissertation, these techniques are used to, based on comments posted by users on YouTube, extract information about Usability, User Experience (UX), and Perceived Health Impacts related to Quality of Life (H-QoL). This analysis focus on videos about the Just Dance series, one of the most popular interactive dance video games.
+
+Just Dance belongs in a category of games whose purpose goes beyond entertainment - serious games - among which there is a specific type of games, exergames, which aim is to promote physical activity. Despite their positive influence on the health of their users, these often stop playing after a short period of time, leading to the loss of benefits in the medium and long term. It is in this context that the need to better understand the experience and opinions of players arises, especially how they feel and how they like to interact, so that the knowledge generated can be used to redesign games, so that these can increasingly address the preferences of end-users.
+
+It is with this purpose, that in a serious game it is necessary to assure not only the fundamental characteristics of the functioning system, but also to provide the best possible experience and, at the same time, to understand if these positively impact players’ lives. In this way, this dissertation analyses three dimensions, observing, besides Usability and UX aspects, also H-QoL, in the corpus extrated for this dissertaion.
+
+To meet the objectives of this dissertation, a tool was developed that extracts information from user comments on YouTube, a social media network that despite being one of the most popular, still has been little explored as a source for opinion mining. To extract information about Usability, UX and H-QoL, a pre-established vocabulary was used with an approach based on the lexicon of the English idiom and its semantic relations. In this way, the presence of 38 concepts (five of Usability, 18 of UX, and 15 of H-QoL) was annotated, and the sentiment of each comment was also analysed. Given the lack of a vocabulary that allowed for the analysis of the dimension related to H-QoL, the concepts identified in the World Health Organization’s WHOQOL-100 questionnaire were validated for user opinion mining purposes with ten specialists in the Health and Quality of Life domains.
+
+The results of the information extration are displayed in a public dashboard that allows visitors to explore and analyse the existing data. Until the moment of this dissertation, 543 405 comments were collected from 32 158 videos, in which about 52% contain information related to the three dimensions. The performance of this annotation process, as measured through human validation with eight collaborators, obtained an general efficacy of 85%.
+
+# Keywords
+Natural Language Processing, Opinion Mining, Social Media, Text Mining, Usability, User Experience, Health, Quality of life, Just Dance
+
+
+
 
 
 > python3 YouTube_Extractor.py <Begin Date: YYYY-MM-DD> <Number of jump days> <timeToCheckAgain(seconds)> <check new comments> <search Game>
