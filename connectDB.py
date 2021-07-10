@@ -1,5 +1,4 @@
 import psycopg2
-#from config import config
 from configparser import ConfigParser
 import pandas as pd
 
@@ -20,10 +19,8 @@ def config(filename='db_credentials.ini', section='postgresql'):
 
 
 def connect():
-    
     conn = None
     try:
-        
         params = config()
 
         print('Connecting to the PostgreSQL database...')
@@ -49,8 +46,6 @@ def connect():
             conn.close()
             print('Database connection closed.')
 
-#if __name__ == '__main__':
-#    connect()
 
 
 

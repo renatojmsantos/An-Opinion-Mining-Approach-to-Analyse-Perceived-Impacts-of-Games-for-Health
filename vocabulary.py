@@ -1,30 +1,4 @@
-
-# ver artigo CHI 13, table 8
-
-# https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8860063
-
-
-# ... First, you’d need to define a list of words, one for each topic (e.g for billing issues, words likeability price, charge, invoice, and transaction, and for app features, words likeability usability, bugs and performance). 
-#  queries tagged with Bug Issues and Software, or containing expressions such as ‘strange glitch’ and ‘app isn’t working’ perfect be sent to the dev team.
-
-# https://monkeylearn.com/blog/introduction-to-topic-modeling/
-
-
-
-# rule based with lexicon aproach ... requer mais esforço humano e um conhecimento dos termos em estudo
-
-# ML requer um data enorme anotado... o que é despendioso
-
-"""
---> TER  DOIS DICTS :
-		-> um com os conceitos e palavras associadas: este é que percorre os comentários
-		-> outro com os fields e conceitos: este é só no final com os resultados obtidos !!!!!
-
-"""
-# kalpha judges = A1 A2 A3 A4 A5 A6 A7/level = 2/detail = 0/boot = 10000.
-# 1 NOMINAL, 2 ORDINAL, 3 INTERVAL, 4 RATIO
-# 1/BOOT - PRINT COINCIDE, DELTA MATRIX 
-
+# dictionary
 
 dictFields={	
 		'Usability':{
@@ -60,7 +34,6 @@ dictFields={
 			'Fatigue',
 			'Sleep and Rest',
 			'Positive feelings',
-			#'Thinking, learning, memory and concentration': {'thinking': 1.0, 'aware': 1.0,'awake': 1.0,'alert': 1.0,'cognitive': 1.0,'thought': 1.0,'decisions': 1.0,'forget': 1.0, 'learning': 1.0, 'memory': 1.0, 'concentration': 1.0},
 			'Thinking',
 			'Learning',
 			'Memory',
@@ -74,18 +47,6 @@ dictFields={
 		}
 	}
 
-# https://github.com/flairNLP/flair/releases
-#tagger = SequenceTagger.load("hunflair-disease")
-
-# biomedical NER models
-
-#WHO_HIS_HSI_Rev.2012.03_eng
-
-# Errors/effectiveness: The number of (non-fatal) errors made by a user during completing a task.
-# Efficiency: The speed or other measure of the cost while performing the task, at a given experience level.
-# Satisfaction: A subjective rating of satisfaction with product use or liking of the product or features.
-# Learnability: The amount of time it takes to learn to use the system, how difficult it is for a first time user or development over time.
-# Memorability: How well users retain information gained about or through the system.
 
 dictVocabulary={	
 		
@@ -225,8 +186,6 @@ dictVocabulary={
 	
 	'Thinking': {'think': 1.0,'aware': 0.8,'awake': 0.8,'cognitive': 0.6,'remind':0.56,'concentration':0.56,'memory':0.56,'learn':0.56,'echolalia': 0.7,'distractible':0.7, 'speech': 0.7,'alogia': 0.75,
 				'idea': 0.65,'decision': 0.6, 'choreography':0.7},
-
-	#'Thinking, learning, memory and concentration': {'thinking': 1.0, 'aware': 1.0,'awake': 1.0,'alert': 1.0,'cognitive': 1.0,'thought': 1.0,'decisions': 1.0,'forget': 1.0, 'learning': 1.0, 'memory': 1.0, 'concentration': 1.0},
 		
 }
 

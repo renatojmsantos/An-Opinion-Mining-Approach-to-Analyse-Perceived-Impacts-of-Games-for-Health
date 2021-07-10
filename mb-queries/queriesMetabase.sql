@@ -1,8 +1,4 @@
 
-# left join -> tudo
-# join -> só anotados
-
-https://justdance.dei.uc.pt/public/dashboard/c218930a-9dea-4126-8212-9b9f4e662eb8?dimension={{column:dimension}}
 
 # stacked chart - annotation of each edition
 SELECT concept as "Concept", count(distinct comment_commentid) as "Total", game.edition as "Edition"

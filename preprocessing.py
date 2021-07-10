@@ -14,35 +14,25 @@ import unicodedata
 
 from flair.data import Sentence
 from flair.models import SequenceTagger
-#from vocabulary import *
 
-#tagger = SequenceTagger.load("flair/ner-english-large") # EXPLODE ....
-tagger = SequenceTagger.load("ner") # ESTE !!
+tagger = SequenceTagger.load("ner") 
 
-#from abbr import expandall
 
 DetectorFactory.seed = 0
 
-# link csv: https://we.tl/t-umTQCE5Z8w
 
 def isEnglish(text):
 	if(len(text.split()) < 5):
 		try:
-			#print("TextBlob")
 			lang = TextBlob(text)
-			#print(text)
-			#print(lang.detect_language())
 			if(lang.detect_language() =="en"):
 				return True
 			else:
 				return False
 		except Exception as e:
 			print("isEnglish - ", e)
-			#print("fail text blob")
 			try:
 				language = detect(text)
-				#print(text)
-				#print(language)
 				if (language == "en"):
 					return True
 				else:
@@ -50,11 +40,8 @@ def isEnglish(text):
 			except Exception as e:
 				print("isEnglish - ", e)
 	else:
-		#print("len > 4")
 		try:
 			language = detect(text)
-			#print(text)
-			#print(language)
 			if (language == "en"):
 				return True
 			else:
@@ -68,16 +55,11 @@ def isEnglish(text):
 def emojiToCLDRshortName(text):
 	try:
 		has_emoji = bool(emoji.get_emoji_regexp().search(text))
-		#print(has_emoji)
 		if (has_emoji):
-			#emoji.emojize('u'\U0001F4D3' ',use_aliases=True)
-			#emoji_chars = emoji.EMOJI_ALIAS_UNICODE.values()
 			emoji_chars = emoji.EMOJI_ALIAS_UNICODE_ENGLISH.values()
 			def _emoji(char):
 				if char in emoji_chars:
 					return unicodedata.name(char) + " "
-			#for char in text:
-			#	print(_emoji(char))
 			return ''.join(_emoji(char) or char for char in text)
 		else:
 			return text
@@ -87,38 +69,26 @@ def emojiToCLDRshortName(text):
 
 def clearText(text):
 	try:
-		#contracoes inglesas... that's -> that is
+		# contractions
 		text = contractions(str(text))
-		#print("1 — " , text)
-		# acronimos e expressoes da giria popular
+		#acronyms
 		text = slangs(str(text))
-		#print("2 — " , text)
-		# emojis to string
+		# emojis to cldr
 		text = str(emojiToCLDRshortName(str(text)))
-		#print("#",text)
 		# remove URLs
 		text = re.sub('https?://[A-Za-z0-9./?&=_]+','',text)
-
-		#text = slangs(text)
-
 		# hashtags
 		text = re.sub('#[A-Za-z0-9]+','',text)
-		# mencoes
+		# mentions
 		text = re.sub('@[A-Za-z0-9._-]+','',text)
 		# to lower
 		text = text.lower()
-
-		#print("0 — " , text)
-		#https://pypi.org/project/pycontractions/
-		# expand abreviaturas ...
-		# remover pontuacao
+		# remove pontuation
 		text = re.sub(r"[^\w\s]","",text)
-		#remover espacos
+		#remove white spaces
 		text = " ".join(text.strip().split())
 		text = re.sub(r"[\W\s]"," ",text)
 		text = re.sub("\n","",text)
-
-		#print("3 — " , text)
 	except Exception as e:
 		print("clearText - ", e)
 
@@ -258,21 +228,16 @@ def contractions(text):
 			return c_re.sub(replace, text)
 		
 		text = expandContractions(text.lower())
-		#print(text)
 		return text
 	except Exception as e:
 		print("contractions", e)
 
 
 def caracteresRepetidos(text):
-	# é preciso ter em conta as palavras inglesas.... "good", "god", ... 
 	# https://www.nltk.org/_modules/nltk/tokenize/casual.html#reduce_lengthening
-	#print(len(text.split()))
-	#print("**", text)
 	try:
 		if (len(text) > 1):
 			pattern = regex.compile(r"(.)\1{2,}")
-			#print("***", text)
 			return pattern.sub(r"\1\1\1", text)
 		else:
 			return text
@@ -280,27 +245,16 @@ def caracteresRepetidos(text):
 		print("caracteresRepetidos - ", e)
 
 
-#tagger = SequenceTagger.load("ner")
-
-#nltk.download('words')
-
 def spellCorrection(text):
 	# NER - Name Entity Reconection 
 	# se for NER nao corrigir... person name, locations, organizations, other names...
-	#print(t)
-
 	try:
-		#https://medium.com/analytics-vidhya/practical-approach-of-state-of-the-art-flair-in-named-entity-recognition-46a837e25e6b
-		# The good thing about Flair NER is it works based on context
+		# Flair NER works based on context
 		sentence = Sentence(text)
-		# predict NER tags
 		tagger.predict(sentence)
 
-		#print(sentence.to_dict(tag_type='ner'))
 		d = sentence.to_dict(tag_type='ner')
-		#print("->", d)
 		if (d.get('entities') is not None):
-			#print(d)
 			pass
 		else:
 			text = TextBlob(text).correct()
@@ -311,9 +265,6 @@ def spellCorrection(text):
 
 
 def slangs(text):
-	#print("** ",text)
-	#print(text.lower().strip().split())
-		
 	try:
 		file = 'acronimos.csv'
 		acron = pd.read_csv(file,lineterminator='\n',encoding='utf-8')
@@ -324,16 +275,8 @@ def slangs(text):
 
 		for s in slang:
 			if(slang[row] in text.lower().strip().split()):
-				#print("TRUE")
-				#print(text)
-				#print("#",slang[row]+ "-->"+ str(complete[row].strip()))
-				#print("##",row,s,c)
 				text = text.lower()
 				text = text.replace(slang[row],str(complete[row].strip()))
-				#print("$",text)
-				
-				#text = re.sub(s, c, text)
-				#break
 			else:
 				row+=1
 		return text
@@ -347,34 +290,17 @@ def slangs(text):
 	#return text
 
 def runPreprocessing(t):
-	#print("running clean ... ")
 	
-	#print("-----> ",t)
-	
-	#t = clearText(t)
-	
-	if(len(t) > 7 and len(t) < 1800):
+	if(len(t) > 3 and len(t) < 9999):
 		if(isEnglish(str(t))):
-			#print("\n",t)
-			#print(len(t))
 			t = clearText(t)
 			t = caracteresRepetidos(t)
-			#print(t)
+
 			if(isEnglish(str(t))):
-				t = spellCorrection(t) # rever
-				#print(t)
-				if (len(t.split()) > 3 and isEnglish(str(t))): #len(t.split()) > 2
-					#print("--->", t)
+				t = spellCorrection(t) 
+				if (len(t.split()) > 3 and isEnglish(str(t))): 
 					return t
 	return "None"
-	
-
-
-#for t in comments: #t in comments:
-#	print("\n>>> ",t)
-#	t = runPreprocessing(t)
-#	print("> ",t)
-
 
 
 

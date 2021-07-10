@@ -1,10 +1,8 @@
 from nltk.corpus import wordnet
-
 import sys
-#relative = wn.synsets('monocle', 'n')[0]
-#hypos = lambda s:s.hyponyms()
 
-#father, leg, healthy
+# example run: 
+# > python3 inputsWordNet.py father
 
 word = sys.argv[1]
 

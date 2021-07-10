@@ -31,8 +31,8 @@ CREATE TABLE game (
 
 CREATE TABLE comment (
 	commentid	 VARCHAR(512),
-	originaltext	 VARCHAR(1800) NOT NULL,
-	processedtext VARCHAR(1500) NOT NULL,
+	originaltext	 VARCHAR(9999) NOT NULL,
+	processedtext VARCHAR(9999) NOT NULL,
 	polarity	 VARCHAR(512) NOT NULL,
 	likes	 INTEGER NOT NULL,
 	datecomment	 DATE NOT NULL,
