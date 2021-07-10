@@ -98,7 +98,7 @@ def getFeaturesYT():
 
 		#query = "SELECT * FROM annotation join comment on comment.commentid = annotation.comment_commentid join game on game.game_id = annotation.game_game_id join video on video.videoid = annotation.video_videoid"
 
-		query = "SELECT distinct commentid, originaltext, polarity, likes, dateComment, mainComment, channelID, channelTitle, videoid, videoTitle, dateVideo, viewsVideo, likesVideo, dislikesvideo, totalcommentsvideo, description from comment join annotation on annotation.comment_commentid = comment.commentid join video on video.videoid = annotation.video_videoid"
+		query = "SELECT * from comment"
 		#cur.itersize = 10000
 		#print(query)
 		cur.execute(query)
@@ -123,10 +123,11 @@ def getFeaturesYT():
 				
 				commentID = col[0]
 				originalText = col[1]
-				sentiment = col[2]
-				likes = col[3]
-				dateComment = col[4]
-				mainComment = col[5]
+				sentiment = col[3]
+				likes = col[4]
+				dateComment = col[5]
+				mainComment = col[6]
+				"""
 				channelID = col[6]
 				channelTitle = col[7]
 				videoID = col[8]
@@ -137,9 +138,9 @@ def getFeaturesYT():
 				dislikesVideo = col[13]
 				totalCommentsVideo = col[14]
 				descriptionVideo = col[15]
-
+				"""
 				#print(commentID,originalText)
-				data.extend([commentID,originalText,sentiment,likes,dateComment,mainComment,channelID,channelTitle,videoID,videoTitle,dateVideo,viewsVideo, likesVideo,dislikesVideo,totalCommentsVideo,descriptionVideo])
+				data.extend([commentID,originalText,sentiment,likes,dateComment,mainComment])
 				#print(data)
 				writer.writerow(data)
 				#time.sleep(0.5)
