@@ -26,8 +26,8 @@ Natural Language Processing, Opinion Mining, Social Media, Text Mining, Usabilit
 # Run System
 
 - You can run thought YouTube_Extractor.py, given some inputs:
-	-- Initial data to extract,
-	-- The range of days you should search,
+	- Initial data to extract,
+	- The range of days you should search,
 	The seconds of sleep after finishing the first full iteration,
 	If you want to update the comments of videos already extracted
 	The name of the edition to search or just type 'random'
