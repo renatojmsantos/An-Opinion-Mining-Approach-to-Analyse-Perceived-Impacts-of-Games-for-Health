@@ -19,8 +19,20 @@ Natural Language Processing, Opinion Mining, Social Media, Text Mining, Usabilit
 
 # Setting up
 
-- install requirements
+- Install requirements
+- Create a file named "db_credentials.ini" with the credentials to your database
+- Create a file named "dev_keys.txt" with the YouTube Data API Keys that you have
 
+# Run System
+
+- You can run thought YouTube_Extractor.py, given some inputs:
+	-- Initial data to extract,
+	-- The range of days you should search,
+	The seconds of sleep after finishing the first full iteration,
+	If you want to update the comments of videos already extracted
+	The name of the edition to search or just type 'random'
+	The local start time to start extracting
+	The final local time to suspend the extraction system
 
 # Check more 
 Check more about this project: https://linktr.ee/justdanceproject
