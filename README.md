@@ -51,10 +51,13 @@ Natural Language Processing, Opinion Mining, Social Media, Text Mining, Usabilit
 	> python3 YouTube_Extractor.py 2019-01-01 365 2 False 'just dance now' 1 23
 
 # Public Dashboard
-![Alt text](dashboard-screenshot.png?raw=true "Dashboard")
+![Alt text](dashboard-screenshot.png?raw=true "Just Dance Dashboard")
 
-Watch a demo on: https://www.youtube.com/watch?v=biOp4Oyf1ic
-Visit on https://bit.ly/dashboard-just-dance
+- Watch a demo on: https://www.youtube.com/watch?v=biOp4Oyf1ic
+- There are two dashboards:
+	- Usability (U), User Experience (UX), and Perceived Health-Related Quality of Life (H-QoL) Impacts
+	- YouTube Analytics
+- Visit on https://bit.ly/dashboard-just-dance
 
 # Check more 
 Check more about this project: https://linktr.ee/justdanceproject
