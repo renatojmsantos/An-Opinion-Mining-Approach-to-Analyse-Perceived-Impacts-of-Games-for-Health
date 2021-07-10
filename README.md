@@ -37,7 +37,13 @@ Natural Language Processing, Opinion Mining, Social Media, Text Mining, Usabilit
 	- The local start time to start extracting
 	- The final local time to suspend the extraction system
 
-> python3 YouTube_Extractor.py <Begin Date: YYYY-MM-DD> <Number of jump days> <timeToCheckAgain(seconds)> <check new comments> <search Game>
+	- Following this format:
+	> python3 YouTube_Extractor.py <Begin Date: YYYY-MM-DD> <Number of jump days> <timeToCheckAgain(seconds)> <check new comments> <search Game> <beginHour> <EndHour>
+
+	- For Examples:
+	> python3 YouTube_Extractor.py 2009-09-17 4300 3600 True 'random' 1 5
+	> python3 YouTube_Extractor.py 2009-09-17 7 10 True 'just dance 2021' 1 5
+	> python3 YouTube_Extractor.py 2019-01-01 365 2 False 'just dance now' 1 23
 
 # Check more 
 Check more about this project: https://linktr.ee/justdanceproject
@@ -46,30 +52,3 @@ Check more about this project: https://linktr.ee/justdanceproject
 If you have any questions or suggestions, please e-mail us on renatojms@student.dei.uc.pt
 
 
-
-> python3 YouTube_Extractor.py <Begin Date: YYYY-MM-DD> <Number of jump days> <timeToCheckAgain(seconds)> <check new comments> <search Game>
-
-Example
-> python3 YouTube_Extractor.py 2018-02-03 5 5 True
-
-> python3 YouTube_Extractor.py 2011-02-20 3650 2 False 'Just Dance Wii U' 
-> python3 YouTube_Extractor.py 2011-02-20 3800 2 False 'just dance' 
-python3 addAnnotations.py 2011-02-20 3800 2 False 'just dance' 
-> python3 YouTube_Extractor.py 2009-06-08 4380 2 False 'random' 2 5
-
-
-sh runSystem.sh
-
-CTRL+Z -> PAUSE
-fg -> resume
-
-ssh admin@193.137.203.84
-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
-
-python3.8
-
-
-LINKS
-https://justdance.dei.uc.pt/public/dashboard/3a68d1cb-163b-4120-8461-ebee5096e1c3?edition={{column:edition}}
-https://justdance.dei.uc.pt/public/dashboard/9f4194b4-298d-42b6-8a6e-6a7fc735ad4d?platform={{column:platform}}
-https://justdance.dei.uc.pt/public/dashboard/c218930a-9dea-4126-8212-9b9f4e662eb8?dimension={{column:dimension}}
