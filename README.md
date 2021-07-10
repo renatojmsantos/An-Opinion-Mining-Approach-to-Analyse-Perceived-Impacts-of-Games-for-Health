@@ -38,6 +38,7 @@ Natural Language Processing, Opinion Mining, Social Media, Text Mining, Usabilit
 	- The local start time to start extracting
 	- The final local time to suspend the extraction system
 
+
 	- Following this format:
 
 	> python3 YouTube_Extractor.py <Begin Date: YYYY-MM-DD> <Number of jump days> <timeToCheckAgain(seconds)> <check new comments> <search Game> <beginHour> <EndHour>
