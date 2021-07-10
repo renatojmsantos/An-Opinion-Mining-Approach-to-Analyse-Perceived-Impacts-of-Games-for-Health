@@ -26,6 +26,7 @@ Natural Language Processing, Opinion Mining, Social Media, Text Mining, Usabilit
 # Run System
 
 - You can extract from 1:00 AM to 5:00 AM, typing:
+
 	> sh runSystem.sh
 
 - Or you can run thought YouTube_Extractor.py, given some inputs:
@@ -38,11 +39,15 @@ Natural Language Processing, Opinion Mining, Social Media, Text Mining, Usabilit
 	- The final local time to suspend the extraction system
 
 	- Following this format:
+
 	> python3 YouTube_Extractor.py <Begin Date: YYYY-MM-DD> <Number of jump days> <timeToCheckAgain(seconds)> <check new comments> <search Game> <beginHour> <EndHour>
 
 	- For Examples:
+
 	> python3 YouTube_Extractor.py 2009-09-17 4300 3600 True 'random' 1 5
+
 	> python3 YouTube_Extractor.py 2009-09-17 7 10 True 'just dance 2021' 1 5
+
 	> python3 YouTube_Extractor.py 2019-01-01 365 2 False 'just dance now' 1 23
 
 # Check more 
