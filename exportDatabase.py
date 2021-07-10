@@ -105,7 +105,7 @@ def getFeaturesYT():
 		#idBack = cur.fetchall() # TUPLO
 		row = cur.fetchone()
 		print("yes0")
-		with open('../justDanceYT.csv', 'w', encoding='utf-8', newline='') as f:
+		with open('../justDanceALLcomments.csv', 'w', encoding='utf-8', newline='') as f:
 
 			header = ['commentID', 'originalText','sentiment','likes','dateComment','mainComment',
 				'channelID','channelTitle','videoID','videoTitle','dateVideo','viewsVideo','likesVideo','dislikesVideo','totalCommentsVideo','descriptionVideo']
