@@ -51,6 +51,9 @@ Natural Language Processing, Opinion Mining, Social Media, Text Mining, Usabilit
 	> python3 YouTube_Extractor.py 2019-01-01 365 2 False 'just dance now' 1 23
 
 # Public Dashboard
+![Alt text](dashboard-screenshot.png?raw=true "Dashboard")
+
+Watch a demo on: https://www.youtube.com/watch?v=biOp4Oyf1ic
 Visit on https://bit.ly/dashboard-just-dance
 
 # Check more 
