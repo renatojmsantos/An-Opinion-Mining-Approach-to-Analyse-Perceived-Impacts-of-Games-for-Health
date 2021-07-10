@@ -1,0 +1,196 @@
+(base) Renatos-MBP:analysisJustDance renatosantos$ python3 testingAnotacao.py 
+2021-06-21 17:54:11,575 loading file /Users/renatosantos/.flair/models/hunflair-disease-full-v1.0.pt
+
+>>>>>>>  god believe best song french singer france best country love smile face heart - eye thanks start everyday friend burn lot calorie fun dance grin face change sedentary life help behavioral abnormality disease
+>>>  Positive
+=====================Efficiency=====================
+synonym * 0.9 best well 0.522 Efficiency
+=====================Errors/Effectiveness=====================
+=====================Learnability=====================
+=====================Memorability=====================
+=====================Satisfaction=====================
+--> MATCH  fun
+synonym * 0.9 best good 0.54 Satisfaction
+--> MATCH  love
+antonym * 0.85 best bad 0.68 Satisfaction
+synonym * 0.9 smile grin 0.63 Satisfaction
+--> MATCH  grin
+--> MATCH  smile
+synonym * 0.9 grin smile 0.5850000000000001 Satisfaction
+=====================Aesthetics and Appeal=====================
+synonym * 0.9 best sound 0.81 Aesthetics and Appeal
+--> MATCH  song
+stem syn / ant * 0.87 best effect 0.522 Aesthetics and Appeal
+synonym * 0.9 face look 0.5850000000000001 Aesthetics and Appeal
+synonym * 0.9 life animation 0.63 Aesthetics and Appeal
+=====================Affect and Emotion=====================
+stem syn / ant * 0.87 heart affect 0.87 Affect and Emotion
+antonym * 0.85 love hate 0.68 Affect and Emotion
+synonym * 0.9 believe trust 0.675 Affect and Emotion
+--> MATCH  fun
+----> emolex joy enjoy
+synonym * 0.9 love enjoy 0.7200000000000001 Affect and Emotion
+synonym * 0.9 smile grin 0.63 Affect and Emotion
+--> MATCH  grin
+--> MATCH  love
+=====================Anticipation=====================
+=====================Comfort=====================
+stem syn / ant * 0.87 best comfort 0.87 Comfort
+=====================Detailed Usability=====================
+synonym * 0.9 best effective 0.7200000000000001 Detailed Usability
+synonym * 0.9 best sound 0.675 Detailed Usability
+--> MATCH  fun
+antonym * 0.85 best bad 0.5525 Detailed Usability
+=====================Enchantment=====================
+--> MATCH  love
+--> MATCH  heart
+synonym * 0.9 eye heart 0.54 Enchantment
+synonym * 0.9 life liveliness 0.63 Enchantment
+=====================Engagement=====================
+----> emolex joy enjoyable
+stem syn / ant * 0.87 love enjoy 0.783 Engagement
+stem syn / ant * 0.87 best skill 0.8265 Engagement
+--> MATCH  fun
+--> MATCH  dance
+--> MATCH  heart
+synonym * 0.9 eye heart 0.63 Engagement
+=====================Enjoyment and Fun=====================
+----> emolex joy enjoyment
+----> emolex joy joy
+synonym * 0.9 smile grin 0.63 Enjoyment and Fun
+--> MATCH  grin
+stem syn / ant * 0.87 heart affect 0.609 Enjoyment and Fun
+--> MATCH  fun
+--> MATCH  love
+=====================Frustration=====================
+synonym * 0.9 love fuck 0.81 Frustration
+=====================Hedonic=====================
+--> MATCH  fun
+----> emolex joy enjoy
+synonym * 0.9 love enjoy 0.7200000000000001 Hedonic
+--> MATCH  love
+--> MATCH  friend
+=====================Impact=====================
+--> MATCH  life
+--> MATCH  change
+=====================Likeability=====================
+synonym * 0.9 best good 0.81 Likeability
+--> MATCH  smile
+synonym * 0.9 grin smile 0.63 Likeability
+----> emolex joy joy
+synonym * 0.9 smile grin 0.63 Likeability
+--> MATCH  grin
+=====================Motivation=====================
+--> MATCH  dance
+----> emolex joy joy
+=====================Overall Usability=====================
+=====================Pleasure=====================
+--> MATCH  fun
+----> emolex joy enjoy
+synonym * 0.9 love enjoy 0.63 Pleasure
+--> MATCH  heart
+synonym * 0.9 eye heart 0.63 Pleasure
+--> MATCH  love
+synonym * 0.9 smile grin 0.63 Pleasure
+--> MATCH  grin
+=====================Support=====================
+stem syn / ant * 0.87 friend support 0.87 Support
+--> MATCH  help
+synonym * 0.9 help service 0.63 Support
+=====================Trust=====================
+synonym * 0.9 believe trust 0.855 Trust
+stem * 0.98  behavior 0.693 Trust
+synonym * 0.9 best secure 0.7200000000000001 Trust
+=====================User Differences=====================
+--> MATCH  country
+=====================Bodily image and Appearance=====================
+=====================Concentration=====================
+synonym * 0.9 believe think 0.5040000000000001 Concentration
+=====================Energy=====================
+stem syn / ant * 0.87 life live 0.522 Energy
+stem syn / ant * 0.87 fun play 0.522 Energy
+--> MATCH  calorie
+synonym * 0.9 life animation 0.675 Energy
+--> MATCH  dance
+=====================Fatigue=====================
+--> MATCH  sedentary
+--> MATCH  disease
+=====================Learning=====================
+synonym * 0.9 believe think 0.5040000000000001 Learning
+=====================Memory=====================
+=====================Negative feelings=====================
+=====================Pain and Discomfort=====================
+stem syn / ant * 0.87 best comfort 0.87 Pain and Discomfort
+=====================Personal relationships=====================
+stem syn / ant * 0.87 friend support 0.5655 Personal relationships
+--> MATCH  love
+--> MATCH  heart
+synonym * 0.9 eye heart 0.7200000000000001 Personal relationships
+--> MATCH  friend
+=====================Positive feelings=====================
+----> emolex positive positive
+synonym * 0.9 heart affection 0.63 Positive feelings
+stem syn / ant * 0.87 heart affection 0.609 Positive feelings
+--> MATCH  love
+--> MATCH  fun
+----> emolex joy enjoyment
+synonym * 0.9 smile grin 0.63 Positive feelings
+--> MATCH  grin
+=====================Self-esteem=====================
+synonym * 0.9 believe think 0.5040000000000001 Self-esteem
+stem syn / ant * 0.87 best respect 0.6525 Self-esteem
+synonym * 0.9 smile grin 0.5850000000000001 Self-esteem
+--> MATCH  grin
+--> MATCH  love
+=====================Sexual activity=====================
+=====================Sleep and Rest=====================
+=====================Social support=====================
+stem syn / ant * 0.87 friend support 0.783 Social support
+--> MATCH  thanks
+--> MATCH  help
+--> MATCH  friend
+stem syn / ant * 0.87 help assist 0.7394999999999999 Social support
+=====================Thinking=====================
+synonym * 0.9 believe think 0.9 Thinking
+-----—————————————————————————————————————————————————————————————-
+{'Efficiency': 0.522, 'Satisfaction': 0.7284722222222223, 'Aesthetics and Appeal': 0.718125, 'Affect and Emotion': 0.794805194805195, 'Comfort': 0.87, 'Detailed Usability': 0.6967105263157894, 'Enchantment': 0.7138888888888888, 'Engagement': 0.827214912280702, 'Enjoyment and Fun': 0.841925, 'Frustration': 0.81, 'Hedonic': 0.841891891891892, 'Impact': 0.7250000000000001, 'Likeability': 0.7456632653061225, 'Motivation': 0.665, 'Pleasure': 0.7775961538461539, 'Support': 0.8392857142857144, 'Trust': 0.7560000000000001, 'User Differences': 1.0, 'Concentration': 0.5040000000000001, 'Energy': 0.7345652173913043, 'Fatigue': 1.0, 'Learning': 0.5040000000000001, 'Pain and Discomfort': 0.87, 'Personal relationships': 0.8057954545454545, 'Positive feelings': 0.7662916666666668, 'Self-esteem': 0.6416304347826088, 'Social support': 0.8914772727272726, 'Thinking': 0.9}
+-----—————————————————————————————————————————————————————————————-
+Satisfaction 0.7284722222222223
+Aesthetics and Appeal 0.718125
+Affect and Emotion 0.794805194805195
+Comfort 0.87
+Enchantment 0.7138888888888888
+Engagement 0.827214912280702
+Enjoyment and Fun 0.841925
+Hedonic 0.841891891891892
+Impact 0.7250000000000001
+Likeability 0.7456632653061225
+Pleasure 0.7775961538461539
+Support 0.8392857142857144
+Trust 0.7560000000000001
+User Differences 1.0
+Energy 0.7345652173913043
+Personal relationships 0.8057954545454545
+Positive feelings 0.7662916666666668
+Social support 0.8914772727272726
+Thinking 0.9
+... Usability --> Satisfaction
+... UX --> Engagement
+... UX --> Aesthetics and Appeal
+... UX --> Pleasure
+... UX --> Support
+... UX --> Enchantment
+... UX --> Enjoyment and Fun
+... UX --> Hedonic
+... UX --> Affect and Emotion
+... UX --> Comfort
+... UX --> Impact
+... UX --> Trust
+... UX --> User Differences
+... UX --> Likeability
+... Health --> Thinking
+... Health --> Energy
+... Health --> Positive feelings
+... Health --> Social support
+... Health --> Personal relationships
+(base) Renatos-MBP:analysisJustDance renatosantos$ 
