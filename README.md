@@ -70,25 +70,24 @@ Thanks to this,  	i started to play EVERYDAY with my friends @michel @raquel, bu
 - Annotation results (>0.70):
 	> Usability -> Satisfaction <br>
 	  UX -> Engagement<br>
-	  UX -> Aesthetics and Appeal
-	UX -> Pleasure
-	UX -> Support
-	UX -> Enchantment
-	UX -> Enjoyment and Fun
-	UX -> Hedonic
-	UX -> Affect and Emotion
-	UX -> Comfort
-	UX -> Impact
-	UX -> Trust
-	UX -> User Differences
-	UX -> Likeability
-	H-QoL -> Thinking
-	H-QoL -> Energy
-	H-QoL -> Positive feelings
-	H-QoL -> Social support
-	H-QoL -> Personal relationships
+	  UX -> Aesthetics and Appeal<br>
+	UX -> Pleasure<br>
+	UX -> Support<br>
+	UX -> Enchantment<br>
+	UX -> Enjoyment and Fun<br>
+	UX -> Hedonic<br>
+	UX -> Affect and Emotion<br>
+	UX -> Comfort<br>
+	UX -> Impact<br>
+	UX -> Trust<br>
+	UX -> User Differences<br>
+	UX -> Likeability<br>
+	H-QoL -> Thinking<br>
+	H-QoL -> Energy<br>
+	H-QoL -> Positive feelings<br>
+	H-QoL -> Social support<br>
+	H-QoL -> Personal relationships<br>
 	
-
 
 # Public Dashboard
 ![Alt text](dashboard-screenshot.png?raw=true "Just Dance Dashboard")
