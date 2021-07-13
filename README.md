@@ -67,7 +67,7 @@ Thanks to this,  	i started to play EVERYDAY with my friends @michel @raquel, bu
 - Lexicon-based approach:
 	> {'Efficiency': 0.522, 'Satisfaction': 0.7284722222222223, 'Aesthetics and Appeal': 0.718125, 'Affect and Emotion': 0.794805194805195, 'Comfort': 0.87, 'Detailed Usability': 0.6967105263157894, 'Enchantment': 0.7138888888888888, 'Engagement': 0.827214912280702, 'Enjoyment and Fun': 0.841925, 'Frustration': 0.81, 'Hedonic': 0.841891891891892, 'Impact': 0.7250000000000001, 'Likeability': 0.7456632653061225, 'Motivation': 0.665, 'Pleasure': 0.7775961538461539, 'Support': 0.8392857142857144, 'Trust': 0.7560000000000001, 'User Differences': 1.0, 'Concentration': 0.5040000000000001, 'Energy': 0.7345652173913043, 'Fatigue': 1.0, 'Learning': 0.5040000000000001, 'Pain and Discomfort': 0.87, 'Personal relationships': 0.8057954545454545, 'Positive feelings': 0.7662916666666668, 'Self-esteem': 0.6416304347826088, 'Social support': 0.8914772727272726, 'Thinking': 0.9}
 
-- Annotation results:
+- Annotation results (>0.70):
 	> Usability -> Satisfaction
 	  UX -> Engagement
 	  UX -> Aesthetics and Appeal
@@ -82,11 +82,11 @@ Thanks to this,  	i started to play EVERYDAY with my friends @michel @raquel, bu
 	UX -> Trust
 	UX -> User Differences
 	UX -> Likeability
-	Health --> Thinking
-	Health --> Energy
-	Health --> Positive feelings
-	Health --> Social support
-	Health --> Personal relationships
+	H-QoL -> Thinking
+	H-QoL -> Energy
+	H-QoL -> Positive feelings
+	H-QoL -> Social support
+	H-QoL -> Personal relationships
 	
 
 
