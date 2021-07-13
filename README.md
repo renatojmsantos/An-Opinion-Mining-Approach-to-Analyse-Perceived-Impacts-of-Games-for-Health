@@ -50,10 +50,40 @@ Natural Language Processing, Opinion Mining, Social Media, Text Mining, Usabilit
 
 	> python3 YouTube_Extractor.py 2019-01-01 365 2 False 'just dance now' 1 23
 
-# Example Annotation
-- Original Comment: 
+# Example Processing:
+- Given the original comment extracted from YouTube: 
 	> OMG I can't believe thatt the best songs on Just Dance are from french singers........... France is the best country! I loveeeee this game!!! 😍
 Thanks to this,  	i started to play EVERYDAY with my friends @michel @raquel, burning lots of calories and at the same time  I have a lot of fun while i am dancing. 😀 It changed my sedentary life and helped with my behavioral abnormalities!!! #JUSTDANCE +https://www.myblog.org
+
+- After preprocessing with cleaning data, pos tagging nouns, verbs and adjectives, remove stopwords, and lemmatization:
+	> god believe best song french singer france best country love smile face heart - eye thanks start everyday friend burn lot calorie fun dance grin face change sedentary life help behavioral abnormality
+
+- Sentiment Analysis:
+	> Positive
+
+- Detect 8 basic emotions:
+	> Joy; Positive feelings
+
+- Annotation results with lexicon-based approach:
+	> Satisfaction 0.7284722222222223
+	Aesthetics and Appeal 0.718125
+	Affect and Emotion 0.794805194805195
+	Comfort 0.87
+	Enchantment 0.7138888888888888
+	Engagement 0.827214912280702
+	Enjoyment and Fun 0.841925
+	Hedonic 0.841891891891892
+	Impact 0.7250000000000001
+	Likeability 0.7456632653061225
+	Pleasure 0.7775961538461539
+	Support 0.8392857142857144
+	Trust 0.7560000000000001
+	User Differences 1.0
+	Energy 0.7345652173913043
+	Personal relationships 0.8057954545454545
+	Positive feelings 0.7662916666666668
+	Social support 0.8914772727272726
+	Thinking 0.9
 
 
 # Public Dashboard
