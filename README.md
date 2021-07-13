@@ -50,6 +50,11 @@ Natural Language Processing, Opinion Mining, Social Media, Text Mining, Usabilit
 
 	> python3 YouTube_Extractor.py 2019-01-01 365 2 False 'just dance now' 1 23
 
+# Example Annotation
+- Original Comment: ``` OMG I can't believe thatt the best songs on Just Dance are from french singers........... France is the best country! I loveeeee this game!!! 😍
+Thanks to this,  	i started to play EVERYDAY with my friends @michel @raquel, burning lots of calories and at the same time  I have a lot of fun while i am dancing. 😀 It changed my sedentary life and helped with my behavioral abnormalities!!! #JUSTDANCE +https://www.myblog.org
+```
+
 # Public Dashboard
 ![Alt text](dashboard-screenshot.png?raw=true "Just Dance Dashboard")
 
