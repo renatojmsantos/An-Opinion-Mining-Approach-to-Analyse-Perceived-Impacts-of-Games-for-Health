@@ -1,6 +1,17 @@
 # Analysing Usability, User Experience, and Perceived Health Impacts related to Quality of Life based on Users' Opinion Mining
 Project developed by Renato Santos in the context of the Master Degree in Informatics Engineering, DEI-FCTUC, dissertation titled "Analysing Usability, User Experience, and Perceived Health Impacts related to Quality of Life based on Users' Opinion Mining", under the supervision of Paula Alexandra Silva and Joel Perdiz Arrais.
 
+# BibTex
+```
+@MastersThesis{RenatoSantos2021,
+  title={Analysing Usability, User Experience, and Perceived Health Impacts related to Quality of Life based on Users’ Opinion Mining},
+  url = {https://hdl.handle.net/10316/95531},
+  author={Santos, Renato},
+  year={2021},
+  school={University of Coimbra}
+}
+```
+
 # Abstract
 With the growth of social media and the spread of the Internet, the user’s opinion become accessible in public forums. It became then possible to analyse and extract knowledge based on the textual data published by users, through the application of Natural Language Processing and Text Mining techniques. In this dissertation, these techniques are used to, based on comments posted by users on YouTube, extract information about Usability, User Experience (UX), and Perceived Health Impacts related to Quality of Life (H-QoL). This analysis focus on videos about the Just Dance series, one of the most popular interactive dance video games.
 
