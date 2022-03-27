@@ -37,7 +37,9 @@ Natural Language Processing, Opinion Mining, Social Media, Text Mining, Usabilit
 
 - You can extract from 1:00 AM to 5:00 AM, typing:
 
-	> sh runSystem.sh
+	 ```
+	 sh runSystem.sh
+	 ```
 
 - Or you can run thought YouTube_Extractor.py, given some inputs:
 	- Initial data to extract,
@@ -51,53 +53,64 @@ Natural Language Processing, Opinion Mining, Social Media, Text Mining, Usabilit
 
 	- Following this format:
 
-	> python3 YouTube_Extractor.py <Begin Date: YYYY-MM-DD> <Number of jump days> <timeToCheckAgain(seconds)> <check new comments> <search Game> <beginHour> <EndHour>
+	 `` python3 YouTube_Extractor.py <Begin Date: YYYY-MM-DD> <Number of jump days> <timeToCheckAgain(seconds)> <check new comments> <search Game> <beginHour> <EndHour> ``
 
 	- For Examples:
-
-	> python3 YouTube_Extractor.py 2009-09-17 4300 3600 True 'random' 1 5
-
-	> python3 YouTube_Extractor.py 2009-09-17 7 10 True 'just dance 2021' 1 5
-
-	> python3 YouTube_Extractor.py 2019-01-01 365 2 False 'just dance now' 1 23
-
+	```
+	python3 YouTube_Extractor.py 2009-09-17 4300 3600 True 'random' 1 5
+	```
+	```
+	python3 YouTube_Extractor.py 2009-09-17 7 10 True 'just dance 2021' 1 5
+	```
+	```
+	python3 YouTube_Extractor.py 2019-01-01 365 2 False 'just dance now' 1 23
+	```
+	
 # Example Processing:
-- Given the original comment extracted from YouTube: 
-	> OMG I can't believe thatt the best songs on Just Dance are from french singers........... France is the best country! I loveeeee this game!!! 😍
-Thanks to this,  	i started to play EVERYDAY with my friends @michel @raquel, burning lots of calories and at the same time  I have a lot of fun while i am dancing. 😀 It changed my sedentary life and helped with my behavioral abnormalities!!! #JUSTDANCE +https://www.myblog.org
+1. Given the original comment extracted from YouTube: 
 
-- After preprocessing with cleaning data, pos tagging nouns, verbs and adjectives, remove stopwords, and lemmatization:
-	> god believe best song french singer france best country love smile face heart - eye thanks start everyday friend burn lot calorie fun dance grin face change sedentary life help behavioral abnormality
+	`` OMG I can't believe thatt the best songs on Just Dance are from french singers........... France is the best country! I loveeeee this game!!! 😍
+Thanks to this,  	i started to play EVERYDAY with my friends @michel @raquel, burning lots of calories and at the same time  I have a lot of fun while i am dancing. 😀 It changed my sedentary life and helped with my behavioral abnormalities!!! #JUSTDANCE +https://www.myblog.org ``
 
-- Sentiment Analysis:
-	> Positive
+2. After preprocessing with cleaning data, pos tagging nouns, verbs and adjectives, remove stopwords, and lemmatization:
 
-- Detect 8 basic emotions:
-	> Joy; Positive feelings
+	`` god believe best song french singer france best country love smile face heart - eye thanks start everyday friend burn lot calorie fun dance grin face change sedentary life help behavioral abnormality ``
 
-- Lexicon-based approach:
-	> {'Efficiency': 0.522, 'Satisfaction': 0.7284722222222223, 'Aesthetics and Appeal': 0.718125, 'Affect and Emotion': 0.794805194805195, 'Comfort': 0.87, 'Detailed Usability': 0.6967105263157894, 'Enchantment': 0.7138888888888888, 'Engagement': 0.827214912280702, 'Enjoyment and Fun': 0.841925, 'Frustration': 0.81, 'Hedonic': 0.841891891891892, 'Impact': 0.7250000000000001, 'Likeability': 0.7456632653061225, 'Motivation': 0.665, 'Pleasure': 0.7775961538461539, 'Support': 0.8392857142857144, 'Trust': 0.7560000000000001, 'User Differences': 1.0, 'Concentration': 0.5040000000000001, 'Energy': 0.7345652173913043, 'Fatigue': 1.0, 'Learning': 0.5040000000000001, 'Pain and Discomfort': 0.87, 'Personal relationships': 0.8057954545454545, 'Positive feelings': 0.7662916666666668, 'Self-esteem': 0.6416304347826088, 'Social support': 0.8914772727272726, 'Thinking': 0.9}
+3. Sentiment Analysis (VADER):
 
-- Annotation results (>0.70):
-	> Usability -> Satisfaction <br>
-	  UX -> Engagement<br>
-	  UX -> Aesthetics and Appeal<br>
-	UX -> Pleasure<br>
-	UX -> Support<br>
-	UX -> Enchantment<br>
-	UX -> Enjoyment and Fun<br>
-	UX -> Hedonic<br>
-	UX -> Affect and Emotion<br>
-	UX -> Comfort<br>
-	UX -> Impact<br>
-	UX -> Trust<br>
-	UX -> User Differences<br>
-	UX -> Likeability<br>
-	H-QoL -> Thinking<br>
-	H-QoL -> Energy<br>
-	H-QoL -> Positive feelings<br>
-	H-QoL -> Social support<br>
-	H-QoL -> Personal relationships<br>
+	`` Positive ``
+
+4. Detect 8 basic emotions (EmoLeX):
+
+	`` Joy; Positive feelings ``
+
+5. Lexicon-based approach:
+
+	`` {'Efficiency': 0.522, 'Satisfaction': 0.7284722222222223, 'Aesthetics and Appeal': 0.718125, 'Affect and Emotion': 0.794805194805195, 'Comfort': 0.87, 'Detailed Usability': 0.6967105263157894, 'Enchantment': 0.7138888888888888, 'Engagement': 0.827214912280702, 'Enjoyment and Fun': 0.841925, 'Frustration': 0.81, 'Hedonic': 0.841891891891892, 'Impact': 0.7250000000000001, 'Likeability': 0.7456632653061225, 'Motivation': 0.665, 'Pleasure': 0.7775961538461539, 'Support': 0.8392857142857144, 'Trust': 0.7560000000000001, 'User Differences': 1.0, 'Concentration': 0.5040000000000001, 'Energy': 0.7345652173913043, 'Fatigue': 1.0, 'Learning': 0.5040000000000001, 'Pain and Discomfort': 0.87, 'Personal relationships': 0.8057954545454545, 'Positive feelings': 0.7662916666666668, 'Self-esteem': 0.6416304347826088, 'Social support': 0.8914772727272726, 'Thinking': 0.9} ``
+
+6. Annotation results (>0.70):
+
+	``` 
+	Usability -> Satisfaction 
+	UX -> Engagement
+	UX -> Aesthetics and Appeal
+	UX -> Pleasure
+	UX -> Support
+	UX -> Enchantment
+	UX -> Enjoyment and Fun
+	UX -> Hedonic
+	UX -> Affect and Emotion
+	UX -> Comfort
+	UX -> Impact
+	UX -> Trust
+	UX -> User Differences
+	UX -> Likeability
+	H-QoL -> Thinking
+	H-QoL -> Energy
+	H-QoL -> Positive feelings
+	H-QoL -> Social support
+	H-QoL -> Personal relationships
+	```
 	
 
 # Public Dashboard
@@ -113,6 +126,6 @@ Thanks to this,  	i started to play EVERYDAY with my friends @michel @raquel, bu
 Check more about this project: https://linktr.ee/justdanceproject
 
 # Contact
-If you have any questions or suggestions, please e-mail us on renatojms@student.dei.uc.pt
+If you have any questions or suggestions, please e-mail us on renatojms@student.dei.uc.pt / renatojmsantos@gmail.com
 
 
